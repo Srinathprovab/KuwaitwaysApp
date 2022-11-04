@@ -1,0 +1,6 @@
+framework module Pods_KuwaitWays {
+  umbrella header "Pods-KuwaitWays-umbrella.h"
+
+  export *
+  module * { export * }
+}

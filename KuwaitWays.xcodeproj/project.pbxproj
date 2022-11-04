@@ -1,0 +1,2189 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E53B56A5D97959B5FC00B91 /* Pods_KuwaitWaysTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5A5F32473A8084BE83BB18 /* Pods_KuwaitWaysTests.framework */; };
+		98D40F289246FF41DF34A357 /* Pods_KuwaitWays_KuwaitWaysUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F960E74172B4D75A4F05B8 /* Pods_KuwaitWays_KuwaitWaysUITests.framework */; };
+		BF8B460628C2F0EC00D33A20 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DE828C19BD5009C3A6A /* OpenSans-Regular.ttf */; };
+		BF8C0CB828C19B86009C3A6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CB728C19B86009C3A6A /* AppDelegate.swift */; };
+		BF8C0CBA28C19B86009C3A6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CB928C19B86009C3A6A /* SceneDelegate.swift */; };
+		BF8C0CC128C19B87009C3A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0CC028C19B87009C3A6A /* Assets.xcassets */; };
+		BF8C0CC428C19B87009C3A6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0CC228C19B87009C3A6A /* LaunchScreen.storyboard */; };
+		BF8C0CCF28C19B88009C3A6A /* KuwaitWaysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CCE28C19B88009C3A6A /* KuwaitWaysTests.swift */; };
+		BF8C0CD928C19B88009C3A6A /* KuwaitWaysUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CD828C19B88009C3A6A /* KuwaitWaysUITests.swift */; };
+		BF8C0CDB28C19B88009C3A6A /* KuwaitWaysUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CDA28C19B88009C3A6A /* KuwaitWaysUITestsLaunchTests.swift */; };
+		BF8C0DF328C19BD5009C3A6A /* MapViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CED28C19BD4009C3A6A /* MapViewVC.swift */; };
+		BF8C0DF428C19BD5009C3A6A /* SelectedHotelInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CEE28C19BD4009C3A6A /* SelectedHotelInfoVC.swift */; };
+		BF8C0DF528C19BD5009C3A6A /* BookHotelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CEF28C19BD4009C3A6A /* BookHotelVC.swift */; };
+		BF8C0DF628C19BD5009C3A6A /* HotelSearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CF028C19BD4009C3A6A /* HotelSearchResultVC.swift */; };
+		BF8C0DF728C19BD5009C3A6A /* PriceLabelsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0CF428C19BD4009C3A6A /* PriceLabelsTVCell.xib */; };
+		BF8C0DF828C19BD5009C3A6A /* PriceLabelsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CF528C19BD4009C3A6A /* PriceLabelsTVCell.swift */; };
+		BF8C0DF928C19BD5009C3A6A /* FacilitiesTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0CF728C19BD4009C3A6A /* FacilitiesTVCell.xib */; };
+		BF8C0DFA28C19BD5009C3A6A /* FacilitiesTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CF828C19BD4009C3A6A /* FacilitiesTVCell.swift */; };
+		BF8C0DFB28C19BD5009C3A6A /* StarRatingTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0CFA28C19BD4009C3A6A /* StarRatingTVCell.xib */; };
+		BF8C0DFC28C19BD5009C3A6A /* StarRatingTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CFB28C19BD4009C3A6A /* StarRatingTVCell.swift */; };
+		BF8C0DFD28C19BD5009C3A6A /* TwinSuperiorRoomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0CFD28C19BD4009C3A6A /* TwinSuperiorRoomTVCell.swift */; };
+		BF8C0DFE28C19BD5009C3A6A /* TwinSuperiorRoomTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0CFE28C19BD4009C3A6A /* TwinSuperiorRoomTVCell.xib */; };
+		BF8C0DFF28C19BD5009C3A6A /* HotelImagesTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D0028C19BD4009C3A6A /* HotelImagesTVCell.xib */; };
+		BF8C0E0028C19BD5009C3A6A /* HotelImagesTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D0128C19BD4009C3A6A /* HotelImagesTVCell.swift */; };
+		BF8C0E0128C19BD5009C3A6A /* HotelSearchResultTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D0328C19BD4009C3A6A /* HotelSearchResultTVCell.xib */; };
+		BF8C0E0228C19BD5009C3A6A /* HotelSearchResultTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D0428C19BD4009C3A6A /* HotelSearchResultTVCell.swift */; };
+		BF8C0E0328C19BD5009C3A6A /* RatingWithLabelsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D0628C19BD4009C3A6A /* RatingWithLabelsTVCell.swift */; };
+		BF8C0E0428C19BD5009C3A6A /* RatingWithLabelsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D0728C19BD4009C3A6A /* RatingWithLabelsTVCell.xib */; };
+		BF8C0E0528C19BD5009C3A6A /* RoomsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D0928C19BD4009C3A6A /* RoomsTVCell.swift */; };
+		BF8C0E0628C19BD5009C3A6A /* RoomsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D0A28C19BD4009C3A6A /* RoomsTVCell.xib */; };
+		BF8C0E0728C19BD5009C3A6A /* HotelImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D0D28C19BD4009C3A6A /* HotelImageCVCell.swift */; };
+		BF8C0E0828C19BD5009C3A6A /* HotelImageCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D0E28C19BD4009C3A6A /* HotelImageCVCell.xib */; };
+		BF8C0E0928C19BD5009C3A6A /* StarRatingCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D1028C19BD4009C3A6A /* StarRatingCVCell.swift */; };
+		BF8C0E0A28C19BD5009C3A6A /* StarRatingCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D1128C19BD4009C3A6A /* StarRatingCVCell.xib */; };
+		BF8C0E0B28C19BD5009C3A6A /* AmenitiesCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D1328C19BD4009C3A6A /* AmenitiesCVCell.xib */; };
+		BF8C0E0C28C19BD5009C3A6A /* AmenitiesCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D1428C19BD4009C3A6A /* AmenitiesCVCell.swift */; };
+		BF8C0E0D28C19BD5009C3A6A /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D1528C19BD4009C3A6A /* Hotel.storyboard */; };
+		BF8C0E0E28C19BD5009C3A6A /* SelectCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D1928C19BD4009C3A6A /* SelectCityViewModel.swift */; };
+		BF8C0E0F28C19BD5009C3A6A /* SelectCityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D1C28C19BD4009C3A6A /* SelectCityModel.swift */; };
+		BF8C0E1028C19BD5009C3A6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D1D28C19BD4009C3A6A /* Main.storyboard */; };
+		BF8C0E1128C19BD5009C3A6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2028C19BD4009C3A6A /* ViewController.swift */; };
+		BF8C0E1228C19BD5009C3A6A /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2128C19BD4009C3A6A /* SideMenuVC.swift */; };
+		BF8C0E1328C19BD5009C3A6A /* SelectedFlightInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2228C19BD4009C3A6A /* SelectedFlightInfoVC.swift */; };
+		BF8C0E1428C19BD5009C3A6A /* SelectLanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2328C19BD4009C3A6A /* SelectLanguageVC.swift */; };
+		BF8C0E1528C19BD5009C3A6A /* DBTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2428C19BD4009C3A6A /* DBTabbarController.swift */; };
+		BF8C0E1628C19BD5009C3A6A /* NoInternetConnectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2528C19BD4009C3A6A /* NoInternetConnectionVC.swift */; };
+		BF8C0E1728C19BD5009C3A6A /* SelectFromCityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2628C19BD4009C3A6A /* SelectFromCityVC.swift */; };
+		BF8C0E1828C19BD5009C3A6A /* SaveTravellersDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2728C19BD4009C3A6A /* SaveTravellersDetailsVC.swift */; };
+		BF8C0E1928C19BD5009C3A6A /* SearchFlightResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2828C19BD4009C3A6A /* SearchFlightResultVC.swift */; };
+		BF8C0E1A28C19BD5009C3A6A /* TravellerEconomyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2928C19BD4009C3A6A /* TravellerEconomyVC.swift */; };
+		BF8C0E1B28C19BD5009C3A6A /* BookFlightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2A28C19BD4009C3A6A /* BookFlightVC.swift */; };
+		BF8C0E1C28C19BD5009C3A6A /* PayNowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2B28C19BD4009C3A6A /* PayNowVC.swift */; };
+		BF8C0E1D28C19BD5009C3A6A /* CalenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2C28C19BD4009C3A6A /* CalenderVC.swift */; };
+		BF8C0E1E28C19BD5009C3A6A /* MyAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2D28C19BD4009C3A6A /* MyAccountVC.swift */; };
+		BF8C0E1F28C19BD5009C3A6A /* DashBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2E28C19BD4009C3A6A /* DashBoardVC.swift */; };
+		BF8C0E2028C19BD5009C3A6A /* FilterSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D2F28C19BD4009C3A6A /* FilterSearchVC.swift */; };
+		BF8C0E2128C19BD5009C3A6A /* TDetailsLoginTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D3328C19BD4009C3A6A /* TDetailsLoginTVCell.swift */; };
+		BF8C0E2228C19BD5009C3A6A /* TDetailsLoginTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D3428C19BD4009C3A6A /* TDetailsLoginTVCell.xib */; };
+		BF8C0E2328C19BD5009C3A6A /* FromCityTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D3628C19BD4009C3A6A /* FromCityTVCell.swift */; };
+		BF8C0E2428C19BD5009C3A6A /* FromCityTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D3728C19BD4009C3A6A /* FromCityTVCell.xib */; };
+		BF8C0E2528C19BD5009C3A6A /* PriceSummaryTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D3928C19BD4009C3A6A /* PriceSummaryTVCell.xib */; };
+		BF8C0E2628C19BD5009C3A6A /* PriceSummaryTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D3A28C19BD4009C3A6A /* PriceSummaryTVCell.swift */; };
+		BF8C0E2728C19BD5009C3A6A /* SliderTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D3C28C19BD4009C3A6A /* SliderTVCell.xib */; };
+		BF8C0E2828C19BD5009C3A6A /* SliderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D3D28C19BD4009C3A6A /* SliderTVCell.swift */; };
+		BF8C0E2928C19BD5009C3A6A /* SearchFlightResultInfoTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D3F28C19BD4009C3A6A /* SearchFlightResultInfoTVCell.xib */; };
+		BF8C0E2A28C19BD5009C3A6A /* SearchFlightResultInfoTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D4028C19BD4009C3A6A /* SearchFlightResultInfoTVCell.swift */; };
+		BF8C0E2B28C19BD5009C3A6A /* CheckBoxTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D4228C19BD4009C3A6A /* CheckBoxTVCell.swift */; };
+		BF8C0E2C28C19BD5009C3A6A /* CheckBoxTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D4328C19BD4009C3A6A /* CheckBoxTVCell.xib */; };
+		BF8C0E2D28C19BD5009C3A6A /* MultiCityTripTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D4628C19BD4009C3A6A /* MultiCityTripTVCell.xib */; };
+		BF8C0E2E28C19BD5009C3A6A /* MultiCityTripTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D4728C19BD4009C3A6A /* MultiCityTripTVCell.swift */; };
+		BF8C0E2F28C19BD5009C3A6A /* AddCityTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D4928C19BD4009C3A6A /* AddCityTVCell.swift */; };
+		BF8C0E3028C19BD5009C3A6A /* AddCityTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D4A28C19BD4009C3A6A /* AddCityTVCell.xib */; };
+		BF8C0E3128C19BD5009C3A6A /* MulticityFromToTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D4C28C19BD4009C3A6A /* MulticityFromToTVCell.swift */; };
+		BF8C0E3228C19BD5009C3A6A /* MulticityFromToTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D4D28C19BD4009C3A6A /* MulticityFromToTVCell.xib */; };
+		BF8C0E3328C19BD5009C3A6A /* HotelDealsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D4F28C19BD4009C3A6A /* HotelDealsTVCell.swift */; };
+		BF8C0E3428C19BD5009C3A6A /* HotelDealsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D5028C19BD4009C3A6A /* HotelDealsTVCell.xib */; };
+		BF8C0E3528C19BD5009C3A6A /* BookNowTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D5228C19BD4009C3A6A /* BookNowTVCell.xib */; };
+		BF8C0E3628C19BD5009C3A6A /* BookNowTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D5328C19BD4009C3A6A /* BookNowTVCell.swift */; };
+		BF8C0E3728C19BD5009C3A6A /* TravellerEconomyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D5528C19BD4009C3A6A /* TravellerEconomyTVCell.swift */; };
+		BF8C0E3828C19BD5009C3A6A /* TravellerEconomyTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D5628C19BD4009C3A6A /* TravellerEconomyTVCell.xib */; };
+		BF8C0E3928C19BD5009C3A6A /* FareBreakdownTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D5828C19BD5009C3A6A /* FareBreakdownTVCell.xib */; };
+		BF8C0E3A28C19BD5009C3A6A /* FareBreakdownTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D5928C19BD5009C3A6A /* FareBreakdownTVCell.swift */; };
+		BF8C0E3B28C19BD5009C3A6A /* PromocodeTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D5B28C19BD5009C3A6A /* PromocodeTVCell.xib */; };
+		BF8C0E3C28C19BD5009C3A6A /* PromocodeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D5C28C19BD5009C3A6A /* PromocodeTVCell.swift */; };
+		BF8C0E3D28C19BD5009C3A6A /* SelectLanguageTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D5E28C19BD5009C3A6A /* SelectLanguageTVCell.xib */; };
+		BF8C0E3E28C19BD5009C3A6A /* SelectLanguageTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D5F28C19BD5009C3A6A /* SelectLanguageTVCell.swift */; };
+		BF8C0E3F28C19BD5009C3A6A /* SelectTabTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D6128C19BD5009C3A6A /* SelectTabTVCell.swift */; };
+		BF8C0E4028C19BD5009C3A6A /* SelectTabTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D6228C19BD5009C3A6A /* SelectTabTVCell.xib */; };
+		BF8C0E4128C19BD5009C3A6A /* AddTravellersDetailsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D6428C19BD5009C3A6A /* AddTravellersDetailsTVCell.xib */; };
+		BF8C0E4228C19BD5009C3A6A /* AddTravellersDetailsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D6528C19BD5009C3A6A /* AddTravellersDetailsTVCell.swift */; };
+		BF8C0E4328C19BD5009C3A6A /* HolderViewTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D6828C19BD5009C3A6A /* HolderViewTVCell.xib */; };
+		BF8C0E4428C19BD5009C3A6A /* HolderViewTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D6928C19BD5009C3A6A /* HolderViewTVCell.swift */; };
+		BF8C0E4528C19BD5009C3A6A /* SearchFlightTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D6B28C19BD5009C3A6A /* SearchFlightTVCell.swift */; };
+		BF8C0E4628C19BD5009C3A6A /* SearchFlightTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D6C28C19BD5009C3A6A /* SearchFlightTVCell.xib */; };
+		BF8C0E4728C19BD5009C3A6A /* DualViewTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D6E28C19BD5009C3A6A /* DualViewTVCell.xib */; };
+		BF8C0E4828C19BD5009C3A6A /* DualViewTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D6F28C19BD5009C3A6A /* DualViewTVCell.swift */; };
+		BF8C0E4928C19BD5009C3A6A /* ChooseProfilPpictureTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D7128C19BD5009C3A6A /* ChooseProfilPpictureTVCell.xib */; };
+		BF8C0E4A28C19BD5009C3A6A /* ChooseProfilPpictureTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D7228C19BD5009C3A6A /* ChooseProfilPpictureTVCell.swift */; };
+		BF8C0E4B28C19BD5009C3A6A /* checkOptionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D7428C19BD5009C3A6A /* checkOptionsTVCell.swift */; };
+		BF8C0E4C28C19BD5009C3A6A /* checkOptionsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D7528C19BD5009C3A6A /* checkOptionsTVCell.xib */; };
+		BF8C0E4D28C19BD5009C3A6A /* ItineraryCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D7828C19BD5009C3A6A /* ItineraryCVCell.swift */; };
+		BF8C0E4E28C19BD5009C3A6A /* ItineraryCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D7928C19BD5009C3A6A /* ItineraryCVCell.xib */; };
+		BF8C0E4F28C19BD5009C3A6A /* BaggageDateCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D7B28C19BD5009C3A6A /* BaggageDateCVCell.swift */; };
+		BF8C0E5028C19BD5009C3A6A /* BaggageDateCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D7C28C19BD5009C3A6A /* BaggageDateCVCell.xib */; };
+		BF8C0E5128C19BD5009C3A6A /* SelectTabCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D7E28C19BD5009C3A6A /* SelectTabCVCell.swift */; };
+		BF8C0E5228C19BD5009C3A6A /* SelectTabCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D7F28C19BD5009C3A6A /* SelectTabCVCell.xib */; };
+		BF8C0E5328C19BD5009C3A6A /* HotelDealsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D8128C19BD5009C3A6A /* HotelDealsCVCell.swift */; };
+		BF8C0E5428C19BD5009C3A6A /* HotelDealsCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D8228C19BD5009C3A6A /* HotelDealsCVCell.xib */; };
+		BF8C0E5528C19BD5009C3A6A /* calendarCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D8428C19BD5009C3A6A /* calendarCVCell.xib */; };
+		BF8C0E5628C19BD5009C3A6A /* calendarCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D8528C19BD5009C3A6A /* calendarCVCell.swift */; };
+		BF8C0E5728C19BD5009C3A6A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D8B28C19BD5009C3A6A /* Login.storyboard */; };
+		BF8C0E5828C19BD5009C3A6A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D8D28C19BD5009C3A6A /* LoginVC.swift */; };
+		BF8C0E5928C19BD5009C3A6A /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D8E28C19BD5009C3A6A /* ResetPasswordVC.swift */; };
+		BF8C0E5A28C19BD5009C3A6A /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D8F28C19BD5009C3A6A /* EditProfileVC.swift */; };
+		BF8C0E5B28C19BD5009C3A6A /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D9028C19BD5009C3A6A /* CreateAccountVC.swift */; };
+		BF8C0E5C28C19BD5009C3A6A /* RadioButtonTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D9428C19BD5009C3A6A /* RadioButtonTVCell.swift */; };
+		BF8C0E5D28C19BD5009C3A6A /* RadioButtonTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D9528C19BD5009C3A6A /* RadioButtonTVCell.xib */; };
+		BF8C0E5E28C19BD5009C3A6A /* TextfieldTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D9728C19BD5009C3A6A /* TextfieldTVCell.swift */; };
+		BF8C0E5F28C19BD5009C3A6A /* TextfieldTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D9828C19BD5009C3A6A /* TextfieldTVCell.xib */; };
+		BF8C0E6028C19BD5009C3A6A /* MenuBGTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D9A28C19BD5009C3A6A /* MenuBGTVCell.xib */; };
+		BF8C0E6128C19BD5009C3A6A /* MenuBGTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D9B28C19BD5009C3A6A /* MenuBGTVCell.swift */; };
+		BF8C0E6228C19BD5009C3A6A /* SelectGenderTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0D9D28C19BD5009C3A6A /* SelectGenderTVCell.xib */; };
+		BF8C0E6328C19BD5009C3A6A /* SelectGenderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0D9E28C19BD5009C3A6A /* SelectGenderTVCell.swift */; };
+		BF8C0E6428C19BD5009C3A6A /* ButtonTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DA028C19BD5009C3A6A /* ButtonTVCell.xib */; };
+		BF8C0E6528C19BD5009C3A6A /* ButtonTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DA128C19BD5009C3A6A /* ButtonTVCell.swift */; };
+		BF8C0E6628C19BD5009C3A6A /* UnderLineTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DA328C19BD5009C3A6A /* UnderLineTVCell.xib */; };
+		BF8C0E6728C19BD5009C3A6A /* UnderLineTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DA428C19BD5009C3A6A /* UnderLineTVCell.swift */; };
+		BF8C0E6828C19BD5009C3A6A /* LabelTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DA628C19BD5009C3A6A /* LabelTVCell.xib */; };
+		BF8C0E6928C19BD5009C3A6A /* LabelTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DA728C19BD5009C3A6A /* LabelTVCell.swift */; };
+		BF8C0E6A28C19BD5009C3A6A /* LabelWithButtonTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DA928C19BD5009C3A6A /* LabelWithButtonTVCell.swift */; };
+		BF8C0E6B28C19BD5009C3A6A /* LabelWithButtonTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DAA28C19BD5009C3A6A /* LabelWithButtonTVCell.xib */; };
+		BF8C0E6C28C19BD5009C3A6A /* LogoImgTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DAC28C19BD5009C3A6A /* LogoImgTVCell.xib */; };
+		BF8C0E6D28C19BD5009C3A6A /* LogoImgTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DAD28C19BD5009C3A6A /* LogoImgTVCell.swift */; };
+		BF8C0E6E28C19BD5009C3A6A /* SignUpWithTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DAF28C19BD5009C3A6A /* SignUpWithTVCell.swift */; };
+		BF8C0E6F28C19BD5009C3A6A /* SignUpWithTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DB028C19BD5009C3A6A /* SignUpWithTVCell.xib */; };
+		BF8C0E7028C19BD5009C3A6A /* EmptyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DB228C19BD5009C3A6A /* EmptyTVCell.swift */; };
+		BF8C0E7128C19BD5009C3A6A /* EmptyTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DB328C19BD5009C3A6A /* EmptyTVCell.xib */; };
+		BF8C0E7228C19BD5009C3A6A /* TitleLblTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DB528C19BD5009C3A6A /* TitleLblTVCell.xib */; };
+		BF8C0E7328C19BD5009C3A6A /* TitleLblTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DB628C19BD5009C3A6A /* TitleLblTVCell.swift */; };
+		BF8C0E7428C19BD5009C3A6A /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DB928C19BD5009C3A6A /* BaseVC.swift */; };
+		BF8C0E7528C19BD5009C3A6A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DBA28C19BD5009C3A6A /* TableViewCell.swift */; };
+		BF8C0E7628C19BD5009C3A6A /* BaseTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DBB28C19BD5009C3A6A /* BaseTableVC.swift */; };
+		BF8C0E7728C19BD5009C3A6A /* UIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DBC28C19BD5009C3A6A /* UIModels.swift */; };
+		BF8C0E7828C19BD5009C3A6A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DBF28C19BD5009C3A6A /* Constants.swift */; };
+		BF8C0E7928C19BD5009C3A6A /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DC028C19BD5009C3A6A /* SessionManager.swift */; };
+		BF8C0E7A28C19BD5009C3A6A /* NavBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DC328C19BD5009C3A6A /* NavBar.xib */; };
+		BF8C0E7B28C19BD5009C3A6A /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DC428C19BD5009C3A6A /* NavBar.swift */; };
+		BF8C0E7C28C19BD5009C3A6A /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DC628C19BD5009C3A6A /* TableViewHelper.swift */; };
+		BF8C0E7D28C19BD5009C3A6A /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DC728C19BD5009C3A6A /* UIViewControllerExtension.swift */; };
+		BF8C0E7E28C19BD5009C3A6A /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DC828C19BD5009C3A6A /* ButtonExtension.swift */; };
+		BF8C0E7F28C19BD5009C3A6A /* UIKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DC928C19BD5009C3A6A /* UIKitHelper.swift */; };
+		BF8C0E8028C19BD5009C3A6A /* TableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DCA28C19BD5009C3A6A /* TableViewExtensions.swift */; };
+		BF8C0E8128C19BD5009C3A6A /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DCB28C19BD5009C3A6A /* StringExtension.swift */; };
+		BF8C0E8228C19BD5009C3A6A /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DCC28C19BD5009C3A6A /* TextFieldExtension.swift */; };
+		BF8C0E8328C19BD5009C3A6A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DCD28C19BD5009C3A6A /* DateExtension.swift */; };
+		BF8C0E8428C19BD5009C3A6A /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DCE28C19BD5009C3A6A /* ColorManager.swift */; };
+		BF8C0E8528C19BD5009C3A6A /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DD028C19BD5009C3A6A /* FontManager.swift */; };
+		BF8C0E8628C19BD5009C3A6A /* UIColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DD128C19BD5009C3A6A /* UIColorManager.swift */; };
+		BF8C0E8728C19BD5009C3A6A /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DD328C19BD5009C3A6A /* Oswald-Bold.ttf */; };
+		BF8C0E8828C19BD5009C3A6A /* Oswald-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DD428C19BD5009C3A6A /* Oswald-SemiBold.ttf */; };
+		BF8C0E8928C19BD5009C3A6A /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DD528C19BD5009C3A6A /* Lato-Regular.ttf */; };
+		BF8C0E8A28C19BD5009C3A6A /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DD628C19BD5009C3A6A /* Lato-Semibold.ttf */; };
+		BF8C0E8B28C19BD5009C3A6A /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DD728C19BD5009C3A6A /* Oswald-Regular.ttf */; };
+		BF8C0E8C28C19BD5009C3A6A /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DD828C19BD5009C3A6A /* Lato-Light.ttf */; };
+		BF8C0E8D28C19BD5009C3A6A /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DD928C19BD5009C3A6A /* Lato-Medium.ttf */; };
+		BF8C0E8E28C19BD5009C3A6A /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DDB28C19BD5009C3A6A /* Roboto-Medium.ttf */; };
+		BF8C0E8F28C19BD5009C3A6A /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DDC28C19BD5009C3A6A /* Poppins-Light.ttf */; };
+		BF8C0E9028C19BD5009C3A6A /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DDD28C19BD5009C3A6A /* Poppins-Medium.ttf */; };
+		BF8C0E9128C19BD5009C3A6A /* Oswald-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DDE28C19BD5009C3A6A /* Oswald-Medium.ttf */; };
+		BF8C0E9228C19BD5009C3A6A /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DDF28C19BD5009C3A6A /* Poppins-ExtraBold.ttf */; };
+		BF8C0E9328C19BD5009C3A6A /* OpenSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DE028C19BD5009C3A6A /* OpenSans-Medium.ttf */; };
+		BF8C0E9428C19BD5009C3A6A /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DE128C19BD5009C3A6A /* Poppins-Bold.ttf */; };
+		BF8C0E9528C19BD5009C3A6A /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DE228C19BD5009C3A6A /* Poppins-Black.ttf */; };
+		BF8C0E9628C19BD5009C3A6A /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DE328C19BD5009C3A6A /* Poppins-SemiBold.ttf */; };
+		BF8C0E9728C19BD5009C3A6A /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DE528C19BD5009C3A6A /* OpenSans-Semibold.ttf */; };
+		BF8C0E9828C19BD5009C3A6A /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DE628C19BD5009C3A6A /* OpenSans-Light.ttf */; };
+		BF8C0E9928C19BD5009C3A6A /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF8C0DE728C19BD5009C3A6A /* OpenSans-Bold.ttf */; };
+		BF8C0E9B28C19BD5009C3A6A /* DeviceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DEA28C19BD5009C3A6A /* DeviceName.swift */; };
+		BF8C0E9C28C19BD5009C3A6A /* NSObject+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DEB28C19BD5009C3A6A /* NSObject+Helper.swift */; };
+		BF8C0E9D28C19BD5009C3A6A /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DEC28C19BD5009C3A6A /* Decodable.swift */; };
+		BF8C0E9E28C19BD6009C3A6A /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DED28C19BD5009C3A6A /* Loader.swift */; };
+		BF8C0E9F28C19BD6009C3A6A /* BaseViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DEE28C19BD5009C3A6A /* BaseViewModelProtocol.swift */; };
+		BF8C0EA028C19BD6009C3A6A /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DEF28C19BD5009C3A6A /* ProgressHUD.swift */; };
+		BF8C0EA128C19BD6009C3A6A /* StoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DF028C19BD5009C3A6A /* StoryboardExtension.swift */; };
+		BF8C0EA228C19BD6009C3A6A /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8C0DF228C19BD5009C3A6A /* ServiceManager.swift */; };
+		C01AABD1FDD5845C7B08CFC3 /* Pods_KuwaitWays.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC63A1D3AF4A39A9691B38A2 /* Pods_KuwaitWays.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BF8C0CCB28C19B88009C3A6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF8C0CAC28C19B86009C3A6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF8C0CB328C19B86009C3A6A;
+			remoteInfo = KuwaitWays;
+		};
+		BF8C0CD528C19B88009C3A6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF8C0CAC28C19B86009C3A6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF8C0CB328C19B86009C3A6A;
+			remoteInfo = KuwaitWays;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		84D0AFEEFF41056A69A6C594 /* Pods-KuwaitWays-KuwaitWaysUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KuwaitWays-KuwaitWaysUITests.release.xcconfig"; path = "Target Support Files/Pods-KuwaitWays-KuwaitWaysUITests/Pods-KuwaitWays-KuwaitWaysUITests.release.xcconfig"; sourceTree = "<group>"; };
+		92F960E74172B4D75A4F05B8 /* Pods_KuwaitWays_KuwaitWaysUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KuwaitWays_KuwaitWaysUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D098E1EECE1B716A752A03D /* Pods-KuwaitWays-KuwaitWaysUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KuwaitWays-KuwaitWaysUITests.debug.xcconfig"; path = "Target Support Files/Pods-KuwaitWays-KuwaitWaysUITests/Pods-KuwaitWays-KuwaitWaysUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		AD5A5F32473A8084BE83BB18 /* Pods_KuwaitWaysTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KuwaitWaysTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEC2B30ED95B66AD15FE462C /* Pods-KuwaitWaysTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KuwaitWaysTests.release.xcconfig"; path = "Target Support Files/Pods-KuwaitWaysTests/Pods-KuwaitWaysTests.release.xcconfig"; sourceTree = "<group>"; };
+		BDEE16653E1F18F4B5BEB1EA /* Pods-KuwaitWays.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KuwaitWays.debug.xcconfig"; path = "Target Support Files/Pods-KuwaitWays/Pods-KuwaitWays.debug.xcconfig"; sourceTree = "<group>"; };
+		BF8C0CB428C19B86009C3A6A /* KuwaitWays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KuwaitWays.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF8C0CB728C19B86009C3A6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BF8C0CB928C19B86009C3A6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		BF8C0CC028C19B87009C3A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BF8C0CC328C19B87009C3A6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BF8C0CC528C19B87009C3A6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF8C0CCA28C19B88009C3A6A /* KuwaitWaysTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KuwaitWaysTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF8C0CCE28C19B88009C3A6A /* KuwaitWaysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KuwaitWaysTests.swift; sourceTree = "<group>"; };
+		BF8C0CD428C19B88009C3A6A /* KuwaitWaysUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KuwaitWaysUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF8C0CD828C19B88009C3A6A /* KuwaitWaysUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KuwaitWaysUITests.swift; sourceTree = "<group>"; };
+		BF8C0CDA28C19B88009C3A6A /* KuwaitWaysUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KuwaitWaysUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BF8C0CED28C19BD4009C3A6A /* MapViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewVC.swift; sourceTree = "<group>"; };
+		BF8C0CEE28C19BD4009C3A6A /* SelectedHotelInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedHotelInfoVC.swift; sourceTree = "<group>"; };
+		BF8C0CEF28C19BD4009C3A6A /* BookHotelVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookHotelVC.swift; sourceTree = "<group>"; };
+		BF8C0CF028C19BD4009C3A6A /* HotelSearchResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelSearchResultVC.swift; sourceTree = "<group>"; };
+		BF8C0CF428C19BD4009C3A6A /* PriceLabelsTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PriceLabelsTVCell.xib; sourceTree = "<group>"; };
+		BF8C0CF528C19BD4009C3A6A /* PriceLabelsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceLabelsTVCell.swift; sourceTree = "<group>"; };
+		BF8C0CF728C19BD4009C3A6A /* FacilitiesTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FacilitiesTVCell.xib; sourceTree = "<group>"; };
+		BF8C0CF828C19BD4009C3A6A /* FacilitiesTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilitiesTVCell.swift; sourceTree = "<group>"; };
+		BF8C0CFA28C19BD4009C3A6A /* StarRatingTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingTVCell.xib; sourceTree = "<group>"; };
+		BF8C0CFB28C19BD4009C3A6A /* StarRatingTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingTVCell.swift; sourceTree = "<group>"; };
+		BF8C0CFD28C19BD4009C3A6A /* TwinSuperiorRoomTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwinSuperiorRoomTVCell.swift; sourceTree = "<group>"; };
+		BF8C0CFE28C19BD4009C3A6A /* TwinSuperiorRoomTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwinSuperiorRoomTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D0028C19BD4009C3A6A /* HotelImagesTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelImagesTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D0128C19BD4009C3A6A /* HotelImagesTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelImagesTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D0328C19BD4009C3A6A /* HotelSearchResultTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelSearchResultTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D0428C19BD4009C3A6A /* HotelSearchResultTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelSearchResultTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D0628C19BD4009C3A6A /* RatingWithLabelsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingWithLabelsTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D0728C19BD4009C3A6A /* RatingWithLabelsTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingWithLabelsTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D0928C19BD4009C3A6A /* RoomsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomsTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D0A28C19BD4009C3A6A /* RoomsTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoomsTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D0D28C19BD4009C3A6A /* HotelImageCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelImageCVCell.swift; sourceTree = "<group>"; };
+		BF8C0D0E28C19BD4009C3A6A /* HotelImageCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelImageCVCell.xib; sourceTree = "<group>"; };
+		BF8C0D1028C19BD4009C3A6A /* StarRatingCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingCVCell.swift; sourceTree = "<group>"; };
+		BF8C0D1128C19BD4009C3A6A /* StarRatingCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StarRatingCVCell.xib; sourceTree = "<group>"; };
+		BF8C0D1328C19BD4009C3A6A /* AmenitiesCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmenitiesCVCell.xib; sourceTree = "<group>"; };
+		BF8C0D1428C19BD4009C3A6A /* AmenitiesCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmenitiesCVCell.swift; sourceTree = "<group>"; };
+		BF8C0D1528C19BD4009C3A6A /* Hotel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
+		BF8C0D1928C19BD4009C3A6A /* SelectCityViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCityViewModel.swift; sourceTree = "<group>"; };
+		BF8C0D1C28C19BD4009C3A6A /* SelectCityModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCityModel.swift; sourceTree = "<group>"; };
+		BF8C0D1E28C19BD4009C3A6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BF8C0D2028C19BD4009C3A6A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF8C0D2128C19BD4009C3A6A /* SideMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
+		BF8C0D2228C19BD4009C3A6A /* SelectedFlightInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedFlightInfoVC.swift; sourceTree = "<group>"; };
+		BF8C0D2328C19BD4009C3A6A /* SelectLanguageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageVC.swift; sourceTree = "<group>"; };
+		BF8C0D2428C19BD4009C3A6A /* DBTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBTabbarController.swift; sourceTree = "<group>"; };
+		BF8C0D2528C19BD4009C3A6A /* NoInternetConnectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoInternetConnectionVC.swift; sourceTree = "<group>"; };
+		BF8C0D2628C19BD4009C3A6A /* SelectFromCityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFromCityVC.swift; sourceTree = "<group>"; };
+		BF8C0D2728C19BD4009C3A6A /* SaveTravellersDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveTravellersDetailsVC.swift; sourceTree = "<group>"; };
+		BF8C0D2828C19BD4009C3A6A /* SearchFlightResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFlightResultVC.swift; sourceTree = "<group>"; };
+		BF8C0D2928C19BD4009C3A6A /* TravellerEconomyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravellerEconomyVC.swift; sourceTree = "<group>"; };
+		BF8C0D2A28C19BD4009C3A6A /* BookFlightVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookFlightVC.swift; sourceTree = "<group>"; };
+		BF8C0D2B28C19BD4009C3A6A /* PayNowVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayNowVC.swift; sourceTree = "<group>"; };
+		BF8C0D2C28C19BD4009C3A6A /* CalenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderVC.swift; sourceTree = "<group>"; };
+		BF8C0D2D28C19BD4009C3A6A /* MyAccountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountVC.swift; sourceTree = "<group>"; };
+		BF8C0D2E28C19BD4009C3A6A /* DashBoardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashBoardVC.swift; sourceTree = "<group>"; };
+		BF8C0D2F28C19BD4009C3A6A /* FilterSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSearchVC.swift; sourceTree = "<group>"; };
+		BF8C0D3328C19BD4009C3A6A /* TDetailsLoginTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDetailsLoginTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D3428C19BD4009C3A6A /* TDetailsLoginTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDetailsLoginTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D3628C19BD4009C3A6A /* FromCityTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromCityTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D3728C19BD4009C3A6A /* FromCityTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FromCityTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D3928C19BD4009C3A6A /* PriceSummaryTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PriceSummaryTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D3A28C19BD4009C3A6A /* PriceSummaryTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceSummaryTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D3C28C19BD4009C3A6A /* SliderTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SliderTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D3D28C19BD4009C3A6A /* SliderTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D3F28C19BD4009C3A6A /* SearchFlightResultInfoTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFlightResultInfoTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D4028C19BD4009C3A6A /* SearchFlightResultInfoTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFlightResultInfoTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D4228C19BD4009C3A6A /* CheckBoxTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D4328C19BD4009C3A6A /* CheckBoxTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckBoxTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D4628C19BD4009C3A6A /* MultiCityTripTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiCityTripTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D4728C19BD4009C3A6A /* MultiCityTripTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCityTripTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D4928C19BD4009C3A6A /* AddCityTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCityTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D4A28C19BD4009C3A6A /* AddCityTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCityTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D4C28C19BD4009C3A6A /* MulticityFromToTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticityFromToTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D4D28C19BD4009C3A6A /* MulticityFromToTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MulticityFromToTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D4F28C19BD4009C3A6A /* HotelDealsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelDealsTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D5028C19BD4009C3A6A /* HotelDealsTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelDealsTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D5228C19BD4009C3A6A /* BookNowTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookNowTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D5328C19BD4009C3A6A /* BookNowTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookNowTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D5528C19BD4009C3A6A /* TravellerEconomyTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravellerEconomyTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D5628C19BD4009C3A6A /* TravellerEconomyTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravellerEconomyTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D5828C19BD5009C3A6A /* FareBreakdownTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FareBreakdownTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D5928C19BD5009C3A6A /* FareBreakdownTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FareBreakdownTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D5B28C19BD5009C3A6A /* PromocodeTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromocodeTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D5C28C19BD5009C3A6A /* PromocodeTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromocodeTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D5E28C19BD5009C3A6A /* SelectLanguageTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectLanguageTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D5F28C19BD5009C3A6A /* SelectLanguageTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D6128C19BD5009C3A6A /* SelectTabTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTabTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D6228C19BD5009C3A6A /* SelectTabTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTabTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D6428C19BD5009C3A6A /* AddTravellersDetailsTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTravellersDetailsTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D6528C19BD5009C3A6A /* AddTravellersDetailsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTravellersDetailsTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D6828C19BD5009C3A6A /* HolderViewTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HolderViewTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D6928C19BD5009C3A6A /* HolderViewTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HolderViewTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D6B28C19BD5009C3A6A /* SearchFlightTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFlightTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D6C28C19BD5009C3A6A /* SearchFlightTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFlightTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D6E28C19BD5009C3A6A /* DualViewTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DualViewTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D6F28C19BD5009C3A6A /* DualViewTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DualViewTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D7128C19BD5009C3A6A /* ChooseProfilPpictureTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseProfilPpictureTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D7228C19BD5009C3A6A /* ChooseProfilPpictureTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseProfilPpictureTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D7428C19BD5009C3A6A /* checkOptionsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = checkOptionsTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D7528C19BD5009C3A6A /* checkOptionsTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = checkOptionsTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D7828C19BD5009C3A6A /* ItineraryCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryCVCell.swift; sourceTree = "<group>"; };
+		BF8C0D7928C19BD5009C3A6A /* ItineraryCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItineraryCVCell.xib; sourceTree = "<group>"; };
+		BF8C0D7B28C19BD5009C3A6A /* BaggageDateCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaggageDateCVCell.swift; sourceTree = "<group>"; };
+		BF8C0D7C28C19BD5009C3A6A /* BaggageDateCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaggageDateCVCell.xib; sourceTree = "<group>"; };
+		BF8C0D7E28C19BD5009C3A6A /* SelectTabCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTabCVCell.swift; sourceTree = "<group>"; };
+		BF8C0D7F28C19BD5009C3A6A /* SelectTabCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTabCVCell.xib; sourceTree = "<group>"; };
+		BF8C0D8128C19BD5009C3A6A /* HotelDealsCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelDealsCVCell.swift; sourceTree = "<group>"; };
+		BF8C0D8228C19BD5009C3A6A /* HotelDealsCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelDealsCVCell.xib; sourceTree = "<group>"; };
+		BF8C0D8428C19BD5009C3A6A /* calendarCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = calendarCVCell.xib; sourceTree = "<group>"; };
+		BF8C0D8528C19BD5009C3A6A /* calendarCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calendarCVCell.swift; sourceTree = "<group>"; };
+		BF8C0D8B28C19BD5009C3A6A /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		BF8C0D8D28C19BD5009C3A6A /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		BF8C0D8E28C19BD5009C3A6A /* ResetPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
+		BF8C0D8F28C19BD5009C3A6A /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		BF8C0D9028C19BD5009C3A6A /* CreateAccountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
+		BF8C0D9428C19BD5009C3A6A /* RadioButtonTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D9528C19BD5009C3A6A /* RadioButtonTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioButtonTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D9728C19BD5009C3A6A /* TextfieldTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D9828C19BD5009C3A6A /* TextfieldTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextfieldTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D9A28C19BD5009C3A6A /* MenuBGTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuBGTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D9B28C19BD5009C3A6A /* MenuBGTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBGTVCell.swift; sourceTree = "<group>"; };
+		BF8C0D9D28C19BD5009C3A6A /* SelectGenderTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectGenderTVCell.xib; sourceTree = "<group>"; };
+		BF8C0D9E28C19BD5009C3A6A /* SelectGenderTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectGenderTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DA028C19BD5009C3A6A /* ButtonTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTVCell.xib; sourceTree = "<group>"; };
+		BF8C0DA128C19BD5009C3A6A /* ButtonTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DA328C19BD5009C3A6A /* UnderLineTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnderLineTVCell.xib; sourceTree = "<group>"; };
+		BF8C0DA428C19BD5009C3A6A /* UnderLineTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderLineTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DA628C19BD5009C3A6A /* LabelTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelTVCell.xib; sourceTree = "<group>"; };
+		BF8C0DA728C19BD5009C3A6A /* LabelTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DA928C19BD5009C3A6A /* LabelWithButtonTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelWithButtonTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DAA28C19BD5009C3A6A /* LabelWithButtonTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelWithButtonTVCell.xib; sourceTree = "<group>"; };
+		BF8C0DAC28C19BD5009C3A6A /* LogoImgTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogoImgTVCell.xib; sourceTree = "<group>"; };
+		BF8C0DAD28C19BD5009C3A6A /* LogoImgTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoImgTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DAF28C19BD5009C3A6A /* SignUpWithTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWithTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DB028C19BD5009C3A6A /* SignUpWithTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpWithTVCell.xib; sourceTree = "<group>"; };
+		BF8C0DB228C19BD5009C3A6A /* EmptyTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DB328C19BD5009C3A6A /* EmptyTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyTVCell.xib; sourceTree = "<group>"; };
+		BF8C0DB528C19BD5009C3A6A /* TitleLblTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleLblTVCell.xib; sourceTree = "<group>"; };
+		BF8C0DB628C19BD5009C3A6A /* TitleLblTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleLblTVCell.swift; sourceTree = "<group>"; };
+		BF8C0DB928C19BD5009C3A6A /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		BF8C0DBA28C19BD5009C3A6A /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		BF8C0DBB28C19BD5009C3A6A /* BaseTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableVC.swift; sourceTree = "<group>"; };
+		BF8C0DBC28C19BD5009C3A6A /* UIModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIModels.swift; sourceTree = "<group>"; };
+		BF8C0DBF28C19BD5009C3A6A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BF8C0DC028C19BD5009C3A6A /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		BF8C0DC328C19BD5009C3A6A /* NavBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavBar.xib; sourceTree = "<group>"; };
+		BF8C0DC428C19BD5009C3A6A /* NavBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
+		BF8C0DC628C19BD5009C3A6A /* TableViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
+		BF8C0DC728C19BD5009C3A6A /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		BF8C0DC828C19BD5009C3A6A /* ButtonExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
+		BF8C0DC928C19BD5009C3A6A /* UIKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitHelper.swift; sourceTree = "<group>"; };
+		BF8C0DCA28C19BD5009C3A6A /* TableViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewExtensions.swift; sourceTree = "<group>"; };
+		BF8C0DCB28C19BD5009C3A6A /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		BF8C0DCC28C19BD5009C3A6A /* TextFieldExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
+		BF8C0DCD28C19BD5009C3A6A /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		BF8C0DCE28C19BD5009C3A6A /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		BF8C0DD028C19BD5009C3A6A /* FontManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
+		BF8C0DD128C19BD5009C3A6A /* UIColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorManager.swift; sourceTree = "<group>"; };
+		BF8C0DD328C19BD5009C3A6A /* Oswald-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Bold.ttf"; sourceTree = "<group>"; };
+		BF8C0DD428C19BD5009C3A6A /* Oswald-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-SemiBold.ttf"; sourceTree = "<group>"; };
+		BF8C0DD528C19BD5009C3A6A /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		BF8C0DD628C19BD5009C3A6A /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
+		BF8C0DD728C19BD5009C3A6A /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
+		BF8C0DD828C19BD5009C3A6A /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		BF8C0DD928C19BD5009C3A6A /* Lato-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Medium.ttf"; sourceTree = "<group>"; };
+		BF8C0DDB28C19BD5009C3A6A /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		BF8C0DDC28C19BD5009C3A6A /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		BF8C0DDD28C19BD5009C3A6A /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		BF8C0DDE28C19BD5009C3A6A /* Oswald-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Medium.ttf"; sourceTree = "<group>"; };
+		BF8C0DDF28C19BD5009C3A6A /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		BF8C0DE028C19BD5009C3A6A /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Medium.ttf"; sourceTree = "<group>"; };
+		BF8C0DE128C19BD5009C3A6A /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		BF8C0DE228C19BD5009C3A6A /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
+		BF8C0DE328C19BD5009C3A6A /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		BF8C0DE528C19BD5009C3A6A /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		BF8C0DE628C19BD5009C3A6A /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		BF8C0DE728C19BD5009C3A6A /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		BF8C0DE828C19BD5009C3A6A /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		BF8C0DEA28C19BD5009C3A6A /* DeviceName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceName.swift; sourceTree = "<group>"; };
+		BF8C0DEB28C19BD5009C3A6A /* NSObject+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Helper.swift"; sourceTree = "<group>"; };
+		BF8C0DEC28C19BD5009C3A6A /* Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
+		BF8C0DED28C19BD5009C3A6A /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		BF8C0DEE28C19BD5009C3A6A /* BaseViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModelProtocol.swift; sourceTree = "<group>"; };
+		BF8C0DEF28C19BD5009C3A6A /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		BF8C0DF028C19BD5009C3A6A /* StoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardExtension.swift; sourceTree = "<group>"; };
+		BF8C0DF228C19BD5009C3A6A /* ServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
+		D55A0C004E1C3A701D476D67 /* Pods-KuwaitWays.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KuwaitWays.release.xcconfig"; path = "Target Support Files/Pods-KuwaitWays/Pods-KuwaitWays.release.xcconfig"; sourceTree = "<group>"; };
+		DC63A1D3AF4A39A9691B38A2 /* Pods_KuwaitWays.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KuwaitWays.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9810CCDA7359444081E44F5 /* Pods-KuwaitWaysTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KuwaitWaysTests.debug.xcconfig"; path = "Target Support Files/Pods-KuwaitWaysTests/Pods-KuwaitWaysTests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BF8C0CB128C19B86009C3A6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C01AABD1FDD5845C7B08CFC3 /* Pods_KuwaitWays.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF8C0CC728C19B88009C3A6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E53B56A5D97959B5FC00B91 /* Pods_KuwaitWaysTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF8C0CD128C19B88009C3A6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98D40F289246FF41DF34A357 /* Pods_KuwaitWays_KuwaitWaysUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		76B442CBD1A8B0F2A43178AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BDEE16653E1F18F4B5BEB1EA /* Pods-KuwaitWays.debug.xcconfig */,
+				D55A0C004E1C3A701D476D67 /* Pods-KuwaitWays.release.xcconfig */,
+				9D098E1EECE1B716A752A03D /* Pods-KuwaitWays-KuwaitWaysUITests.debug.xcconfig */,
+				84D0AFEEFF41056A69A6C594 /* Pods-KuwaitWays-KuwaitWaysUITests.release.xcconfig */,
+				F9810CCDA7359444081E44F5 /* Pods-KuwaitWaysTests.debug.xcconfig */,
+				AEC2B30ED95B66AD15FE462C /* Pods-KuwaitWaysTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BF8C0CAB28C19B86009C3A6A = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CB628C19B86009C3A6A /* KuwaitWays */,
+				BF8C0CCD28C19B88009C3A6A /* KuwaitWaysTests */,
+				BF8C0CD728C19B88009C3A6A /* KuwaitWaysUITests */,
+				BF8C0CB528C19B86009C3A6A /* Products */,
+				76B442CBD1A8B0F2A43178AA /* Pods */,
+				E3FC1F7ED70C55003F614F1A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BF8C0CB528C19B86009C3A6A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CB428C19B86009C3A6A /* KuwaitWays.app */,
+				BF8C0CCA28C19B88009C3A6A /* KuwaitWaysTests.xctest */,
+				BF8C0CD428C19B88009C3A6A /* KuwaitWaysUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF8C0CB628C19B86009C3A6A /* KuwaitWays */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CE728C19BD4009C3A6A /* APP */,
+				BF8C0CB728C19B86009C3A6A /* AppDelegate.swift */,
+				BF8C0CB928C19B86009C3A6A /* SceneDelegate.swift */,
+				BF8C0CC028C19B87009C3A6A /* Assets.xcassets */,
+				BF8C0CC228C19B87009C3A6A /* LaunchScreen.storyboard */,
+				BF8C0CC528C19B87009C3A6A /* Info.plist */,
+			);
+			path = KuwaitWays;
+			sourceTree = "<group>";
+		};
+		BF8C0CCD28C19B88009C3A6A /* KuwaitWaysTests */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CCE28C19B88009C3A6A /* KuwaitWaysTests.swift */,
+			);
+			path = KuwaitWaysTests;
+			sourceTree = "<group>";
+		};
+		BF8C0CD728C19B88009C3A6A /* KuwaitWaysUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CD828C19B88009C3A6A /* KuwaitWaysUITests.swift */,
+				BF8C0CDA28C19B88009C3A6A /* KuwaitWaysUITestsLaunchTests.swift */,
+			);
+			path = KuwaitWaysUITests;
+			sourceTree = "<group>";
+		};
+		BF8C0CE728C19BD4009C3A6A /* APP */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CE828C19BD4009C3A6A /* Scenes */,
+				BF8C0DB828C19BD5009C3A6A /* BaseVCS */,
+				BF8C0DBD28C19BD5009C3A6A /* Config */,
+				BF8C0DF128C19BD5009C3A6A /* Service Manager */,
+			);
+			path = APP;
+			sourceTree = "<group>";
+		};
+		BF8C0CE828C19BD4009C3A6A /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CE928C19BD4009C3A6A /* Hotel */,
+				BF8C0D1628C19BD4009C3A6A /* DashBoard */,
+				BF8C0D8628C19BD5009C3A6A /* Signin */,
+				BF8C0D8828C19BD5009C3A6A /* Login */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		BF8C0CE928C19BD4009C3A6A /* Hotel */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CEA28C19BD4009C3A6A /* ViewModel */,
+				BF8C0CEB28C19BD4009C3A6A /* Models */,
+				BF8C0CEC28C19BD4009C3A6A /* ViewController */,
+				BF8C0CF128C19BD4009C3A6A /* Views */,
+				BF8C0D1528C19BD4009C3A6A /* Hotel.storyboard */,
+			);
+			path = Hotel;
+			sourceTree = "<group>";
+		};
+		BF8C0CEA28C19BD4009C3A6A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BF8C0CEB28C19BD4009C3A6A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BF8C0CEC28C19BD4009C3A6A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CED28C19BD4009C3A6A /* MapViewVC.swift */,
+				BF8C0CEE28C19BD4009C3A6A /* SelectedHotelInfoVC.swift */,
+				BF8C0CEF28C19BD4009C3A6A /* BookHotelVC.swift */,
+				BF8C0CF028C19BD4009C3A6A /* HotelSearchResultVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BF8C0CF128C19BD4009C3A6A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CF228C19BD4009C3A6A /* TVCells */,
+				BF8C0D0B28C19BD4009C3A6A /* CVCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BF8C0CF228C19BD4009C3A6A /* TVCells */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CF328C19BD4009C3A6A /* PriceLabelsTVCell */,
+				BF8C0CF628C19BD4009C3A6A /* FacilitiesTVCell */,
+				BF8C0CF928C19BD4009C3A6A /* StarRatingTVCell */,
+				BF8C0CFC28C19BD4009C3A6A /* TwinSuperiorRoomTVCell */,
+				BF8C0CFF28C19BD4009C3A6A /* HotelImagesTVCell */,
+				BF8C0D0228C19BD4009C3A6A /* HotelSearchResultTVCell */,
+				BF8C0D0528C19BD4009C3A6A /* RatingWithLabelsTVCell */,
+				BF8C0D0828C19BD4009C3A6A /* RoomsTVCell */,
+			);
+			path = TVCells;
+			sourceTree = "<group>";
+		};
+		BF8C0CF328C19BD4009C3A6A /* PriceLabelsTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CF428C19BD4009C3A6A /* PriceLabelsTVCell.xib */,
+				BF8C0CF528C19BD4009C3A6A /* PriceLabelsTVCell.swift */,
+			);
+			path = PriceLabelsTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0CF628C19BD4009C3A6A /* FacilitiesTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CF728C19BD4009C3A6A /* FacilitiesTVCell.xib */,
+				BF8C0CF828C19BD4009C3A6A /* FacilitiesTVCell.swift */,
+			);
+			path = FacilitiesTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0CF928C19BD4009C3A6A /* StarRatingTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CFA28C19BD4009C3A6A /* StarRatingTVCell.xib */,
+				BF8C0CFB28C19BD4009C3A6A /* StarRatingTVCell.swift */,
+			);
+			path = StarRatingTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0CFC28C19BD4009C3A6A /* TwinSuperiorRoomTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0CFD28C19BD4009C3A6A /* TwinSuperiorRoomTVCell.swift */,
+				BF8C0CFE28C19BD4009C3A6A /* TwinSuperiorRoomTVCell.xib */,
+			);
+			path = TwinSuperiorRoomTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0CFF28C19BD4009C3A6A /* HotelImagesTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D0028C19BD4009C3A6A /* HotelImagesTVCell.xib */,
+				BF8C0D0128C19BD4009C3A6A /* HotelImagesTVCell.swift */,
+			);
+			path = HotelImagesTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D0228C19BD4009C3A6A /* HotelSearchResultTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D0328C19BD4009C3A6A /* HotelSearchResultTVCell.xib */,
+				BF8C0D0428C19BD4009C3A6A /* HotelSearchResultTVCell.swift */,
+			);
+			path = HotelSearchResultTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D0528C19BD4009C3A6A /* RatingWithLabelsTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D0628C19BD4009C3A6A /* RatingWithLabelsTVCell.swift */,
+				BF8C0D0728C19BD4009C3A6A /* RatingWithLabelsTVCell.xib */,
+			);
+			path = RatingWithLabelsTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D0828C19BD4009C3A6A /* RoomsTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D0928C19BD4009C3A6A /* RoomsTVCell.swift */,
+				BF8C0D0A28C19BD4009C3A6A /* RoomsTVCell.xib */,
+			);
+			path = RoomsTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D0B28C19BD4009C3A6A /* CVCells */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D0C28C19BD4009C3A6A /* HotelImageCVCell */,
+				BF8C0D0F28C19BD4009C3A6A /* StarRatingCVCell */,
+				BF8C0D1228C19BD4009C3A6A /* AmenitiesCVCell */,
+			);
+			path = CVCells;
+			sourceTree = "<group>";
+		};
+		BF8C0D0C28C19BD4009C3A6A /* HotelImageCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D0D28C19BD4009C3A6A /* HotelImageCVCell.swift */,
+				BF8C0D0E28C19BD4009C3A6A /* HotelImageCVCell.xib */,
+			);
+			path = HotelImageCVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D0F28C19BD4009C3A6A /* StarRatingCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D1028C19BD4009C3A6A /* StarRatingCVCell.swift */,
+				BF8C0D1128C19BD4009C3A6A /* StarRatingCVCell.xib */,
+			);
+			path = StarRatingCVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D1228C19BD4009C3A6A /* AmenitiesCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D1328C19BD4009C3A6A /* AmenitiesCVCell.xib */,
+				BF8C0D1428C19BD4009C3A6A /* AmenitiesCVCell.swift */,
+			);
+			path = AmenitiesCVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D1628C19BD4009C3A6A /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D1D28C19BD4009C3A6A /* Main.storyboard */,
+				BF8C0D1728C19BD4009C3A6A /* ViewModel */,
+				BF8C0D1A28C19BD4009C3A6A /* Models */,
+				BF8C0D3028C19BD4009C3A6A /* Views */,
+				BF8C0D1F28C19BD4009C3A6A /* ViewController */,
+			);
+			path = DashBoard;
+			sourceTree = "<group>";
+		};
+		BF8C0D1728C19BD4009C3A6A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D1828C19BD4009C3A6A /* SelectCityViewModel */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BF8C0D1828C19BD4009C3A6A /* SelectCityViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D1928C19BD4009C3A6A /* SelectCityViewModel.swift */,
+			);
+			path = SelectCityViewModel;
+			sourceTree = "<group>";
+		};
+		BF8C0D1A28C19BD4009C3A6A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D1B28C19BD4009C3A6A /* SelectCityModel */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BF8C0D1B28C19BD4009C3A6A /* SelectCityModel */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D1C28C19BD4009C3A6A /* SelectCityModel.swift */,
+			);
+			path = SelectCityModel;
+			sourceTree = "<group>";
+		};
+		BF8C0D1F28C19BD4009C3A6A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D2028C19BD4009C3A6A /* ViewController.swift */,
+				BF8C0D2428C19BD4009C3A6A /* DBTabbarController.swift */,
+				BF8C0D2E28C19BD4009C3A6A /* DashBoardVC.swift */,
+				BF8C0D2A28C19BD4009C3A6A /* BookFlightVC.swift */,
+				BF8C0D2828C19BD4009C3A6A /* SearchFlightResultVC.swift */,
+				BF8C0D2228C19BD4009C3A6A /* SelectedFlightInfoVC.swift */,
+				BF8C0D2B28C19BD4009C3A6A /* PayNowVC.swift */,
+				BF8C0D2628C19BD4009C3A6A /* SelectFromCityVC.swift */,
+				BF8C0D2928C19BD4009C3A6A /* TravellerEconomyVC.swift */,
+				BF8C0D2728C19BD4009C3A6A /* SaveTravellersDetailsVC.swift */,
+				BF8C0D2328C19BD4009C3A6A /* SelectLanguageVC.swift */,
+				BF8C0D2C28C19BD4009C3A6A /* CalenderVC.swift */,
+				BF8C0D2D28C19BD4009C3A6A /* MyAccountVC.swift */,
+				BF8C0D2F28C19BD4009C3A6A /* FilterSearchVC.swift */,
+				BF8C0D2128C19BD4009C3A6A /* SideMenuVC.swift */,
+				BF8C0D2528C19BD4009C3A6A /* NoInternetConnectionVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BF8C0D3028C19BD4009C3A6A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D3128C19BD4009C3A6A /* TVCells */,
+				BF8C0D7628C19BD5009C3A6A /* CVCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BF8C0D3128C19BD4009C3A6A /* TVCells */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D3228C19BD4009C3A6A /* TDetailsLoginTVCell */,
+				BF8C0D3528C19BD4009C3A6A /* FromCityTVCell */,
+				BF8C0D3828C19BD4009C3A6A /* PriceSummaryTVCell */,
+				BF8C0D3B28C19BD4009C3A6A /* sliderTVCell */,
+				BF8C0D3E28C19BD4009C3A6A /* SearchFlightResultInfoTVCell */,
+				BF8C0D4128C19BD4009C3A6A /* CheckBoxTVCell */,
+				BF8C0D4428C19BD4009C3A6A /* Multicity */,
+				BF8C0D4E28C19BD4009C3A6A /* HotelDealsTVCell */,
+				BF8C0D5128C19BD4009C3A6A /* BookNowTVCell */,
+				BF8C0D5428C19BD4009C3A6A /* TravellerEconomyTVCell */,
+				BF8C0D5728C19BD4009C3A6A /* FareBreakdownTVCell */,
+				BF8C0D5A28C19BD5009C3A6A /* PromocodeTVCell */,
+				BF8C0D5D28C19BD5009C3A6A /* SelectLanguageTVCell */,
+				BF8C0D6028C19BD5009C3A6A /* SelectTabTVCell */,
+				BF8C0D6328C19BD5009C3A6A /* AddTravellersDetailsTVCell */,
+				BF8C0D6628C19BD5009C3A6A /* SearchFlight */,
+				BF8C0D7028C19BD5009C3A6A /* ChooseProfilPpictureTVCell */,
+				BF8C0D7328C19BD5009C3A6A /* checkOptionsTVCell */,
+			);
+			path = TVCells;
+			sourceTree = "<group>";
+		};
+		BF8C0D3228C19BD4009C3A6A /* TDetailsLoginTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D3328C19BD4009C3A6A /* TDetailsLoginTVCell.swift */,
+				BF8C0D3428C19BD4009C3A6A /* TDetailsLoginTVCell.xib */,
+			);
+			path = TDetailsLoginTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D3528C19BD4009C3A6A /* FromCityTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D3628C19BD4009C3A6A /* FromCityTVCell.swift */,
+				BF8C0D3728C19BD4009C3A6A /* FromCityTVCell.xib */,
+			);
+			path = FromCityTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D3828C19BD4009C3A6A /* PriceSummaryTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D3928C19BD4009C3A6A /* PriceSummaryTVCell.xib */,
+				BF8C0D3A28C19BD4009C3A6A /* PriceSummaryTVCell.swift */,
+			);
+			path = PriceSummaryTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D3B28C19BD4009C3A6A /* sliderTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D3C28C19BD4009C3A6A /* SliderTVCell.xib */,
+				BF8C0D3D28C19BD4009C3A6A /* SliderTVCell.swift */,
+			);
+			path = sliderTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D3E28C19BD4009C3A6A /* SearchFlightResultInfoTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D3F28C19BD4009C3A6A /* SearchFlightResultInfoTVCell.xib */,
+				BF8C0D4028C19BD4009C3A6A /* SearchFlightResultInfoTVCell.swift */,
+			);
+			path = SearchFlightResultInfoTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D4128C19BD4009C3A6A /* CheckBoxTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D4228C19BD4009C3A6A /* CheckBoxTVCell.swift */,
+				BF8C0D4328C19BD4009C3A6A /* CheckBoxTVCell.xib */,
+			);
+			path = CheckBoxTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D4428C19BD4009C3A6A /* Multicity */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D4528C19BD4009C3A6A /* MultiCityTripTVCell */,
+				BF8C0D4828C19BD4009C3A6A /* AddCityTVCell */,
+				BF8C0D4B28C19BD4009C3A6A /* MulticityFromToTVCell */,
+			);
+			path = Multicity;
+			sourceTree = "<group>";
+		};
+		BF8C0D4528C19BD4009C3A6A /* MultiCityTripTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D4628C19BD4009C3A6A /* MultiCityTripTVCell.xib */,
+				BF8C0D4728C19BD4009C3A6A /* MultiCityTripTVCell.swift */,
+			);
+			path = MultiCityTripTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D4828C19BD4009C3A6A /* AddCityTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D4928C19BD4009C3A6A /* AddCityTVCell.swift */,
+				BF8C0D4A28C19BD4009C3A6A /* AddCityTVCell.xib */,
+			);
+			path = AddCityTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D4B28C19BD4009C3A6A /* MulticityFromToTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D4C28C19BD4009C3A6A /* MulticityFromToTVCell.swift */,
+				BF8C0D4D28C19BD4009C3A6A /* MulticityFromToTVCell.xib */,
+			);
+			path = MulticityFromToTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D4E28C19BD4009C3A6A /* HotelDealsTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D4F28C19BD4009C3A6A /* HotelDealsTVCell.swift */,
+				BF8C0D5028C19BD4009C3A6A /* HotelDealsTVCell.xib */,
+			);
+			path = HotelDealsTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D5128C19BD4009C3A6A /* BookNowTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D5328C19BD4009C3A6A /* BookNowTVCell.swift */,
+				BF8C0D5228C19BD4009C3A6A /* BookNowTVCell.xib */,
+			);
+			path = BookNowTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D5428C19BD4009C3A6A /* TravellerEconomyTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D5528C19BD4009C3A6A /* TravellerEconomyTVCell.swift */,
+				BF8C0D5628C19BD4009C3A6A /* TravellerEconomyTVCell.xib */,
+			);
+			path = TravellerEconomyTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D5728C19BD4009C3A6A /* FareBreakdownTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D5828C19BD5009C3A6A /* FareBreakdownTVCell.xib */,
+				BF8C0D5928C19BD5009C3A6A /* FareBreakdownTVCell.swift */,
+			);
+			path = FareBreakdownTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D5A28C19BD5009C3A6A /* PromocodeTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D5B28C19BD5009C3A6A /* PromocodeTVCell.xib */,
+				BF8C0D5C28C19BD5009C3A6A /* PromocodeTVCell.swift */,
+			);
+			path = PromocodeTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D5D28C19BD5009C3A6A /* SelectLanguageTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D5E28C19BD5009C3A6A /* SelectLanguageTVCell.xib */,
+				BF8C0D5F28C19BD5009C3A6A /* SelectLanguageTVCell.swift */,
+			);
+			path = SelectLanguageTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D6028C19BD5009C3A6A /* SelectTabTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D6128C19BD5009C3A6A /* SelectTabTVCell.swift */,
+				BF8C0D6228C19BD5009C3A6A /* SelectTabTVCell.xib */,
+			);
+			path = SelectTabTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D6328C19BD5009C3A6A /* AddTravellersDetailsTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D6428C19BD5009C3A6A /* AddTravellersDetailsTVCell.xib */,
+				BF8C0D6528C19BD5009C3A6A /* AddTravellersDetailsTVCell.swift */,
+			);
+			path = AddTravellersDetailsTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D6628C19BD5009C3A6A /* SearchFlight */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D6728C19BD5009C3A6A /* HolderViewTVCell */,
+				BF8C0D6A28C19BD5009C3A6A /* SearchFlightTVCell */,
+				BF8C0D6D28C19BD5009C3A6A /* DualViewTVCell */,
+			);
+			path = SearchFlight;
+			sourceTree = "<group>";
+		};
+		BF8C0D6728C19BD5009C3A6A /* HolderViewTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D6828C19BD5009C3A6A /* HolderViewTVCell.xib */,
+				BF8C0D6928C19BD5009C3A6A /* HolderViewTVCell.swift */,
+			);
+			path = HolderViewTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D6A28C19BD5009C3A6A /* SearchFlightTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D6B28C19BD5009C3A6A /* SearchFlightTVCell.swift */,
+				BF8C0D6C28C19BD5009C3A6A /* SearchFlightTVCell.xib */,
+			);
+			path = SearchFlightTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D6D28C19BD5009C3A6A /* DualViewTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D6E28C19BD5009C3A6A /* DualViewTVCell.xib */,
+				BF8C0D6F28C19BD5009C3A6A /* DualViewTVCell.swift */,
+			);
+			path = DualViewTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D7028C19BD5009C3A6A /* ChooseProfilPpictureTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D7128C19BD5009C3A6A /* ChooseProfilPpictureTVCell.xib */,
+				BF8C0D7228C19BD5009C3A6A /* ChooseProfilPpictureTVCell.swift */,
+			);
+			path = ChooseProfilPpictureTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D7328C19BD5009C3A6A /* checkOptionsTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D7428C19BD5009C3A6A /* checkOptionsTVCell.swift */,
+				BF8C0D7528C19BD5009C3A6A /* checkOptionsTVCell.xib */,
+			);
+			path = checkOptionsTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D7628C19BD5009C3A6A /* CVCells */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D7728C19BD5009C3A6A /* itineraryCVCell */,
+				BF8C0D7A28C19BD5009C3A6A /* BaggageDateCVCell */,
+				BF8C0D7D28C19BD5009C3A6A /* SelectTabCVCell */,
+				BF8C0D8028C19BD5009C3A6A /* HotelDealsCVCell */,
+				BF8C0D8328C19BD5009C3A6A /* CalendarCVCell */,
+			);
+			path = CVCells;
+			sourceTree = "<group>";
+		};
+		BF8C0D7728C19BD5009C3A6A /* itineraryCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D7828C19BD5009C3A6A /* ItineraryCVCell.swift */,
+				BF8C0D7928C19BD5009C3A6A /* ItineraryCVCell.xib */,
+			);
+			path = itineraryCVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D7A28C19BD5009C3A6A /* BaggageDateCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D7B28C19BD5009C3A6A /* BaggageDateCVCell.swift */,
+				BF8C0D7C28C19BD5009C3A6A /* BaggageDateCVCell.xib */,
+			);
+			path = BaggageDateCVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D7D28C19BD5009C3A6A /* SelectTabCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D7E28C19BD5009C3A6A /* SelectTabCVCell.swift */,
+				BF8C0D7F28C19BD5009C3A6A /* SelectTabCVCell.xib */,
+			);
+			path = SelectTabCVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D8028C19BD5009C3A6A /* HotelDealsCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D8128C19BD5009C3A6A /* HotelDealsCVCell.swift */,
+				BF8C0D8228C19BD5009C3A6A /* HotelDealsCVCell.xib */,
+			);
+			path = HotelDealsCVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D8328C19BD5009C3A6A /* CalendarCVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D8428C19BD5009C3A6A /* calendarCVCell.xib */,
+				BF8C0D8528C19BD5009C3A6A /* calendarCVCell.swift */,
+			);
+			path = CalendarCVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D8628C19BD5009C3A6A /* Signin */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D8728C19BD5009C3A6A /* SB */,
+			);
+			path = Signin;
+			sourceTree = "<group>";
+		};
+		BF8C0D8728C19BD5009C3A6A /* SB */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SB;
+			sourceTree = "<group>";
+		};
+		BF8C0D8828C19BD5009C3A6A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D8928C19BD5009C3A6A /* ViewModel */,
+				BF8C0D8A28C19BD5009C3A6A /* Models */,
+				BF8C0D8B28C19BD5009C3A6A /* Login.storyboard */,
+				BF8C0D8C28C19BD5009C3A6A /* ViewController */,
+				BF8C0D9128C19BD5009C3A6A /* Views */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		BF8C0D8928C19BD5009C3A6A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BF8C0D8A28C19BD5009C3A6A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BF8C0D8C28C19BD5009C3A6A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D8D28C19BD5009C3A6A /* LoginVC.swift */,
+				BF8C0D8E28C19BD5009C3A6A /* ResetPasswordVC.swift */,
+				BF8C0D8F28C19BD5009C3A6A /* EditProfileVC.swift */,
+				BF8C0D9028C19BD5009C3A6A /* CreateAccountVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BF8C0D9128C19BD5009C3A6A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D9228C19BD5009C3A6A /* TVCells */,
+				BF8C0DB728C19BD5009C3A6A /* CVCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BF8C0D9228C19BD5009C3A6A /* TVCells */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D9328C19BD5009C3A6A /* RadioButtonTVCell */,
+				BF8C0D9628C19BD5009C3A6A /* TextfieldTVCell */,
+				BF8C0D9928C19BD5009C3A6A /* MenuBGTVCell */,
+				BF8C0D9C28C19BD5009C3A6A /* SelectGenderTVCell */,
+				BF8C0D9F28C19BD5009C3A6A /* ButtonTVCell */,
+				BF8C0DA228C19BD5009C3A6A /* UnderLineTVCell */,
+				BF8C0DA528C19BD5009C3A6A /* LabelTVCell */,
+				BF8C0DA828C19BD5009C3A6A /* LabelWithButtonTVCell */,
+				BF8C0DAB28C19BD5009C3A6A /* LogoImgTVCell */,
+				BF8C0DAE28C19BD5009C3A6A /* SignUpWithTVCell */,
+				BF8C0DB128C19BD5009C3A6A /* EmptyTVCell */,
+				BF8C0DB428C19BD5009C3A6A /* TitleLblTVCell */,
+			);
+			path = TVCells;
+			sourceTree = "<group>";
+		};
+		BF8C0D9328C19BD5009C3A6A /* RadioButtonTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D9428C19BD5009C3A6A /* RadioButtonTVCell.swift */,
+				BF8C0D9528C19BD5009C3A6A /* RadioButtonTVCell.xib */,
+			);
+			path = RadioButtonTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D9628C19BD5009C3A6A /* TextfieldTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D9728C19BD5009C3A6A /* TextfieldTVCell.swift */,
+				BF8C0D9828C19BD5009C3A6A /* TextfieldTVCell.xib */,
+			);
+			path = TextfieldTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D9928C19BD5009C3A6A /* MenuBGTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D9A28C19BD5009C3A6A /* MenuBGTVCell.xib */,
+				BF8C0D9B28C19BD5009C3A6A /* MenuBGTVCell.swift */,
+			);
+			path = MenuBGTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D9C28C19BD5009C3A6A /* SelectGenderTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0D9D28C19BD5009C3A6A /* SelectGenderTVCell.xib */,
+				BF8C0D9E28C19BD5009C3A6A /* SelectGenderTVCell.swift */,
+			);
+			path = SelectGenderTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0D9F28C19BD5009C3A6A /* ButtonTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DA028C19BD5009C3A6A /* ButtonTVCell.xib */,
+				BF8C0DA128C19BD5009C3A6A /* ButtonTVCell.swift */,
+			);
+			path = ButtonTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0DA228C19BD5009C3A6A /* UnderLineTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DA328C19BD5009C3A6A /* UnderLineTVCell.xib */,
+				BF8C0DA428C19BD5009C3A6A /* UnderLineTVCell.swift */,
+			);
+			path = UnderLineTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0DA528C19BD5009C3A6A /* LabelTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DA628C19BD5009C3A6A /* LabelTVCell.xib */,
+				BF8C0DA728C19BD5009C3A6A /* LabelTVCell.swift */,
+			);
+			path = LabelTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0DA828C19BD5009C3A6A /* LabelWithButtonTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DA928C19BD5009C3A6A /* LabelWithButtonTVCell.swift */,
+				BF8C0DAA28C19BD5009C3A6A /* LabelWithButtonTVCell.xib */,
+			);
+			path = LabelWithButtonTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0DAB28C19BD5009C3A6A /* LogoImgTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DAC28C19BD5009C3A6A /* LogoImgTVCell.xib */,
+				BF8C0DAD28C19BD5009C3A6A /* LogoImgTVCell.swift */,
+			);
+			path = LogoImgTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0DAE28C19BD5009C3A6A /* SignUpWithTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DAF28C19BD5009C3A6A /* SignUpWithTVCell.swift */,
+				BF8C0DB028C19BD5009C3A6A /* SignUpWithTVCell.xib */,
+			);
+			path = SignUpWithTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0DB128C19BD5009C3A6A /* EmptyTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DB228C19BD5009C3A6A /* EmptyTVCell.swift */,
+				BF8C0DB328C19BD5009C3A6A /* EmptyTVCell.xib */,
+			);
+			path = EmptyTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0DB428C19BD5009C3A6A /* TitleLblTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DB528C19BD5009C3A6A /* TitleLblTVCell.xib */,
+				BF8C0DB628C19BD5009C3A6A /* TitleLblTVCell.swift */,
+			);
+			path = TitleLblTVCell;
+			sourceTree = "<group>";
+		};
+		BF8C0DB728C19BD5009C3A6A /* CVCells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CVCells;
+			sourceTree = "<group>";
+		};
+		BF8C0DB828C19BD5009C3A6A /* BaseVCS */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DB928C19BD5009C3A6A /* BaseVC.swift */,
+				BF8C0DBA28C19BD5009C3A6A /* TableViewCell.swift */,
+				BF8C0DBB28C19BD5009C3A6A /* BaseTableVC.swift */,
+				BF8C0DBC28C19BD5009C3A6A /* UIModels.swift */,
+			);
+			path = BaseVCS;
+			sourceTree = "<group>";
+		};
+		BF8C0DBD28C19BD5009C3A6A /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DBE28C19BD5009C3A6A /* Constants */,
+				BF8C0DC128C19BD5009C3A6A /* CommonMethods */,
+				BF8C0DC528C19BD5009C3A6A /* Extensions */,
+				BF8C0DCF28C19BD5009C3A6A /* UIFonts */,
+				BF8C0DE928C19BD5009C3A6A /* Helper */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		BF8C0DBE28C19BD5009C3A6A /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DBF28C19BD5009C3A6A /* Constants.swift */,
+				BF8C0DC028C19BD5009C3A6A /* SessionManager.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		BF8C0DC128C19BD5009C3A6A /* CommonMethods */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DC228C19BD5009C3A6A /* NavBar */,
+			);
+			path = CommonMethods;
+			sourceTree = "<group>";
+		};
+		BF8C0DC228C19BD5009C3A6A /* NavBar */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DC328C19BD5009C3A6A /* NavBar.xib */,
+				BF8C0DC428C19BD5009C3A6A /* NavBar.swift */,
+			);
+			path = NavBar;
+			sourceTree = "<group>";
+		};
+		BF8C0DC528C19BD5009C3A6A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DC628C19BD5009C3A6A /* TableViewHelper.swift */,
+				BF8C0DC728C19BD5009C3A6A /* UIViewControllerExtension.swift */,
+				BF8C0DC828C19BD5009C3A6A /* ButtonExtension.swift */,
+				BF8C0DC928C19BD5009C3A6A /* UIKitHelper.swift */,
+				BF8C0DCA28C19BD5009C3A6A /* TableViewExtensions.swift */,
+				BF8C0DCB28C19BD5009C3A6A /* StringExtension.swift */,
+				BF8C0DCC28C19BD5009C3A6A /* TextFieldExtension.swift */,
+				BF8C0DCD28C19BD5009C3A6A /* DateExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BF8C0DCF28C19BD5009C3A6A /* UIFonts */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DCE28C19BD5009C3A6A /* ColorManager.swift */,
+				BF8C0DD028C19BD5009C3A6A /* FontManager.swift */,
+				BF8C0DD128C19BD5009C3A6A /* UIColorManager.swift */,
+				BF8C0DD228C19BD5009C3A6A /* Oswald */,
+				BF8C0DDA28C19BD5009C3A6A /* Poppins */,
+				BF8C0DE428C19BD5009C3A6A /* OpenSans */,
+			);
+			path = UIFonts;
+			sourceTree = "<group>";
+		};
+		BF8C0DD228C19BD5009C3A6A /* Oswald */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DD328C19BD5009C3A6A /* Oswald-Bold.ttf */,
+				BF8C0DD428C19BD5009C3A6A /* Oswald-SemiBold.ttf */,
+				BF8C0DD528C19BD5009C3A6A /* Lato-Regular.ttf */,
+				BF8C0DD628C19BD5009C3A6A /* Lato-Semibold.ttf */,
+				BF8C0DD728C19BD5009C3A6A /* Oswald-Regular.ttf */,
+				BF8C0DD828C19BD5009C3A6A /* Lato-Light.ttf */,
+				BF8C0DD928C19BD5009C3A6A /* Lato-Medium.ttf */,
+			);
+			path = Oswald;
+			sourceTree = "<group>";
+		};
+		BF8C0DDA28C19BD5009C3A6A /* Poppins */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DDB28C19BD5009C3A6A /* Roboto-Medium.ttf */,
+				BF8C0DDC28C19BD5009C3A6A /* Poppins-Light.ttf */,
+				BF8C0DDD28C19BD5009C3A6A /* Poppins-Medium.ttf */,
+				BF8C0DDE28C19BD5009C3A6A /* Oswald-Medium.ttf */,
+				BF8C0DDF28C19BD5009C3A6A /* Poppins-ExtraBold.ttf */,
+				BF8C0DE028C19BD5009C3A6A /* OpenSans-Medium.ttf */,
+				BF8C0DE128C19BD5009C3A6A /* Poppins-Bold.ttf */,
+				BF8C0DE228C19BD5009C3A6A /* Poppins-Black.ttf */,
+				BF8C0DE328C19BD5009C3A6A /* Poppins-SemiBold.ttf */,
+			);
+			path = Poppins;
+			sourceTree = "<group>";
+		};
+		BF8C0DE428C19BD5009C3A6A /* OpenSans */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DE528C19BD5009C3A6A /* OpenSans-Semibold.ttf */,
+				BF8C0DE628C19BD5009C3A6A /* OpenSans-Light.ttf */,
+				BF8C0DE728C19BD5009C3A6A /* OpenSans-Bold.ttf */,
+				BF8C0DE828C19BD5009C3A6A /* OpenSans-Regular.ttf */,
+			);
+			path = OpenSans;
+			sourceTree = "<group>";
+		};
+		BF8C0DE928C19BD5009C3A6A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DEA28C19BD5009C3A6A /* DeviceName.swift */,
+				BF8C0DEB28C19BD5009C3A6A /* NSObject+Helper.swift */,
+				BF8C0DEC28C19BD5009C3A6A /* Decodable.swift */,
+				BF8C0DED28C19BD5009C3A6A /* Loader.swift */,
+				BF8C0DEE28C19BD5009C3A6A /* BaseViewModelProtocol.swift */,
+				BF8C0DEF28C19BD5009C3A6A /* ProgressHUD.swift */,
+				BF8C0DF028C19BD5009C3A6A /* StoryboardExtension.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		BF8C0DF128C19BD5009C3A6A /* Service Manager */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C0DF228C19BD5009C3A6A /* ServiceManager.swift */,
+			);
+			path = "Service Manager";
+			sourceTree = "<group>";
+		};
+		E3FC1F7ED70C55003F614F1A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DC63A1D3AF4A39A9691B38A2 /* Pods_KuwaitWays.framework */,
+				92F960E74172B4D75A4F05B8 /* Pods_KuwaitWays_KuwaitWaysUITests.framework */,
+				AD5A5F32473A8084BE83BB18 /* Pods_KuwaitWaysTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BF8C0CB328C19B86009C3A6A /* KuwaitWays */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF8C0CDE28C19B88009C3A6A /* Build configuration list for PBXNativeTarget "KuwaitWays" */;
+			buildPhases = (
+				217B10D86F59DC1E85712532 /* [CP] Check Pods Manifest.lock */,
+				BF8C0CB028C19B86009C3A6A /* Sources */,
+				BF8C0CB128C19B86009C3A6A /* Frameworks */,
+				BF8C0CB228C19B86009C3A6A /* Resources */,
+				364958FBF8B43F6B3293D003 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KuwaitWays;
+			productName = KuwaitWays;
+			productReference = BF8C0CB428C19B86009C3A6A /* KuwaitWays.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BF8C0CC928C19B88009C3A6A /* KuwaitWaysTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF8C0CE128C19B88009C3A6A /* Build configuration list for PBXNativeTarget "KuwaitWaysTests" */;
+			buildPhases = (
+				882E893238D4CAEB22283233 /* [CP] Check Pods Manifest.lock */,
+				BF8C0CC628C19B88009C3A6A /* Sources */,
+				BF8C0CC728C19B88009C3A6A /* Frameworks */,
+				BF8C0CC828C19B88009C3A6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF8C0CCC28C19B88009C3A6A /* PBXTargetDependency */,
+			);
+			name = KuwaitWaysTests;
+			productName = KuwaitWaysTests;
+			productReference = BF8C0CCA28C19B88009C3A6A /* KuwaitWaysTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BF8C0CD328C19B88009C3A6A /* KuwaitWaysUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF8C0CE428C19B88009C3A6A /* Build configuration list for PBXNativeTarget "KuwaitWaysUITests" */;
+			buildPhases = (
+				122DA7D17BD358F003DD2F07 /* [CP] Check Pods Manifest.lock */,
+				BF8C0CD028C19B88009C3A6A /* Sources */,
+				BF8C0CD128C19B88009C3A6A /* Frameworks */,
+				BF8C0CD228C19B88009C3A6A /* Resources */,
+				04EA96418118B59152A61B53 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF8C0CD628C19B88009C3A6A /* PBXTargetDependency */,
+			);
+			name = KuwaitWaysUITests;
+			productName = KuwaitWaysUITests;
+			productReference = BF8C0CD428C19B88009C3A6A /* KuwaitWaysUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BF8C0CAC28C19B86009C3A6A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					BF8C0CB328C19B86009C3A6A = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					BF8C0CC928C19B88009C3A6A = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = BF8C0CB328C19B86009C3A6A;
+					};
+					BF8C0CD328C19B88009C3A6A = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = BF8C0CB328C19B86009C3A6A;
+					};
+				};
+			};
+			buildConfigurationList = BF8C0CAF28C19B86009C3A6A /* Build configuration list for PBXProject "KuwaitWays" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BF8C0CAB28C19B86009C3A6A;
+			productRefGroup = BF8C0CB528C19B86009C3A6A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BF8C0CB328C19B86009C3A6A /* KuwaitWays */,
+				BF8C0CC928C19B88009C3A6A /* KuwaitWaysTests */,
+				BF8C0CD328C19B88009C3A6A /* KuwaitWaysUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BF8C0CB228C19B86009C3A6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF8B460628C2F0EC00D33A20 /* OpenSans-Regular.ttf in Resources */,
+				BF8C0E9428C19BD5009C3A6A /* Poppins-Bold.ttf in Resources */,
+				BF8C0E8E28C19BD5009C3A6A /* Roboto-Medium.ttf in Resources */,
+				BF8C0E2428C19BD5009C3A6A /* FromCityTVCell.xib in Resources */,
+				BF8C0E7228C19BD5009C3A6A /* TitleLblTVCell.xib in Resources */,
+				BF8C0E0B28C19BD5009C3A6A /* AmenitiesCVCell.xib in Resources */,
+				BF8C0E7A28C19BD5009C3A6A /* NavBar.xib in Resources */,
+				BF8C0E4928C19BD5009C3A6A /* ChooseProfilPpictureTVCell.xib in Resources */,
+				BF8C0CC428C19B87009C3A6A /* LaunchScreen.storyboard in Resources */,
+				BF8C0E5D28C19BD5009C3A6A /* RadioButtonTVCell.xib in Resources */,
+				BF8C0E8928C19BD5009C3A6A /* Lato-Regular.ttf in Resources */,
+				BF8C0E0828C19BD5009C3A6A /* HotelImageCVCell.xib in Resources */,
+				BF8C0E8A28C19BD5009C3A6A /* Lato-Semibold.ttf in Resources */,
+				BF8C0E0628C19BD5009C3A6A /* RoomsTVCell.xib in Resources */,
+				BF8C0E5528C19BD5009C3A6A /* calendarCVCell.xib in Resources */,
+				BF8C0E6C28C19BD5009C3A6A /* LogoImgTVCell.xib in Resources */,
+				BF8C0E6F28C19BD5009C3A6A /* SignUpWithTVCell.xib in Resources */,
+				BF8C0E4028C19BD5009C3A6A /* SelectTabTVCell.xib in Resources */,
+				BF8C0E2528C19BD5009C3A6A /* PriceSummaryTVCell.xib in Resources */,
+				BF8C0E3028C19BD5009C3A6A /* AddCityTVCell.xib in Resources */,
+				BF8C0E6828C19BD5009C3A6A /* LabelTVCell.xib in Resources */,
+				BF8C0E0A28C19BD5009C3A6A /* StarRatingCVCell.xib in Resources */,
+				BF8C0E4E28C19BD5009C3A6A /* ItineraryCVCell.xib in Resources */,
+				BF8C0E6028C19BD5009C3A6A /* MenuBGTVCell.xib in Resources */,
+				BF8C0E9228C19BD5009C3A6A /* Poppins-ExtraBold.ttf in Resources */,
+				BF8C0E9728C19BD5009C3A6A /* OpenSans-Semibold.ttf in Resources */,
+				BF8C0E9528C19BD5009C3A6A /* Poppins-Black.ttf in Resources */,
+				BF8C0E5028C19BD5009C3A6A /* BaggageDateCVCell.xib in Resources */,
+				BF8C0DFE28C19BD5009C3A6A /* TwinSuperiorRoomTVCell.xib in Resources */,
+				BF8C0E0128C19BD5009C3A6A /* HotelSearchResultTVCell.xib in Resources */,
+				BF8C0E2928C19BD5009C3A6A /* SearchFlightResultInfoTVCell.xib in Resources */,
+				BF8C0E5F28C19BD5009C3A6A /* TextfieldTVCell.xib in Resources */,
+				BF8C0E9328C19BD5009C3A6A /* OpenSans-Medium.ttf in Resources */,
+				BF8C0E2228C19BD5009C3A6A /* TDetailsLoginTVCell.xib in Resources */,
+				BF8C0E2728C19BD5009C3A6A /* SliderTVCell.xib in Resources */,
+				BF8C0DFF28C19BD5009C3A6A /* HotelImagesTVCell.xib in Resources */,
+				BF8C0E9028C19BD5009C3A6A /* Poppins-Medium.ttf in Resources */,
+				BF8C0E8B28C19BD5009C3A6A /* Oswald-Regular.ttf in Resources */,
+				BF8C0E8F28C19BD5009C3A6A /* Poppins-Light.ttf in Resources */,
+				BF8C0E0D28C19BD5009C3A6A /* Hotel.storyboard in Resources */,
+				BF8C0DF928C19BD5009C3A6A /* FacilitiesTVCell.xib in Resources */,
+				BF8C0E3B28C19BD5009C3A6A /* PromocodeTVCell.xib in Resources */,
+				BF8C0E2D28C19BD5009C3A6A /* MultiCityTripTVCell.xib in Resources */,
+				BF8C0DFB28C19BD5009C3A6A /* StarRatingTVCell.xib in Resources */,
+				BF8C0E6B28C19BD5009C3A6A /* LabelWithButtonTVCell.xib in Resources */,
+				BF8C0E4628C19BD5009C3A6A /* SearchFlightTVCell.xib in Resources */,
+				BF8C0E7128C19BD5009C3A6A /* EmptyTVCell.xib in Resources */,
+				BF8C0E3428C19BD5009C3A6A /* HotelDealsTVCell.xib in Resources */,
+				BF8C0E3228C19BD5009C3A6A /* MulticityFromToTVCell.xib in Resources */,
+				BF8C0E9828C19BD5009C3A6A /* OpenSans-Light.ttf in Resources */,
+				BF8C0E9628C19BD5009C3A6A /* Poppins-SemiBold.ttf in Resources */,
+				BF8C0E3828C19BD5009C3A6A /* TravellerEconomyTVCell.xib in Resources */,
+				BF8C0E8D28C19BD5009C3A6A /* Lato-Medium.ttf in Resources */,
+				BF8C0E4128C19BD5009C3A6A /* AddTravellersDetailsTVCell.xib in Resources */,
+				BF8C0E3D28C19BD5009C3A6A /* SelectLanguageTVCell.xib in Resources */,
+				BF8C0E4C28C19BD5009C3A6A /* checkOptionsTVCell.xib in Resources */,
+				BF8C0E8828C19BD5009C3A6A /* Oswald-SemiBold.ttf in Resources */,
+				BF8C0E9128C19BD5009C3A6A /* Oswald-Medium.ttf in Resources */,
+				BF8C0E3528C19BD5009C3A6A /* BookNowTVCell.xib in Resources */,
+				BF8C0E5728C19BD5009C3A6A /* Login.storyboard in Resources */,
+				BF8C0E1028C19BD5009C3A6A /* Main.storyboard in Resources */,
+				BF8C0E8C28C19BD5009C3A6A /* Lato-Light.ttf in Resources */,
+				BF8C0CC128C19B87009C3A6A /* Assets.xcassets in Resources */,
+				BF8C0E9928C19BD5009C3A6A /* OpenSans-Bold.ttf in Resources */,
+				BF8C0E6228C19BD5009C3A6A /* SelectGenderTVCell.xib in Resources */,
+				BF8C0DF728C19BD5009C3A6A /* PriceLabelsTVCell.xib in Resources */,
+				BF8C0E4728C19BD5009C3A6A /* DualViewTVCell.xib in Resources */,
+				BF8C0E3928C19BD5009C3A6A /* FareBreakdownTVCell.xib in Resources */,
+				BF8C0E5428C19BD5009C3A6A /* HotelDealsCVCell.xib in Resources */,
+				BF8C0E2C28C19BD5009C3A6A /* CheckBoxTVCell.xib in Resources */,
+				BF8C0E4328C19BD5009C3A6A /* HolderViewTVCell.xib in Resources */,
+				BF8C0E6628C19BD5009C3A6A /* UnderLineTVCell.xib in Resources */,
+				BF8C0E0428C19BD5009C3A6A /* RatingWithLabelsTVCell.xib in Resources */,
+				BF8C0E5228C19BD5009C3A6A /* SelectTabCVCell.xib in Resources */,
+				BF8C0E6428C19BD5009C3A6A /* ButtonTVCell.xib in Resources */,
+				BF8C0E8728C19BD5009C3A6A /* Oswald-Bold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF8C0CC828C19B88009C3A6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF8C0CD228C19B88009C3A6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04EA96418118B59152A61B53 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KuwaitWays-KuwaitWaysUITests/Pods-KuwaitWays-KuwaitWaysUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KuwaitWays-KuwaitWaysUITests/Pods-KuwaitWays-KuwaitWaysUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KuwaitWays-KuwaitWaysUITests/Pods-KuwaitWays-KuwaitWaysUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		122DA7D17BD358F003DD2F07 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KuwaitWays-KuwaitWaysUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		217B10D86F59DC1E85712532 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KuwaitWays-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		364958FBF8B43F6B3293D003 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KuwaitWays/Pods-KuwaitWays-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KuwaitWays/Pods-KuwaitWays-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KuwaitWays/Pods-KuwaitWays-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		882E893238D4CAEB22283233 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KuwaitWaysTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BF8C0CB028C19B86009C3A6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF8C0E8628C19BD5009C3A6A /* UIColorManager.swift in Sources */,
+				BF8C0E7628C19BD5009C3A6A /* BaseTableVC.swift in Sources */,
+				BF8C0E6E28C19BD5009C3A6A /* SignUpWithTVCell.swift in Sources */,
+				BF8C0E3328C19BD5009C3A6A /* HotelDealsTVCell.swift in Sources */,
+				BF8C0E5928C19BD5009C3A6A /* ResetPasswordVC.swift in Sources */,
+				BF8C0E2328C19BD5009C3A6A /* FromCityTVCell.swift in Sources */,
+				BF8C0E4828C19BD5009C3A6A /* DualViewTVCell.swift in Sources */,
+				BF8C0E6928C19BD5009C3A6A /* LabelTVCell.swift in Sources */,
+				BF8C0E5628C19BD5009C3A6A /* calendarCVCell.swift in Sources */,
+				BF8C0E1C28C19BD5009C3A6A /* PayNowVC.swift in Sources */,
+				BF8C0DF428C19BD5009C3A6A /* SelectedHotelInfoVC.swift in Sources */,
+				BF8C0E0E28C19BD5009C3A6A /* SelectCityViewModel.swift in Sources */,
+				BF8C0E7828C19BD5009C3A6A /* Constants.swift in Sources */,
+				BF8C0E6A28C19BD5009C3A6A /* LabelWithButtonTVCell.swift in Sources */,
+				BF8C0E5E28C19BD5009C3A6A /* TextfieldTVCell.swift in Sources */,
+				BF8C0E7528C19BD5009C3A6A /* TableViewCell.swift in Sources */,
+				BF8C0DF328C19BD5009C3A6A /* MapViewVC.swift in Sources */,
+				BF8C0E0928C19BD5009C3A6A /* StarRatingCVCell.swift in Sources */,
+				BF8C0E7B28C19BD5009C3A6A /* NavBar.swift in Sources */,
+				BF8C0E5A28C19BD5009C3A6A /* EditProfileVC.swift in Sources */,
+				BF8C0E7C28C19BD5009C3A6A /* TableViewHelper.swift in Sources */,
+				BF8C0E7F28C19BD5009C3A6A /* UIKitHelper.swift in Sources */,
+				BF8C0E7D28C19BD5009C3A6A /* UIViewControllerExtension.swift in Sources */,
+				BF8C0E2B28C19BD5009C3A6A /* CheckBoxTVCell.swift in Sources */,
+				BF8C0DFC28C19BD5009C3A6A /* StarRatingTVCell.swift in Sources */,
+				BF8C0E0C28C19BD5009C3A6A /* AmenitiesCVCell.swift in Sources */,
+				BF8C0E8028C19BD5009C3A6A /* TableViewExtensions.swift in Sources */,
+				BF8C0E8428C19BD5009C3A6A /* ColorManager.swift in Sources */,
+				BF8C0E1828C19BD5009C3A6A /* SaveTravellersDetailsVC.swift in Sources */,
+				BF8C0E1728C19BD5009C3A6A /* SelectFromCityVC.swift in Sources */,
+				BF8C0E6728C19BD5009C3A6A /* UnderLineTVCell.swift in Sources */,
+				BF8C0E0F28C19BD5009C3A6A /* SelectCityModel.swift in Sources */,
+				BF8C0E0228C19BD5009C3A6A /* HotelSearchResultTVCell.swift in Sources */,
+				BF8C0E9D28C19BD5009C3A6A /* Decodable.swift in Sources */,
+				BF8C0E6D28C19BD5009C3A6A /* LogoImgTVCell.swift in Sources */,
+				BF8C0DF828C19BD5009C3A6A /* PriceLabelsTVCell.swift in Sources */,
+				BF8C0E2628C19BD5009C3A6A /* PriceSummaryTVCell.swift in Sources */,
+				BF8C0E1F28C19BD5009C3A6A /* DashBoardVC.swift in Sources */,
+				BF8C0E3F28C19BD5009C3A6A /* SelectTabTVCell.swift in Sources */,
+				BF8C0E6128C19BD5009C3A6A /* MenuBGTVCell.swift in Sources */,
+				BF8C0E4428C19BD5009C3A6A /* HolderViewTVCell.swift in Sources */,
+				BF8C0E7928C19BD5009C3A6A /* SessionManager.swift in Sources */,
+				BF8C0E2E28C19BD5009C3A6A /* MultiCityTripTVCell.swift in Sources */,
+				BF8C0DF528C19BD5009C3A6A /* BookHotelVC.swift in Sources */,
+				BF8C0E6328C19BD5009C3A6A /* SelectGenderTVCell.swift in Sources */,
+				BF8C0E4A28C19BD5009C3A6A /* ChooseProfilPpictureTVCell.swift in Sources */,
+				BF8C0E2128C19BD5009C3A6A /* TDetailsLoginTVCell.swift in Sources */,
+				BF8C0E8128C19BD5009C3A6A /* StringExtension.swift in Sources */,
+				BF8C0E1D28C19BD5009C3A6A /* CalenderVC.swift in Sources */,
+				BF8C0E2828C19BD5009C3A6A /* SliderTVCell.swift in Sources */,
+				BF8C0E8328C19BD5009C3A6A /* DateExtension.swift in Sources */,
+				BF8C0E7028C19BD5009C3A6A /* EmptyTVCell.swift in Sources */,
+				BF8C0E1628C19BD5009C3A6A /* NoInternetConnectionVC.swift in Sources */,
+				BF8C0E4B28C19BD5009C3A6A /* checkOptionsTVCell.swift in Sources */,
+				BF8C0E2F28C19BD5009C3A6A /* AddCityTVCell.swift in Sources */,
+				BF8C0E2028C19BD5009C3A6A /* FilterSearchVC.swift in Sources */,
+				BF8C0E7728C19BD5009C3A6A /* UIModels.swift in Sources */,
+				BF8C0E1228C19BD5009C3A6A /* SideMenuVC.swift in Sources */,
+				BF8C0E3128C19BD5009C3A6A /* MulticityFromToTVCell.swift in Sources */,
+				BF8C0E0028C19BD5009C3A6A /* HotelImagesTVCell.swift in Sources */,
+				BF8C0E0528C19BD5009C3A6A /* RoomsTVCell.swift in Sources */,
+				BF8C0E4228C19BD5009C3A6A /* AddTravellersDetailsTVCell.swift in Sources */,
+				BF8C0E9F28C19BD6009C3A6A /* BaseViewModelProtocol.swift in Sources */,
+				BF8C0E0728C19BD5009C3A6A /* HotelImageCVCell.swift in Sources */,
+				BF8C0CB828C19B86009C3A6A /* AppDelegate.swift in Sources */,
+				BF8C0E9B28C19BD5009C3A6A /* DeviceName.swift in Sources */,
+				BF8C0DFA28C19BD5009C3A6A /* FacilitiesTVCell.swift in Sources */,
+				BF8C0E4F28C19BD5009C3A6A /* BaggageDateCVCell.swift in Sources */,
+				BF8C0E1E28C19BD5009C3A6A /* MyAccountVC.swift in Sources */,
+				BF8C0E1B28C19BD5009C3A6A /* BookFlightVC.swift in Sources */,
+				BF8C0DFD28C19BD5009C3A6A /* TwinSuperiorRoomTVCell.swift in Sources */,
+				BF8C0E3A28C19BD5009C3A6A /* FareBreakdownTVCell.swift in Sources */,
+				BF8C0DF628C19BD5009C3A6A /* HotelSearchResultVC.swift in Sources */,
+				BF8C0EA128C19BD6009C3A6A /* StoryboardExtension.swift in Sources */,
+				BF8C0E6528C19BD5009C3A6A /* ButtonTVCell.swift in Sources */,
+				BF8C0E8228C19BD5009C3A6A /* TextFieldExtension.swift in Sources */,
+				BF8C0E1128C19BD5009C3A6A /* ViewController.swift in Sources */,
+				BF8C0E7428C19BD5009C3A6A /* BaseVC.swift in Sources */,
+				BF8C0E1928C19BD5009C3A6A /* SearchFlightResultVC.swift in Sources */,
+				BF8C0E3628C19BD5009C3A6A /* BookNowTVCell.swift in Sources */,
+				BF8C0CBA28C19B86009C3A6A /* SceneDelegate.swift in Sources */,
+				BF8C0E7E28C19BD5009C3A6A /* ButtonExtension.swift in Sources */,
+				BF8C0E0328C19BD5009C3A6A /* RatingWithLabelsTVCell.swift in Sources */,
+				BF8C0E1428C19BD5009C3A6A /* SelectLanguageVC.swift in Sources */,
+				BF8C0E4528C19BD5009C3A6A /* SearchFlightTVCell.swift in Sources */,
+				BF8C0E5C28C19BD5009C3A6A /* RadioButtonTVCell.swift in Sources */,
+				BF8C0E5128C19BD5009C3A6A /* SelectTabCVCell.swift in Sources */,
+				BF8C0E3C28C19BD5009C3A6A /* PromocodeTVCell.swift in Sources */,
+				BF8C0EA228C19BD6009C3A6A /* ServiceManager.swift in Sources */,
+				BF8C0E9C28C19BD5009C3A6A /* NSObject+Helper.swift in Sources */,
+				BF8C0E9E28C19BD6009C3A6A /* Loader.swift in Sources */,
+				BF8C0E1A28C19BD5009C3A6A /* TravellerEconomyVC.swift in Sources */,
+				BF8C0E3728C19BD5009C3A6A /* TravellerEconomyTVCell.swift in Sources */,
+				BF8C0E1528C19BD5009C3A6A /* DBTabbarController.swift in Sources */,
+				BF8C0E5828C19BD5009C3A6A /* LoginVC.swift in Sources */,
+				BF8C0E5328C19BD5009C3A6A /* HotelDealsCVCell.swift in Sources */,
+				BF8C0E7328C19BD5009C3A6A /* TitleLblTVCell.swift in Sources */,
+				BF8C0E2A28C19BD5009C3A6A /* SearchFlightResultInfoTVCell.swift in Sources */,
+				BF8C0E1328C19BD5009C3A6A /* SelectedFlightInfoVC.swift in Sources */,
+				BF8C0E4D28C19BD5009C3A6A /* ItineraryCVCell.swift in Sources */,
+				BF8C0E5B28C19BD5009C3A6A /* CreateAccountVC.swift in Sources */,
+				BF8C0E8528C19BD5009C3A6A /* FontManager.swift in Sources */,
+				BF8C0E3E28C19BD5009C3A6A /* SelectLanguageTVCell.swift in Sources */,
+				BF8C0EA028C19BD6009C3A6A /* ProgressHUD.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF8C0CC628C19B88009C3A6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF8C0CCF28C19B88009C3A6A /* KuwaitWaysTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF8C0CD028C19B88009C3A6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF8C0CD928C19B88009C3A6A /* KuwaitWaysUITests.swift in Sources */,
+				BF8C0CDB28C19B88009C3A6A /* KuwaitWaysUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BF8C0CCC28C19B88009C3A6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF8C0CB328C19B86009C3A6A /* KuwaitWays */;
+			targetProxy = BF8C0CCB28C19B88009C3A6A /* PBXContainerItemProxy */;
+		};
+		BF8C0CD628C19B88009C3A6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF8C0CB328C19B86009C3A6A /* KuwaitWays */;
+			targetProxy = BF8C0CD528C19B88009C3A6A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BF8C0CC228C19B87009C3A6A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF8C0CC328C19B87009C3A6A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BF8C0D1D28C19BD4009C3A6A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF8C0D1E28C19BD4009C3A6A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BF8C0CDC28C19B88009C3A6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BF8C0CDD28C19B88009C3A6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BF8C0CDF28C19B88009C3A6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDEE16653E1F18F4B5BEB1EA /* Pods-KuwaitWays.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 5TLY5PME9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KuwaitWays/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.provab.KuwaitWays;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		BF8C0CE028C19B88009C3A6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D55A0C004E1C3A701D476D67 /* Pods-KuwaitWays.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 5TLY5PME9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KuwaitWays/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.provab.KuwaitWays;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		BF8C0CE228C19B88009C3A6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F9810CCDA7359444081E44F5 /* Pods-KuwaitWaysTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5TLY5PME9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = provab.KuwaitWaysTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KuwaitWays.app/KuwaitWays";
+			};
+			name = Debug;
+		};
+		BF8C0CE328C19B88009C3A6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEC2B30ED95B66AD15FE462C /* Pods-KuwaitWaysTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5TLY5PME9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = provab.KuwaitWaysTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KuwaitWays.app/KuwaitWays";
+			};
+			name = Release;
+		};
+		BF8C0CE528C19B88009C3A6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D098E1EECE1B716A752A03D /* Pods-KuwaitWays-KuwaitWaysUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5TLY5PME9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = provab.KuwaitWaysUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KuwaitWays;
+			};
+			name = Debug;
+		};
+		BF8C0CE628C19B88009C3A6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84D0AFEEFF41056A69A6C594 /* Pods-KuwaitWays-KuwaitWaysUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5TLY5PME9K;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = provab.KuwaitWaysUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KuwaitWays;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BF8C0CAF28C19B86009C3A6A /* Build configuration list for PBXProject "KuwaitWays" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF8C0CDC28C19B88009C3A6A /* Debug */,
+				BF8C0CDD28C19B88009C3A6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF8C0CDE28C19B88009C3A6A /* Build configuration list for PBXNativeTarget "KuwaitWays" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF8C0CDF28C19B88009C3A6A /* Debug */,
+				BF8C0CE028C19B88009C3A6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF8C0CE128C19B88009C3A6A /* Build configuration list for PBXNativeTarget "KuwaitWaysTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF8C0CE228C19B88009C3A6A /* Debug */,
+				BF8C0CE328C19B88009C3A6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF8C0CE428C19B88009C3A6A /* Build configuration list for PBXNativeTarget "KuwaitWaysUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF8C0CE528C19B88009C3A6A /* Debug */,
+				BF8C0CE628C19B88009C3A6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BF8C0CAC28C19B86009C3A6A /* Project object */;
+}
