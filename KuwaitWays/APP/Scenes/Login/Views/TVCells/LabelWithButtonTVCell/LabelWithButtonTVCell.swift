@@ -25,11 +25,11 @@ class LabelWithButtonTVCell: TableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        titlelbl.textColor = UIColor.AppSubtitleColor
+        titlelbl.textColor = UIColor.SubTitleColor
         titlelbl.font = .OpenSansMedium(size: 18)
         
        
-        btn.setTitleColor(.AppBtnColor, for: .normal)
+        btn.setTitleColor(.AppNavBackColor, for: .normal)
         btn.titleLabel?.font = .OpenSansMedium(size: 18)
         
     }
@@ -48,7 +48,7 @@ class LabelWithButtonTVCell: TableViewCell {
         
         if cellInfo?.key == "acccreate" {
             btn.setTitle("Create Account", for: .normal)
-            btn.setTitleColor(.AppBtnColor, for: .normal)
+            btn.setTitleColor(.AppNavBackColor, for: .normal)
         }
     }
     

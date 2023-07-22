@@ -16,6 +16,18 @@ protocol MultiCityTripTVCellDelegate {
 }
 
 class MultiCityTripTVCell: TableViewCell, ButtonTVCellDelegate, AddCityTVCellDelegate {
+    func didTapOnAddCityBtn(cell: AddCityTVCell) {
+        
+    }
+    
+    func didTapOnAddTravellerEconomy(cell: AddCityTVCell) {
+        
+    }
+    
+    func didTapOnMultiCityTripSearchFlight(cell: AddCityTVCell) {
+        
+    }
+    
     
     
     @IBOutlet weak var holderView: UIView!
@@ -44,7 +56,7 @@ class MultiCityTripTVCell: TableViewCell, ButtonTVCellDelegate, AddCityTVCellDel
     }
     
     func setupTV() {
-        multiTripTV.backgroundColor = .AppBGColor
+        multiTripTV.backgroundColor = .AppHolderViewColor
         multiTripTV.register(UINib(nibName: "AddCityTVCell", bundle: nil), forCellReuseIdentifier: "cell1")
         multiTripTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell2")
         multiTripTV.register(UINib(nibName: "ButtonTVCell", bundle: nil), forCellReuseIdentifier: "cell3")
@@ -53,7 +65,7 @@ class MultiCityTripTVCell: TableViewCell, ButtonTVCellDelegate, AddCityTVCellDel
         multiTripTV.dataSource = self
         multiTripTV.tableFooterView = UIView()
         multiTripTV.separatorStyle = .none
-        multiTripTV.backgroundColor = .AppBGColor
+        multiTripTV.backgroundColor = .AppHolderViewColor
         multiTripTV.layer.cornerRadius = 8
         multiTripTV.clipsToBounds = true
         
@@ -110,13 +122,13 @@ extension MultiCityTripTVCell:UITableViewDataSource,UITableViewDelegate {
                 cell.locImg.image = UIImage(named: "traveler")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                 cell.dropdownimg.isHidden = false
                 cell.tag = 3
-                cell.fromBtn.addTarget(self, action: #selector(didTapOnAddTravellerEconomy(cell:)), for: .touchUpInside)
+              //  cell.fromBtn.addTarget(self, action: #selector(didTapOnAddTravellerEconomy(cell:)), for: .touchUpInside)
                 c = cell
             }
         }else {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell3") as? ButtonTVCell {
                 cell.titlelbl.text = "Search Flights"
-                cell.holderView.backgroundColor = .AppBGColor
+                cell.holderView.backgroundColor = .AppHolderViewColor
                 cell.btnLeftConstraint.constant = 16
                 cell.delegate = self
                 c = cell

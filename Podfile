@@ -21,6 +21,7 @@ target 'KuwaitWays' do
   pod 'TTRangeSlider'
   pod 'MaterialComponents/TextControls+OutlinedTextFields'
   pod 'AARatingBar'
+  pod 'Alamofire'
 
 
   target 'KuwaitWaysTests' do

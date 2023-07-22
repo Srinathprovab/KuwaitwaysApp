@@ -7,14 +7,19 @@
 
 import UIKit
 
-class SelectedFlightInfoVC: BaseTableVC {
+class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate {
+    
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
     @IBOutlet weak var navHeight: NSLayoutConstraint!
     @IBOutlet weak var cvHolderView: UIView!
     @IBOutlet weak var itineraryCV: UICollectionView!
-    
+    @IBOutlet weak var bookNowHolderView: UIView!
+    @IBOutlet weak var titlelbl: UILabel!
+    @IBOutlet weak var bookNowView: UIView!
+    @IBOutlet weak var bookNowlbl: UILabel!
+    @IBOutlet weak var bookNowBtn: UIButton!
     
     static var newInstance: SelectedFlightInfoVC? {
         let storyboard = UIStoryboard(name: Storyboard.Main.name,
@@ -29,46 +34,194 @@ class SelectedFlightInfoVC: BaseTableVC {
     var traveller = String()
     var tablerow = [TableRow]()
     var cellIndex = Int()
-    var newString = "Tickets are Non-Refundable and Non-Transferable.\n\nName changes are not permitted.\n\nPlease ensure Passenger names provided are\n\nexactly as written on the passport.\n\nFlight date or routing change must be done\n\nprior to the originally scheduled flight.\n\nChanges are not allowed if the passenger is a NO-SHOW\n\nFlight date or routing change may incur change fee\n\nPlus Fare and tax difference.\n\nSome fares may not allow any changes.\n\nPer change will apply over and above airline fee.\n\nIt is your responsibility to ensure that you have\n\nAppropriate documents to travel\n\nPASSPORT MUST BE VALID FOR 6 MONTHS\n\nBEYOND THE INTENDED PERIOD OF STAY.\n\nAt any event, entry may be refused\\neven with a valid passport and/or visa.\n\nAdvance seat assignments, seating configurations\n\nFlight schedules, terminal, aircraft type may change\n\nwith or Without notice and are never guaranteed.\n\n assumes no responsibility for missed flights,\n\nmissed connections, flight delays, cancelled flights\n\nor denied boarding.\n\nIt is recommended to reconfirm your flight details\n\nwith airlines 24 hours prior to departure. "
-    
-    
+    let refreshControl = UIRefreshControl()
+    var farepricedetails:PriceDetails?
+    var jm = [JourneySummary]()
+    var adultsCount = Int()
+    var childCount = Int()
+    var infantsCount = Int()
+    var fareRulesData = [FareRulehtml]()
+    var payload = [String:Any]()
+    var vm:FlightDetailsViewModel?
     override func viewWillAppear(_ animated: Bool) {
-       
-        if screenHeight > 800 {
-            navHeight.constant = 200
-        }else {
-            navHeight.constant = 160
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
+
+        
+        if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
+            if journeyType == "oneway" {
+                adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1") ?? 0
+                childCount = Int(defaults.string(forKey: UserDefaultsKeys.childCount) ?? "0") ?? 0
+                infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
+                
+                
+            }else if journeyType == "circle"{
+                adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1") ?? 0
+                childCount = Int(defaults.string(forKey: UserDefaultsKeys.rchildCount) ?? "0") ?? 0
+                infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.rinfantsCount) ?? "0") ?? 0
+            }else {
+                
+                adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1") ?? 0
+                childCount = Int(defaults.string(forKey: UserDefaultsKeys.mchildCount) ?? "0") ?? 0
+                infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0") ?? 0
+            }
         }
         
         
-        cellIndex = Int(defaults.string(forKey: UserDefaultsKeys.itinerarySelectedIndex) ?? "0") ?? 0
-        print("cellIndex \(cellIndex)")
-        itineraryCV.selectItem(at: IndexPath(item: cellIndex, section: 0), animated: true, scrollPosition: .left)
+        if  callapibool == true {
+            DispatchQueue.main.async {[self] in
+                holderView.isHidden = true
+                callAPI()
+            }
+        }
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
+    }
+    
+    @objc func stopTimer() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    @objc func offline(notificatio:UNNotification) {
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
+    }
+    
+ 
+    
+    
+    func callAPI() {
+        payload.removeAll()
+        payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+        let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+        if journyType == "multicity" {
+            payload["booking_source"] = bookingsource
+        }else {
+            payload["booking_source"] = bookingsource
+        }
+        payload["access_key"] = accesskey
+        payload["search_id"] = searchid
+        vm?.CALL_GET_FLIGHT_DETAILS_API(dictParam: payload)
+    }
+    
+    
+    
+    func flightDetails(response: FlightDetailsModel) {
+        
+        
+        holderView.isHidden = false
+        grandTotal = "\(response.priceDetails?.api_currency ?? ""):\(response.priceDetails?.grand_total ?? "")"
+        jm = response.journeySummary ?? []
+        fd = response.flightDetails ?? [[]]
+        fareRulesData = response.fareRulehtml ?? []
+        farepricedetails = response.priceDetails
+        baggageAllowance1 = response.baggageAllowance ?? []
+        
+        Adults_Base_Price = String(response.priceDetails?.adultsBasePrice ?? "0")
+        Adults_Tax_Price = String(response.priceDetails?.adultsTaxPrice ?? "0")
+        Childs_Base_Price = String(response.priceDetails?.childBasePrice ?? "0")
+        Childs_Tax_Price = String(response.priceDetails?.childTaxPrice ?? "0")
+        Infants_Base_Price = String(response.priceDetails?.infantBasePrice ?? "0")
+        Infants_Tax_Price = String(response.priceDetails?.infantTaxPrice ?? "0")
+        AdultsTotalPrice = String(response.priceDetails?.adultsTotalPrice ?? "0")
+        ChildTotalPrice = String(response.priceDetails?.childTotalPrice ?? "0")
+        InfantTotalPrice = String(response.priceDetails?.infantTotalPrice ?? "0")
+        sub_total_adult = String(response.priceDetails?.sub_total_adult ?? "0")
+        sub_total_child = String(response.priceDetails?.sub_total_child ?? "0")
+        sub_total_infant = String(response.priceDetails?.sub_total_infant ?? "0")
+        
+        DispatchQueue.main.async {[self] in
+            setupUI()
+        }
         
         
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        self.view.backgroundColor = .WhiteColor
+        
+        vm = FlightDetailsViewModel(self)
     }
     
     
     func setupUI() {
-        cvHolderView.backgroundColor = .AppBtnColor
-        holderView.backgroundColor = .AppBGcolor
+        holderView.backgroundColor = .AppHolderViewColor
+        cvHolderView.backgroundColor = .AppNavBackColor
+        commonTableView.backgroundColor = .AppHolderViewColor
+        
+        setupCV()
+        
+        if screenHeight > 835 {
+            navHeight.constant = 180
+        }else {
+            navHeight.constant = 140
+        }
+        
+        
         nav.titlelbl.text = ""
         nav.backBtn.addTarget(self, action: #selector(gotoBackScreen), for: .touchUpInside)
         nav.citylbl.isHidden = false
         nav.datelbl.isHidden = false
         nav.travellerlbl.isHidden = false
-        nav.citylbl.text = "Dubai(DXB) - Kuwait(KWI)"
-        nav.datelbl.text = "Thu, 26 Jul  Fri, 27 Jul"
-        nav.travellerlbl.text = "1 Traveller , Economy"
+        nav.citylbl.text = defaults.string(forKey: UserDefaultsKeys.journeyCitys) ?? ""
+        nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""
+        let jt = defaults.string(forKey: UserDefaultsKeys.journeyType)
+        if jt == "oneway" {
+            nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
+        }else if jt == "circle" {
+            nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? ""
+        }else {
+            nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
+        }
         
-        setupCV()
+        cellIndex = Int(defaults.string(forKey: UserDefaultsKeys.itinerarySelectedIndex) ?? "0") ?? 0
+        print("cellIndex \(cellIndex)")
+        itineraryCV.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
+        
+        
+        
+        
+        setupViews(v: bookNowHolderView, radius: 0, color: .AppJournyTabSelectColor)
+        setupViews(v: bookNowView, radius: 6, color: .AppNavBackColor)
+        setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .oswaldRegular(size: 20))
+        setupLabels(lbl: bookNowlbl, text: "BOOK NOW", textcolor: .WhiteColor, font: .oswaldRegular(size: 16))
+        bookNowBtn.setTitle("", for: .normal)
+        
+        commonTableView.registerTVCells(["AddItineraryTVCell",
+                                         "BookNowTVCell",
+                                         "EmptyTVCell",
+                                         "TitleLblTVCell",
+                                         "FareBreakdownTVCell",
+                                         "BaggageInfoTVCell",
+                                         "FareRulesTVCell",
+                                         "RadioButtonTVCell"])
+        
+        
+        
+        setupItineraryTVCells()
     }
     
+    func setupViews(v:UIView,radius:CGFloat,color:UIColor) {
+        v.backgroundColor = color
+        v.layer.cornerRadius = radius
+        v.clipsToBounds = true
+        v.layer.borderWidth = 0.2
+        v.layer.borderColor = UIColor.AppBorderColor.cgColor
+    }
+    
+    func setupLabels(lbl:UILabel,text:String,textcolor:UIColor,font:UIFont) {
+        lbl.text = text
+        lbl.textColor = textcolor
+        lbl.font = font
+    }
     
     func setupCV() {
         let nib = UINib(nibName: "ItineraryCVCell", bundle: nil)
@@ -87,21 +240,20 @@ class SelectedFlightInfoVC: BaseTableVC {
         itineraryCV.clipsToBounds = true
         itineraryCV.showsHorizontalScrollIndicator = false
         
-        commonTableView.registerTVCells(["SearchFlightResultInfoTVCell","BookNowTVCell","EmptyTVCell","TitleLblTVCell","FareBreakdownTVCell","RadioButtonTVCell"])
-        commonTableView.separatorStyle = .singleLine
-        commonTableView.separatorColor = .AppLabelColor.withAlphaComponent(0.3)
-        setupItineraryTVCells()
+        
     }
     
     @objc func gotoBackScreen() {
+        callapibool = false
         dismiss(animated: true)
     }
     
     func setupItineraryTVCells() {
         tablerow.removeAll()
         
-        tablerow.append(TableRow(title:"IN-254",subTitle: "13:30",key:"flightinfo", text:"17:25", headerText: "Kuwait(KWI)", buttonTitle: "Dubai(DXB)", tempText: "04 hr 55min",cellType:.SearchFlightResultInfoTVCell, questionBase: "1 stop"))
-        tablerow.append(TableRow(height:500,cellType:.EmptyTVCell))
+        fd.forEach { i in
+            tablerow.append(TableRow(moreData:i,cellType:.AddItineraryTVCell))
+        }
         
         
         commonTVData = tablerow
@@ -109,79 +261,161 @@ class SelectedFlightInfoVC: BaseTableVC {
     }
     
     
-    
-    @objc func didTapOnBookNowBtn(_ sender:UIButton) {
-        guard let vc = PayNowVC.newInstance.self else {return}
+    @IBAction func didTapOnBookNowBtn(_ sender: Any) {
+        guard let vc = ContactInfoVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: true)
     }
     
     
+    
     func setupFareBreakdownTVCells() {
-        commonTableView.separatorColor = .clear
+        
         tablerow.removeAll()
         
-        tablerow.append(TableRow(cellType:.FareBreakdownTVCell))
-        tablerow.append(TableRow(height:500,cellType:.EmptyTVCell))
+        
+        
+        if adultsCount > 0 && childCount == 0 && infantsCount == 0 {
+            tablerow.append(TableRow(title:"Adult",
+                                     subTitle: "X\(String(adultsCount))",
+                                     key:farepricedetails?.api_currency,
+                                     text: farepricedetails?.adultsBasePrice,
+                                     headerText: farepricedetails?.sub_total_adult,
+                                     buttonTitle:farepricedetails?.adultsTotalPrice,
+                                     errormsg:farepricedetails?.adultsTotalPrice,
+                                     key1:farepricedetails?.grand_total,
+                                     tempText: farepricedetails?.adultsTaxPrice,
+                                     cellType:.FareBreakdownTVCell))
+            
+        }else if adultsCount > 0 && childCount > 0 && infantsCount == 0 {
+            tablerow.append(TableRow(title:"Adult",
+                                     subTitle: "X\(String(adultsCount))",
+                                     key:farepricedetails?.api_currency,
+                                     text: farepricedetails?.adultsBasePrice,
+                                     headerText: farepricedetails?.sub_total_adult,
+                                     buttonTitle:farepricedetails?.adultsTotalPrice,
+                                     errormsg:farepricedetails?.adultsTotalPrice,
+                                     key1:farepricedetails?.grand_total,
+                                     tempText: farepricedetails?.adultsTaxPrice,
+                                     cellType:.FareBreakdownTVCell))
+            
+            tablerow.append(TableRow(title:"Child",
+                                     subTitle: "X\(String(childCount))",
+                                     key:farepricedetails?.api_currency,
+                                     text: farepricedetails?.childBasePrice,
+                                     headerText: farepricedetails?.sub_total_child,
+                                     buttonTitle:farepricedetails?.childTotalPrice,
+                                     key1:farepricedetails?.grand_total,
+                                     tempText: farepricedetails?.childTaxPrice,
+                                     cellType:.FareBreakdownTVCell))
+            
+        }else if adultsCount > 0 && childCount == 0 && infantsCount > 0 {
+            tablerow.append(TableRow(title:"Adult",
+                                     subTitle: "X\(String(adultsCount))",
+                                     key:farepricedetails?.api_currency,
+                                     text: farepricedetails?.adultsBasePrice,
+                                     headerText: farepricedetails?.sub_total_adult,
+                                     buttonTitle:farepricedetails?.adultsTotalPrice,
+                                     key1:farepricedetails?.grand_total,
+                                     tempText: farepricedetails?.adultsTaxPrice,
+                                     cellType:.FareBreakdownTVCell))
+            
+            tablerow.append(TableRow(title:"Infanta",
+                                     subTitle: "X\(String(infantsCount))",
+                                     key:farepricedetails?.api_currency,
+                                     text: farepricedetails?.infantBasePrice,
+                                     headerText: farepricedetails?.sub_total_infant,
+                                     buttonTitle:farepricedetails?.infantTotalPrice,
+                                     key1:farepricedetails?.grand_total,
+                                     tempText: farepricedetails?.infantTaxPrice,
+                                     cellType:.FareBreakdownTVCell))
+        }else {
+            tablerow.append(TableRow(title:"Adult",
+                                     subTitle: "X\(String(adultsCount))",
+                                     key:farepricedetails?.api_currency,
+                                     text: farepricedetails?.adultsBasePrice,
+                                     headerText: farepricedetails?.sub_total_adult,
+                                     buttonTitle:farepricedetails?.adultsTotalPrice,
+                                     key1:farepricedetails?.grand_total,
+                                     tempText: farepricedetails?.adultsTaxPrice,
+                                     cellType:.FareBreakdownTVCell))
+            
+            tablerow.append(TableRow(title:"Child",
+                                     subTitle: "X\(String(childCount))",
+                                     key:farepricedetails?.api_currency,
+                                     text: farepricedetails?.childBasePrice,
+                                     headerText: farepricedetails?.sub_total_child,
+                                     buttonTitle:farepricedetails?.childTotalPrice,
+                                     errormsg:farepricedetails?.childTotalPrice,
+                                     key1:farepricedetails?.grand_total,
+                                     tempText: farepricedetails?.childTaxPrice,
+                                     cellType:.FareBreakdownTVCell))
+            
+            tablerow.append(TableRow(title:"Infanta",
+                                     subTitle: "X\(String(infantsCount))",
+                                     key:farepricedetails?.api_currency,
+                                     text: farepricedetails?.infantBasePrice,
+                                     headerText: farepricedetails?.sub_total_infant,
+                                     buttonTitle:farepricedetails?.infantTotalPrice,
+                                     key1:farepricedetails?.grand_total,
+                                     tempText: farepricedetails?.infantTaxPrice,
+                                     cellType:.FareBreakdownTVCell))
+        }
+        
+        
+        tablerow.append(TableRow(title:"Total Trip Cost",subTitle: farepricedetails?.grand_total,key: "totalcost",cellType:.TitleLblTVCell))
+        tablerow.append(TableRow(height:50,bgColor: .AppHolderViewColor,cellType:.EmptyTVCell))
+        
         
         commonTVData = tablerow
         commonTableView.reloadData()
     }
-    
-    
-    
-    
     
     
     func setupFareRulesTVCells() {
-        commonTableView.separatorColor = .clear
+        self.commonTableView.estimatedRowHeight = 500
+        self.commonTableView.rowHeight = 40
+        
         tablerow.removeAll()
         
-        tablerow.append(TableRow(title:"FARE RULES AND CANCELLATIONS",subTitle: "",cellType:.TitleLblTVCell))
-        tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(title:newString,subTitle: "",key: "faresub",cellType:.TitleLblTVCell))
-        tablerow.append(TableRow(height:500,cellType:.EmptyTVCell))
-        
-        
-        commonTVData = tablerow
-        commonTableView.reloadData()
-    }
-    
-    func setupBaggageInfoTVCells() {
-        commonTableView.separatorColor = .clear
-        tablerow.removeAll()
-        
-        tablerow.append(TableRow(title:"Baggage Information",subTitle: "",cellType:.TitleLblTVCell))
-        tablerow.append(TableRow(title:"Cabin Baggage - 7KG",image: "b1",cellType:.RadioButtonTVCell))
-        tablerow.append(TableRow(title:"Checked -In Baggage - 20 KG",image: "b2",cellType:.RadioButtonTVCell))
-        tablerow.append(TableRow(height:500,cellType:.EmptyTVCell))
-        
-        
-        commonTVData = tablerow
-        commonTableView.reloadData()
-    }
-    
-}
-
-
-
-extension SelectedFlightInfoVC {
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
-        if isVcFrom != "PayNowVC" {
-            let myFooter =  Bundle.main.loadNibNamed("BookNowTVCell", owner: self, options: nil)?.first as! BookNowTVCell
-            myFooter.bookNowBtn.addTarget(self, action: #selector(didTapOnBookNowBtn(_:)), for: .touchUpInside)
-            return myFooter
+        if fareRulesData.count == 0 {
+            TableViewHelper.EmptyMessage(message: "No Data Found", tableview: commonTableView, vc: self)
         }else {
-            return UIView()
+            TableViewHelper.EmptyMessage(message: "", tableview: commonTableView, vc: self)
+
+            self.fareRulesData.forEach { i in
+                tablerow.append(TableRow(title:i.rule_heading,subTitle: i.rule_content?.htmlToString,cellType:.FareRulesTVCell))
+            }
         }
         
+       
+        
+        commonTVData = tablerow
+        commonTableView.reloadData()
+        
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 60
+    
+    func setupBaggageInfoTVCells() {
+        tablerow.removeAll()
+        
+        tablerow.append(TableRow(title:"Baggage Information",subTitle: "",key: "baggage",cellType:.TitleLblTVCell))
+        
+        baggageAllowance1.forEach { i in
+            tablerow.append(TableRow(title:i.journeySummary,
+                                     subTitle: i.cabin_baggage ?? "",
+                                     text: i.aDT ?? "",
+                                     key1: i.cNN ?? "",
+                                     tempText: i.iNF ?? "",
+                                     cellType:.BaggageInfoTVCell))
+        }
+        
+        
+        
+        commonTVData = tablerow
+        commonTableView.reloadData()
     }
+    
 }
 
 
@@ -209,6 +443,7 @@ extension SelectedFlightInfoVC:UICollectionViewDelegate,UICollectionViewDataSour
             cell.holderView.backgroundColor = .WhiteColor
             cell.titlelbl.textColor = .AppLabelColor
             defaults.set(indexPath.row, forKey: UserDefaultsKeys.itinerarySelectedIndex)
+            TableViewHelper.EmptyMessage(message: "", tableview: commonTableView, vc: self)
             
             switch cell.titlelbl.text {
             case "Itinerary":
@@ -246,4 +481,29 @@ extension SelectedFlightInfoVC:UICollectionViewDelegate,UICollectionViewDataSour
         return CGSize(width: itineraryArray[indexPath.item].size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17)]).width + 25, height: 40)
     }
     
+}
+
+extension SelectedFlightInfoVC {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? FareRulesTVCell {
+            if cell.showBool == true {
+                cell.show()
+                cell.showBool = false
+            }else {
+                cell.hide()
+                cell.showBool = true
+            }
+        }
+        
+        commonTableView.beginUpdates()
+        commonTableView.endUpdates()
+    }
+    
+    
+    //    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    //        if let cell = tableView.cellForRow(at: indexPath) as? FareRulesTVCell {
+    //            cell.hide()
+    //        }
+    //
+    //    }
 }

@@ -16,7 +16,7 @@ class CalenderVC: BaseTableVC {
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var calendarViewHolder: UIView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
-    //    @IBOutlet weak var leftButton: UIButton!
+       @IBOutlet weak var leftButton: UIButton!
     //    @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var sundayLabel: UILabel!
     @IBOutlet weak var mondayLabel: UILabel!
@@ -29,6 +29,10 @@ class CalenderVC: BaseTableVC {
     @IBOutlet weak var selectBtn: UIButton!
     @IBOutlet weak var selectBtnView: UIView!
     @IBOutlet weak var selectlbl: UILabel!
+    @IBOutlet weak var leftButtonView: UIView!
+    
+    
+    
     static var newInstance: CalenderVC? {
         let storyboard = UIStoryboard(name: Storyboard.Main.name,
                                       bundle: nil)
@@ -57,13 +61,17 @@ class CalenderVC: BaseTableVC {
         setupUI()
         updateUI()
         setupCalView()
+        
+       
     }
+    
+
     
     func setupUI() {
         nav.titlelbl.text = "Calendar"
         nav.backBtn.addTarget(self, action: #selector(backbtnAction(_:)), for: .touchUpInside)
         selectBtn.setTitle("", for: .normal)
-        setupViews(v: selectBtnView, radius: 4, color: .AppBtnColor)
+        setupViews(v: selectBtnView, radius: 4, color: .AppNavBackColor)
         setupLabels(lbl: selectlbl, text: "Select", textcolor: .WhiteColor, font: .LatoSemibold(size: 20))
     }
     
@@ -128,6 +136,10 @@ class CalenderVC: BaseTableVC {
         saturdayLabel.font = UIFont.LatoRegular(size: 14)
         saturdayLabel.text = "SA"
         
+        
+        nav.isHidden = true
+        self.view.backgroundColor = .black.withAlphaComponent(0.70)
+        selectBtnView.isHidden = true
     }
     
     
@@ -145,7 +157,18 @@ class CalenderVC: BaseTableVC {
         
         calendarView.register(UINib(nibName: "calendarCVCell", bundle: nil), forCellWithReuseIdentifier: "calendarCVCell")
         //        calendarView.allowsSelection = true
-        calendarView.allowsMultipleSelection = true
+        let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+        if journyType == "oneway" {
+            calendarView.allowsMultipleSelection = false
+        }else {
+            calendarView.allowsMultipleSelection = true
+        }
+        
+        if defaults.string(forKey: UserDefaultsKeys.tabselect) == "Hotel" {
+            calendarView.allowsMultipleSelection = true
+        }
+        
+        
         calendarView.isRangeSelectionUsed = true
         
         calendarView.ibCalendarDelegate = self
@@ -218,33 +241,36 @@ class CalenderVC: BaseTableVC {
         cell.selectedView.isHidden = !cellState.isSelected
         
         
+        cell.selectedView.layer.cornerRadius = cell.selectedView.frame.width / 2
+        cell.selectedView.clipsToBounds = true
+        
         switch cellState.selectedPosition() {
         case .left:
-            cell.selectedView.layer.cornerRadius = 0
-            cell.selectedView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+//            cell.selectedView.layer.cornerRadius = 0
+//            cell.selectedView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
             cell.selectedView.isHidden = false
-            cell.selectedView.backgroundColor = UIColor.AppBtnColor
+            cell.selectedView.backgroundColor = UIColor.AppNavBackColor
             cell.label.textColor = UIColor.white
             break
         case .middle:
-            cell.selectedView.layer.cornerRadius = 0
-            cell.selectedView.layer.maskedCorners = []
+//            cell.selectedView.layer.cornerRadius = 0
+//            cell.selectedView.layer.maskedCorners = []
             cell.selectedView.isHidden = false
-            cell.selectedView.backgroundColor = UIColor.AppBtnColor.withAlphaComponent(0.3)
+            cell.selectedView.backgroundColor = UIColor.AppNavBackColor.withAlphaComponent(0.3)
             cell.label.textColor = UIColor.AppLabelColor.withAlphaComponent(0.4)
             break
         case .right:
-            cell.selectedView.layer.cornerRadius = 0
-            cell.selectedView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+//            cell.selectedView.layer.cornerRadius = 0
+//            cell.selectedView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
             cell.selectedView.isHidden = false
-            cell.selectedView.backgroundColor = UIColor.AppBtnColor
+            cell.selectedView.backgroundColor = UIColor.AppNavBackColor
             cell.label.textColor = UIColor.white
             break
         case .full:
-            cell.selectedView.layer.cornerRadius = 0
-            cell.selectedView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+//            cell.selectedView.layer.cornerRadius = 0
+//            cell.selectedView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
             cell.selectedView.isHidden = false
-            cell.selectedView.backgroundColor = UIColor.AppBtnColor
+            cell.selectedView.backgroundColor = UIColor.AppNavBackColor
             cell.label.textColor = UIColor.white
             break
             
@@ -257,13 +283,13 @@ class CalenderVC: BaseTableVC {
     
     
     
-    //    @IBAction func leftButtonClick(_ sender: Any) {
-    //        calendarView.scrollToSegment(.previous)
-    //    }
-    //
-    //    @IBAction func rightButtonClick(_ sender: Any) {
-    //        calendarView.scrollToSegment(.next)
-    //    }
+        @IBAction func leftButtonClick(_ sender: Any) {
+            calendarView.scrollToSegment(.previous)
+        }
+    
+        @IBAction func rightButtonClick(_ sender: Any) {
+            calendarView.scrollToSegment(.next)
+        }
     
     
     @IBAction func didTapOnBackButton(_ sender: Any) {
@@ -281,10 +307,23 @@ class CalenderVC: BaseTableVC {
     
     
     @IBAction func selectDateBtnAction(_ sender: Any) {
-        
         NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
         dismiss(animated: false)
     }
+    
+    
+    
+    @IBAction func didTapOnOkBtn(_ sender: Any) {
+        NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
+        dismiss(animated: false)
+    }
+    
+    
+    
+    @IBAction func didTapOnCloseBtnAction(_ sender: Any) {
+        dismiss(animated: false)
+    }
+    
 }
 
 
@@ -296,30 +335,36 @@ extension CalenderVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
         handleConfiguration(cell: cell, cellState: cellState)
         
     }
-    
+
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "calendarCVCell", for: indexPath) as! calendarCVCell
         cell.label.text = cellState.text
         // cell.holderView.backgroundColor = HexColor("#ECF3FD")
         handleConfiguration(cell: cell, cellState: cellState)
         //        self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
-        
+
         if cellState.dateBelongsTo == .thisMonth {
             cell.isHidden = false
         } else {
             cell.isHidden = true
         }
-        
+
         if date <= Date(){
             cell.label.textColor = HexColor("#555555", alpha: 0.4)
+//            leftButtonView.alpha = 0.5
+//            leftButton.isUserInteractionEnabled = false
         }else {
             cell.label.textColor = HexColor("#555555")
+//            leftButtonView.alpha = 1
+//            leftButton.isUserInteractionEnabled = true
         }
-        
-        
-        
+
+
+
         return cell
     }
+    
+
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         setupMonthLabel(date: visibleDates.monthDates.first!.date)
@@ -336,9 +381,9 @@ extension CalenderVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
             if selectedTab == "Flight" {
                 
                 if let selectedJourneyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                    if selectedJourneyType == "One Way" {
+                    if selectedJourneyType == "oneway" {
                         defaults.set(calstartDate, forKey: UserDefaultsKeys.calDepDate)
-                    }else if selectedJourneyType == "Round Trip" {
+                    }else if selectedJourneyType == "circle" {
                         defaults.set(calstartDate, forKey: UserDefaultsKeys.rcalDepDate)
                         defaults.set(calendDate, forKey: UserDefaultsKeys.rcalRetDate)
                     }else {
@@ -372,7 +417,7 @@ extension CalenderVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
             handleConfiguration(cell: cell, cellState: cellState)
         }
         
-        
+       
         
     }
     

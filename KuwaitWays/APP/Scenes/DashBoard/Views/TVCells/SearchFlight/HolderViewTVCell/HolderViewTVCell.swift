@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import DropDown
+
 
 class HolderViewTVCell: UITableViewCell {
     
@@ -26,6 +28,8 @@ class HolderViewTVCell: UITableViewCell {
     @IBOutlet weak var swipeBtn: UIButton!
     
     
+    var nationalityCode = String()
+    let dropDown = DropDown()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -39,20 +43,23 @@ class HolderViewTVCell: UITableViewCell {
     }
     
     func setupUI() {
-        contentView.backgroundColor = .AppBGColor
-        setupViews(v: holderView, radius: 4, color: .AppBGcolor)
+       
+        contentView.backgroundColor = .AppHolderViewColor
+        setupViews(v: holderView, radius: 4, color: HexColor("#E6E8E7",alpha: 0.20))
         setupLabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
         locImg.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         swipeImg.image = UIImage(named: "swap")?.withRenderingMode(.alwaysOriginal).withTintColor(.WhiteColor)
         dropdownimg.image = UIImage(named: "downarrow")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         dropdownimg.isHidden = true
         
-        setupViews(v: toView, radius: 4, color: .AppBGcolor)
+        setupViews(v: toView, radius: 4, color: HexColor("#E6E8E7",alpha: 0.20))
         setupLabels(lbl: tolabel, text: "To", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
         locImg1.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         toView.isHidden = true
+        
+        
         swipeView.backgroundColor = .AppJournyTabSelectColor
-        swipeView.isHidden = true
+        swipeView.addCornerRadiusWithShadow(color: .clear, borderColor: .clear, cornerRadius: 20)
         swipeBtn.setTitle("", for: .normal)
         swipeBtn.addTarget(self, action: #selector(swapCity(_:)), for: .touchUpInside)
 
@@ -76,19 +83,74 @@ class HolderViewTVCell: UITableViewCell {
     
     
     @objc func swapCity(_ sender:UIButton) {
-        let a = self.titlelbl.text
-        let b = self.tolabel.text
         
-        self.titlelbl.text = b
-        self.tolabel.text = a
+        if let tabselect = defaults.string(forKey: UserDefaultsKeys.journeyType) {
+            if tabselect == "oneway" {
+                let a = self.titlelbl.text
+                let b = self.tolabel.text
+                let c = defaults.string(forKey: UserDefaultsKeys.fromlocid)
+                let d = defaults.string(forKey: UserDefaultsKeys.tolocid)
+                let e = defaults.string(forKey: UserDefaultsKeys.fromcityname)
+                let f = defaults.string(forKey: UserDefaultsKeys.tocityname)
+                
+                self.titlelbl.text = b
+                self.tolabel.text = a
+                
+                defaults.set(self.titlelbl.text, forKey: UserDefaultsKeys.fromCity)
+                defaults.set(self.tolabel.text, forKey: UserDefaultsKeys.toCity)
+                defaults.set(d, forKey: UserDefaultsKeys.fromlocid)
+                defaults.set(c, forKey: UserDefaultsKeys.tolocid)
+                defaults.set(f, forKey: UserDefaultsKeys.fromcityname)
+                defaults.set(e, forKey: UserDefaultsKeys.tocityname)
+                
+            }else {
+                let a = self.titlelbl.text
+                let b = self.tolabel.text
+                let c = defaults.string(forKey: UserDefaultsKeys.rfromlocid)
+                let d = defaults.string(forKey: UserDefaultsKeys.rtolocid)
+                let e = defaults.string(forKey: UserDefaultsKeys.rfromcityname)
+                let f = defaults.string(forKey: UserDefaultsKeys.rtocityname)
+                
+                self.titlelbl.text = b
+                self.tolabel.text = a
+                
+                defaults.set(self.titlelbl.text, forKey: UserDefaultsKeys.rfromCity)
+                defaults.set(self.tolabel.text, forKey: UserDefaultsKeys.rtoCity)
+                defaults.set(d, forKey: UserDefaultsKeys.rfromlocid)
+                defaults.set(c, forKey: UserDefaultsKeys.rtolocid)
+                defaults.set(f, forKey: UserDefaultsKeys.rfromcityname)
+                defaults.set(e, forKey: UserDefaultsKeys.rtocityname)
+                
+            }
+        }
         
     }
     
+    
+    func setupDropDown() {
+
+        dropDown.direction = .bottom
+        dropDown.backgroundColor = .WhiteColor
+        dropDown.anchorView = self.fromBtn
+        dropDown.bottomOffset = CGPoint(x: 0, y: fromBtn.frame.size.height + 10)
+        dropDown.selectionAction = { [weak self] (index: Int, item: String) in
+            self?.titlelbl.text = item
+            self?.titlelbl.textColor = .AppLabelColor
+            self?.nationalityCode = countrylist[index].iso_country_code ?? ""
+            NotificationCenter.default.post(name: NSNotification.Name("nationalityCode"), object: self?.nationalityCode)
+        }
+
+    }
+   
+    
+    
     @IBAction func didTapONFromBtn(_ sender: Any) {
+        dropDown.show()
     }
     
     
     @IBAction func didTapONToBtn(_ sender: Any) {
+        
     }
     
 }

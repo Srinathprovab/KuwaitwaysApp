@@ -20,7 +20,10 @@ class TitleLblTVCell: TableViewCell {
     @IBOutlet weak var editImg: UIImageView!
     @IBOutlet weak var editBtn: UIButton!
     
+    @IBOutlet weak var holderViewLeading: NSLayoutConstraint!
+    @IBOutlet weak var holderViewTraling: NSLayoutConstraint!
     
+    var travellerId = String()
     var delegate:TitleLblTVCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,6 +55,12 @@ class TitleLblTVCell: TableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        holderView.backgroundColor = .WhiteColor
+        titlelbl.textColor = .AppLabelColor
+
+    }
+    
     override func updateUI() {
         titlelbl.text = cellInfo?.title
         subtitlelbl.text = cellInfo?.subTitle
@@ -59,21 +68,40 @@ class TitleLblTVCell: TableViewCell {
         if cellInfo?.key == "faresub" {
             titlelbl.font = .OpenSansRegular(size: 12)
         }
+        
+        if cellInfo?.key == "totalcost" {
+            self.tripcost()
+            holderViewLeading.constant = 15
+            holderViewTraling.constant = 15
+        }
+        
+        if cellInfo?.key == "baggage" {
+            holderView.backgroundColor = .AppHolderViewColor
+            holderViewLeading.constant = 15
+            holderViewTraling.constant = 15
+        }
     }
     
     
     func tripcost() {
         subtitlelbl.isHidden = false
         titlelbl.textColor = .WhiteColor
+        titlelbl.font = .OpenSansBold(size: 16)
         subtitlelbl.textColor = .WhiteColor
-        holderView.backgroundColor = .AppBtnColor
+        subtitlelbl.font = .OpenSansBold(size: 16)
+        holderView.backgroundColor = .AppBackgroundColor
+        holderView.layer.cornerRadius = 6
+       // holderView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        holderView.clipsToBounds = true
+
     }
     
     func fare() {
         subtitlelbl.isHidden = false
-        titlelbl.textColor = .AppSubtitleColor
+        titlelbl.textColor = .SubTitleColor
     }
     
+   
     
     @IBAction func didTapOnEditBtn(_ sender: Any) {
         delegate?.didTapOnEditBtn(cell: self)

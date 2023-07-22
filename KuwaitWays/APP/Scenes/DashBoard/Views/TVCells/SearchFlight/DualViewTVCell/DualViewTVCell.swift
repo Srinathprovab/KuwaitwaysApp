@@ -39,9 +39,9 @@ class DualViewTVCell: UITableViewCell {
     }
     
     func setupUI() {
-        holderView.backgroundColor = .AppBGColor
-        setupViews(v: depView, radius: 4, color: .AppBGcolor)
-        setupViews(v: returnView, radius: 4, color: .AppBGcolor)
+        holderView.backgroundColor = .AppHolderViewColor
+        setupViews(v: depView, radius: 4, color: HexColor("#E6E8E7",alpha: 0.20))
+        setupViews(v: returnView, radius: 4, color: HexColor("#E6E8E7",alpha: 0.20))
        // returnView.backgroundColor = .AppBGColor
         returnlbl.isHidden = true
         cal2img.isHidden = true
@@ -69,7 +69,7 @@ class DualViewTVCell: UITableViewCell {
     
     
     func hideRetView() {
-        returnView.backgroundColor = .AppBGColor
+        returnView.backgroundColor = .AppHolderViewColor
         returnlbl.isHidden = true
         cal2img.isHidden = true
         returnBtn.isHidden = true

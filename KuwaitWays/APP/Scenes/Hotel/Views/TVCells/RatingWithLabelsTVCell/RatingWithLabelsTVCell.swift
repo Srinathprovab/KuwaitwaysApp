@@ -34,15 +34,17 @@ class RatingWithLabelsTVCell: TableViewCell {
         
         if cellInfo?.key == "rating" {
             ratingBar.isHidden = false
+            subtitlelbl.attributedText = cellInfo?.subTitle?.htmlToAttributedString
         }
     }
     
     func setupUI() {
-        setupLabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .OpenSansMedium(size: 16))
-        setupLabels(lbl: subtitlelbl, text: "", textcolor: .AppSubtitleColor, font: .OpenSansRegular(size: 14))
+        setupLabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .OpenSansMedium(size: 18))
+        setupLabels(lbl: subtitlelbl, text: "", textcolor: .SubTitleColor, font: .OpenSansRegular(size: 14))
         ratingBar.maxValue = 5
         ratingBar.color = HexColor("#FABF35")
         ratingBar.isHidden = true
+        ratingBar.isUserInteractionEnabled = false
     }
     
     func setupLabels(lbl:UILabel,text:String,textcolor:UIColor,font:UIFont) {

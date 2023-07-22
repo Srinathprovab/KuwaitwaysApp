@@ -24,6 +24,8 @@ class HotelSearchResultTVCell: TableViewCell {
     @IBOutlet weak var ratingView: AARatingBar!
     @IBOutlet weak var detailslbl: UILabel!
 
+    
+    var hotelid = String()
     var delegate:HotelSearchResultTVCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,14 +42,18 @@ class HotelSearchResultTVCell: TableViewCell {
     override func updateUI() {
         titlelbl.text = cellInfo?.title
         subtitlelbl.text = cellInfo?.subTitle
-        hotelImg.image = UIImage(named: cellInfo?.image ?? "")
         ratingView.value = CGFloat(cellInfo?.characterLimit ?? 0)
+        kwdlbl.text = cellInfo?.kwdprice
+        hotelImg.sd_setImage(with: URL(string: cellInfo?.image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+        hotelid = cellInfo?.text ?? ""
     }
     
     
     func setupUI() {
+        
+        contentView.backgroundColor = .AppHolderViewColor
         setupViews(v: holderView, radius: 6, color: .WhiteColor)
-        kwdlblView.backgroundColor = .AppBtnColor
+        kwdlblView.backgroundColor = .AppNavBackColor
         setupLabels(lbl: kwdlbl, text: "KWD:120.00", textcolor: .WhiteColor, font: .OswaldSemiBold(size: 16))
         detailsBtn.setTitle("", for: .normal)
         detailsBtn.setTitleColor(.WhiteColor, for: .normal)
@@ -56,16 +62,18 @@ class HotelSearchResultTVCell: TableViewCell {
         
         setupLabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .OpenSansMedium(size: 16))
         titlelbl.numberOfLines = 0
-        setupLabels(lbl: subtitlelbl, text: "", textcolor: .AppSubtitleColor, font: .OpenSansMedium(size: 12))
+        setupLabels(lbl: subtitlelbl, text: "", textcolor: .SubTitleColor, font: .OpenSansMedium(size: 12))
         setupLabels(lbl: detailslbl, text: "Details", textcolor: .WhiteColor, font: .OswaldSemiBold(size: 16))
 
         subtitlelbl.numberOfLines = 0
         
         hotelImg.contentMode = .scaleToFill
+        hotelImg.addCornerRadiusWithShadow(color: .clear, borderColor: .clear, cornerRadius: 10)
+        
         ratingView.maxValue = 5
         ratingView.color = HexColor("#FABF35")
-        
-        
+        ratingView.isUserInteractionEnabled = false
+        subtitlelbl.numberOfLines = 2
     }
     
     @objc func didTapOnDetailsBtn(_ sender:UIButton) {

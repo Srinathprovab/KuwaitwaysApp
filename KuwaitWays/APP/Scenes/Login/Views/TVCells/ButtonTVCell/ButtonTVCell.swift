@@ -43,7 +43,7 @@ class ButtonTVCell: TableViewCell {
         case "addroom":
             btnLeftConstraint.constant = 300
             btnView.backgroundColor = .WhiteColor
-            titlelbl.textColor = .AppBtnColor
+            titlelbl.textColor = .AppNavBackColor
             break
         default:
             break
@@ -54,7 +54,7 @@ class ButtonTVCell: TableViewCell {
         
         btnLeftConstraint.constant = 16
         holderView.backgroundColor = .WhiteColor
-        btnView.backgroundColor = .AppBtnColor
+        btnView.backgroundColor = .AppNavBackColor
         btnView.layer.cornerRadius = 4
         btnView.clipsToBounds = true
         titlelbl.textColor = .WhiteColor

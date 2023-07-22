@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -10,24 +11,26 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="340" id="KGk-i7-Jjw" customClass="SearchFlightTVCell" customModule="BeeoonsApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="417" height="340"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="403" id="KGk-i7-Jjw" customClass="SearchFlightTVCell" customModule="KuwaitWays" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="421" height="403"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="417" height="340"/>
+                <rect key="frame" x="0.0" y="0.0" width="421" height="403"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="owx-vK-fgk">
-                        <rect key="frame" x="0.0" y="0.0" width="417" height="340"/>
+                        <rect key="frame" x="0.0" y="0.0" width="421" height="403"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="JIR-qb-Qib">
-                                <rect key="frame" x="16" y="16" width="385" height="299"/>
+                                <rect key="frame" x="16" y="16" width="389" height="362"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="362" id="JiP-ar-ZYn"/>
+                                </constraints>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="340" id="34v-qT-EYC"/>
                             <constraint firstItem="JIR-qb-Qib" firstAttribute="top" secondItem="owx-vK-fgk" secondAttribute="top" constant="16" id="Rne-GR-NFk"/>
                             <constraint firstAttribute="bottom" secondItem="JIR-qb-Qib" secondAttribute="bottom" constant="25" id="VL1-M1-D3b"/>
                             <constraint firstAttribute="trailing" secondItem="JIR-qb-Qib" secondAttribute="trailing" constant="16" id="Zqy-NN-vzH"/>
@@ -47,7 +50,7 @@
                 <outlet property="holderView" destination="owx-vK-fgk" id="kpT-1c-6it"/>
                 <outlet property="searchFlightTV" destination="JIR-qb-Qib" id="iNg-QB-lDs"/>
             </connections>
-            <point key="canvasLocation" x="207.97101449275365" y="147.99107142857142"/>
+            <point key="canvasLocation" x="210.86956521739131" y="169.08482142857142"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -35,7 +35,7 @@ class HotelDealsCVCell: UICollectionViewCell {
         
         dealsImg.image = UIImage(named: "flight1")
         setupLabels(lbl: citylbl, text: "", textcolor: .AppLabelColor, font: .OpenSansMedium(size: 12))
-        setupLabels(lbl: countrylbl, text: "", textcolor: .AppSubtitleColor, font: .OpenSansRegular(size: 10))
+        setupLabels(lbl: countrylbl, text: "", textcolor: .SubTitleColor, font: .OpenSansRegular(size: 10))
         setupLabels(lbl: kwdlbl, text: "", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 10))
         kwdView.addCornerRadiusWithShadow(color: .lightGray, borderColor: .AppBorderColor, cornerRadius: 10)
         kwdView.backgroundColor = .WhiteColor

@@ -13,6 +13,8 @@ enum Storyboard: String {
     case Main
     case Login
     case Hotel
+    case Calender
+   
     
     var name: String {
         return self.rawValue.capitalizingFirstLetter()

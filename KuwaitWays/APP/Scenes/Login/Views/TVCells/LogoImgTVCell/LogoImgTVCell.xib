@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -10,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="107" id="KGk-i7-Jjw" customClass="LogoImgTVCell" customModule="BeeoonsApp" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="107" id="KGk-i7-Jjw" customClass="LogoImgTVCell" customModule="KuwaitWays" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="430" height="107"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -20,19 +21,17 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39z-Mz-dEb">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="107"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoname" translatesAutoresizingMaskIntoConstraints="NO" id="xh7-qo-zBU">
-                                <rect key="frame" x="90" y="18.5" width="250" height="70"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoname" translatesAutoresizingMaskIntoConstraints="NO" id="xh7-qo-zBU">
+                                <rect key="frame" x="115" y="5" width="200" height="97"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="m7x-Bw-FrE"/>
-                                    <constraint firstAttribute="width" constant="250" id="vix-rw-gJx"/>
+                                    <constraint firstAttribute="width" constant="200" id="vix-rw-gJx"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="xh7-qo-zBU" firstAttribute="top" secondItem="39z-Mz-dEb" secondAttribute="top" constant="18.5" id="GIR-Cw-S2h"/>
-                            <constraint firstAttribute="bottom" secondItem="xh7-qo-zBU" secondAttribute="bottom" constant="18.5" id="VZI-5D-r3a"/>
-                            <constraint firstItem="xh7-qo-zBU" firstAttribute="centerY" secondItem="39z-Mz-dEb" secondAttribute="centerY" id="aJO-27-tti"/>
+                            <constraint firstItem="xh7-qo-zBU" firstAttribute="top" secondItem="39z-Mz-dEb" secondAttribute="top" constant="5" id="GIR-Cw-S2h"/>
+                            <constraint firstAttribute="bottom" secondItem="xh7-qo-zBU" secondAttribute="bottom" constant="5" id="VZI-5D-r3a"/>
                             <constraint firstItem="xh7-qo-zBU" firstAttribute="centerX" secondItem="39z-Mz-dEb" secondAttribute="centerX" id="fbs-3j-0hY"/>
                             <constraint firstAttribute="height" constant="107" id="iMf-w1-II9"/>
                         </constraints>
@@ -54,7 +53,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="logoname" width="216" height="64"/>
+        <image name="logoname" width="487.5" height="303"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -13,7 +13,7 @@ class HotelImagesTVCell: TableViewCell {
     @IBOutlet weak var hotelImg: UIImageView!
     @IBOutlet weak var hotelImagesCV: UICollectionView!
     
-    
+    var imgs = [Images]()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,6 +26,13 @@ class HotelImagesTVCell: TableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    override func updateUI() {
+        imgs = cellInfo?.moreData as! [Images]
+        self.hotelImg.sd_setImage(with: URL(string: cellInfo?.image ?? ""),placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+        
+        hotelImagesCV.reloadData()
+    }
     
     
     func setupCV() {
@@ -48,14 +55,14 @@ class HotelImagesTVCell: TableViewCell {
         hotelImagesCV.delegate = self
         hotelImagesCV.dataSource = self
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.itemSize = CGSize(width: 80, height: 80)
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 8
         layout.minimumLineSpacing = 8
         
         let screenHeight = UIScreen.main.bounds.size.height
-        if screenHeight > 800 {
-            layout.sectionInset = UIEdgeInsets(top: 16, left: 10, bottom: 16, right: 10)
+        if screenHeight > 835 {
+            layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         }else {
             layout.sectionInset = UIEdgeInsets(top: 16, left: 5, bottom: 16, right: 5)
         }
@@ -73,13 +80,16 @@ class HotelImagesTVCell: TableViewCell {
 
 extension HotelImagesTVCell:UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return imgs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var commonCell = UICollectionViewCell()
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? HotelImageCVCell {
             cell.hotelImg.image = UIImage(named: "hotel1")
+            
+            cell.hotelImg.sd_setImage(with: URL(string: imgs[indexPath.row].img ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+            
             commonCell = cell
         }
         return commonCell

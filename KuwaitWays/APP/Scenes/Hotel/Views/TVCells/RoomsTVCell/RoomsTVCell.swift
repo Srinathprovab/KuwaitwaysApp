@@ -8,14 +8,15 @@
 import UIKit
 protocol RoomsTVCellDelegate {
     func didTapOnCancellationPolicyBtn(cell:TwinSuperiorRoomTVCell)
+    func didTapOnRoomTvcell(cell:TwinSuperiorRoomTVCell)
 }
 
-class RoomsTVCell: TableViewCell {
+class RoomsTVCell: TableViewCell, TwinSuperiorRoomTVCellDelegate {
     
     @IBOutlet weak var titlelbl: UILabel!
     @IBOutlet weak var roomsTV: UITableView!
     
-    
+    var rooms = [[Rooms]]()
     var delegate:RoomsTVCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +33,8 @@ class RoomsTVCell: TableViewCell {
     
     override func updateUI() {
         titlelbl.text = cellInfo?.title
+        rooms = cellInfo?.moreData as! [[Rooms]]
+        roomsTV.reloadData()
     }
     
     
@@ -43,36 +46,84 @@ class RoomsTVCell: TableViewCell {
         roomsTV.tableFooterView = UIView()
         roomsTV.separatorStyle = .none
         roomsTV.backgroundColor = .WhiteColor
-        roomsTV.isScrollEnabled = false
+        roomsTV.isScrollEnabled = true
         roomsTV.layer.cornerRadius = 6
         roomsTV.clipsToBounds = true
         roomsTV.layer.borderWidth = 1
         roomsTV.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
     }
     
-    @objc func didTapOnCancellationPolicyBtn(cell:TwinSuperiorRoomTVCell) {
+    func didTapOnCancellationPolicyBtn(cell:TwinSuperiorRoomTVCell) {
         delegate?.didTapOnCancellationPolicyBtn(cell: cell)
     }
+    
+
 }
 
 
 
 extension RoomsTVCell:UITableViewDataSource,UITableViewDelegate {
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return rooms.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return rooms[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var c = UITableViewCell()
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TwinSuperiorRoomTVCell {
             cell.selectionStyle = .none
-            cell.cancellationPoloicyBtn.addTarget(self, action: #selector(didTapOnCancellationPolicyBtn(cell:)), for: .touchUpInside)
+            cell.delegate = self
+           
             
-            if indexPath.row == 1 {
-                cell.kwdlbl.text = "OMR"
-                cell.kwdPricelbl.text = "210.00"
-                cell.ulView.isHidden = true
+            if indexPath.section < rooms.count && indexPath.row < rooms[indexPath.section].count {
+                
+                let section = indexPath.section
+                let row = indexPath.row
+                let data = rooms[section][row]
+                
+                cell.titlelbl.text = data.name
+                cell.subtitlelbl.text = "\(data.adults ?? 0) Adults"
+                cell.noOfRoomslbl.text = "No Of Rooms: \(data.rooms ?? 0)"
+                cell.kwdlbl.text = data.currency
+                cell.kwdPricelbl.text = data.xml_net
+                cell.ratekey = data.rateKey ?? ""
+                
+               
+                // Access the cancellationPolicies array
+                    if let cancellationPolicies1 = data.cancellationPolicies {
+                        
+                     
+                        
+                        // Iterate over the cancellationPolicies array
+                        for policy in cancellationPolicies1 {
+                            let amount = policy.amount
+                            let fromDate = policy.from
+                            cell.CancellationPolicyAmount = amount ?? ""
+                            cell.CancellationPolicyFromDate = fromDate ?? ""
+                            
+                        }
+                    }
+                
+                
+                if data.refund == true {
+                    cell.nonRefundablelbl.text = "Refundable"
+                    cell.nonRefundablelbl.textColor = .Refundcolor
+                }else {
+                    cell.nonRefundablelbl.text = "Non Refundable"
+                    cell.nonRefundablelbl.textColor = HexColor("#FF0808")
+                }
+                
+
+                
+            } else {
+                print("Index out of range error: indexPath = \(indexPath)")
             }
+            
             c = cell
         }
         return c
@@ -83,7 +134,11 @@ extension RoomsTVCell:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? TwinSuperiorRoomTVCell {
             cell.radioImg.image = UIImage(named: "radioSelected")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppBackgroundColor)
+            delegate?.didTapOnRoomTvcell(cell: cell)
             defaults.set(cell.titlelbl.text, forKey: UserDefaultsKeys.roomType)
+            defaults.set(cell.nonRefundablelbl.text, forKey: UserDefaultsKeys.refundtype)
+            
+            print(cell.CancellationPolicyFromDate)
         }
     }
     

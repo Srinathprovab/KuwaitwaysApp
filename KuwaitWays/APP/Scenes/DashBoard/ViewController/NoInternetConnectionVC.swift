@@ -19,13 +19,28 @@ class NoInternetConnectionVC: UIViewController {
     @IBOutlet weak var tryAgainBtn: UIButton!
     
     
-    
+    var key = String()
     static var newInstance: NoInternetConnectionVC? {
         let storyboard = UIStoryboard(name: Storyboard.Main.name,
                                       bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: self.className()) as? NoInternetConnectionVC
         return vc
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if key == "noresult" {
+            noresultSetup()
+        }
+    }
+    
+    func noresultSetup(){
+        wifiImg.image = UIImage(named: "oops")
+        setupLabels(lbl: titlelbl, text: "No Results Found", textcolor: .AppLabelColor, font: .LatoMedium(size: 18))
+        setupLabels(lbl: subTitlelbl, text: "Please Search Again", textcolor: .AppLabelColor, font: .LatoLight(size: 14))
+        setupLabels(lbl: btnlbl, text: "Search Again", textcolor: .WhiteColor, font: .LatoSemibold(size: 20))
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +50,14 @@ class NoInternetConnectionVC: UIViewController {
     }
     
     func setupUI() {
-        wifiImg.image = UIImage(named: "wifi")
+       // wifiImg.image = UIImage(named: "wifi")
         closeImg.image = UIImage(named: "close1")
         
         setupLabels(lbl: titlelbl, text: "No Internet Connection", textcolor: .AppLabelColor, font: .LatoMedium(size: 18))
         setupLabels(lbl: subTitlelbl, text: "Please Check Your Internet Connection", textcolor: .AppLabelColor, font: .LatoLight(size: 14))
         setupLabels(lbl: btnlbl, text: "Try Again", textcolor: .WhiteColor, font: .LatoSemibold(size: 20))
         tryAgainBtn.setTitle("", for: .normal)
-        setupViews(v: btnView, radius: 4, color: .AppBtnColor)
+        setupViews(v: btnView, radius: 4, color: .AppNavBackColor)
     }
     
     func setupLabels(lbl:UILabel,text:String,textcolor:UIColor,font:UIFont) {
@@ -60,8 +75,14 @@ class NoInternetConnectionVC: UIViewController {
     }
     
     @IBAction func didTapOnTryAgainBtn(_ sender: Any) {
-        NotificationCenter.default.post(name: NSNotification.Name("reloadTV"), object: nil)
-        dismiss(animated: false)
+        if key == "noresult" {
+            guard let vc = BookFlightVC.newInstance.self else {return}
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }else {
+            NotificationCenter.default.post(name: NSNotification.Name("reloadTV"), object: nil)
+            dismiss(animated: false)
+        }
     }
     
 }

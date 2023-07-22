@@ -33,6 +33,35 @@ class MenuBGTVCell: TableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    
+    override func updateUI() {
+        let logstatus = defaults.bool(forKey: UserDefaultsKeys.loggedInStatus)
+        if logstatus == true {
+            let username = defaults.string(forKey: UserDefaultsKeys.username)
+            let userimg = defaults.string(forKey: UserDefaultsKeys.userimg)
+            loginBtn.setTitle("\(profildata?.first_name ?? "") \(profildata?.last_name ?? "")", for: .normal)
+            loginBtn.isUserInteractionEnabled = false
+            if profildata?.image?.isEmpty == true {
+                profileImage.image = UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal)
+            }else {
+                self.profileImage.sd_setImage(with: URL(string: profildata?.image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+            }
+            editProfileView.isHidden = false
+            editProfileViewHeight.constant = 30
+        }else {
+            loginBtn.setTitle("Login/Signup", for: .normal)
+            loginBtn.isUserInteractionEnabled = true
+            profileImage.image = UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal)
+            editProfileView.isHidden = true
+            editProfileViewHeight.constant = 0
+        }
+        
+        
+        
+    }
+    
+    
     func setupUI() {
         profileImage.image = UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal)
         profileImage.layer.cornerRadius = 50
@@ -46,18 +75,19 @@ class MenuBGTVCell: TableViewCell {
         loginBtn.isHidden = false
         
         
-        editProfileView.backgroundColor = .AppBtnColor
+        editProfileView.backgroundColor = .AppNavBackColor
         editProfileView.layer.cornerRadius = 15
         editProfileView.clipsToBounds = true
         editProfileView.layer.borderWidth = 1
         editProfileView.layer.borderColor = UIColor.WhiteColor.cgColor
         editProfileView.isHidden = true
+        editProfileViewHeight.constant = 0
         
         editProfilelbl.text = "Edit Profile"
         editProfilelbl.textColor = .WhiteColor
         editProfilelbl.font = UIFont.LatoRegular(size: 14)
         
-        editProfileViewHeight.constant = 0
+       
     }
     
     

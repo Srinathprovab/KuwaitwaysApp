@@ -28,7 +28,7 @@ class LabelTVCell: TableViewCell {
         titlelbl.font = UIFont.LatoRegular(size: 20)
         titlelbl.numberOfLines = 0
         
-        subTitlelbl.textColor = .AppSubtitleColor
+        subTitlelbl.textColor = .SubTitleColor
         subTitlelbl.font = UIFont.OpenSansRegular(size: 14)
         subTitlelbl.numberOfLines = 0
         subTitlelbl.textAlignment = .center
@@ -48,23 +48,32 @@ class LabelTVCell: TableViewCell {
             img.isHidden = true
             break
             
+        case "bc":
+            img.isHidden = true
+            break
+            
+        case "booked":
+            img.isHidden = true
+            titlelbl.font = UIFont.OpenSansMedium(size: 12)
+            break
+            
             
         case "backlogin":
             img.isHidden = true
             titlelbl.font = UIFont.LatoRegular(size: 18)
-            titlelbl.textColor = .AppSubtitleColor
+            titlelbl.textColor = .SubTitleColor
             break
             
             
         case "deals":
             img.isHidden = true
-            titlelbl.font = UIFont.oswaldRegular(size: 28)
-            titlelbl.textColor = .AppBtnColor
+            titlelbl.font = UIFont.OpenSansBold(size: 18)
+            titlelbl.textColor = .AppLabelColor
             holderView.backgroundColor = .AppBGcolor
            // titlelbl.attributedText = setAttributedText(str1: cellInfo?.title ?? "", str2: "Hot  Deals")
             
             subTitlelbl.font = UIFont.oswaldRegular(size: 16)
-            subTitlelbl.textColor = .AppBGColor
+            subTitlelbl.textColor = .AppHolderViewColor
             break
             
         default:
@@ -88,7 +97,7 @@ class LabelTVCell: TableViewCell {
     func setAttributedText(str1:String,str2:String) -> NSAttributedString {
         
         let atter1 = [NSAttributedString.Key.foregroundColor:UIColor.AppLabelColor,NSAttributedString.Key.font:UIFont.oswaldRegular(size: 28)] as [NSAttributedString.Key : Any]
-        let atter2 = [NSAttributedString.Key.foregroundColor:UIColor.AppBtnColor,NSAttributedString.Key.font:UIFont.oswaldRegular(size: 28)] as [NSAttributedString.Key : Any]
+        let atter2 = [NSAttributedString.Key.foregroundColor:UIColor.AppNavBackColor,NSAttributedString.Key.font:UIFont.oswaldRegular(size: 28)] as [NSAttributedString.Key : Any]
         
         let atterStr1 = NSMutableAttributedString(string: str1, attributes: atter1)
         let atterStr2 = NSMutableAttributedString(string: str2, attributes: atter2)

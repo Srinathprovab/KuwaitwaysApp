@@ -18,15 +18,17 @@ extension UIColor {
     }
     
     
-    public static var AppBGColor : UIColor {
+    public static var AppHolderViewColor : UIColor {
         
         get {
-            return UIColor(named: "AppBGColor")!
+           // return UIColor(named: "AppBGColor")!
+            return HexColor("#F2F2F2", alpha: 0.60)
+          //  return HexColor("#E6E8E7")
         }
     }
     
     
-    public static var AppBtnColor : UIColor {
+    public static var AppNavBackColor : UIColor {
         
         get {
             return UIColor(named: "AppBtnColor")!
@@ -58,7 +60,7 @@ extension UIColor {
     
     
     
-    public static var AppSubtitleColor : UIColor {
+    public static var SubTitleColor : UIColor {
         
         get {
             return UIColor(named: "AppSubtitleColor")!
@@ -84,11 +86,12 @@ extension UIColor {
         }
     }
     
-    
-    
-    
-    
-    
+    public static var Refundcolor : UIColor {
+        
+        get {
+            return UIColor(named: "refundcolor")!
+        }
+    }
     
     
 }

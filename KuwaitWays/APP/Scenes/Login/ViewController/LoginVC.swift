@@ -17,19 +17,46 @@ class LoginVC: BaseTableVC {
         let vc = storyboard.instantiateViewController(withIdentifier: self.className()) as? LoginVC
         return vc
     }
+    
+    var isvcfrom = String()
     var email = String()
     var pass = String()
     var showPwdBool = true
+    var payload = [String:Any]()
+    var vm:LoginViewModel?
+    
+
+    @objc func offline(notificatio:UNNotification) {
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         setupTV()
+        vm = LoginViewModel(self)
     }
     
     func setupTV() {
         
-        commonTableView.registerTVCells(["EmptyTVCell","LogoImgTVCell","LabelTVCell","TextfieldTVCell","RadioButtonTVCell","ButtonTVCell","UnderLineTVCell","SignUpWithTVCell","LabelWithButtonTVCell"])
+        commonTableView.registerTVCells(["EmptyTVCell",
+                                         "LogoImgTVCell",
+                                         "LabelTVCell",
+                                         "TextfieldTVCell",
+                                         "RadioButtonTVCell",
+                                         "ButtonTVCell",
+                                         "UnderLineTVCell",
+                                         "SignUpWithTVCell",
+                                         "LabelWithButtonTVCell"])
         
         appendLoginTvcells()
     }
@@ -46,13 +73,13 @@ class LoginVC: BaseTableVC {
         
         tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Login",cellType:.ButtonTVCell))
-        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(cellType:.UnderLineTVCell))
         tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
+        tablerow.append(TableRow(cellType:.UnderLineTVCell))
+        // tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(cellType:.SignUpWithTVCell))
-        tablerow.append(TableRow(height:100,cellType:.EmptyTVCell))
+        tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Not register yet?",subTitle: "",key: "acccreate", tempText: "Create Account",cellType:.LabelWithButtonTVCell))
-
+        
         
         commonTVData = tablerow
         commonTableView.reloadData()
@@ -85,22 +112,27 @@ class LoginVC: BaseTableVC {
             showToast(message: "Enter Valid Address")
         }else if pass.isEmpty == true {
             showToast(message: "Enter Password")
-        }else  if pass.isValidPassword() == false {
-            showToast(message: "Enter Valid Password")
-        }else {
-            print("Callllll apiiiiiii")
+        }
+        //        else  if pass.isValidPassword() == false {
+        //            showToast(message: "Enter Valid Password")
+        //        }
+        else {
+            payload.removeAll()
+            payload["username"] = email
+            payload["password"] = pass
+            vm?.CALL_LOGIN_API(dictParam: payload)
         }
     }
     
     override func didTapOnShowPasswordBtn(cell:TextfieldTVCell){
         
         if showPwdBool == true {
-          // cell.showImage.image = UIImage(named: "showpass")
+            cell.showPassImg.image = UIImage(named: "showpass")
             cell.txtField.isSecureTextEntry = false
             showPwdBool = false
         }else {
             cell.txtField.isSecureTextEntry = true
-           // cell.showImage.image = UIImage(named: "hidepass")
+            cell.showPassImg.image = UIImage(named: "hidepass")
             showPwdBool = true
         }
         
@@ -125,11 +157,46 @@ class LoginVC: BaseTableVC {
         self.present(vc, animated: true)
     }
     
-   
+    
     
     
     @IBAction func didTapOnSkipBtn(_ sender: Any) {
-        dismiss(animated: false)
+        if isvcfrom == "CreateAccountVC" {
+            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            
+        }else {
+            dismiss(animated: false)
+        }
+        
     }
+    
+    
+    
+}
+
+
+
+extension LoginVC:LoginViewModelDelegate {
+    
+    func loginSucess(response: LoginModel) {
+        if response.status == false {
+            showToast(message: response.data ?? "Errorrrrr")
+            defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
+        }else {
+            showToast(message: response.data ?? "")
+            defaults.set(true, forKey: UserDefaultsKeys.loggedInStatus)
+            defaults.set(response.user_id, forKey: UserDefaultsKeys.userid)
+            defaults.set("\(response.first_name ?? "") \(response.last_name ?? "")", forKey: UserDefaultsKeys.username)
+            defaults.set(response.image, forKey: UserDefaultsKeys.userimg)
+            
+            let seconds = 1.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
+                // Put your code which should be executed with a delay here
+                NotificationCenter.default.post(name: NSNotification.Name("logindon"), object: nil)
+                dismiss(animated: true)
+            }
+        }
+    }
+    
     
 }

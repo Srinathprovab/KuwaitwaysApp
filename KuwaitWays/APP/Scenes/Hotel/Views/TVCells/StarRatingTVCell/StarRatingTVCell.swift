@@ -85,8 +85,8 @@ extension StarRatingTVCell:UICollectionViewDelegate,UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? StarRatingCVCell {
-            cell.holderview.layer.borderColor = UIColor.AppBtnColor.cgColor
-            cell.titlelbl.textColor = .AppBtnColor
+            cell.holderview.layer.borderColor = UIColor.AppNavBackColor.cgColor
+            cell.titlelbl.textColor = .AppNavBackColor
             delegate?.didTapOnStarRatingCell(cell: cell)
         }
     }

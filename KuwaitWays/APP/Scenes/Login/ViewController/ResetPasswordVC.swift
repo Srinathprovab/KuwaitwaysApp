@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ResetPasswordVC: BaseTableVC {
+class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
     
     
     var tablerow = [TableRow]()
@@ -18,22 +18,47 @@ class ResetPasswordVC: BaseTableVC {
         return vc
     }
     var email = String()
+    var mobile = String()
+    var payload = [String:Any]()
+    var vm:ForgetPasswordViewModel?
+    
+    
+
+    @objc func offline(notificatio:UNNotification) {
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
+
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         setupTV()
+        vm = ForgetPasswordViewModel(self)
     }
     
     func setupTV() {
         
-        commonTableView.registerTVCells(["EmptyTVCell","LogoImgTVCell","LabelTVCell","TextfieldTVCell","RadioButtonTVCell","ButtonTVCell"])
+        commonTableView.registerTVCells(["EmptyTVCell",
+                                         "LogoImgTVCell",
+                                         "LabelTVCell",
+                                         "TextfieldTVCell",
+                                         "RadioButtonTVCell",
+                                         "ButtonTVCell"])
         
         appendLoginTvcells()
     }
     
-   
+    
     
     func appendLoginTvcells() {
         tablerow.removeAll()
@@ -42,6 +67,7 @@ class ResetPasswordVC: BaseTableVC {
         tablerow.append(TableRow(cellType:.LogoImgTVCell))
         tablerow.append(TableRow(title:"Reset Your Password",subTitle: "Enter your email and we'll send you the instructions to recover your password:",key: "resetpass",cellType:.LabelTVCell))
         tablerow.append(TableRow(title:"Email Address*",text:"1", tempText: "Email Adress",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Mobile Number*",key: "mobile",text:"4", moreData:["+91","+988","+133"], tempText: "Mobile",cellType:.TextfieldTVCell))
         
         tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Send",cellType:.ButtonTVCell))
@@ -60,6 +86,10 @@ class ResetPasswordVC: BaseTableVC {
             email = tf.text ?? ""
             break
             
+        case 4:
+            mobile = tf.text ?? ""
+            break
+            
         default:
             break
         }
@@ -72,8 +102,13 @@ class ResetPasswordVC: BaseTableVC {
             showToast(message: "Enter Email Address")
         }else  if email.isValidEmail() == false {
             showToast(message: "Enter Valid Address")
+        }else  if mobile.isEmpty == true {
+            showToast(message: "Enter Mobile NO")
         }else {
-            print("Callllll apiiiiiii")
+        
+            payload["email"] = email
+            payload["phone"] = mobile
+            vm?.CALL_FORGET_PASSWORD_API(dictParam: payload)
         }
     }
     
@@ -81,5 +116,23 @@ class ResetPasswordVC: BaseTableVC {
     @IBAction func didTapOnSkipBtn(_ sender: Any) {
         dismiss(animated: true)
     }
+    
+    
+    
+    func forgetPasswordDetails(response: LoginModel) {
+        if response.status == false {
+            showToast(message: response.data ?? "Errorrrrr")
+        }else {
+            showToast(message: response.data ?? "")
+            let seconds = 3.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
+                // Put your code which should be executed with a delay here
+//                NotificationCenter.default.post(name: NSNotification.Name("logindon"), object: nil)
+                dismiss(animated: true)
+            }
+        }
+    }
+    
+    
     
 }

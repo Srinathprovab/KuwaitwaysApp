@@ -39,7 +39,7 @@ class RadioButtonTVCell: TableViewCell {
     func setupUI() {
         holderView.backgroundColor = .WhiteColor
         
-        titlelbl.textColor = .AppSubtitleColor
+        titlelbl.textColor = .SubTitleColor
         titlelbl.textAlignment = .left
         titlelbl.font = UIFont.OpenSansRegular(size: 14)
         titlelbl.numberOfLines = 0
@@ -48,6 +48,14 @@ class RadioButtonTVCell: TableViewCell {
     }
     
     
+    func show() {
+        radioImg.image = UIImage(named: "radioSelected")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppBackgroundColor)
+    }
+    
+    
+    func hide() {
+        radioImg.image = UIImage(named: "radioUnselected")
+    }
     
     
 //    @IBAction func didTapOnRadioButton(_ sender: Any) {

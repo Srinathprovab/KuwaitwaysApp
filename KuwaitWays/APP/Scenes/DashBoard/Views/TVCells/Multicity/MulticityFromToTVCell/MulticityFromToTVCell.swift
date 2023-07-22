@@ -46,7 +46,7 @@ class MulticityFromToTVCell: TableViewCell {
     
     func setupUI() {
        // setupViews(v: holderView, radius: 0, color: .AppBGColor)
-        holderView.backgroundColor = .AppBGColor
+        holderView.backgroundColor = .AppHolderViewColor
         setupViews(v: fromView, radius: 4, color: .AppBGcolor)
         setupViews(v: toView, radius: 4, color: .AppBGcolor)
         setupViews(v: dateView, radius: 4, color: .AppBGcolor)

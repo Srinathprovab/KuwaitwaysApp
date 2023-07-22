@@ -11,12 +11,11 @@ import MaterialComponents.MaterialTextControls_OutlinedTextFields
 
 
 protocol TextfieldTVCellDelegate {
+    
     func didTapOnForGetPassword(cell:TextfieldTVCell)
     func editingTextField(tf:UITextField)
     func didTapOnShowPasswordBtn(cell:TextfieldTVCell)
     func didTapOnCountryCodeDropDownBtn(cell:TextfieldTVCell)
-    
-    
     func donedatePicker(cell:TextfieldTVCell)
     func cancelDatePicker(cell:TextfieldTVCell)
     
@@ -38,6 +37,7 @@ class TextfieldTVCell: TableViewCell {
     
     let datePicker = UIDatePicker()
     let dropDown = DropDown()
+    let genderdropDown = DropDown()
     var maxLength = 10
     var key = String()
     var delegate:TextfieldTVCellDelegate?
@@ -53,21 +53,41 @@ class TextfieldTVCell: TableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    override func prepareForReuse() {
+        hidethings()
+    }
+    
+    func hidethings(){
+        txtField.text = cellInfo?.subTitle
+        countryCodeView.isHidden = true
+        dropDown.hide()
+        datePicker.isHidden = true
+        genderdropDown.hide()
+        datePicker.isHidden = true
+        showPassView.isHidden = true
+    }
+    
+    
     override func updateUI() {
         btnHeight.constant = 0
-       // titlelbl.text = cellInfo?.title
+        
+        txtField.label.text = cellInfo?.title
+        txtField.text = cellInfo?.subTitle
         txtField.placeholder = cellInfo?.tempText
         txtField.tag = Int(cellInfo?.text ?? "") ?? 0
-        txtField.text = ""
-        txtField.label.text = cellInfo?.title
         dropDown.dataSource = cellInfo?.moreData as? [String] ?? []
+        
         key = cellInfo?.key ?? ""
         switch cellInfo?.key {
             
+            
+        case "name":
+            hidethings()
+            break
+            
         case "pwd":
             self.txtField.isSecureTextEntry = true
-//             btnHeight.constant = 30
-//             forgetPwdBtn.isHidden = false
             break
             
         case "pass":
@@ -79,13 +99,14 @@ class TextfieldTVCell: TableViewCell {
             
         case "mobile":
             self.txtField.keyboardType = .numberPad
-            countryCodeView.isHidden = false
+            countryCodeView.isHidden = true
+            setupDropDown()
             break
             
         case "dob":
             showPassView.isHidden = false
             showPassImg.image = UIImage(named: "calender")
-            showDatePicker()
+            datePicker.isHidden = false
             break
             
         case "passport":
@@ -93,6 +114,11 @@ class TextfieldTVCell: TableViewCell {
             showPassImg.image = UIImage(named: "downarrow")
             break
             
+            
+        case "gender":
+            genderdropDown.dataSource = ["Male","Female","Others"]
+            setupGenderDropDown()
+            break
             
             
         default:
@@ -107,6 +133,11 @@ class TextfieldTVCell: TableViewCell {
             txtField.isUserInteractionEnabled = true
             txtField.alpha = 1
         }
+        
+        
+        if txtField.tag == 3 {
+            showDatePicker()
+        }
     }
     
     
@@ -117,21 +148,14 @@ class TextfieldTVCell: TableViewCell {
         showPassView.isHidden = true
         showPassBtn.setTitle("", for: .normal)
         holderView.backgroundColor = .WhiteColor
-//        textHolderView.backgroundColor = .WhiteColor
-//        textHolderView.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
-//        textHolderView.layer.borderWidth = 1
-//        textHolderView.layer.cornerRadius = 4
-//        textHolderView.clipsToBounds = true
-    showPassImg.image = UIImage(named: "hidepass")
-//        titlelbl.textColor = .AppLabelColor
-//        titlelbl.font = UIFont.OpenSansRegular(size: 14)
+        showPassImg.image = UIImage(named: "hidepass")
+        
         txtField.delegate = self
         txtField.backgroundColor = .clear
-      //  txtField.setLeftPaddingPoints(20)
-        txtField.font = UIFont.LatoRegular(size: 14)
+        txtField.font = UIFont.LatoRegular(size: 16)
         txtField.addTarget(self, action: #selector(editingText(textField:)), for: .editingChanged)
         
-        txtField.label.textColor = .AppSubtitleColor
+        txtField.label.textColor = .SubTitleColor
         
         txtField.setOutlineColor( .black, for: .editing)
         txtField.setOutlineColor( .red , for: .disabled)
@@ -142,9 +166,6 @@ class TextfieldTVCell: TableViewCell {
         forgetPwdBtn.titleLabel?.font = UIFont.OpenSansRegular(size: 14)
         forgetPwdBtn.isHidden = true
         
-       // titlelblHolderView.backgroundColor = .WhiteColor
-        
-        
         countryCodeView.isHidden = true
         countryCodeView.backgroundColor = .WhiteColor
         countryCodeView.layer.borderWidth = 1
@@ -154,12 +175,12 @@ class TextfieldTVCell: TableViewCell {
         countryCodelbl.textColor = HexColor("#D0D0D0")
         countryCodelbl.font = UIFont.OpenSansRegular(size: 18)
         dropdownBtn.setTitle("", for: .normal)
-        setupDropDown()
+       
     }
     
     func setupDropDown() {
-
-        dropDown.direction = .any
+        
+        dropDown.direction = .bottom
         dropDown.backgroundColor = .WhiteColor
         dropDown.anchorView = self.dropdownBtn
         dropDown.bottomOffset = CGPoint(x: 0, y: dropdownBtn.frame.size.height + 10)
@@ -168,7 +189,19 @@ class TextfieldTVCell: TableViewCell {
             self?.countryCodelbl.textColor = .AppLabelColor
             self?.delegate?.didTapOnCountryCodeDropDownBtn(cell: self!)
         }
-
+        
+    }
+    
+    
+    func setupGenderDropDown() {
+        genderdropDown.direction = .any
+        genderdropDown.backgroundColor = .WhiteColor
+        genderdropDown.anchorView = self.txtField
+        genderdropDown.bottomOffset = CGPoint(x: 0, y: txtField.frame.size.height + 10)
+        genderdropDown.selectionAction = { [weak self] (index: Int, item: String) in
+            print(item)
+        }
+        
     }
     
     @objc func editingText(textField:UITextField) {
@@ -177,12 +210,12 @@ class TextfieldTVCell: TableViewCell {
     
     
     
-   
+    
     func showDatePicker(){
         //Formate Date
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
-        
+       
         //ToolBar
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
@@ -192,8 +225,12 @@ class TextfieldTVCell: TableViewCell {
         
         toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
         
-        txtField.inputAccessoryView = toolbar
-        txtField.inputView = datePicker
+        
+        if txtField.tag == 3 {
+            txtField.inputAccessoryView = toolbar
+            txtField.inputView = datePicker
+        }
+       
         
     }
     
@@ -214,11 +251,10 @@ class TextfieldTVCell: TableViewCell {
     }
     
     
-    
     @IBAction func didTapOnShowPasswordBtn(_ sender: Any) {
         delegate?.didTapOnShowPasswordBtn(cell: self)
     }
-
+    
     @IBAction func didTapOnCountryCodeDropDownBtn(_ sender: Any) {
         dropDown.show()
         delegate?.didTapOnCountryCodeDropDownBtn(cell: self)
