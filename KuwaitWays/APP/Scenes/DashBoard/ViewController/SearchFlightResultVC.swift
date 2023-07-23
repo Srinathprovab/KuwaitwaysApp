@@ -446,7 +446,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                                              noosStops: "\(k.no_of_stops ?? 0) Stops",
                                              airlineslogo: k.operator_image,
                                              airlinesCode:"(\(k.operator_code ?? "")-\(k.operator_name ?? ""))",
-                                             kwdprice:j.totalPrice_API,
+                                             kwdprice:"\(j.aPICurrencyType ?? ""):\(j.totalPrice_API ?? "")",
                                              refundable:j.fareType,
                                              travelTime: k.duration,
                                              cellType:.SearchFlightResultInfoTVCell))
@@ -484,7 +484,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         jfl.forEach { i in
             i.forEach { j in
                 tablerow.append(TableRow(title:j.access_key,
-                                         kwdprice:j.totalPrice_API,
+                                         kwdprice:"\(j.aPICurrencyType ?? ""):\(j.totalPrice_API ?? "")",
                                          refundable:j.fareType,
                                          key: "circle",
                                          moreData: j.flight_details?.summary,
@@ -520,7 +520,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         
         jfl.forEach { j in
             tablerow.append(TableRow(title:j.access_key,
-                                     kwdprice:j.totalPrice_API,
+                                     kwdprice:"\(j.aPICurrencyType ?? ""):\(j.totalPrice_API ?? "")",
                                      refundable:j.fareType,
                                      key: "multicity",
                                      moreData: j.flight_details?.summary,

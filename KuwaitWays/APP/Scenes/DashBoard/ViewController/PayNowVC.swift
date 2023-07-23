@@ -932,22 +932,12 @@ extension PayNowVC:HotelMBViewModelDelegate {
         }
         
         
-        
-        
-        
-        
         let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
         let passengertypeArray = travelerArray.compactMap({$0.passengertype})
         let firstnameArray = travelerArray.compactMap({$0.firstName})
         let lastNameArray = travelerArray.compactMap({$0.lastName})
         
-        
-        print("lastNameArray \(mrtitleArray)")
-        print("passengertypeArray \(passengertypeArray)")
-        print("firstnameArray \(firstnameArray)")
-        print("lastNameArray \(lastNameArray)")
-        
-        
+       
         
         payload["booking_source"] = hbooking_source
         payload["promo_code"] = ""

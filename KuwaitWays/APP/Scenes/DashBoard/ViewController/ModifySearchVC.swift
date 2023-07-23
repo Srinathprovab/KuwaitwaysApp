@@ -299,7 +299,8 @@ class ModifySearchVC: BaseTableVC {
             payload["search_flight"] = "Search"
             payload["search_source"] = "search"
             payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
-            
+            payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "AED"
+
             
             if defaults.string(forKey:UserDefaultsKeys.fromCity) == "" {
                 showToast(message: "Please Select From City")
@@ -338,7 +339,8 @@ class ModifySearchVC: BaseTableVC {
             payload["search_flight"] = "Search"
             payload["search_source"] = "search"
             payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
-            
+            payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "AED"
+
             if defaults.string(forKey:UserDefaultsKeys.rfromCity) == "" {
                 showToast(message: "Please Select From City")
             }else if defaults.string(forKey:UserDefaultsKeys.rtoCity) == "" {
