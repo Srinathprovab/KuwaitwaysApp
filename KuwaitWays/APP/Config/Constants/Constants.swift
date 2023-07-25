@@ -160,6 +160,9 @@ var hd:HotelDetailsModel?
 var latitudeArray: [Double] = []
 var longitudeArray: [Double] = []
 
+var facilityArray = [String]()
+
+
 
 /* URL endpoints */
 struct ApiEndpoints {

@@ -938,7 +938,7 @@ extension PayNowVC:HotelMBViewModelDelegate {
         let lastNameArray = travelerArray.compactMap({$0.lastName})
         
        
-        
+        payload["search_id"] = hsearch_id
         payload["booking_source"] = hbooking_source
         payload["promo_code"] = ""
         payload["token"] = hbookingToken
@@ -977,6 +977,11 @@ extension PayNowVC:HotelMBViewModelDelegate {
     
     func hotelSecureBookingDetails(response: HotelSecureBookingModel) {
         BASE_URL = BASE_URL1
+        
+        if response.status == 1 {
+            print(response.url)
+            gotoLoadWebViewVC(url: response.url ?? "")
+        }
     }
     
     

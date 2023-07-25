@@ -134,12 +134,17 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate {
         prices.removeAll()
         latitudeArray.removeAll()
         longitudeArray.removeAll()
+        facilityArray.removeAll()
         hotelSearchResultArray.forEach { i in
             prices.append("\(i.xml_net ?? "")")
             latitudeArray.append(Double(i.latitude ?? "0.0") ?? 0.0)
             longitudeArray.append(Double(i.longitude ?? "0.0") ?? 0.0)
+            i.facility?.forEach({ j in
+                facilityArray.append(j)
+            })
         }
         prices = Array(Set(prices))
+        facilityArray = Array(Set(facilityArray))
         
         DispatchQueue.main.async {
             self.setupTVCells(hotelList: self.hotelSearchResultArray)

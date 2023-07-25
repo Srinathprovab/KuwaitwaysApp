@@ -75,7 +75,6 @@ class FilterSearchVC: BaseTableVC {
     var hpricesArray = ["Deal","Name"," Star"]
     var amenitiesArray = ["Wi-Fi","Breakfast","Parking","Swimming Pool"]
     var amenitiesArray1 = ["Others(379)","Others(379)"]
-    var facilitiesArray = ["Air condition"]
     
     var filterTapKey = String()
     var minpricerangefilter = Double()
@@ -106,7 +105,7 @@ class FilterSearchVC: BaseTableVC {
         commonTableView.backgroundColor = .WhiteColor
         closeBtn.setTitle("", for: .normal)
         
-       
+        
         
         sortview.backgroundColor = .WhiteColor
         sortul.backgroundColor = .AppNavBackColor
@@ -168,7 +167,7 @@ class FilterSearchVC: BaseTableVC {
     func setupFilterTVCells() {
         tablerow.removeAll()
         
-      //  tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
+        //  tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Prices",cellType:.SliderTVCell))
         tablerow.append(TableRow(title:"No Of Stops",data: noofStopsA,cellType:.CheckBoxTVCell))
         tablerow.append(TableRow(title:"Outbound Departurn Time",key:"time", data: departurnTimeArray,cellType:.CheckBoxTVCell))
@@ -189,12 +188,12 @@ class FilterSearchVC: BaseTableVC {
         
     }
     
-   
+    
     
     func setupSortTVCells() {
         tablerow.removeAll()
         
-       // tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
+        // tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"PRICE",subTitle: "Low to high",buttonTitle: "High to low",cellType:.SortByPriceTVCell))
         tablerow.append(TableRow(title:"Departure Time",subTitle: "Earlist  flight",buttonTitle: "Latest flight",cellType:.SortByPriceTVCell))
         tablerow.append(TableRow(title:"Arrival Time",subTitle: "Earlist  flight",buttonTitle: "Latest flight",cellType:.SortByPriceTVCell))
@@ -220,9 +219,11 @@ class FilterSearchVC: BaseTableVC {
         tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Prices",key: "hotel",cellType:.SliderTVCell))
         tablerow.append(TableRow(title:"Star Rating",cellType:.StarRatingTVCell))
-        tablerow.append(TableRow(title:"Amenities",key: "hotel",data: amenitiesArray,cellType:.CheckBoxTVCell))
-        tablerow.append(TableRow(title:"Amenities",key: "hotel",data: amenitiesArray1,cellType:.CheckBoxTVCell))
-        tablerow.append(TableRow(title:"Facilities",key: "hotel",data: facilitiesArray,cellType:.CheckBoxTVCell))
+        //        tablerow.append(TableRow(title:"Amenities",key: "hotel",data: amenitiesArray,cellType:.CheckBoxTVCell))
+        //        tablerow.append(TableRow(title:"Amenities",key: "hotel",data: amenitiesArray1,cellType:.CheckBoxTVCell))
+        if facilityArray.count != 0 {
+            tablerow.append(TableRow(title:"Facilities",key: "hotel",data: facilityArray,cellType:.CheckBoxTVCell))
+        }
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
@@ -608,7 +609,7 @@ class FilterSearchVC: BaseTableVC {
     
     
     override func btnAction(cell: ButtonTVCell) {
-       
+        
         
         if let tabSelected = defaults.string(forKey: UserDefaultsKeys.tabselect) {
             if tabSelected == "Flight" {

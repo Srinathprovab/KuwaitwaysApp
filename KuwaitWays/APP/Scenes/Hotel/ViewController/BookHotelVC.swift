@@ -149,7 +149,7 @@ class BookHotelVC: BaseTableVC {
         payload["rooms"] = defaults.string(forKey: UserDefaultsKeys.roomcount)
         payload["adult"] = adtArray
         payload["child"] = chArray
-        payload["childAge_1"] = ["0","0"]
+        payload["childAge_1"] = ["0"]
         payload["nationality"] = nationalityCode
         
         

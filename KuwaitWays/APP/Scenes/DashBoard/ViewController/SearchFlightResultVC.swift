@@ -43,9 +43,13 @@ class SearchFlightResultVC: BaseTableVC {
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
 
-        
+       
         if callapibool == true {
-            callAPI()
+            DispatchQueue.main.async {[self] in
+                TimerManager.shared.sessionStop()
+                callAPI()
+            }
+            
         }
         
         
@@ -87,7 +91,7 @@ class SearchFlightResultVC: BaseTableVC {
         
         let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
         
-        TimerManager.shared.sessionStop()
+       
         switch journyType {
         case "oneway":
             vm?.CALL_GET_FLIGHT_LIST_API(dictParam: payload)
