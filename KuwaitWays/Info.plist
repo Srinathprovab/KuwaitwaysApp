@@ -58,5 +58,15 @@
         <true/>
     </dict>
     
+    
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>App wants to access your documents folder</string>
+    <key>NSDownloadsFolderUsageDescription</key>
+    <string>App wants to access your downloads folder</string>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+    <key>UIFileSharingEnabled</key>
+    <true/>
+    
 </dict>
 </plist>

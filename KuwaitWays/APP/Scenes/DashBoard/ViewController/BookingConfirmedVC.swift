@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
+class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocumentInteractionControllerDelegate {
     
     @IBOutlet weak var navBar: NavBar!
     @IBOutlet weak var navHeight: NSLayoutConstraint!
@@ -25,7 +25,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
         return vc
     }
     
-
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -35,7 +35,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
+        
         if callapibool == true {
             BASE_URL = ""
             DispatchQueue.main.async {[self] in
@@ -61,7 +61,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
         fdetails = response.flight_details?.summary ?? []
         kwdPrice = "\(response.price?.api_currency ?? ""):\(response.price?.api_total_display_fare ?? 0)"
         vouchercustomerdetails = vocherdata1?.booking_details?.first?.customer_details ?? []
-
+        
         
         vocherdata1?.booking_details?.forEach({ i in
             bookingRefrence = i.app_reference ?? ""
@@ -73,7 +73,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
             self.setupTV()
         }
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,17 +193,10 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
     
     override func btnAction(cell: ButtonTVCell) {
         let vocherpdf = "https://kuwaitways.com/mobile_webservices/index.php/voucher/flight/\(bookingRefrence)/\(bookingsource)/show_pdf"
+        downloadAndSavePDF(showpdfurl: vocherpdf)
         
-        
-        print(vocherpdf)
-        DispatchQueue.main.async {
-            if URL(string: vocherpdf) != nil {
-                self.downloadFile(url: vocherpdf)
-            }
-        }
-        
-       
-        DispatchQueue.main.async {
+        let seconds = 2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             self.gotoAboutUsVC(title: "Vocher Details", url: vocherpdf)
         }
         
@@ -225,7 +218,6 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
     func downloadFile(url:String){
         let url = url
         let fileName = "Voucher_\(Date())"
-        
         savePdf(urlString: url, fileName: fileName)
         
     }
@@ -235,7 +227,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
             let url = URL(string: urlString)
             let pdfData = try? Data.init(contentsOf: url!)
             let resourceDocPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last! as URL
-            let pdfNameFromUrl = "Kuwaitways-\(fileName).pdf"
+            let pdfNameFromUrl = "kuwaitways-\(fileName).pdf"
             let actualPath = resourceDocPath.appendingPathComponent(pdfNameFromUrl)
             do {
                 try pdfData?.write(to: actualPath, options: .atomic)
@@ -249,5 +241,57 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
     }
     
     
+    
+}
+
+
+
+extension BookingConfirmedVC {
+    
+    
+    
+    // Function to download and save the PDF
+    func downloadAndSavePDF(showpdfurl:String) {
+        let urlString = showpdfurl
+        
+        if let url = URL(string: urlString) {
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print("Download Error: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+                    print("Invalid Response: \(response.debugDescription)")
+                    return
+                }
+                
+                if let pdfData = data {
+                    self.savePdfToDocumentDirectory(pdfData: pdfData, fileName: "\(Date())")
+                }
+            }
+            task.resume()
+        } else {
+            print("Invalid URL: \(urlString)")
+        }
+    }
+    
+    // Function to save PDF data to the app's document directory
+    func savePdfToDocumentDirectory(pdfData: Data, fileName: String) {
+        do {
+            let resourceDocPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
+            let pdfName = "Kuwaitways-\(fileName).pdf"
+            let destinationURL = resourceDocPath.appendingPathComponent(pdfName)
+            try pdfData.write(to: destinationURL)
+            
+            showToast(message: "PDF successfully saved")
+            
+        } catch {
+            print("Error saving PDF to Document Directory: \(error)")
+        }
+    }
+    
+   
     
 }

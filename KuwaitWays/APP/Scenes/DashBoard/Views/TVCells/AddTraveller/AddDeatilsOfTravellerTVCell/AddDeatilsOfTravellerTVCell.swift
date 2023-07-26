@@ -542,12 +542,12 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     func showexpirDatePicker(){
         //Formate Date
         passportDatePicker.datePickerMode = .date
-//        passportDatePicker.minimumDate = Date()
+        passportDatePicker.minimumDate = Date()
         
-        let calendar = Calendar.current
-        var components = DateComponents()
-        components.year = 10
-        passportDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+//        let calendar = Calendar.current
+//        var components = DateComponents()
+//        components.year = 10
+//        passportDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
         passportDatePicker.preferredDatePickerStyle = .wheels
         
         //ToolBar
