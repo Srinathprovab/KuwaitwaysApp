@@ -194,13 +194,15 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
     override func btnAction(cell: ButtonTVCell) {
         let vocherpdf = "https://kuwaitways.com/mobile_webservices/index.php/voucher/flight/\(bookingRefrence)/\(bookingsource)/show_pdf"
         
+        
+        print(vocherpdf)
         DispatchQueue.main.async {
-            if let url = URL(string: vocherpdf) {
+            if URL(string: vocherpdf) != nil {
                 self.downloadFile(url: vocherpdf)
             }
         }
         
-        showToast(message: "Download Sucessfull")
+       
         DispatchQueue.main.async {
             self.gotoAboutUsVC(title: "Vocher Details", url: vocherpdf)
         }
@@ -223,6 +225,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
     func downloadFile(url:String){
         let url = url
         let fileName = "Voucher_\(Date())"
+        
         savePdf(urlString: url, fileName: fileName)
         
     }
@@ -232,7 +235,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate {
             let url = URL(string: urlString)
             let pdfData = try? Data.init(contentsOf: url!)
             let resourceDocPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last! as URL
-            let pdfNameFromUrl = "kuwaitways-\(fileName).pdf"
+            let pdfNameFromUrl = "Kuwaitways-\(fileName).pdf"
             let actualPath = resourceDocPath.appendingPathComponent(pdfNameFromUrl)
             do {
                 try pdfData?.write(to: actualPath, options: .atomic)

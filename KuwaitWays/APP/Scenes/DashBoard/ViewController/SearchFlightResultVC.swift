@@ -258,6 +258,9 @@ extension SearchFlightResultVC {
 
 
 extension SearchFlightResultVC:FlightListViewModelDelegate {
+    
+    
+    //MARK: - multicityFlightList
     func multicityFlightList(response: MulticityModel) {
         
         
@@ -315,7 +318,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             prices = Array(Set(prices))
             noofStopsA = Array(Set(noofStopsA))
             fareTypeA = Array(Set(fareTypeA))
-            airlinesA = Array(Set(airlinesA))
+            airlinesA = Array(Set(airlinesA.filter { isNonNullString($0) }))
+            
             connectingFlightsA = Array(Set(connectingFlightsA))
             connectingAirportA = Array(Set(connectingAirportA))
             
@@ -331,7 +335,20 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         }
     }
     
+    
+    // Create a function to check if a string is not nil and not equal to "null"
+    func isNonNullString(_ string: String?) -> Bool {
+        if let nonNullString = string, nonNullString.lowercased() != "null" {
+            return true
+        }
+        return false
+    }
+    
+    
+    //MARK: - oneway and roundtrip flightList
     func flightList(response: FlightListModel) {
+        
+        airlinesA.removeAll()
         
         
         if response.status == 1{
@@ -363,7 +380,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                         
                         airlinesA.append(k.operator_name ?? "")
                         connectingFlightsA.append(k.destination?.loc ?? "")
-                        connectingAirportA.append(k.operator_name ?? "")
+                        connectingAirportA.append(k.origin?.loc ?? "")
                         
                         switch k.no_of_stops {
                         case 0:
@@ -385,7 +402,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             prices = Array(Set(prices))
             noofStopsA = Array(Set(noofStopsA))
             fareTypeA = Array(Set(fareTypeA))
-            airlinesA = Array(Set(airlinesA))
+            airlinesA = Array(Set(airlinesA.compactMap { $0 }))
             connectingFlightsA = Array(Set(connectingFlightsA))
             connectingAirportA = Array(Set(connectingAirportA))
             
@@ -450,7 +467,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                                              noosStops: "\(k.no_of_stops ?? 0) Stops",
                                              airlineslogo: k.operator_image,
                                              airlinesCode:"(\(k.operator_code ?? "")-\(k.operator_name ?? ""))",
-                                             kwdprice:"\(j.aPICurrencyType ?? ""):\(j.totalPrice_API ?? "")",
+                                             kwdprice:"\(j.sITECurrencyType ?? ""):\(j.totalPrice_API ?? "")",
                                              refundable:j.fareType,
                                              travelTime: k.duration,
                                              cellType:.SearchFlightResultInfoTVCell))
@@ -488,7 +505,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         jfl.forEach { i in
             i.forEach { j in
                 tablerow.append(TableRow(title:j.access_key,
-                                         kwdprice:"\(j.aPICurrencyType ?? ""):\(j.totalPrice_API ?? "")",
+                                         kwdprice:"\(j.sITECurrencyType ?? ""):\(j.totalPrice_API ?? "")",
                                          refundable:j.fareType,
                                          key: "circle",
                                          moreData: j.flight_details?.summary,
@@ -524,7 +541,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         
         jfl.forEach { j in
             tablerow.append(TableRow(title:j.access_key,
-                                     kwdprice:"\(j.aPICurrencyType ?? ""):\(j.totalPrice_API ?? "")",
+                                     kwdprice:"\(j.sITECurrencyType ?? ""):\(j.totalPrice_API ?? "")",
                                      refundable:j.fareType,
                                      key: "multicity",
                                      moreData: j.flight_details?.summary,

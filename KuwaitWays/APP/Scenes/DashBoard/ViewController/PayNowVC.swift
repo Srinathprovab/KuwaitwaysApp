@@ -559,11 +559,16 @@ extension PayNowVC {
                 // Textfield is not empty
             }
             
-            if cell.fnameTF.text?.isEmpty == true {
+            if cell.fnameTF.text?.isEmpty == true{
                 // Textfield is empty
                 cell.fnameView.layer.borderColor = UIColor.red.cgColor
                 callpaymentbool = false
-            } else {
+            }else if cell.fnameTF.text?.count == 3 {
+                // Textfield is empty
+                showToast(message: "Enter More Than 3 Chars")
+                cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                callpaymentbool = false
+            }else {
                 // Textfield is not empty
             }
             
@@ -571,7 +576,12 @@ extension PayNowVC {
                 // Textfield is empty
                 cell.lnameView.layer.borderColor = UIColor.red.cgColor
                 callpaymentbool = false
-            } else {
+            } else if cell.lnameTF.text?.count == 3 {
+                // Textfield is empty
+                showToast(message: "Enter More Than 3 Chars")
+                cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                callpaymentbool = false
+            }else {
                 // Textfield is not empty
             }
             

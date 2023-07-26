@@ -10,7 +10,7 @@ struct J_flight_list : Codable {
     let taxes : String?
     let totalPrice_API : String?
     let aPICurrencyType : String?
-    //    let sITECurrencyType : String?
+    let sITECurrencyType : String?
     //    let myMarkup : String?
     //    let myMarkup_cal : String?
     //    let aMarkup : String?
@@ -56,7 +56,7 @@ struct J_flight_list : Codable {
         case taxes = "Taxes"
         case totalPrice_API = "TotalPrice_API"
         case aPICurrencyType = "APICurrencyType"
-        //        case sITECurrencyType = "SITECurrencyType"
+        case sITECurrencyType = "SITECurrencyType"
         //        case myMarkup = "MyMarkup"
         //        case myMarkup_cal = "myMarkup_cal"
         //        case aMarkup = "aMarkup"
@@ -103,7 +103,7 @@ struct J_flight_list : Codable {
         taxes = try values.decodeIfPresent(String.self, forKey: .taxes)
         totalPrice_API = try values.decodeIfPresent(String.self, forKey: .totalPrice_API)
         aPICurrencyType = try values.decodeIfPresent(String.self, forKey: .aPICurrencyType)
-        //  sITECurrencyType = try values.decodeIfPresent(String.self, forKey: .sITECurrencyType)
+        sITECurrencyType = try values.decodeIfPresent(String.self, forKey: .sITECurrencyType)
         //        myMarkup = try values.decodeIfPresent(String.self, forKey: .myMarkup)
         //        myMarkup_cal = try values.decodeIfPresent(String.self, forKey: .myMarkup_cal)
         //        aMarkup = try values.decodeIfPresent(String.self, forKey: .aMarkup)

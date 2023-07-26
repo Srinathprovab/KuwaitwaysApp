@@ -13,6 +13,7 @@ struct MJ_flight_list : Codable {
     let taxes : String?
     let totalPrice_API : String?
     let aPICurrencyType : String?
+    let sITECurrencyType : String?
     let fareType : String?
     let flight_details : MFlight_details?
     let selectedResult : String?
@@ -26,6 +27,7 @@ struct MJ_flight_list : Codable {
         case taxes = "Taxes"
         case totalPrice_API = "TotalPrice_API"
         case aPICurrencyType = "APICurrencyType"
+        case sITECurrencyType = "sITECurrencyType"
         case fareType = "FareType"
         case flight_details = "flight_details"
         case selectedResult = "selectedResult"
@@ -39,6 +41,7 @@ struct MJ_flight_list : Codable {
         taxes = try values.decodeIfPresent(String.self, forKey: .taxes)
         totalPrice_API = try values.decodeIfPresent(String.self, forKey: .totalPrice_API)
         aPICurrencyType = try values.decodeIfPresent(String.self, forKey: .aPICurrencyType)
+        sITECurrencyType = try values.decodeIfPresent(String.self, forKey: .sITECurrencyType)
         fareType = try values.decodeIfPresent(String.self, forKey: .fareType)
         flight_details = try values.decodeIfPresent(MFlight_details.self, forKey: .flight_details)
         selectedResult = try values.decodeIfPresent(String.self, forKey: .selectedResult)
