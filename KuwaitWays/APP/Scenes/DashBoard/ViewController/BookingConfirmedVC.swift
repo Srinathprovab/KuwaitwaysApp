@@ -202,9 +202,6 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
         
     }
     
-    
-    
-    
     func gotoAboutUsVC(title:String,url:String) {
         guard let vc = LoadWebViewVC.newInstance.self else {return}
         vc.urlString = url
@@ -214,35 +211,6 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
         self.present(vc, animated: true)
         
     }
-    
-    func downloadFile(url:String){
-        let url = url
-        let fileName = "Voucher_\(Date())"
-        savePdf(urlString: url, fileName: fileName)
-        
-    }
-    
-    func savePdf(urlString:String, fileName:String) {
-        DispatchQueue.main.async {
-            let url = URL(string: urlString)
-            let pdfData = try? Data.init(contentsOf: url!)
-            let resourceDocPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last! as URL
-            let pdfNameFromUrl = "kuwaitways-\(fileName).pdf"
-            let actualPath = resourceDocPath.appendingPathComponent(pdfNameFromUrl)
-            do {
-                try pdfData?.write(to: actualPath, options: .atomic)
-                
-                DispatchQueue.main.async {
-                    self.showToast(message: "PDF successfully saved")
-                }
-                //file is downloaded in app data container, I can find file from x code > devices > MyApp > download Container >This container has the file
-            } catch {
-                print("Pdf could not be saved")
-            }
-        }
-    }
-    
-    
     
 }
 

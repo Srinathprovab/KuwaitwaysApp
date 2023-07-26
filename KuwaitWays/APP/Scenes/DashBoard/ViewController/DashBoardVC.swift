@@ -39,6 +39,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
 
         TimerManager.shared.startTimer()
         
@@ -117,7 +118,12 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
+        vc.key = "offline"
         self.present(vc, animated: false)
+    }
+    
+    @objc func reload() {
+        callAPI()
     }
     
     

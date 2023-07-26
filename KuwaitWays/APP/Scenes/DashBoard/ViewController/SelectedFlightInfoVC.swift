@@ -46,7 +46,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
+        
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
             if journeyType == "oneway" {
@@ -90,10 +90,11 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
+        vc.key = "offline"
         self.present(vc, animated: false)
     }
     
- 
+    
     
     
     func callAPI() {
@@ -382,13 +383,13 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate {
             TableViewHelper.EmptyMessage(message: "No Data Found", tableview: commonTableView, vc: self)
         }else {
             TableViewHelper.EmptyMessage(message: "", tableview: commonTableView, vc: self)
-
+            
             self.fareRulesData.forEach { i in
                 tablerow.append(TableRow(title:i.rule_heading,subTitle: i.rule_content?.htmlToString,cellType:.FareRulesTVCell))
             }
         }
         
-       
+        
         
         commonTVData = tablerow
         commonTableView.reloadData()

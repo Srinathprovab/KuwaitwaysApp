@@ -35,15 +35,21 @@ class SearchFlightResultVC: BaseTableVC {
     
     
     @objc func resultnil(notificatio:UNNotification) {
-       
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.key = "noresult"
+        self.present(vc, animated: false)
     }
     
     
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
-
-       
+        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatetimer), name: NSNotification.Name("updatetimer"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
+        
         if callapibool == true {
             DispatchQueue.main.async {[self] in
                 TimerManager.shared.sessionStop()
@@ -53,9 +59,7 @@ class SearchFlightResultVC: BaseTableVC {
         }
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updatetimer), name: NSNotification.Name("updatetimer"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
+        
     }
     
     
@@ -83,6 +87,7 @@ class SearchFlightResultVC: BaseTableVC {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
+        vc.key = "noresult"
         self.present(vc, animated: false)
     }
     
@@ -91,7 +96,7 @@ class SearchFlightResultVC: BaseTableVC {
         
         let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
         
-       
+        
         switch journyType {
         case "oneway":
             vm?.CALL_GET_FLIGHT_LIST_API(dictParam: payload)
@@ -597,7 +602,7 @@ extension SearchFlightResultVC:AppliedFilters {
         if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
             
             let sortedArray = oneWayFlights.filter { flightList in
-
+                
                 
                 // Calculate the total price for each flight in the flight list
                 let totalPrice = flightList.reduce(0.0) { result, flight in

@@ -81,6 +81,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
+        vc.key = "offline"
         self.present(vc, animated: false)
     }
     

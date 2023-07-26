@@ -372,7 +372,7 @@ class AddRoomsVCViewController: UIViewController, UITableViewDelegate, UITableVi
                 
            
                 
-                break
+                
             default:
                 break
             }

@@ -41,18 +41,19 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate {
         return vc
     }
     
-
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
+        vc.key = "offline"
         self.present(vc, animated: false)
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name("reload"), object: nil)
         
         
@@ -92,9 +93,11 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate {
     }
     
     @objc func resultnil(notification: NSNotification){
-        DispatchQueue.main.async {
-            self.holderView.isHidden = false
-        }
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.key = "noresult"
+        self.present(vc, animated: false)
     }
     
     
@@ -118,36 +121,49 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate {
     
     
     func hotelList(response: HotelListModel) {
-        holderView.isHidden = false
-        hbooking_source = response.booking_source ?? ""
-        hsearch_id = String(response.search_id ?? 0)
         
-        
-        TimerManager.shared.totalTime = response.session_expiry_details?.session_start_time ?? 0
-        TimerManager.shared.startTimer()
-        
-        
-        
-        hotelSearchResultArray = response.data?.hotelSearchResult ?? []
-        setupLabels(lbl: subtitlelbl, text: "\(hotelSearchResultArray.count) Hotels Found", textcolor: .WhiteColor, font: .OpenSansRegular(size: 12))
-        
-        prices.removeAll()
-        latitudeArray.removeAll()
-        longitudeArray.removeAll()
-        facilityArray.removeAll()
-        hotelSearchResultArray.forEach { i in
-            prices.append("\(i.xml_net ?? "")")
-            latitudeArray.append(Double(i.latitude ?? "0.0") ?? 0.0)
-            longitudeArray.append(Double(i.longitude ?? "0.0") ?? 0.0)
-            i.facility?.forEach({ j in
-                facilityArray.append(j)
-            })
-        }
-        prices = Array(Set(prices))
-        facilityArray = Array(Set(facilityArray))
-        
-        DispatchQueue.main.async {
-            self.setupTVCells(hotelList: self.hotelSearchResultArray)
+        if response.status == 1 {
+            
+            holderView.isHidden = false
+            hbooking_source = response.booking_source ?? ""
+            hsearch_id = String(response.search_id ?? 0)
+            
+            
+            TimerManager.shared.totalTime = response.session_expiry_details?.session_start_time ?? 0
+            TimerManager.shared.startTimer()
+            
+            
+            
+            hotelSearchResultArray = response.data?.hotelSearchResult ?? []
+            setupLabels(lbl: subtitlelbl, text: "\(hotelSearchResultArray.count) Hotels Found", textcolor: .WhiteColor, font: .OpenSansRegular(size: 12))
+            
+            prices.removeAll()
+            latitudeArray.removeAll()
+            longitudeArray.removeAll()
+            facilityArray.removeAll()
+            hotelSearchResultArray.forEach { i in
+                prices.append("\(i.xml_net ?? "")")
+                latitudeArray.append(Double(i.latitude ?? "0.0") ?? 0.0)
+                longitudeArray.append(Double(i.longitude ?? "0.0") ?? 0.0)
+                i.facility?.forEach({ j in
+                    facilityArray.append(j)
+                })
+            }
+            prices = Array(Set(prices))
+            facilityArray = Array(Set(facilityArray))
+            
+            DispatchQueue.main.async {
+                self.setupTVCells(hotelList: self.hotelSearchResultArray)
+            }
+            
+        }else {
+            
+            
+            callapibool = true
+            guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+            vc.modalPresentationStyle = .fullScreen
+            vc.key = "noresult"
+            self.present(vc, animated: false)
         }
         
     }
@@ -181,7 +197,7 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate {
             navHeight.constant = 160
         }
         
-      //  setupLabels(lbl: titlelbl, text: "Your Session Expires In: 14:15", textcolor: .WhiteColor, font: .OpenSansRegular(size: 12))
+        //  setupLabels(lbl: titlelbl, text: "Your Session Expires In: 14:15", textcolor: .WhiteColor, font: .OpenSansRegular(size: 12))
         
         
         setupViews(v: mapView, radius: 4, color: .AppJournyTabSelectColor)

@@ -410,7 +410,7 @@ class ServiceManager {
                             
                                 completionHandler(true, jsonResponse, nil)
                             }else {
-                                NotificationCenter.default.post(name: NSNotification.Name("somthingwentwrong"), object: nil)
+                                NotificationCenter.default.post(name: NSNotification.Name("resultnil"), object: nil)
                                 completionHandler(false, nil, "ApiError.somthingwentwrong.message")
                             }
                             
