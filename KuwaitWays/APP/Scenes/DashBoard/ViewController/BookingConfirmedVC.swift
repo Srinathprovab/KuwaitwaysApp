@@ -232,7 +232,9 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
             do {
                 try pdfData?.write(to: actualPath, options: .atomic)
                 
-                self.showToast(message: "pdf successfully saved!")
+                DispatchQueue.main.async {
+                    self.showToast(message: "PDF successfully saved")
+                }
                 //file is downloaded in app data container, I can find file from x code > devices > MyApp > download Container >This container has the file
             } catch {
                 print("Pdf could not be saved")
@@ -285,13 +287,12 @@ extension BookingConfirmedVC {
             let destinationURL = resourceDocPath.appendingPathComponent(pdfName)
             try pdfData.write(to: destinationURL)
             
-            showToast(message: "PDF successfully saved")
             
         } catch {
             print("Error saving PDF to Document Directory: \(error)")
         }
     }
     
-   
+    
     
 }
