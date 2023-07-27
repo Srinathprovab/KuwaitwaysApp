@@ -154,9 +154,9 @@ class TravellerEconomyVC: BaseTableVC {
             
             if cell.titlelbl.text == "Adults" {
                 adultsCount = cell.count
-            }else if cell.titlelbl.text == "Children"{
+            }else if cell.titlelbl.text == "Child"{
                 childCount = cell.count
-            }else if cell.titlelbl.text == "Infants"{
+            }else if cell.titlelbl.text == "Infant"{
                 infantsCount = cell.count
             }
         }
@@ -180,12 +180,12 @@ class TravellerEconomyVC: BaseTableVC {
             }
             adultsCount = cell.count
             deleteRecords(title: "Adult", index: cell.count)
-        }else if cell.titlelbl.text == "Children"{
+        }else if cell.titlelbl.text == "Child"{
             childCount = cell.count
-            deleteRecords(title: "Children", index: cell.count)
+            deleteRecords(title: "Child", index: cell.count)
         }else {
             infantsCount = cell.count
-            deleteRecords(title: "Infantas", index: cell.count)
+            deleteRecords(title: "Infant", index: cell.count)
         }
         
         
@@ -321,7 +321,7 @@ class TravellerEconomyVC: BaseTableVC {
                 if objects.count > 0 && objects.count > adultsCount {
                     context.delete(objects[index] as! NSManagedObject)
                 }
-            }else if title == "Children" {
+            }else if title == "Child" {
                 if objects.count > 0 && objects.count > childCount {
                     context.delete(objects[index] as! NSManagedObject)
                 }

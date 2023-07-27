@@ -194,6 +194,8 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].passengertype = "Adult"
                 travelerArray[self.indexposition ].laedpassenger = "1"
                 travelerArray[self.indexposition ].middlename = ""
+                titledropDown.dataSource = ["MR","MS","MRS"]
+               
             } else if cellInfo.key == "child" {
                 if travelerArray.count <= self.indexposition {
                     travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
@@ -203,6 +205,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].passengertype = "Child"
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 travelerArray[self.indexposition ].middlename = ""
+                titledropDown.dataSource = ["Master","Miss"]
             } else {
                 if travelerArray.count <= self.indexposition {
                     travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
@@ -212,6 +215,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].passengertype = "Infant"
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 travelerArray[self.indexposition ].middlename = ""
+                titledropDown.dataSource = ["Master","Miss"]
             }
             showdobDatePicker()
         }
@@ -360,7 +364,12 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         titledropDown.direction = .bottom
         titledropDown.backgroundColor = .WhiteColor
         titledropDown.anchorView = self.titleView
-        titledropDown.dataSource = ["MR","MS","MRS"]
+//        if cellInfo?.key == "adult" {
+//            titledropDown.dataSource = ["MR","MS","MRS"]
+//        }else {
+//            titledropDown.dataSource = ["Master","Miss"]
+//        }
+        
         titledropDown.bottomOffset = CGPoint(x: 0, y: titleView.frame.size.height + 20)
         titledropDown.selectionAction = { [weak self] (index: Int, item: String) in
             self?.titleTF.text = item
@@ -370,11 +379,11 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             }
             
             switch item {
-            case "MR":
+            case "MR","Master":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "1"
                 break
                 
-            case "MS":
+            case "MS","Miss":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "2"
                 break
                 
