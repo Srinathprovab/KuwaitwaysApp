@@ -95,7 +95,7 @@ class SelectTabTVCell: TableViewCell {
     
     
     @IBAction func didTapOnLaungageBtn(_ sender: Any) {
-        delegate?.didTapOnLaungageBtn(cell: self)
+      //  delegate?.didTapOnLaungageBtn(cell: self)
     }
     
     

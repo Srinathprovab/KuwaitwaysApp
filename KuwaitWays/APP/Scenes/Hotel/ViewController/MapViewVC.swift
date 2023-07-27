@@ -54,7 +54,6 @@ class MapViewVC: UIViewController {
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -91,9 +90,6 @@ class MapViewVC: UIViewController {
     }
     
     
-    
-    
-    
     @objc func backbtnAction(_ sender:UIButton) {
         callapibool = false
         dismiss(animated: true)
@@ -106,51 +102,19 @@ class MapViewVC: UIViewController {
     
 }
 
-
-
-
-
-
 extension MapViewVC: MKMapViewDelegate {
     
     
-//    func addAnnotations() {
-//        for i in 0..<latitudeArray.count {
-//            let latitude = latitudeArray[i]
-//            let longitude = longitudeArray[i]
-//
-//            let annotation = MKPointAnnotation()
-//            annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//            mapView.addAnnotation(annotation)
-//        }
-//    }
-    
-    
     func addAnnotations() {
-        var minLat = latitudeArray.min() ?? 0
-        var maxLat = latitudeArray.max() ?? 0
-        var minLong = longitudeArray.min() ?? 0
-        var maxLong = longitudeArray.max() ?? 0
-
-        let latDelta = maxLat - minLat
-        let longDelta = maxLong - minLong
-
-        let center = CLLocationCoordinate2D(latitude: (maxLat + minLat) / 2, longitude: (maxLong + minLong) / 2)
-        let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
-
-        let region = MKCoordinateRegion(center: center, span: span)
-        mapView.setRegion(region, animated: true)
-
         for i in 0..<latitudeArray.count {
             let latitude = latitudeArray[i]
             let longitude = longitudeArray[i]
-
+            
             let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             mapView.addAnnotation(annotation)
         }
     }
-
     
     
     
@@ -170,9 +134,6 @@ extension MapViewVC: MKMapViewDelegate {
         
         return annotationView
     }
-    
-    
-    
     
 }
 
