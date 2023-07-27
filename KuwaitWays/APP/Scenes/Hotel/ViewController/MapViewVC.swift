@@ -41,9 +41,18 @@ class MapViewVC: UIViewController {
         
         
         print(latitudeArray)
+        print(longitudeArray)
         
-        addAnnotationsToMapView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
     }
+    
+    @objc func stopTimer() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
     
     
     override func viewDidLoad() {
@@ -51,6 +60,9 @@ class MapViewVC: UIViewController {
         
         // Do any additional setup after loading the view.
         setupUI()
+        
+        mapView.delegate = self
+        addAnnotations()
     }
     
     func setupUI() {
@@ -76,9 +88,6 @@ class MapViewVC: UIViewController {
         searchTF.setLeftPaddingPoints(20)
         searchTF.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
         
-        
-        setupMapView()
-        addAnnotationsToMapView()
     }
     
     
@@ -105,47 +114,65 @@ class MapViewVC: UIViewController {
 extension MapViewVC: MKMapViewDelegate {
     
     
+//    func addAnnotations() {
+//        for i in 0..<latitudeArray.count {
+//            let latitude = latitudeArray[i]
+//            let longitude = longitudeArray[i]
+//
+//            let annotation = MKPointAnnotation()
+//            annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+//            mapView.addAnnotation(annotation)
+//        }
+//    }
     
     
-    
-    func setupMapView() {
-        mapView.delegate = self
-        
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 39.8283, longitude: -98.5795), span: MKCoordinateSpan(latitudeDelta: 20, longitudeDelta: 20))
+    func addAnnotations() {
+        var minLat = latitudeArray.min() ?? 0
+        var maxLat = latitudeArray.max() ?? 0
+        var minLong = longitudeArray.min() ?? 0
+        var maxLong = longitudeArray.max() ?? 0
+
+        let latDelta = maxLat - minLat
+        let longDelta = maxLong - minLong
+
+        let center = CLLocationCoordinate2D(latitude: (maxLat + minLat) / 2, longitude: (maxLong + minLong) / 2)
+        let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
+
+        let region = MKCoordinateRegion(center: center, span: span)
         mapView.setRegion(region, animated: true)
-    }
-    
-    func addAnnotationsToMapView() {
-        for index in 0..<latitudeArray.count {
-            let coordinate = CLLocationCoordinate2D(latitude: latitudeArray[index], longitude: longitudeArray[index])
+
+        for i in 0..<latitudeArray.count {
+            let latitude = latitudeArray[i]
+            let longitude = longitudeArray[i]
+
             let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
+            annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             mapView.addAnnotation(annotation)
         }
     }
+
     
-    // MARK: - MKMapViewDelegate
+    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation {
-            return nil // Return nil for the user's location annotation
-        }
+        guard annotation is MKPointAnnotation else { return nil }
         
-        let identifier = "CustomAnnotation"
+        let identifier = "AnnotationIdentifier"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView?.canShowCallout = true
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
         } else {
             annotationView?.annotation = annotation
         }
         
-        
-        // Set the image for the annotation view
-        annotationView?.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppBackgroundColor)
+        annotationView?.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.red)
         
         return annotationView
     }
+    
+    
+    
+    
 }
 

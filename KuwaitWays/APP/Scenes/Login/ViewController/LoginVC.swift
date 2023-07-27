@@ -25,7 +25,7 @@ class LoginVC: BaseTableVC {
     var payload = [String:Any]()
     var vm:LoginViewModel?
     
-
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -35,7 +35,7 @@ class LoginVC: BaseTableVC {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
+        
     }
     
     override func viewDidLoad() {
@@ -73,11 +73,11 @@ class LoginVC: BaseTableVC {
         
         tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Login",cellType:.ButtonTVCell))
-        tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(cellType:.UnderLineTVCell))
-        // tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(cellType:.SignUpWithTVCell))
-        tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
+        tablerow.append(TableRow(height:30,cellType:.EmptyTVCell))
+        //        tablerow.append(TableRow(cellType:.UnderLineTVCell))
+        //        // tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
+        //        tablerow.append(TableRow(cellType:.SignUpWithTVCell))
+        //        tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Not register yet?",subTitle: "",key: "acccreate", tempText: "Create Account",cellType:.LabelWithButtonTVCell))
         
         

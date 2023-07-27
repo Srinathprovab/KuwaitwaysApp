@@ -68,5 +68,13 @@
     <key>UIFileSharingEnabled</key>
     <true/>
     
+    
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Allow access to the user's location when the app is in use.</string>
+
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Allow access to the user's location even when the app is in the background.</string>
+
+    
 </dict>
 </plist>
