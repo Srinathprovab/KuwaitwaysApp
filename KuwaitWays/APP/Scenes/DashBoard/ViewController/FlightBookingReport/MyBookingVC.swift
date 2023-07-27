@@ -27,6 +27,7 @@ class MyBookingVC: BaseTableVC {
     
     var payload = [String:Any]()
     var tablerow = [TableRow]()
+    var resdata = [Res_data]()
     var vm:MyBookingViewModel?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -188,6 +189,24 @@ class MyBookingVC: BaseTableVC {
         commonTableView.reloadData()
     }
     
+    
+    override func didTapOnViewVocherBtnAction(cell:MyBookingsTVCells){
+        
+        let vocherpdf = "https://kuwaitways.com/mobile_webservices/index.php/voucher/flight/\(self.resdata[cell.indexPath?.row ?? 0].app_reference ?? "")/\(self.resdata[cell.indexPath?.row ?? 0].booking_source ?? "")/show_pdf"
+                
+        gotoAboutUsVC(url: vocherpdf)
+    }
+    
+    func gotoAboutUsVC(url:String) {
+        guard let vc = LoadWebViewVC.newInstance.self else {return}
+        vc.urlString = url
+        vc.isVcFrom = "voucher"
+        vc.modalPresentationStyle = .overCurrentContext
+        callapibool = true
+        self.present(vc, animated: true)
+        
+    }
+    
 }
 
 
@@ -198,7 +217,11 @@ extension MyBookingVC:MyBookingViewModelDelegate {
         }
     }
     
+    
+    
     func completedbookingsdetails(response: MyBookingModel) {
+    
+        resdata = response.res_data ?? []
         DispatchQueue.main.async {
             self.setupTVCells(flightdata: response.flight_data ?? [], key1: "completed")
             
@@ -227,8 +250,8 @@ extension MyBookingVC:MyBookingViewModelDelegate {
                                          todate: k.destination?.date,
                                          noosStops: "\(k.no_of_stops ?? 0) Stops",
                                          airlineslogo: k.operator_image,
-                                         airlinesCode:"(\(k.operator_code ?? "")-\(k.operator_name ?? ""))",
-                                         kwdprice:"\(flightdata.first?.transaction?.currency ?? ""):\(flightdata.first?.transaction?.fare ?? "")",
+                                         airlinesCode:"(\(k.operator_code ?? "")-\(k.flight_number ?? "")) \(k.operator_name ?? "")",
+                                         kwdprice:"\(i.transaction?.currency ?? ""):\(i.transaction?.fare ?? "")",
                                          travelTime: k.duration,
                                          key: key1,
                                          cellType:.MyBookingsTVCells))
