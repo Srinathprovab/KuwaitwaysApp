@@ -193,6 +193,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
     
     override func btnAction(cell: ButtonTVCell) {
         let vocherpdf = "https://kuwaitways.com/mobile_webservices/index.php/voucher/flight/\(bookingRefrence)/\(bookingsource)/show_pdf"
+        
         downloadAndSavePDF(showpdfurl: vocherpdf)
         
         let seconds = 2.0

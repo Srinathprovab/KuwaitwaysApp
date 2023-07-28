@@ -194,8 +194,8 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].passengertype = "Adult"
                 travelerArray[self.indexposition ].laedpassenger = "1"
                 travelerArray[self.indexposition ].middlename = ""
-                titledropDown.dataSource = ["MR","MS","MRS"]
-               
+                titledropDown.dataSource = ["Mr","Ms","Mrs"]
+                
             } else if cellInfo.key == "child" {
                 if travelerArray.count <= self.indexposition {
                     travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
@@ -321,7 +321,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         v.layer.borderWidth = 1
     }
     
-  
+    
     
     @objc func didTapOnPassportIssuingCountrySelectBtnAction(_ sender:UIButton) {
         dropDown1.show()
@@ -364,11 +364,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         titledropDown.direction = .bottom
         titledropDown.backgroundColor = .WhiteColor
         titledropDown.anchorView = self.titleView
-//        if cellInfo?.key == "adult" {
-//            titledropDown.dataSource = ["MR","MS","MRS"]
-//        }else {
-//            titledropDown.dataSource = ["Master","Miss"]
-//        }
+        
         
         titledropDown.bottomOffset = CGPoint(x: 0, y: titleView.frame.size.height + 20)
         titledropDown.selectionAction = { [weak self] (index: Int, item: String) in
@@ -379,16 +375,24 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             }
             
             switch item {
-            case "MR","Master":
+            case "Mr":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "1"
                 break
                 
-            case "MS","Miss":
+            case "Master":
+                travelerArray[self?.indexposition ?? 0].mrtitle = "4"
+                break
+                
+            case "Ms":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "2"
                 break
                 
-            case "MRS":
+            case "Miss":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "3"
+                break
+                
+            case "Mrs":
+                travelerArray[self?.indexposition ?? 0].mrtitle = "5"
                 break
                 
             default:
@@ -553,10 +557,10 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         passportDatePicker.datePickerMode = .date
         passportDatePicker.minimumDate = Date()
         
-//        let calendar = Calendar.current
-//        var components = DateComponents()
-//        components.year = 10
-//        passportDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
+        //        let calendar = Calendar.current
+        //        var components = DateComponents()
+        //        components.year = 10
+        //        passportDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
         passportDatePicker.preferredDatePickerStyle = .wheels
         
         //ToolBar
@@ -703,6 +707,16 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
         // Update the gender property of the Traveler object at the specified index
         travelerArray[indexposition].gender = "1"
+        if cellInfo?.key == "adult" {
+            titledropDown.dataSource = ["Mr"]
+            titleTF.text = "Mr"
+            travelerArray[self.indexposition ].mrtitle = "1"
+        }else {
+            titledropDown.dataSource = ["Master"]
+            titleTF.text = "Master"
+            travelerArray[self.indexposition ].mrtitle = "4"
+        }
+        
         
         delegate?.didTapOnMrBtnAction(cell: self)
     }
@@ -717,6 +731,18 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
         // Update the gender property of the Traveler object at the specified index
         travelerArray[indexposition].gender = "2"
+        
+        
+        if cellInfo?.key == "adult" {
+            titledropDown.dataSource = ["Ms"]
+            titleTF.text = "Ms"
+            travelerArray[self.indexposition ].mrtitle = "2"
+        }else {
+            titledropDown.dataSource = ["Miss"]
+            titleTF.text = "Miss"
+            travelerArray[self.indexposition ].mrtitle = "3"
+        }
+        
         delegate?.didTapOnMrsBtnAction(cell: self)
     }
     
