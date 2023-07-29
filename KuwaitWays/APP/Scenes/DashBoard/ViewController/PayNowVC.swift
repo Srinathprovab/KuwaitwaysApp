@@ -540,6 +540,7 @@ extension PayNowVC {
         
         
         var callpaymentbool = true
+        var textfilldshouldmorethan3lettersBool = true
         var matchingCells: [AddDeatilsOfTravellerTVCell] = []
         // Replace with the desired search texts
         
@@ -564,10 +565,11 @@ extension PayNowVC {
                 // Textfield is empty
                 cell.fnameView.layer.borderColor = UIColor.red.cgColor
                 callpaymentbool = false
-            }else if cell.fnameTF.text?.count == 3 {
+            }else if ((cell.fnameTF.text?.count ?? 0) <= 3) {
                 // Textfield is empty
                 showToast(message: "Enter More Than 3 Chars")
                 cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                textfilldshouldmorethan3lettersBool = false
                 callpaymentbool = false
             }else {
                 // Textfield is not empty
@@ -577,10 +579,11 @@ extension PayNowVC {
                 // Textfield is empty
                 cell.lnameView.layer.borderColor = UIColor.red.cgColor
                 callpaymentbool = false
-            } else if cell.lnameTF.text?.count == 3 {
+            } else if ((cell.lnameTF.text?.count ?? 0) <= 3) {
                 // Textfield is empty
                 showToast(message: "Enter More Than 3 Chars")
-                cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                cell.lnameView.layer.borderColor = UIColor.red.cgColor
+                textfilldshouldmorethan3lettersBool = false
                 callpaymentbool = false
             }else {
                 // Textfield is not empty
@@ -709,7 +712,9 @@ extension PayNowVC {
             let jsonData = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
             let jsonStringData =  NSString(data: jsonData as Data, encoding: NSUTF8StringEncoding)! as String
             
-            if callpaymentbool == false {
+            if textfilldshouldmorethan3lettersBool == false {
+                showToast(message: "Enter More Than 3 Chars")
+            }else if callpaymentbool == false {
                 showToast(message: "Add Details")
                 
             }else {

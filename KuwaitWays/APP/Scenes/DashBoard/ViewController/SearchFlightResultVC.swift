@@ -71,15 +71,18 @@ class SearchFlightResultVC: BaseTableVC {
     
     @objc func updatetimer(notificatio:UNNotification) {
         
-        var totalTime = TimerManager.shared.totalTime
-        let minutes =  totalTime / 60
-        let seconds = totalTime % 60
-        let formattedTime = String(format: "%02d:%02d", minutes, seconds)
+        DispatchQueue.main.async {[self] in
+            var totalTime = TimerManager.shared.totalTime
+            let minutes =  totalTime / 60
+            let seconds = totalTime % 60
+            let formattedTime = String(format: "%02d:%02d", minutes, seconds)
+            
+            setuplabels(lbl: sessonlbl, text: "Your Session Expires In: \(formattedTime)",
+                        textcolor: .AppLabelColor,
+                        font: .OpenSansRegular(size: 12),
+                        align: .left)
+        }
         
-        setuplabels(lbl: sessonlbl, text: "Your Session Expires In: \(formattedTime)",
-                    textcolor: .AppLabelColor,
-                    font: .OpenSansRegular(size: 12),
-                    align: .left)
     }
     
     

@@ -65,10 +65,12 @@ extension UIViewController: BaseViewModelProtocol {
         
     }
     func showLoader() {
+        self.view.isUserInteractionEnabled = false
         Loader.showAdded(to: self.view, animated: true)
     }
     
     func hideLoader() {
+        self.view.isUserInteractionEnabled = true
         Loader.hide(for: self.view, animated: true)
     }
 }

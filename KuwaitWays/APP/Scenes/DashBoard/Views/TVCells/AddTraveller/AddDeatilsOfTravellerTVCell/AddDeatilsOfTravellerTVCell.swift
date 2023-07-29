@@ -717,7 +717,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             travelerArray[self.indexposition ].mrtitle = "4"
         }
         
-        
+        self.titleView.layer.borderColor = UIColor.AppBorderColor.cgColor
         delegate?.didTapOnMrBtnAction(cell: self)
     }
     
@@ -743,6 +743,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             travelerArray[self.indexposition ].mrtitle = "3"
         }
         
+        self.titleView.layer.borderColor = UIColor.AppBorderColor.cgColor
         delegate?.didTapOnMrsBtnAction(cell: self)
     }
     

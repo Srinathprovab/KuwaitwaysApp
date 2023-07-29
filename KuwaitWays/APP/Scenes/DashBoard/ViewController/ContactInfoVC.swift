@@ -27,7 +27,7 @@ class ContactInfoVC: BaseTableVC {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
+        
         countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
         billingCountryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
         
@@ -36,7 +36,7 @@ class ContactInfoVC: BaseTableVC {
     }
     
     
-
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -70,7 +70,8 @@ class ContactInfoVC: BaseTableVC {
         bookNowHolderView.backgroundColor = .AppJournyTabSelectColor
         email = ""
         mobile = ""
-        commonTableView.registerTVCells(["ContactInformationTVCell"])
+        commonTableView.registerTVCells(["ContactInformationTVCell",
+                                         "EmptyTVCell"])
         setupTVCells()
         
         if screenHeight > 835 {
@@ -85,7 +86,9 @@ class ContactInfoVC: BaseTableVC {
         tablerow.removeAll()
         
         tablerow.append(TableRow(cellType:.ContactInformationTVCell))
-        
+        if screenHeight < 835 {
+            tablerow.append(TableRow(height:50,bgColor: .AppHolderViewColor,cellType:.EmptyTVCell))
+        }
         commonTVData = tablerow
         commonTableView.reloadData()
     }
