@@ -12,6 +12,22 @@ import IQKeyboardManager
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+//    // Create an instance of TimerManager
+//    let timerManager = TimerManager.shared
+//    
+//    
+//    func applicationDidEnterBackground(_ application: UIApplication) {
+//        // No need to do anything here since the timer will be managed by TimerManager
+//        TimerManager.shared.startTimer()
+//    }
+//    
+//    func applicationDidBecomeActive(_ application: UIApplication) {
+//        TimerManager.shared.startTimer()
+//    }
+//    
+//    func applicationWillTerminate(_ application: UIApplication) {
+//        TimerManager.shared.sessionStop()
+//    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

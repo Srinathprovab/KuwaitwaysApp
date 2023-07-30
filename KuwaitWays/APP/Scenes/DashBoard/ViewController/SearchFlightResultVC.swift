@@ -34,6 +34,12 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
     var vm:FlightListViewModel?
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        
+        vm = FlightListViewModel(self)
+    }
     
     @objc func resultnil(notificatio:UNNotification) {
         callapibool = true
@@ -48,7 +54,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-        
+        TimerManager.shared.delegate = self
         
         if callapibool == true {
             DispatchQueue.main.async {[self] in
@@ -60,7 +66,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         
     }
     
-  
+    
     func timerDidFinish() {
         guard let vc = PopupVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
@@ -81,8 +87,8 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         }
     }
     
-
-  
+    
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -130,12 +136,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        TimerManager.shared.delegate = self
-        vm = FlightListViewModel(self)
-    }
+    
     
     
     func setupUI() {
@@ -278,7 +279,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             bookingsource = response.data?.booking_source ?? ""
             bookingsourcekey = response.data?.booking_source_key ?? ""
             
-        TimerManager.shared.totalTime = response.session_expiry_details?.session_start_time ?? 0
+            TimerManager.shared.totalTime = response.session_expiry_details?.session_start_time ?? 0
             TimerManager.shared.startTimer()
             
             
