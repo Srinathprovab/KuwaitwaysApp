@@ -7,7 +7,8 @@
 
 import UIKit
 
-class SearchFlightResultVC: BaseTableVC {
+class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
+    
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
@@ -57,20 +58,16 @@ class SearchFlightResultVC: BaseTableVC {
             
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updatetimer), name: NSNotification.Name("updatetimer"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
-        
     }
     
-    
-    @objc func stopTimer() {
+  
+    func timerDidFinish() {
         guard let vc = PopupVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }
     
-    @objc func updatetimer(notificatio:UNNotification) {
-        
+    func updateTimer() {
         DispatchQueue.main.async {[self] in
             var totalTime = TimerManager.shared.totalTime
             let minutes =  totalTime / 60
@@ -82,10 +79,10 @@ class SearchFlightResultVC: BaseTableVC {
                         font: .OpenSansRegular(size: 12),
                         align: .left)
         }
-        
     }
     
-    
+
+  
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -136,6 +133,7 @@ class SearchFlightResultVC: BaseTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        TimerManager.shared.delegate = self
         vm = FlightListViewModel(self)
     }
     
@@ -280,12 +278,9 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             bookingsource = response.data?.booking_source ?? ""
             bookingsourcekey = response.data?.booking_source_key ?? ""
             
-            
-            TimerManager.shared.totalTime = response.session_expiry_details?.session_start_time ?? 0
+        TimerManager.shared.totalTime = response.session_expiry_details?.session_start_time ?? 0
             TimerManager.shared.startTimer()
             
-            //            defaults.set("=======", forKey: UserDefaultsKeys.journeyCitys)
-            //            defaults.set("********", forKey: UserDefaultsKeys.journeyDates)
             
             nav.citylbl.text = "\(response.data?.search_params?.from_loc?.joined(separator: "-") ?? "")|\(response.data?.search_params?.to_loc?.joined(separator: "-") ?? "")"
             nav.datelbl.text = "\(response.data?.search_params?.depature?.joined(separator: ",") ?? "")"

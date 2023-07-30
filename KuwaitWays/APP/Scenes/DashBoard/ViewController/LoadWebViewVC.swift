@@ -11,7 +11,9 @@ import SwiftyJSON
 
 
 
-class LoadWebViewVC: UIViewController {
+class LoadWebViewVC: UIViewController, TimerManagerDelegate {
+   
+    
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
@@ -75,12 +77,24 @@ class LoadWebViewVC: UIViewController {
     }
     
     @objc func reloadscreen(){
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    func timerDidFinish() {
+        
+    }
+    
+    func updateTimer() {
         
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        TimerManager.shared.delegate = self
         // Do any additional setup after loading the view.
         activityIndicatorView.center = view.center
         activityIndicatorView.color = .AppBackgroundColor
@@ -129,6 +143,7 @@ class LoadWebViewVC: UIViewController {
     
     
     func gotoBookingConfirmedVC(url:String) {
+        TimerManager.shared.sessionStop()
         guard let vc = BookingConfirmedVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
         vc.vocherurl = url

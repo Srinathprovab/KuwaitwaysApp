@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ContactInfoVC: BaseTableVC {
+class ContactInfoVC: BaseTableVC, TimerManagerDelegate {
+   
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
@@ -31,10 +32,17 @@ class ContactInfoVC: BaseTableVC {
         countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
         billingCountryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
         
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
     }
     
+    func timerDidFinish() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    func updateTimer() {
+        
+    }
     
     
     @objc func offline(notificatio:UNNotification) {
@@ -44,11 +52,7 @@ class ContactInfoVC: BaseTableVC {
         self.present(vc, animated: false)
     }
     
-    @objc func stopTimer() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
+   
     
     
     override func viewDidLoad() {
@@ -56,6 +60,7 @@ class ContactInfoVC: BaseTableVC {
         
         // Do any additional setup after loading the view.
         setupUI()
+        TimerManager.shared.delegate = self
     }
     
     

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListViewModelDelegate {
+class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListViewModelDelegate, TimerManagerDelegate {
+   
+    
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
@@ -70,6 +72,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        TimerManager.shared.delegate = self
         vm = PreProcessBookingViewModel(self)
         vm1 = HotelMBViewModel(self)
         vm2 = GetMealsListViewModel(self)
@@ -157,15 +160,19 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name(rawValue: "reload"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
     }
     
     
-    @objc func stopTimer() {
+    func timerDidFinish() {
         guard let vc = PopupVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }
+    
+    func updateTimer() {
+        
+    }
+    
     
     
     func callAPI1() {

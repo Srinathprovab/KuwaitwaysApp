@@ -7,7 +7,8 @@
 
 import UIKit
 
-class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate {
+class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerManagerDelegate {
+   
     
     
     @IBOutlet weak var holderView: UIView!
@@ -75,17 +76,20 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate {
             }
         }
         
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
     }
     
-    @objc func stopTimer() {
+    
+    func timerDidFinish() {
         guard let vc = PopupVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }
     
+    func updateTimer() {
+        
+    }
+    
+
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -148,7 +152,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .WhiteColor
-        
+        TimerManager.shared.delegate = self
         vm = FlightDetailsViewModel(self)
     }
     
