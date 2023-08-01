@@ -10,7 +10,6 @@ import MapKit
 
 class MapViewVC: UIViewController, TimerManagerDelegate {
     
-    
     @IBOutlet weak var nav: NavBar!
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var navHeight: NSLayoutConstraint!

@@ -241,9 +241,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     }
     
     
-    
-    
-    
     func setupUI() {
         
         if screenHeight > 835 {
@@ -393,9 +390,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         }
         
         
-        
-        
-        
         tablerow.append(TableRow(cellType:.PromocodeTVCell))
         tablerow.append(TableRow(cellType:.PriceSummaryTVCell))
         tablerow.append(TableRow(title:"I Accept T&C and Privacy Policy",cellType:.AcceptTermsAndConditionTVCell))
@@ -405,11 +399,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         commonTVData = tablerow
         commonTableView.reloadData()
     }
-    
-    
-    
-    
-    
+
     
     //MARK: - didTapOnViewFlightDetails
     @objc func didTapOnViewFlightDetails(_ sender:UIButton) {
@@ -469,8 +459,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         
     }
     
-    
-    
     func goToSaveTravellersDetailsVC(ptitle:String,keyStr:String,pid:String) {
         guard let vc = SaveTravellersDetailsVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
@@ -496,13 +484,10 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         present(vc, animated: true)
     }
     
-    
-    
     override func editingMDCOutlinedTextField(tf:UITextField){
         
     }
-    
-    
+
     
     @IBAction func didTapOPayNowBtn(_ sender: Any) {
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.tabselect) {
