@@ -243,6 +243,7 @@ extension SideMenuVC:LogoutViewmodelDelegate {
     func logoutSucess(response: LoginModel) {
         showToast(message: response.data ?? "")
         defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
+        defaults.set("0", forKey: UserDefaultsKeys.userid)
         DispatchQueue.main.async {[self] in
             setupMenuTVCells()
         }

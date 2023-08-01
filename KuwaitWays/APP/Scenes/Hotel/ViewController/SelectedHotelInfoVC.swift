@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate {
+class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate, TimerManagerDelegate {
     
     
     @IBOutlet weak var nav: NavBar!
@@ -37,7 +37,7 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate {
     }
     
     
-
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -56,13 +56,17 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate {
             callAPI()
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
+        TimerManager.shared.delegate = self
     }
     
-    @objc func stopTimer() {
+    func timerDidFinish() {
         guard let vc = PopupVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
+    }
+    
+    func updateTimer() {
+        
     }
     
     
@@ -75,7 +79,6 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate {
     
     
     func hotelDetails(response: HotelDetailsModel) {
-        print(" ====== hotelDetails ====== ")
         holderView.isHidden = false
         hd = response
         

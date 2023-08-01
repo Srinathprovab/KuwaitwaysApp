@@ -32,7 +32,11 @@ class AddItineraryTVCell: TableViewCell {
     override func updateUI() {
         
         fd = cellInfo?.moreData as! [FlightDetails]
-        tvHeight.constant = CGFloat(fd.count * 170)
+        updateHeight(height: 170)
+    }
+    
+    func updateHeight(height:Int){
+        tvHeight.constant = CGFloat(fd.count * height)
         addDetailsTv.reloadData()
     }
     
@@ -68,12 +72,15 @@ extension AddItineraryTVCell:UITableViewDelegate,UITableViewDataSource {
             let data = fd[indexPath.row]
             cell.inNolbl.text = "\(data.operator_code ?? "")-\(data.flight_number ?? "")"
             cell.airlinecodelbl.text = data.operator_name
+            
             cell.fromCityTimelbl.text = data.origin?.time
             cell.fromCityNamelbl.text = "\(data.origin?.city ?? "")(\(data.origin?.loc ?? ""))"
             cell.fromCityDatelbl.text = data.origin?.date
+            
             cell.toCityTimelbl.text =  data.destination?.time
             cell.toCityNamelbl.text = "\(data.destination?.city ?? "")(\(data.destination?.loc ?? ""))"
-            cell.toCityDatelbl.text = data.origin?.date
+            cell.toCityDatelbl.text = data.destination?.date
+            
             cell.hourslbl.text = data.duration
             cell.noOfStopslbl.text = "\(data.no_of_stops ?? 0) stop"
             cell.layoverCitylbl.text = "Layover duration \(data.destination?.city ?? "")(\(data.destination?.loc ?? "")) TIME \(data.layOverDuration ?? "")"
@@ -106,8 +113,10 @@ extension AddItineraryTVCell:UITableViewDelegate,UITableViewDataSource {
                 break
             }
             
+            //cell.layoverHeight.constant = 25
             if tableView.isLast(for: indexPath) == true {
                 cell.layoverView.isHidden = true
+                cell.layoverHeight.constant = 0
             }
             
             c = cell

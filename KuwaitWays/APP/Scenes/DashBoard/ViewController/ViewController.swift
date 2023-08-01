@@ -149,12 +149,16 @@ class TimerManager {
     private init() {}
 
     func startTimer() {
+        
+        
         endBackgroundTask() // End any existing background task (if any)
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
         }
 
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+                
     }
 
     @objc func updateTimer() {

@@ -7,8 +7,7 @@
 
 import UIKit
 
-class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate {
-    
+class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate, TimerManagerDelegate {
     
     @IBOutlet weak var nav: NavBar!
     @IBOutlet weak var holderView: UIView!
@@ -67,20 +66,17 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate {
         
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updatetimer), name: NSNotification.Name("updatetimer"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
+       
+        TimerManager.shared.delegate = self
     }
     
-    
-    @objc func stopTimer() {
+    func timerDidFinish() {
         guard let vc = PopupVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }
     
-    
-    @objc func updatetimer(notificatio:UNNotification) {
-        
+    func updateTimer() {
         var totalTime = TimerManager.shared.totalTime
         let minutes =  totalTime / 60
         let seconds = totalTime % 60
@@ -91,6 +87,7 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate {
                     font: .OpenSansRegular(size: 12),
                     align: .left)
     }
+  
     
     @objc func resultnil(notification: NSNotification){
         callapibool = true

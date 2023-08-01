@@ -12,7 +12,7 @@ import SwiftyJSON
 
 
 class LoadWebViewVC: UIViewController, TimerManagerDelegate {
-   
+    
     
     
     @IBOutlet weak var holderView: UIView!
@@ -32,6 +32,7 @@ class LoadWebViewVC: UIViewController, TimerManagerDelegate {
     var urlString = String()
     var titleString = String()
     var apicallbool = true
+    var openpaymentgatewaybool = false
     var isVcFrom = String()
     
     let activityIndicatorView = UIActivityIndicatorView(style: .large)
@@ -62,6 +63,20 @@ class LoadWebViewVC: UIViewController, TimerManagerDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(nointernet), name: NSNotification.Name("nointernet"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadscreen), name: NSNotification.Name("reloadscreen"), object: nil)
+        
+        
+        
+        
+        let seconds = 50.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
+            if  openpaymentgatewaybool == false {
+                
+                
+                showAlertOnWindow(title: "",message: "Somthing Went Wrong",titles: ["OK"]) { title in
+                    self.gotoDashBoardTabbarVC()
+                }
+            }
+        }
         
     }
     
@@ -101,8 +116,6 @@ class LoadWebViewVC: UIViewController, TimerManagerDelegate {
         view.addSubview(activityIndicatorView)
         
         setupUI()
-        //        viewmodel = MobilsPaymentGatwayViewModel(self)
-        //        viewmodel1 = MobileSecureBookingViewModel(self)
         
         
     }
@@ -174,7 +187,7 @@ extension LoadWebViewVC: WKNavigationDelegate {
             print(response)
             
             if response.statusCode == 200 {
-                
+                openpaymentgatewaybool = true
             }
             
         }
@@ -184,6 +197,7 @@ extension LoadWebViewVC: WKNavigationDelegate {
     
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        openpaymentgatewaybool = true
         debugPrint("didCommit")
     }
     
@@ -209,7 +223,7 @@ extension LoadWebViewVC: WKNavigationDelegate {
                 }
             }else {
                 
-               
+                
                 if str.contains(find: "voucher") && str.contains(find: "show_voucher"){
                     gotoBookingConfirmedVC(url: webView.url?.absoluteString ?? "")
                 }

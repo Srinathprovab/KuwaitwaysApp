@@ -27,6 +27,7 @@ class ItineraryTVCell: TableViewCell {
     @IBOutlet weak var round3: UIImageView!
     @IBOutlet weak var layoverView: UIView!
     @IBOutlet weak var layoverCitylbl: UILabel!
+    @IBOutlet weak var layoverHeight: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
