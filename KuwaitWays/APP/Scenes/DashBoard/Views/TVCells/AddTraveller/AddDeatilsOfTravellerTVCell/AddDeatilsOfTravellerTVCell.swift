@@ -129,6 +129,9 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     var countrycodesArray = [String]()
     var originArray = [String]()
     var isocountrycodeArray = [String]()
+    var callpaymentbool = true
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -647,6 +650,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         }
         
         if let text = textField.text, !text.isEmpty {
+            self.callpaymentbool = true
             
             switch textField {
             case fnameTF:
@@ -680,6 +684,8 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             default:
                 break
             }
+        }else {
+            self.callpaymentbool = false
         }
         
         

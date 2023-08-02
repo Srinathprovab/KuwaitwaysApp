@@ -16,7 +16,7 @@ struct ProfileUpdateModel : Codable {
     enum CodingKeys: String, CodingKey {
 
         case status = "status"
-        case data = "data"
+        case data = "user_profile"
         case msg = "msg"
     }
 

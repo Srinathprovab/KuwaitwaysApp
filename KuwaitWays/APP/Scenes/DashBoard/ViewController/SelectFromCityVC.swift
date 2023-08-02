@@ -146,7 +146,6 @@ class SelectFromCityVC: BaseTableVC, SelectCityViewModelProtocal {
     @objc func searchTextChanged(_ sender: UITextField) {
         searchText = sender.text ?? ""
         
-        
         if keyStr == "hotel" {
             
             if searchText == "" {
@@ -204,8 +203,6 @@ class SelectFromCityVC: BaseTableVC, SelectCityViewModelProtocal {
             commonTableView.reloadData()
         }
     }
-    
-    
     
     
     func gotoBookFlightVC() {
@@ -268,6 +265,7 @@ extension SelectFromCityVC {
             }
         }else {
             if( isSearchBool == true){
+                
                 let dict = filtered[indexPath.row]
                 cell.titlelbl.text = dict.city
                 cell.label = dict.label ?? ""
@@ -275,7 +273,9 @@ extension SelectFromCityVC {
                 cell.citycode = dict.code ?? ""
                 cell.cityname = "\(dict.city ?? "") (\(dict.code ?? ""))"
                 cell.setAttributedString(str1: dict.airport_name ?? "", str2: " \(dict.code ?? "")")
+                
             }else{
+                
                 let dict = cityList[indexPath.row]
                 cell.titlelbl.text = dict.city
                 cell.label = dict.label ?? ""

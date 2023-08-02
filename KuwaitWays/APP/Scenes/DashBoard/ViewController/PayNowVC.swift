@@ -68,6 +68,8 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     var positionsCount = 0
     var searchTextArray = [String]()
     
+    var callpaymentbool = true
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -357,6 +359,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         
         if defaults.bool(forKey: UserDefaultsKeys.loggedInStatus) == false {
             tablerow.append(TableRow(cellType:.TDetailsLoginTVCell))
+            positionsCount = 1
         }
         
         
@@ -528,110 +531,110 @@ extension PayNowVC {
         
         payload.removeAll()
         payload1.removeAll()
-        
-        
-        
-        var callpaymentbool = true
+       
         var textfilldshouldmorethan3lettersBool = true
-        var matchingCells: [AddDeatilsOfTravellerTVCell] = []
-        // Replace with the desired search texts
-        
-        for case let cell as AddDeatilsOfTravellerTVCell in commonTableView.visibleCells {
-            if let cellText = cell.titlelbl.text, searchTextArray.contains(cellText) {
-                matchingCells.append(cell)
-            }
-        }
-        
-        for cell in matchingCells {
-            
-            if cell.titleTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.titleView.layer.borderColor = UIColor.red.cgColor
-                callpaymentbool = false
+        // Assuming you have a positionsCount variable that holds the number of cells in the table view
+        let positionsCount = commonTableView.numberOfRows(inSection: 0)
+
+        for position in 0..<positionsCount {
+            // Fetch the cell for the given position
+            if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfTravellerTVCell {
                 
-            } else {
-                // Textfield is not empty
+                if cell.titleTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.titleView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+
+                } else {
+                    // Textfield is not empty
+                    callpaymentbool = true
+                }
+
+                if cell.fnameTF.text?.isEmpty == true{
+                    // Textfield is empty
+                    cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                    cell.callpaymentbool = false
+                }else if ((cell.fnameTF.text?.count ?? 0) <= 3) {
+                    // Textfield is empty
+                    showToast(message: "Enter More Than 3 Chars")
+                    cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                    textfilldshouldmorethan3lettersBool = false
+                    callpaymentbool = false
+                }else {
+                    // Textfield is not empty
+                    callpaymentbool = true
+                }
+
+                if cell.lnameTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.lnameView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else if ((cell.lnameTF.text?.count ?? 0) <= 3) {
+                    // Textfield is empty
+                    showToast(message: "Enter More Than 3 Chars")
+                    cell.lnameView.layer.borderColor = UIColor.red.cgColor
+                    textfilldshouldmorethan3lettersBool = false
+                    cell.callpaymentbool = false
+                }else {
+                    // Textfield is not empty
+                    callpaymentbool = true
+                }
+
+
+                if cell.dobTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.dobView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
+                    callpaymentbool = true
+                }
+
+
+                if cell.nationalityTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.nationalityView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
+                    callpaymentbool = true
+                }
+
+
+
+                if cell.passportnoTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.passportnoView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
+                    callpaymentbool = true
+                }
+
+
+                if cell.passportIssuingCountryTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.issuecountryView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
+                    callpaymentbool = true
+                }
+
+
+                if cell.passportExpireDateTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.passportexpireView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
+                    callpaymentbool = true
+                }
+
+
             }
-            
-            if cell.fnameTF.text?.isEmpty == true{
-                // Textfield is empty
-                cell.fnameView.layer.borderColor = UIColor.red.cgColor
-                callpaymentbool = false
-            }else if ((cell.fnameTF.text?.count ?? 0) <= 3) {
-                // Textfield is empty
-                showToast(message: "Enter More Than 3 Chars")
-                cell.fnameView.layer.borderColor = UIColor.red.cgColor
-                textfilldshouldmorethan3lettersBool = false
-                callpaymentbool = false
-            }else {
-                // Textfield is not empty
-            }
-            
-            if cell.lnameTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.lnameView.layer.borderColor = UIColor.red.cgColor
-                callpaymentbool = false
-            } else if ((cell.lnameTF.text?.count ?? 0) <= 3) {
-                // Textfield is empty
-                showToast(message: "Enter More Than 3 Chars")
-                cell.lnameView.layer.borderColor = UIColor.red.cgColor
-                textfilldshouldmorethan3lettersBool = false
-                callpaymentbool = false
-            }else {
-                // Textfield is not empty
-            }
-            
-            
-            if cell.dobTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.dobView.layer.borderColor = UIColor.red.cgColor
-                callpaymentbool = false
-            } else {
-                // Textfield is not empty
-            }
-            
-            
-            if cell.nationalityTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.nationalityView.layer.borderColor = UIColor.red.cgColor
-                callpaymentbool = false
-            } else {
-                // Textfield is not empty
-            }
-            
-            
-            
-            if cell.passportnoTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.passportnoView.layer.borderColor = UIColor.red.cgColor
-                callpaymentbool = false
-            } else {
-                // Textfield is not empty
-            }
-            
-            
-            if cell.passportIssuingCountryTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.issuecountryView.layer.borderColor = UIColor.red.cgColor
-                callpaymentbool = false
-            } else {
-                // Textfield is not empty
-            }
-            
-            
-            if cell.passportExpireDateTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.passportexpireView.layer.borderColor = UIColor.red.cgColor
-                callpaymentbool = false
-            } else {
-                // Textfield is not empty
-            }
-            
-            
-            
-            
         }
-        
+
         
         let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
         let laedpassengerArray = travelerArray.compactMap({$0.laedpassenger})
@@ -699,6 +702,8 @@ extension PayNowVC {
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         
         
+       
+        
         do{
             
             let jsonData = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -709,32 +714,23 @@ extension PayNowVC {
             }else if callpaymentbool == false {
                 showToast(message: "Add Details")
                 
+            }else if checkTermsAndCondationStatus == false {
+                showToast(message: "Please Accept T&C and Privacy Policy")
             }else {
-                CALL_PRE_PROCESS_PASSENGER_DETAIL_API(str: jsonStringData)
+                print(jsonStringData)
+                payload1["passenger_request"] = jsonStringData
+                vm?.CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: payload, key: tmpFlightPreBookingId)
+                
             }
             
         }catch{
             print(error.localizedDescription)
         }
+       
         
     }
     
-    
-    //MARK:  Call mobile process passenger Details API
-    func CALL_PRE_PROCESS_PASSENGER_DETAIL_API(str:String){
-        
-        
-        if checkTermsAndCondationStatus == false {
-            showToast(message: "Please Accept T&C and Privacy Policy")
-        }else {
-            print(str)
-            payload1["passenger_request"] = str
-            vm?.CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: payload, key: tmpFlightPreBookingId)
-            
-        }
-        
-    }
-    
+ 
     
     
     func processPassengerDetails(response: ProcessPassangerDetailModel) {
