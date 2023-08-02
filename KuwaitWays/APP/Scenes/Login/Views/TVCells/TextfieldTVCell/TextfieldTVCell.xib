@@ -33,43 +33,39 @@
                                     <action selector="didTapOnForGetPassword:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="FQ6-is-9bN"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E0j-IO-fKH">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="E0j-IO-fKH">
                                 <rect key="frame" x="16" y="16" width="459" height="50"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lcx-kV-Jd3">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CsV-qP-AN5">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRH-Yk-gQR">
-                                                <rect key="frame" x="29.5" y="15" width="41.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-XF-Voj">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="54"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="54" id="JX4-tc-dOs"/>
-                                                </constraints>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZQd-pB-3Nh" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXH-vk-yPk">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                                <connections>
-                                                    <action selector="didTapOnCountryCodeDropDownBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9WM-HM-cvq"/>
-                                                </connections>
+                                                <buttonConfiguration key="configuration" style="plain"/>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="iRH-Yk-gQR" firstAttribute="centerX" secondItem="Lcx-kV-Jd3" secondAttribute="centerX" id="HSQ-Qc-tF4"/>
-                                            <constraint firstItem="6tF-XF-Voj" firstAttribute="leading" secondItem="Lcx-kV-Jd3" secondAttribute="leading" id="IFg-6x-nOj"/>
-                                            <constraint firstItem="6tF-XF-Voj" firstAttribute="top" secondItem="Lcx-kV-Jd3" secondAttribute="top" id="amv-7r-fUU"/>
-                                            <constraint firstAttribute="width" constant="100" id="o2e-9p-A9y"/>
-                                            <constraint firstAttribute="bottom" secondItem="6tF-XF-Voj" secondAttribute="bottom" id="rg1-gd-0wY"/>
-                                            <constraint firstItem="iRH-Yk-gQR" firstAttribute="centerY" secondItem="Lcx-kV-Jd3" secondAttribute="centerY" id="uOt-91-lw9"/>
-                                            <constraint firstAttribute="trailing" secondItem="6tF-XF-Voj" secondAttribute="trailing" id="w7t-bi-OPx"/>
+                                            <constraint firstItem="wXH-vk-yPk" firstAttribute="leading" secondItem="CsV-qP-AN5" secondAttribute="leading" id="Dv9-E9-wLf"/>
+                                            <constraint firstAttribute="bottom" secondItem="wXH-vk-yPk" secondAttribute="bottom" id="QFt-hp-fTw"/>
+                                            <constraint firstItem="ZQd-pB-3Nh" firstAttribute="leading" secondItem="CsV-qP-AN5" secondAttribute="leading" id="YVZ-v1-Pfr"/>
+                                            <constraint firstItem="ZQd-pB-3Nh" firstAttribute="top" secondItem="CsV-qP-AN5" secondAttribute="top" id="nvo-MM-yj3"/>
+                                            <constraint firstAttribute="trailing" secondItem="wXH-vk-yPk" secondAttribute="trailing" id="pTk-MM-820"/>
+                                            <constraint firstAttribute="width" constant="100" id="rJj-Xr-xJ3"/>
+                                            <constraint firstAttribute="bottom" secondItem="ZQd-pB-3Nh" secondAttribute="bottom" id="rOR-Pr-wgo"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZQd-pB-3Nh" secondAttribute="trailing" id="shP-nR-SVX"/>
+                                            <constraint firstItem="wXH-vk-yPk" firstAttribute="top" secondItem="CsV-qP-AN5" secondAttribute="top" id="zzo-ti-QkP"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EN1-AC-saY" customClass="MDCOutlinedTextField">
-                                        <rect key="frame" x="100" y="0.0" width="359" height="50"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EN1-AC-saY" customClass="MDCOutlinedTextField">
+                                        <rect key="frame" x="103" y="0.0" width="356" height="50"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="pYm-dK-a3d"/>
@@ -78,9 +74,6 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="Lcx-kV-Jd3" firstAttribute="bottom" secondItem="EN1-AC-saY" secondAttribute="bottom" id="pgN-Y8-6XT"/>
-                                </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RD0-RE-zYN">
                                 <rect key="frame" x="411" y="21" width="50" height="40"/>
@@ -139,9 +132,9 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btnHeight" destination="wo3-yb-QMh" id="sSd-GT-VFA"/>
-                <outlet property="countryCodeView" destination="Lcx-kV-Jd3" id="yyw-qf-ZFf"/>
-                <outlet property="countryCodelbl" destination="iRH-Yk-gQR" id="zRK-A7-i2t"/>
-                <outlet property="dropdownBtn" destination="6tF-XF-Voj" id="4JT-Mu-IVE"/>
+                <outlet property="countryCodeBtn" destination="wXH-vk-yPk" id="vBt-cg-WLC"/>
+                <outlet property="countryCodeBtnView" destination="CsV-qP-AN5" id="8jV-mb-I3D"/>
+                <outlet property="countrycodeTF" destination="ZQd-pB-3Nh" id="RU9-R3-t2B"/>
                 <outlet property="forgetPwdBtn" destination="sCP-ca-SwR" id="DSX-ZL-ZRE"/>
                 <outlet property="holderView" destination="ILI-3g-5wK" id="xlI-WI-GcN"/>
                 <outlet property="showPassBtn" destination="0eu-OC-Rfj" id="MD8-sI-L7S"/>
@@ -156,9 +149,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -126,15 +126,15 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         tablerow.append(TableRow(title:"Frist Name*",subTitle: first_name,text:"1", tempText: "Frist Name",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Last Name*",subTitle: last_name,text:"2", tempText: "Last Name",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Date Of Birth*",subTitle: date_of_birth,key: "dob",text:"3",tempText: "dob",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Mobile Number*",subTitle: phone,key: "mobile",text:"4", moreData:["+91","+988","+133"], tempText: "Mobile",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Mobile Number*",subTitle: phone,key: "mobile",text:"4", tempText: "Mobile",cellType:.TextfieldTVCell))
         
-        tablerow.append(TableRow(title:"Address*",subTitle:address,text:"5", tempText: "address",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Address2*",subTitle: address2,text:"6", tempText: "address",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Gender*",subTitle: gender,key:"gender",text:"7", tempText: "gender",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Country Name*",subTitle: country_name,text:"8", tempText: "cname",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"State Name*",subTitle: state_name,text:"9", tempText: "sname",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"City Name*",subTitle: city_name,text:"10", tempText: "cityname",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Pin Code*",subTitle: pin_code,text:"11", tempText: "pincode",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Address",subTitle:address,text:"5", tempText: "address",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Address2",subTitle: address2,text:"6", tempText: "address",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Gender",subTitle: gender,key:"gender",text:"7", tempText: "gender",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Country Name",subTitle: country_name,text:"8", tempText: "cname",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"State Name",subTitle: state_name,text:"9", tempText: "sname",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"City Name",subTitle: city_name,text:"10", tempText: "cityname",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Pin Code",subTitle: pin_code,text:"11", tempText: "pincode",cellType:.TextfieldTVCell))
         
         
         
@@ -149,7 +149,6 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
     
     override func editingTextField(tf: UITextField) {
         
-        print(tf.text ?? "")
         switch tf.tag {
         case 1:
             first_name = tf.text ?? ""
@@ -208,50 +207,57 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
     override func btnAction(cell: ButtonTVCell){
         payload.removeAll()
         
-        if first_name.isEmpty == true {
-            showToast(message: "Enter First Name")
-        }else  if last_name.isEmpty == true {
-            showToast(message: "Enter Last Name")
-        }else  if date_of_birth.isEmpty == true {
-            showToast(message: "Enter Date Of Birth ")
-        }else if phone.isEmpty == true {
-            showToast(message: "Enter Mobile Number")
-        }else {
-            payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
-            payload["first_name"] = first_name
-            payload["last_name"] = last_name
-            payload["date_of_birth"] = date_of_birth
-            payload["address"] = address
-            payload["address2"] = address2
-            payload["phone"] = phone
-            payload["gender"] = gender
-            payload["country_name"] = country_name
-            payload["state_name"] = state_name
-            payload["city_name"] = city_name
-            payload["pin_code"] = pin_code
-            payload["country_code"] = country_code
-            
-            callUpdateProfileAPI()
+        
+        let positionsCount = commonTableView.numberOfRows(inSection: 0)
+
+        for position in 0..<positionsCount {
+            // Fetch the cell for the given position
+            if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? TextfieldTVCell {
+                
+                if first_name.isEmpty == true {
+                    showToast(message: "Enter First Name")
+                    if cell.txtField.tag == 1 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else  if last_name.isEmpty == true {
+                    showToast(message: "Enter Last Name")
+                    if cell.txtField.tag == 2 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else  if date_of_birth.isEmpty == true {
+                    showToast(message: "Enter Date Of Birth ")
+                    if cell.txtField.tag == 3 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else if phone.isEmpty == true {
+                    showToast(message: "Enter Mobile Number")
+                    if cell.txtField.tag == 4 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else {
+                    payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+                    payload["first_name"] = first_name
+                    payload["last_name"] = last_name
+                    payload["date_of_birth"] = date_of_birth
+                    payload["address"] = address
+                    payload["address2"] = address2
+                    payload["phone"] = phone
+                    payload["gender"] = gender
+                    payload["country_name"] = country_name
+                    payload["state_name"] = state_name
+                    payload["city_name"] = city_name
+                    payload["pin_code"] = pin_code
+                    payload["country_code"] = country_code
+                    
+                    callUpdateProfileAPI()
+                }
+                
+            }
         }
-        
-        //        else if gender.isEmpty == true {
-        //            showToast(message: "Enter Gender")
-        //        }else  if address.isEmpty == true {
-        //            showToast(message: "Enter Address")
-        //        }else  if country_name.isEmpty == true {
-        //            showToast(message: "Enter Country Name ")
-        //        }else if state_name.isEmpty == true {
-        //            showToast(message: "Enter State Name")
-        //        }else if city_name.isEmpty == true {
-        //            showToast(message: "Enter City Name")
-        //        }else if pin_code.isEmpty == true {
-        //            showToast(message: "Enter Pin Code")
-        //        }else {
-        //
-        //
-        //        }
-        
-        
         
         
     }

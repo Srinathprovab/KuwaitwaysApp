@@ -87,10 +87,11 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
     }
     
     override func editingMDCOutlinedTextField(tf:MDCOutlinedTextField){
-        print(tf.text ?? "")
+        setcolor(tf: tf, color: .black)
         switch tf.tag {
         case 1:
             fname = tf.text ?? ""
+            
             break
             
         case 2:
@@ -123,45 +124,66 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
         countryCode = cell.countryCodeTF.text ?? ""
     }
     
+    func setcolor(tf:MDCOutlinedTextField,color:UIColor) {
+        tf.setOutlineColor(color, for: .normal)
+    }
+    
     
     override func didTapOnCreateAccountBtnBtnAction(cell: CreateAccountTVCell) {
         
-        if fname.isEmpty == true {
-            showToast(message: "Enter First Name")
-        }else  if lname.isEmpty == true {
-            showToast(message: "Enter Last Name")
-        }else  if email.isEmpty == true {
-            showToast(message: "Enter Email Address")
-        }else  if email.isValidEmail() == false {
-            showToast(message: "Enter Valid Address")
-        }else if mobile.isEmpty == true {
-            showToast(message: "Enter Mobile Number")
-        }else  if pass.isEmpty == true {
-            showToast(message: "Enter Password")
+        
+        
+        if let cell = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? CreateAccountTVCell {
+            
+            if fname.isEmpty == true {
+                showToast(message: "Enter First Name")
+                setcolor(tf: cell.fnameTF, color: .red)
+            }else  if lname.isEmpty == true {
+                showToast(message: "Enter Last Name")
+                setcolor(tf: cell.lnameTF, color: .red)
+            }else  if email.isEmpty == true {
+                showToast(message: "Enter Email Address")
+                setcolor(tf: cell.emailTF, color: .red)
+            }else  if email.isValidEmail() == false {
+                showToast(message: "Enter Valid Address")
+                setcolor(tf: cell.emailTF, color: .red)
+            }else if mobile.isEmpty == true {
+                showToast(message: "Enter Mobile Number")
+                setcolor(tf: cell.mobileTF, color: .red)
+            }else  if pass.isEmpty == true {
+                showToast(message: "Enter Password")
+                setcolor(tf: cell.createPassTF, color: .red)
+                setcolor(tf: cell.createPassTF, color: .red)
+            }else  if cpass.isEmpty == true {
+                showToast(message: "Enter Conform Password")
+                setcolor(tf: cell.confPassTF, color: .red)
+                setcolor(tf: cell.confPassTF, color: .red)
+            }else  if pass != cpass {
+                showToast(message: "Password Should Match")
+                setcolor(tf: cell.createPassTF, color: .red)
+                setcolor(tf: cell.confPassTF, color: .red)
+            }else  if mobilenoMaxLengthBool == false {
+                showToast(message: "Enter Valid Mobile No")
+                setcolor(tf: cell.mobileTF, color: .red)
+            }else {
+                
+                
+                payload.removeAll()
+                payload["email"] = email
+                payload["password"] = pass
+                payload["first_name"] = fname
+                payload["last_name"] = lname
+                payload["phone"] = mobile
+                payload["about_us"] = "test"
+                
+                
+                vm?.CALL_REGISTER_USER_API(dictParam: payload)
+                
+            }
+            
+          //  commonTableView.reloadData()
         }
-//        else  if pass.isValidPassword() == false {
-//            showToast(message: "Enter Valid Password")
-//        }
-        else  if cpass.isEmpty == true {
-            showToast(message: "Enter Conform Password")
-        }else  if pass != cpass {
-            showToast(message: "Password Should Match")
-        }else  if mobilenoMaxLengthBool == false {
-            showToast(message: "Enter Valid Mobile No")
-        }else {
-            
-            payload.removeAll()
-            payload["email"] = email
-            payload["password"] = pass
-            payload["first_name"] = fname
-            payload["last_name"] = lname
-            payload["phone"] = mobile
-            payload["about_us"] = "test"
-            
-            
-            vm?.CALL_REGISTER_USER_API(dictParam: payload)
-            
-        }
+        
     }
     
     

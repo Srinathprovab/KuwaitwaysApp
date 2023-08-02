@@ -25,7 +25,7 @@ class LabelTVCell: TableViewCell {
         img.isHidden = false
         
         titlelbl.textColor = .AppLabelColor
-        titlelbl.font = UIFont.LatoRegular(size: 20)
+        titlelbl.font = UIFont.LatoSemibold(size: 20)
         titlelbl.numberOfLines = 0
         
         subTitlelbl.textColor = .SubTitleColor
@@ -43,6 +43,9 @@ class LabelTVCell: TableViewCell {
         
         key = cellInfo?.key ?? ""
         switch cellInfo?.key {
+        case "login":
+            subTitlelbl.isHidden = false
+            break
             
         case "resetpass":
             img.isHidden = true

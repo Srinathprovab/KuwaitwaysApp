@@ -19,21 +19,23 @@ protocol TextfieldTVCellDelegate {
     func donedatePicker(cell:TextfieldTVCell)
     func cancelDatePicker(cell:TextfieldTVCell)
     
+    func didTapOnCountryCodeBtnAction(cell:TextfieldTVCell)
+    
+    
 }
 class TextfieldTVCell: TableViewCell {
     
     @IBOutlet weak var showPassView: UIView!
     @IBOutlet weak var showPassBtn: UIButton!
     @IBOutlet weak var showPassImg: UIImageView!
-    @IBOutlet weak var countryCodeView: UIView!
     @IBOutlet weak var txtField: MDCOutlinedTextField!
+    @IBOutlet weak var countrycodeTF: MDCOutlinedTextField!
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var forgetPwdBtn: UIButton!
     @IBOutlet weak var btnHeight: NSLayoutConstraint!
     @IBOutlet weak var viewheight: NSLayoutConstraint!
-    @IBOutlet weak var countryCodelbl: UILabel!
-    @IBOutlet weak var dropdownBtn: UIButton!
-    
+    @IBOutlet weak var countryCodeBtn: UIButton!
+    @IBOutlet weak var countryCodeBtnView: UIView!
     
     let datePicker = UIDatePicker()
     let dropDown = DropDown()
@@ -41,6 +43,17 @@ class TextfieldTVCell: TableViewCell {
     var maxLength = 10
     var key = String()
     var delegate:TextfieldTVCellDelegate?
+    
+    var filterdcountrylist = [Country_list]()
+    var countryNames = [String]()
+    var countrycodesArray = [String]()
+    var showbool1 = true
+    var showbool2 = true
+    var chkBool = true
+    var isSearchBool = Bool()
+    var searchText = String()
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -60,7 +73,7 @@ class TextfieldTVCell: TableViewCell {
     
     func hidethings(){
         txtField.text = cellInfo?.subTitle
-        countryCodeView.isHidden = true
+        countryCodeBtnView.isHidden = true
         dropDown.hide()
         datePicker.isHidden = true
         genderdropDown.hide()
@@ -70,14 +83,17 @@ class TextfieldTVCell: TableViewCell {
     
     
     override func updateUI() {
+        
         btnHeight.constant = 0
+        loadCountryNamesAndCode()
         
-        txtField.label.text = cellInfo?.title
-        txtField.text = cellInfo?.subTitle
-        txtField.placeholder = cellInfo?.tempText
-        txtField.tag = Int(cellInfo?.text ?? "") ?? 0
-        dropDown.dataSource = cellInfo?.moreData as? [String] ?? []
+        setupTextField(txtField1: txtField, tagno: Int(cellInfo?.text ?? "") ?? 0, placeholder: cellInfo?.tempText ?? "",title: cellInfo?.title ?? "",subTitle: cellInfo?.subTitle ?? "")
+        setupTextField(txtField1: countrycodeTF, tagno: Int(cellInfo?.text ?? "") ?? 0, placeholder: cellInfo?.tempText ?? "",title: "Code",subTitle: defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? "")
         
+        
+        
+        
+       
         key = cellInfo?.key ?? ""
         switch cellInfo?.key {
             
@@ -99,8 +115,8 @@ class TextfieldTVCell: TableViewCell {
             
         case "mobile":
             self.txtField.keyboardType = .numberPad
-            countryCodeView.isHidden = true
-            setupDropDown()
+            self.txtField.isUserInteractionEnabled = false
+            countryCodeBtnView.isHidden = false
             break
             
         case "dob":
@@ -142,7 +158,7 @@ class TextfieldTVCell: TableViewCell {
     
     
     func setupUI() {
-        countryCodeView.isHidden = true
+        
         self.txtField.isSecureTextEntry = false
         showPassView.backgroundColor = .WhiteColor
         showPassView.isHidden = true
@@ -150,47 +166,89 @@ class TextfieldTVCell: TableViewCell {
         holderView.backgroundColor = .WhiteColor
         showPassImg.image = UIImage(named: "hidepass")
         
-        txtField.delegate = self
-        txtField.backgroundColor = .clear
-        txtField.font = UIFont.LatoRegular(size: 16)
-        txtField.addTarget(self, action: #selector(editingText(textField:)), for: .editingChanged)
-        
-        txtField.label.textColor = .SubTitleColor
-        
-        txtField.setOutlineColor( .black, for: .editing)
-        txtField.setOutlineColor( .red , for: .disabled)
-        txtField.setOutlineColor( .lightGray.withAlphaComponent(0.4) , for: .normal)
-        
         forgetPwdBtn.setTitle("Forgot Password?", for: .normal)
         forgetPwdBtn.setTitleColor(.AppBackgroundColor, for: .normal)
         forgetPwdBtn.titleLabel?.font = UIFont.OpenSansRegular(size: 14)
         forgetPwdBtn.isHidden = true
         
-        countryCodeView.isHidden = true
-        countryCodeView.backgroundColor = .WhiteColor
-        countryCodeView.layer.borderWidth = 1
-        countryCodeView.layer.borderColor = UIColor.AppBorderColor.cgColor
         
-        countryCodelbl.text = "+916"
-        countryCodelbl.textColor = HexColor("#D0D0D0")
-        countryCodelbl.font = UIFont.OpenSansRegular(size: 18)
-        dropdownBtn.setTitle("", for: .normal)
        
+        
+        setupDropDown()
+        countryCodeBtnView.isHidden = true
+        countryCodeBtn.isHidden = true
+        countrycodeTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
+        countrycodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
+        countryCodeBtn.addTarget(self, action: #selector(didTapOnCountryCodeBtnAction(_:)), for: .touchUpInside)
     }
     
+    
+    
+    func setupTextField(txtField1:MDCOutlinedTextField,tagno:Int,placeholder:String,title:String,subTitle:String){
+        
+        txtField1.tag = tagno
+        txtField1.label.text = title
+        txtField1.text = subTitle
+        txtField1.placeholder = placeholder
+        txtField1.delegate = self
+        txtField1.backgroundColor = .clear
+        txtField1.font = UIFont.LatoRegular(size: 16)
+        txtField1.addTarget(self, action: #selector(editingText(textField:)), for: .editingChanged)
+        txtField1.label.textColor = .SubTitleColor
+        txtField1.setOutlineColor( .black, for: .editing)
+        txtField1.setOutlineColor( .red , for: .disabled)
+        txtField1.setOutlineColor( .lightGray.withAlphaComponent(0.4) , for: .normal)
+        
+        
+    }
+    
+    
+    @objc func editingText(textField:UITextField) {
+        txtField.setOutlineColor(.black, for: .editing)
+        txtField.setOutlineColor(.black, for: .normal)
+        
+        if cellInfo?.key == "mobile" {
+            if textField == countrycodeTF {
+                if let text = textField.text {
+                    let length = text.count
+                    if length != mobilenoMaxLength {
+                        mobilenoMaxLengthBool = false
+                    }else{
+                        mobilenoMaxLengthBool = true
+                    }
+                   
+                } else {
+                    mobilenoMaxLengthBool = false
+                }
+            }
+        }
+        
+        
+        
+        delegate?.editingTextField(tf: textField)
+    }
+    
+    
+    
+    var cname = String()
     func setupDropDown() {
         
         dropDown.direction = .bottom
         dropDown.backgroundColor = .WhiteColor
-        dropDown.anchorView = self.dropdownBtn
-        dropDown.bottomOffset = CGPoint(x: 0, y: dropdownBtn.frame.size.height + 10)
+        dropDown.anchorView = self.countrycodeTF
+        dropDown.bottomOffset = CGPoint(x: 0, y: countrycodeTF.frame.size.height + 25)
         dropDown.selectionAction = { [weak self] (index: Int, item: String) in
-            self?.countryCodelbl.text = item
-            self?.countryCodelbl.textColor = .AppLabelColor
-            self?.delegate?.didTapOnCountryCodeDropDownBtn(cell: self!)
+            self?.countrycodeTF.text = self?.countrycodesArray[index] ?? ""
+            self?.countrycodeTF.resignFirstResponder()
+            self?.cname = self?.countryNames[index] ?? ""
+            self?.txtField.text = ""
+            self?.txtField.becomeFirstResponder()
+            
+            self?.delegate?.didTapOnCountryCodeBtnAction(cell: self!)
         }
         
     }
+    
     
     
     func setupGenderDropDown() {
@@ -204,9 +262,6 @@ class TextfieldTVCell: TableViewCell {
         
     }
     
-    @objc func editingText(textField:UITextField) {
-        delegate?.editingTextField(tf: textField)
-    }
     
     
     
@@ -215,7 +270,7 @@ class TextfieldTVCell: TableViewCell {
         //Formate Date
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
-       
+        
         //ToolBar
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
@@ -230,7 +285,7 @@ class TextfieldTVCell: TableViewCell {
             txtField.inputAccessoryView = toolbar
             txtField.inputView = datePicker
         }
-       
+        
         
     }
     
@@ -255,9 +310,60 @@ class TextfieldTVCell: TableViewCell {
         delegate?.didTapOnShowPasswordBtn(cell: self)
     }
     
-    @IBAction func didTapOnCountryCodeDropDownBtn(_ sender: Any) {
+    
+    @objc func didTapOnCountryCodeBtnAction(_ sender:UIButton) {
         dropDown.show()
-        delegate?.didTapOnCountryCodeDropDownBtn(cell: self)
+    }
+    
+    func loadCountryNamesAndCode(){
+        countryNames.removeAll()
+        countrycodesArray.removeAll()
+        countrylist.forEach { i in
+            countryNames.append(i.name ?? "")
+            countrycodesArray.append(i.country_code ?? "")
+        }
+        DispatchQueue.main.async {[self] in
+            dropDown.dataSource = countryNames
+        }
+    }
+    
+    @objc func searchTextBegin(textField: MDCOutlinedTextField) {
+        textField.text = ""
+        loadCountryNamesAndCode()
+        dropDown.show()
+    }
+    
+    
+    @objc func searchTextChanged(textField: MDCOutlinedTextField) {
+        searchText = textField.text ?? ""
+        if searchText == "" {
+            isSearchBool = false
+            filterContentForSearchText(searchText)
+        }else {
+            isSearchBool = true
+            filterContentForSearchText(searchText)
+        }
+        
+        
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        print("Filterin with:", searchText)
+        
+        filterdcountrylist.removeAll()
+        filterdcountrylist = countrylist.filter { thing in
+            return "\(thing.name?.lowercased() ?? "")".contains(searchText.lowercased())
+        }
+        
+        countryNames.removeAll()
+        countrycodesArray.removeAll()
+        filterdcountrylist.forEach { i in
+            countryNames.append(i.name ?? "")
+            countrycodesArray.append(i.country_code ?? "")
+        }
+        dropDown.dataSource = countryNames
+        dropDown.show()
+        
     }
     
 }
@@ -267,8 +373,8 @@ extension TextfieldTVCell {
     override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         
-        if key == "mobile" {
-            maxLength = 10
+        if key == "mobile" || textField.tag == 88 {
+            maxLength = cname.getMobileNumberMaxLength() ?? 8
             guard CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) else {
                 return false
             }

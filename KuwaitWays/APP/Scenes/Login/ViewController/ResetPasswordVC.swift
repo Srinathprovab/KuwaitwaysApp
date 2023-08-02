@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MaterialComponents
 
 class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
     
@@ -79,8 +80,6 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
     }
     
     override func editingTextField(tf: UITextField) {
-        
-        print(tf.text ?? "")
         switch tf.tag {
         case 1:
             email = tf.text ?? ""
@@ -96,19 +95,58 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
     }
     
     
+    override func didTapOnCountryCodeBtnAction(cell:TextfieldTVCell){
+        print(cell.countrycodeTF.text)
+    }
+    
+    
+    func setcolor(tf:MDCOutlinedTextField,color:UIColor) {
+        tf.setOutlineColor(color, for: .normal)
+    }
+    
+    
+    
     override func btnAction(cell: ButtonTVCell){
         
-        if email.isEmpty == true {
-            showToast(message: "Enter Email Address")
-        }else  if email.isValidEmail() == false {
-            showToast(message: "Enter Valid Address")
-        }else  if mobile.isEmpty == true {
-            showToast(message: "Enter Mobile NO")
-        }else {
         
-            payload["email"] = email
-            payload["phone"] = mobile
-            vm?.CALL_FORGET_PASSWORD_API(dictParam: payload)
+        let positionsCount = commonTableView.numberOfRows(inSection: 0)
+        for position in 0..<positionsCount {
+            // Fetch the cell for the given position
+            if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? TextfieldTVCell {
+                if email.isEmpty == true {
+                    showToast(message: "Enter Email Address")
+                    if cell.txtField.tag == 1 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else  if email.isValidEmail() == false {
+                    showToast(message: "Enter Valid Address")
+                    if cell.txtField.tag == 1 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else  if mobile.isEmpty == true {
+                    showToast(message: "Enter Mobile NO")
+                    if cell.txtField.tag == 4 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                    
+                }else  if mobilenoMaxLengthBool == false {
+                    showToast(message: "Enter Valid Mobile NO")
+                    if cell.txtField.tag == 4 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                    mobilenoMaxLengthBool
+                }else {
+                    
+                    payload["email"] = email
+                    payload["phone"] = mobile
+                    vm?.CALL_FORGET_PASSWORD_API(dictParam: payload)
+                }
+            }
+            
         }
     }
     

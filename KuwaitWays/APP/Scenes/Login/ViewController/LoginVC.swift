@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MaterialComponents.MaterialTextControls_OutlinedTextFields
+
 
 class LoginVC: BaseTableVC {
     
@@ -88,7 +90,6 @@ class LoginVC: BaseTableVC {
     
     override func editingTextField(tf: UITextField) {
         
-        print(tf.text ?? "")
         switch tf.tag {
         case 1:
             email = tf.text ?? ""
@@ -103,25 +104,48 @@ class LoginVC: BaseTableVC {
         }
     }
     
+   
+    
     
     override func btnAction(cell: ButtonTVCell){
         
-        if email.isEmpty == true {
-            showToast(message: "Enter Email Address")
-        }else  if email.isValidEmail() == false {
-            showToast(message: "Enter Valid Address")
-        }else if pass.isEmpty == true {
-            showToast(message: "Enter Password")
+        
+        let positionsCount = commonTableView.numberOfRows(inSection: 0)
+
+        for position in 0..<positionsCount {
+            // Fetch the cell for the given position
+            if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? TextfieldTVCell {
+                
+                if email.isEmpty == true {
+                    showToast(message: "Enter Email Address")
+                    if cell.txtField.tag == 1 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else  if email.isValidEmail() == false {
+                    showToast(message: "Enter Valid Address")
+                    if cell.txtField.tag == 1 {
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else if pass.isEmpty == true {
+                    showToast(message: "Enter Password")
+                    if cell.txtField.tag == 2 {
+                        cell.txtField.setOutlineColor(.red, for: .normal)
+                        cell.txtField.setOutlineColor(.red, for: .editing)
+                    }
+                }else {
+                    
+                    payload.removeAll()
+                    payload["username"] = email
+                    payload["password"] = pass
+                    vm?.CALL_LOGIN_API(dictParam: payload)
+                }
+                
+            }
         }
-        //        else  if pass.isValidPassword() == false {
-        //            showToast(message: "Enter Valid Password")
-        //        }
-        else {
-            payload.removeAll()
-            payload["username"] = email
-            payload["password"] = pass
-            vm?.CALL_LOGIN_API(dictParam: payload)
-        }
+        
+        
     }
     
     override func didTapOnShowPasswordBtn(cell:TextfieldTVCell){
