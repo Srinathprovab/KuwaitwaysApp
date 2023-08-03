@@ -37,15 +37,16 @@ class MenuBGTVCell: TableViewCell {
     
     override func updateUI() {
         let logstatus = defaults.bool(forKey: UserDefaultsKeys.loggedInStatus)
-        if logstatus == true {
-            let username = defaults.string(forKey: UserDefaultsKeys.username)
-            let userimg = defaults.string(forKey: UserDefaultsKeys.userimg)
+        if logstatus == true  {
+           
             loginBtn.setTitle("\(profildata?.first_name ?? "") \(profildata?.last_name ?? "")", for: .normal)
             loginBtn.isUserInteractionEnabled = false
             if profildata?.image?.isEmpty == true {
                 profileImage.image = UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal)
+                profileImage.alpha = 0.5
             }else {
                 self.profileImage.sd_setImage(with: URL(string: profildata?.image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+                profileImage.alpha = 1
             }
             editProfileView.isHidden = false
             editProfileViewHeight.constant = 30
@@ -53,6 +54,7 @@ class MenuBGTVCell: TableViewCell {
             loginBtn.setTitle("Login/Signup", for: .normal)
             loginBtn.isUserInteractionEnabled = true
             profileImage.image = UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal)
+            profileImage.alpha = 0.5
             editProfileView.isHidden = true
             editProfileViewHeight.constant = 0
         }

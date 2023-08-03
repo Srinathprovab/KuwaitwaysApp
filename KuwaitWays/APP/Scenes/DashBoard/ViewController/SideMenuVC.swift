@@ -28,11 +28,11 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(loginDone), name: NSNotification.Name("logindon"), object: nil)
-        
+
         
         let logstatus = defaults.bool(forKey: UserDefaultsKeys.loggedInStatus)
         if logstatus == true {
-            if  menubool == true {
+            if menubool == true {
                 callApi()
             }
         }
@@ -85,7 +85,7 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
                                          "MenuTitleTVCell",
                                          "AboutusTVCell"])
         
-        setupMenuTVCells()
+       setupMenuTVCells()
     }
     
     
@@ -243,6 +243,8 @@ extension SideMenuVC:LogoutViewmodelDelegate {
         showToast(message: response.data ?? "")
         defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
         defaults.set("0", forKey: UserDefaultsKeys.userid)
+        loginmenubool = false
+        
         DispatchQueue.main.async {[self] in
             setupMenuTVCells()
         }

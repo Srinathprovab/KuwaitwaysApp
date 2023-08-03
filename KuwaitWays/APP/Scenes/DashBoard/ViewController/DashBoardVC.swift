@@ -52,7 +52,6 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate {
             
             defaults.set("Flights", forKey: UserDefaultsKeys.tabselect)
             defaults.set("oneway", forKey: UserDefaultsKeys.journeyType)
-            defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
             defaults.set("KWD", forKey: UserDefaultsKeys.selectedCurrency)
             
             defaults.set("", forKey: UserDefaultsKeys.fromCity)

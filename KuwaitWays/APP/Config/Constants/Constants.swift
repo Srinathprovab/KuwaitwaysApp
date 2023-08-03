@@ -39,6 +39,7 @@ var countrylist = [Country_list]()
 var isvcfrom1 = String()
 var profildata:ProfileUpdateData?
 var menubool = Bool()
+var loginmenubool = false
 
 
 //MARK: - COREDATE SAVE PASSENGER DETAILS

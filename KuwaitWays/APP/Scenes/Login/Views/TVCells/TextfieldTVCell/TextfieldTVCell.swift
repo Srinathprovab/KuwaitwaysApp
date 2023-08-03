@@ -36,6 +36,7 @@ class TextfieldTVCell: TableViewCell {
     @IBOutlet weak var viewheight: NSLayoutConstraint!
     @IBOutlet weak var countryCodeBtn: UIButton!
     @IBOutlet weak var countryCodeBtnView: UIView!
+    @IBOutlet weak var txtfildHolderView: UIStackView!
     
     let datePicker = UIDatePicker()
     let dropDown = DropDown()
@@ -85,13 +86,9 @@ class TextfieldTVCell: TableViewCell {
     override func updateUI() {
         
         btnHeight.constant = 0
-        loadCountryNamesAndCode()
         
         setupTextField(txtField1: txtField, tagno: Int(cellInfo?.text ?? "") ?? 0, placeholder: cellInfo?.tempText ?? "",title: cellInfo?.title ?? "",subTitle: cellInfo?.subTitle ?? "")
         setupTextField(txtField1: countrycodeTF, tagno: Int(cellInfo?.text ?? "") ?? 0, placeholder: cellInfo?.tempText ?? "",title: "Code",subTitle: defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? "")
-        
-        
-        
         
        
         key = cellInfo?.key ?? ""
@@ -114,9 +111,15 @@ class TextfieldTVCell: TableViewCell {
             break
             
         case "mobile":
-            self.txtField.keyboardType = .numberPad
-            self.txtField.isUserInteractionEnabled = false
             countryCodeBtnView.isHidden = false
+            countrycodeTF.textColor = .SubTitleColor
+            txtField.textColor = .SubTitleColor
+            txtfildHolderView.isUserInteractionEnabled = false
+            break
+            
+        case "email":
+            txtField.textColor = .SubTitleColor
+            txtfildHolderView.isUserInteractionEnabled = false
             break
             
         case "dob":
@@ -171,15 +174,9 @@ class TextfieldTVCell: TableViewCell {
         forgetPwdBtn.titleLabel?.font = UIFont.OpenSansRegular(size: 14)
         forgetPwdBtn.isHidden = true
         
-        
-       
-        
-        setupDropDown()
         countryCodeBtnView.isHidden = true
         countryCodeBtn.isHidden = true
-        countrycodeTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
-        countrycodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
-        countryCodeBtn.addTarget(self, action: #selector(didTapOnCountryCodeBtnAction(_:)), for: .touchUpInside)
+        
     }
     
     
@@ -207,52 +204,16 @@ class TextfieldTVCell: TableViewCell {
         txtField.setOutlineColor(.black, for: .editing)
         txtField.setOutlineColor(.black, for: .normal)
         
-        if cellInfo?.key == "mobile" {
-            if textField == countrycodeTF {
-                if let text = textField.text {
-                    let length = text.count
-                    if length != mobilenoMaxLength {
-                        mobilenoMaxLengthBool = false
-                    }else{
-                        mobilenoMaxLengthBool = true
-                    }
-                   
-                } else {
-                    mobilenoMaxLengthBool = false
-                }
-            }
-        }
-        
-        
-        
         delegate?.editingTextField(tf: textField)
     }
     
     
     
-    var cname = String()
-    func setupDropDown() {
-        
-        dropDown.direction = .bottom
-        dropDown.backgroundColor = .WhiteColor
-        dropDown.anchorView = self.countrycodeTF
-        dropDown.bottomOffset = CGPoint(x: 0, y: countrycodeTF.frame.size.height + 25)
-        dropDown.selectionAction = { [weak self] (index: Int, item: String) in
-            self?.countrycodeTF.text = self?.countrycodesArray[index] ?? ""
-            self?.countrycodeTF.resignFirstResponder()
-            self?.cname = self?.countryNames[index] ?? ""
-            self?.txtField.text = ""
-            self?.txtField.becomeFirstResponder()
-            
-            self?.delegate?.didTapOnCountryCodeBtnAction(cell: self!)
-        }
-        
-    }
     
     
     
     func setupGenderDropDown() {
-        genderdropDown.direction = .any
+        genderdropDown.direction = .bottom
         genderdropDown.backgroundColor = .WhiteColor
         genderdropDown.anchorView = self.txtField
         genderdropDown.bottomOffset = CGPoint(x: 0, y: txtField.frame.size.height + 10)
@@ -311,61 +272,7 @@ class TextfieldTVCell: TableViewCell {
     }
     
     
-    @objc func didTapOnCountryCodeBtnAction(_ sender:UIButton) {
-        dropDown.show()
-    }
-    
-    func loadCountryNamesAndCode(){
-        countryNames.removeAll()
-        countrycodesArray.removeAll()
-        countrylist.forEach { i in
-            countryNames.append(i.name ?? "")
-            countrycodesArray.append(i.country_code ?? "")
-        }
-        DispatchQueue.main.async {[self] in
-            dropDown.dataSource = countryNames
-        }
-    }
-    
-    @objc func searchTextBegin(textField: MDCOutlinedTextField) {
-        textField.text = ""
-        loadCountryNamesAndCode()
-        dropDown.show()
-    }
-    
-    
-    @objc func searchTextChanged(textField: MDCOutlinedTextField) {
-        searchText = textField.text ?? ""
-        if searchText == "" {
-            isSearchBool = false
-            filterContentForSearchText(searchText)
-        }else {
-            isSearchBool = true
-            filterContentForSearchText(searchText)
-        }
-        
-        
-    }
-    
-    func filterContentForSearchText(_ searchText: String) {
-        print("Filterin with:", searchText)
-        
-        filterdcountrylist.removeAll()
-        filterdcountrylist = countrylist.filter { thing in
-            return "\(thing.name?.lowercased() ?? "")".contains(searchText.lowercased())
-        }
-        
-        countryNames.removeAll()
-        countrycodesArray.removeAll()
-        filterdcountrylist.forEach { i in
-            countryNames.append(i.name ?? "")
-            countrycodesArray.append(i.country_code ?? "")
-        }
-        dropDown.dataSource = countryNames
-        dropDown.show()
-        
-    }
-    
+   
 }
 
 
@@ -374,7 +281,7 @@ extension TextfieldTVCell {
         
         
         if key == "mobile" || textField.tag == 88 {
-            maxLength = cname.getMobileNumberMaxLength() ?? 8
+            maxLength = 8
             guard CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) else {
                 return false
             }

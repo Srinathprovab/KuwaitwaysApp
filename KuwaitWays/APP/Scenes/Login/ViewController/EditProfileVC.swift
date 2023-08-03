@@ -35,6 +35,7 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
     var country_name = String()
     var state_name = String()
     var city_name = String()
+    var email_id = String()
     var pin_code = String()
     var country_code = String()
     var payload = [String:Any]()
@@ -83,8 +84,13 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         gender = profildata?.gender ?? ""
         country_code = profildata?.country_code ?? ""
         phone = profildata?.phone ?? ""
-        
-        self.profilePic.sd_setImage(with: URL(string: profildata?.image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+        email_id = profildata?.email ?? ""
+        if profildata?.image == "" {
+            self.profilePic.image = UIImage(named: "profile")
+        }else {
+            self.profilePic.sd_setImage(with: URL(string: profildata?.image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+
+        }
         
         DispatchQueue.main.async {[self] in
             appendLoginTvcells()
@@ -127,13 +133,14 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         tablerow.append(TableRow(title:"Last Name*",subTitle: last_name,text:"2", tempText: "Last Name",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Date Of Birth*",subTitle: date_of_birth,key: "dob",text:"3",tempText: "dob",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Mobile Number*",subTitle: phone,key: "mobile",text:"4", tempText: "Mobile",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Email*",subTitle: email_id,key: "email",text:"55",key1: "noedit", tempText: "Mobile",cellType:.TextfieldTVCell))
         
         tablerow.append(TableRow(title:"Address",subTitle:address,text:"5", tempText: "address",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Address2",subTitle: address2,text:"6", tempText: "address",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Gender",subTitle: gender,key:"gender",text:"7", tempText: "gender",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Country Name",subTitle: country_name,text:"8", tempText: "cname",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"State Name",subTitle: state_name,text:"9", tempText: "sname",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"City Name",subTitle: city_name,text:"10", tempText: "cityname",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"City Name",subTitle: city_name,key: "", text:"10", tempText: "cityname",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Pin Code",subTitle: pin_code,text:"11", tempText: "pincode",cellType:.TextfieldTVCell))
         
         

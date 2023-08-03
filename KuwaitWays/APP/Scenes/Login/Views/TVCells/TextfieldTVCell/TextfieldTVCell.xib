@@ -141,6 +141,7 @@
                 <outlet property="showPassImg" destination="n5s-ur-nD4" id="AwX-Iz-CVT"/>
                 <outlet property="showPassView" destination="RD0-RE-zYN" id="cjX-YX-ezt"/>
                 <outlet property="txtField" destination="EN1-AC-saY" id="3Y4-Ae-APH"/>
+                <outlet property="txtfildHolderView" destination="E0j-IO-fKH" id="r3I-Xm-1QK"/>
                 <outlet property="viewheight" destination="C04-d2-S0g" id="up6-7l-5GH"/>
             </connections>
             <point key="canvasLocation" x="258.69565217391306" y="105.46875"/>

@@ -9,6 +9,8 @@ import UIKit
 import MaterialComponents.MaterialTextControls_OutlinedTextFields
 
 
+
+
 class LoginVC: BaseTableVC, CountryListViewModelDelegate {
    
     
@@ -56,6 +58,9 @@ class LoginVC: BaseTableVC, CountryListViewModelDelegate {
     func countryList(response: CountryListModel) {
         countrylist = response.country_list ?? []
        
+        DispatchQueue.main.async {
+            
+        }
     }
     
     func setupTV() {
@@ -202,6 +207,7 @@ class LoginVC: BaseTableVC, CountryListViewModelDelegate {
     
     @IBAction func didTapOnSkipBtn(_ sender: Any) {
         if isvcfrom == "ViewController" {
+            defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
             gotodashBoardScreen()
         }else if isvcfrom == "CreateAccountVC" {
             self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -229,16 +235,19 @@ extension LoginVC:LoginViewModelDelegate {
             defaults.set(response.user_id, forKey: UserDefaultsKeys.userid)
             defaults.set("\(response.first_name ?? "") \(response.last_name ?? "")", forKey: UserDefaultsKeys.username)
             defaults.set(response.image, forKey: UserDefaultsKeys.userimg)
+            NotificationCenter.default.post(name: NSNotification.Name("logindon"), object: nil)
+            
             
             let seconds = 1.0
-            
-            
             if isvcfrom == "ViewController" {
-                gotodashBoardScreen()
+                loginmenubool = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
+                    // Put your code which should be executed with a delay here
+                    gotodashBoardScreen()
+                }
             }else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
                     // Put your code which should be executed with a delay here
-                    NotificationCenter.default.post(name: NSNotification.Name("logindon"), object: nil)
                     dismiss(animated: true)
                 }
             }

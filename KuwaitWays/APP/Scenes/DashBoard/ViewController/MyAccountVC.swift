@@ -105,7 +105,15 @@ class MyAccountVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         country_code = profildata?.country_code ?? ""
         phone = profildata?.phone ?? ""
         
-        self.profilePic.sd_setImage(with: URL(string: profildata?.image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+        if profildata?.image == "" {
+            self.profilePic.image = UIImage(named: "profile")
+            self.profilePic.alpha = 0.5
+        }else {
+            self.profilePic.sd_setImage(with: URL(string: profildata?.image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+            self.profilePic.alpha = 1
+
+        }
+        
         
         DispatchQueue.main.async {[self] in
             appendLoginTvcells()
