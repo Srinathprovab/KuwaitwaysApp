@@ -143,7 +143,7 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
                 showToast(message: "Enter Email Address")
                 setcolor(tf: cell.emailTF, color: .red)
             }else  if email.isValidEmail() == false {
-                showToast(message: "Inavlid  Email address ")
+                showToast(message: "Invalid Email address ")
                 setcolor(tf: cell.emailTF, color: .red)
             }else if mobile.isEmpty == true {
                 showToast(message: "Enter Mobile Number")

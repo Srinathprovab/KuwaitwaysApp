@@ -138,7 +138,7 @@ class LoginVC: BaseTableVC, CountryListViewModelDelegate {
                         cell.txtField.setOutlineColor(.red, for: .editing)
                     }
                 }else  if email.isValidEmail() == false {
-                    showToast(message: "Inavlid  Email address ")
+                    showToast(message: "Inavlid Email address")
                     if cell.txtField.tag == 1 {
                         cell.txtField.setOutlineColor(.red, for: .editing)
                         cell.txtField.setOutlineColor(.red, for: .editing)
