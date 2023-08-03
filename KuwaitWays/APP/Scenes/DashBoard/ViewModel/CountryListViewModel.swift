@@ -24,12 +24,12 @@ class CountryListViewModel {
         let parms = NSDictionary(dictionary:dictParam)
         print("Parameters = \(parms)")
         
-        self.view?.showLoader()
+     //   self.view?.showLoader()
         
         ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.countrylist1, parameters: parms, resultType: CountryListModel.self, p:dictParam) { sucess, result, errorMessage in
             
             DispatchQueue.main.async {
-                self.view?.hideLoader()
+           //     self.view?.hideLoader()
                 if sucess {
                     guard let response = result else {return}
                     self.view.countryList(response: response)

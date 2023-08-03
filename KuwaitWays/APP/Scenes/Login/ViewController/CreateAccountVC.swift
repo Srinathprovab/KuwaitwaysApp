@@ -91,7 +91,6 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
         switch tf.tag {
         case 1:
             fname = tf.text ?? ""
-            
             break
             
         case 2:
@@ -132,7 +131,6 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
     override func didTapOnCreateAccountBtnBtnAction(cell: CreateAccountTVCell) {
         
         
-        
         if let cell = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? CreateAccountTVCell {
             
             if fname.isEmpty == true {
@@ -145,7 +143,7 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
                 showToast(message: "Enter Email Address")
                 setcolor(tf: cell.emailTF, color: .red)
             }else  if email.isValidEmail() == false {
-                showToast(message: "Enter Valid Address")
+                showToast(message: "Inavlid  Email address ")
                 setcolor(tf: cell.emailTF, color: .red)
             }else if mobile.isEmpty == true {
                 showToast(message: "Enter Mobile Number")
@@ -213,7 +211,6 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
             showToast(message: "User Registration Sucess")
             let seconds = 1.0
             DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
-                //                NotificationCenter.default.post(name: NSNotification.Name("logindon"), object: nil)
                 dismiss(animated: true)
             }
         }

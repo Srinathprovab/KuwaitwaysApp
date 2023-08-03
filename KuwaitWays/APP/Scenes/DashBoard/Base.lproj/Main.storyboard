@@ -51,7 +51,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Qj1-eB-kon" firstAttribute="top" secondItem="UYB-et-dc4" secondAttribute="top" constant="328" id="AC7-AK-OEQ"/>
+                                    <constraint firstItem="Qj1-eB-kon" firstAttribute="centerX" secondItem="UYB-et-dc4" secondAttribute="centerX" id="12p-dE-rYt"/>
+                                    <constraint firstItem="Qj1-eB-kon" firstAttribute="centerY" secondItem="UYB-et-dc4" secondAttribute="centerY" id="QEI-rR-vTN"/>
                                     <constraint firstItem="Qj1-eB-kon" firstAttribute="leading" secondItem="UYB-et-dc4" secondAttribute="leading" id="UAT-K1-DJd"/>
                                     <constraint firstAttribute="trailing" secondItem="Qj1-eB-kon" secondAttribute="trailing" id="mY7-Sn-MXf"/>
                                 </constraints>

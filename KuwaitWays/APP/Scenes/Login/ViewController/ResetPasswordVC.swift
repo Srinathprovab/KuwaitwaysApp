@@ -120,7 +120,7 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
                         cell.txtField.setOutlineColor(.red, for: .editing)
                     }
                 }else  if email.isValidEmail() == false {
-                    showToast(message: "Enter Valid Address")
+                    showToast(message: "Inavlid  Email address")
                     if cell.txtField.tag == 1 {
                         cell.txtField.setOutlineColor(.red, for: .normal)
                         cell.txtField.setOutlineColor(.red, for: .editing)

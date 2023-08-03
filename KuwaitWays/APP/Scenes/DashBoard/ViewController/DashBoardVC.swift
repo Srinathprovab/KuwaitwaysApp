@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModelDelegate {
+class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate {
     
     
     
@@ -40,57 +40,57 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
-
+        
         TimerManager.shared.startTimer()
+        
+        
         
         if !UserDefaults.standard.bool(forKey: "ExecuteOnce") {
             
-            if !UserDefaults.standard.bool(forKey: "ExecuteOnce") {
-                
-                defaults.set("+965", forKey: UserDefaultsKeys.mobilecountrycode)
-                defaults.set("Kuwati", forKey: UserDefaultsKeys.mobilecountryname)
-                
-                defaults.set("Flights", forKey: UserDefaultsKeys.tabselect)
-                defaults.set("oneway", forKey: UserDefaultsKeys.journeyType)
-                defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
-                defaults.set("KWD", forKey: UserDefaultsKeys.selectedCurrency)
-                
-                defaults.set("", forKey: UserDefaultsKeys.fromCity)
-                defaults.set("", forKey: UserDefaultsKeys.toCity)
-                defaults.set("", forKey: UserDefaultsKeys.rfromCity)
-                defaults.set("", forKey: UserDefaultsKeys.rtoCity)
-                defaults.set("", forKey: UserDefaultsKeys.calDepDate)
-                defaults.set("", forKey: UserDefaultsKeys.rcalDepDate)
-                defaults.set("", forKey: UserDefaultsKeys.rcalRetDate)
-                
-                defaults.set("Economy", forKey: UserDefaultsKeys.selectClass)
-                defaults.set("1", forKey: UserDefaultsKeys.adultCount)
-                defaults.set("0", forKey: UserDefaultsKeys.childCount)
-                defaults.set("0", forKey: UserDefaultsKeys.infantsCount)
-                
-                defaults.set("Economy", forKey: UserDefaultsKeys.rselectClass)
-                defaults.set("1", forKey: UserDefaultsKeys.radultCount)
-                defaults.set("0", forKey: UserDefaultsKeys.rchildCount)
-                defaults.set("0", forKey: UserDefaultsKeys.rinfantsCount)
-                
-                
-                defaults.set("1", forKey: UserDefaultsKeys.totalTravellerCount)
-                let totaltraverlers = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy")"
-                defaults.set(totaltraverlers, forKey: UserDefaultsKeys.travellerDetails)
-                
-                let totaltraverlers1 = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.rselectClass) ?? "Economy")"
-                defaults.set(totaltraverlers1, forKey: UserDefaultsKeys.rtravellerDetails)
-                
-                
-                let totaltraverlers2 = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.mselectClass) ?? "Economy")"
-                defaults.set(totaltraverlers2, forKey: UserDefaultsKeys.mtravellerDetails)
-                
-                
-               
-                
-                UserDefaults.standard.set(true, forKey: "ExecuteOnce")
-            }
+            defaults.set("+965", forKey: UserDefaultsKeys.mobilecountrycode)
+            defaults.set("Kuwati", forKey: UserDefaultsKeys.mobilecountryname)
+            
+            defaults.set("Flights", forKey: UserDefaultsKeys.tabselect)
+            defaults.set("oneway", forKey: UserDefaultsKeys.journeyType)
+            defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
+            defaults.set("KWD", forKey: UserDefaultsKeys.selectedCurrency)
+            
+            defaults.set("", forKey: UserDefaultsKeys.fromCity)
+            defaults.set("", forKey: UserDefaultsKeys.toCity)
+            defaults.set("", forKey: UserDefaultsKeys.rfromCity)
+            defaults.set("", forKey: UserDefaultsKeys.rtoCity)
+            defaults.set("", forKey: UserDefaultsKeys.calDepDate)
+            defaults.set("", forKey: UserDefaultsKeys.rcalDepDate)
+            defaults.set("", forKey: UserDefaultsKeys.rcalRetDate)
+            
+            defaults.set("Economy", forKey: UserDefaultsKeys.selectClass)
+            defaults.set("1", forKey: UserDefaultsKeys.adultCount)
+            defaults.set("0", forKey: UserDefaultsKeys.childCount)
+            defaults.set("0", forKey: UserDefaultsKeys.infantsCount)
+            
+            defaults.set("Economy", forKey: UserDefaultsKeys.rselectClass)
+            defaults.set("1", forKey: UserDefaultsKeys.radultCount)
+            defaults.set("0", forKey: UserDefaultsKeys.rchildCount)
+            defaults.set("0", forKey: UserDefaultsKeys.rinfantsCount)
+            
+            
+            defaults.set("1", forKey: UserDefaultsKeys.totalTravellerCount)
+            let totaltraverlers = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy")"
+            defaults.set(totaltraverlers, forKey: UserDefaultsKeys.travellerDetails)
+            
+            let totaltraverlers1 = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.rselectClass) ?? "Economy")"
+            defaults.set(totaltraverlers1, forKey: UserDefaultsKeys.rtravellerDetails)
+            
+            
+            let totaltraverlers2 = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.mselectClass) ?? "Economy")"
+            defaults.set(totaltraverlers2, forKey: UserDefaultsKeys.mtravellerDetails)
+            
+            
+            
+            
+            UserDefaults.standard.set(true, forKey: "ExecuteOnce")
         }
+        
         
         //Hotel default Values
         defaults.set("1", forKey: UserDefaultsKeys.roomcount)
@@ -103,17 +103,17 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         defaults.set("\(defaults.string(forKey: UserDefaultsKeys.roomcount) ?? "") Rooms,\(defaults.string(forKey: UserDefaultsKeys.hoteladultscount) ?? "") Adults,\(defaults.string(forKey: UserDefaultsKeys.hotelchildcount) ?? "") Childreen", forKey: UserDefaultsKeys.selectPersons)
         defaults.set(1, forKey: UserDefaultsKeys.guestcount)
         
-       
+        
         
         if callapibool == true {
             callAPI()
         }
         
         
-       
-
+        
+        
     }
-
+    
     @objc func offline() {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -134,7 +134,6 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         
         setupMenu()
         vm = IndexPageViewModel(self)
-        vm1 = CountryListViewModel(self)
     }
     
     
@@ -155,22 +154,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         DispatchQueue.main.async {[self] in
             setupTV()
         }
-        DispatchQueue.main.async {[self] in
-            callcountryLiatAPI()
-        }
-    }
-    
-    
-    
-    func callcountryLiatAPI() {
-        vm1?.CALL_GET_COUNTRY_LIST_API(dictParam: [:])
-    }
-    
-    func countryList(response: CountryListModel) {
-        countrylist = response.country_list ?? []
-        DispatchQueue.main.async {[self] in
-            
-        }
+        
     }
     
     
@@ -188,7 +172,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
     
     func appendTVCells() {
         tablerow.removeAll()
-
+        
         tablerow.append(TableRow(cellType:.SelectTabTVCell))
         tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"BEST DEALS FLIGHTS ",key: "deals", text:imgPath, height:50,cellType:.LabelTVCell))

@@ -107,13 +107,29 @@ func checkDepartureAndReturnDates(_ parameters: [String: Any],p1:String,p2:Strin
 
 class ViewController: UIViewController {
     
+    var ExecuteOnceBool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-            self.gotodashBoardScreen()
-        })
+        if !UserDefaults.standard.bool(forKey: "ExecuteOnceLoginVC") {
+            ExecuteOnceBool = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                self.gotoLoginVC()
+            })
+            
+            UserDefaults.standard.set(true, forKey: "ExecuteOnceLoginVC")
+        }
+        
+        
+        if ExecuteOnceBool == true {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                self.gotodashBoardScreen()
+            })
+        }
+        
     }
     
     
@@ -122,6 +138,14 @@ class ViewController: UIViewController {
         vc.modalPresentationStyle = .fullScreen
         vc.selectedIndex = 0
         callapibool = true
+        present(vc, animated: true)
+    }
+    
+    func gotoLoginVC() {
+        guard let vc = LoginVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        callapibool = true
+        vc.isvcfrom = "ViewController"
         present(vc, animated: true)
     }
     

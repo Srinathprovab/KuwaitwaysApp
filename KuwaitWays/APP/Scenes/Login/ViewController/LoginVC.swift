@@ -9,8 +9,8 @@ import UIKit
 import MaterialComponents.MaterialTextControls_OutlinedTextFields
 
 
-class LoginVC: BaseTableVC {
-    
+class LoginVC: BaseTableVC, CountryListViewModelDelegate {
+   
     
     var tablerow = [TableRow]()
     static var newInstance: LoginVC? {
@@ -26,7 +26,7 @@ class LoginVC: BaseTableVC {
     var showPwdBool = true
     var payload = [String:Any]()
     var vm:LoginViewModel?
-    
+    var vm1:CountryListViewModel?
     
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
@@ -37,7 +37,7 @@ class LoginVC: BaseTableVC {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-        
+        callcountryLiatAPI()
     }
     
     override func viewDidLoad() {
@@ -46,6 +46,16 @@ class LoginVC: BaseTableVC {
         // Do any additional setup after loading the view.
         setupTV()
         vm = LoginViewModel(self)
+        vm1 = CountryListViewModel(self)
+    }
+    
+    func callcountryLiatAPI() {
+        vm1?.CALL_GET_COUNTRY_LIST_API(dictParam: [:])
+    }
+    
+    func countryList(response: CountryListModel) {
+        countrylist = response.country_list ?? []
+       
     }
     
     func setupTV() {
@@ -104,14 +114,14 @@ class LoginVC: BaseTableVC {
         }
     }
     
-   
+    
     
     
     override func btnAction(cell: ButtonTVCell){
         
         
         let positionsCount = commonTableView.numberOfRows(inSection: 0)
-
+        
         for position in 0..<positionsCount {
             // Fetch the cell for the given position
             if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? TextfieldTVCell {
@@ -123,7 +133,7 @@ class LoginVC: BaseTableVC {
                         cell.txtField.setOutlineColor(.red, for: .editing)
                     }
                 }else  if email.isValidEmail() == false {
-                    showToast(message: "Enter Valid Address")
+                    showToast(message: "Inavlid  Email address ")
                     if cell.txtField.tag == 1 {
                         cell.txtField.setOutlineColor(.red, for: .editing)
                         cell.txtField.setOutlineColor(.red, for: .editing)
@@ -182,13 +192,20 @@ class LoginVC: BaseTableVC {
     }
     
     
-    
+    func gotodashBoardScreen() {
+        guard let vc = DBTabbarController.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.selectedIndex = 0
+        callapibool = true
+        present(vc, animated: true)
+    }
     
     @IBAction func didTapOnSkipBtn(_ sender: Any) {
-        if isvcfrom == "CreateAccountVC" {
+        if isvcfrom == "ViewController" {
+            gotodashBoardScreen()
+        }else if isvcfrom == "CreateAccountVC" {
             self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-            
-        }else {
+        }else  {
             dismiss(animated: false)
         }
         
@@ -214,10 +231,16 @@ extension LoginVC:LoginViewModelDelegate {
             defaults.set(response.image, forKey: UserDefaultsKeys.userimg)
             
             let seconds = 1.0
-            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
-                // Put your code which should be executed with a delay here
-                NotificationCenter.default.post(name: NSNotification.Name("logindon"), object: nil)
-                dismiss(animated: true)
+            
+            
+            if isvcfrom == "ViewController" {
+                gotodashBoardScreen()
+            }else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
+                    // Put your code which should be executed with a delay here
+                    NotificationCenter.default.post(name: NSNotification.Name("logindon"), object: nil)
+                    dismiss(animated: true)
+                }
             }
         }
     }
