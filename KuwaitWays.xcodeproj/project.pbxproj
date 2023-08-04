@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0E53B56A5D97959B5FC00B91 /* Pods_KuwaitWaysTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5A5F32473A8084BE83BB18 /* Pods_KuwaitWaysTests.framework */; };
+		650B1C8F2A7CB78100F89BA5 /* LoginTitleTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650B1C8D2A7CB78100F89BA5 /* LoginTitleTVCell.swift */; };
+		650B1C902A7CB78100F89BA5 /* LoginTitleTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650B1C8E2A7CB78100F89BA5 /* LoginTitleTVCell.xib */; };
 		650D5C242A04D9EC007F92F4 /* ProfileUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650D5C232A04D9EC007F92F4 /* ProfileUpdateModel.swift */; };
 		650D5C262A04DA3E007F92F4 /* ProfileUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650D5C252A04DA3E007F92F4 /* ProfileUpdateViewModel.swift */; };
 		651A735A2A037B6700799D81 /* ViewHotelDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651A73592A037B6600799D81 /* ViewHotelDetailsVC.swift */; };
@@ -393,6 +395,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		650B1C8D2A7CB78100F89BA5 /* LoginTitleTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTitleTVCell.swift; sourceTree = "<group>"; };
+		650B1C8E2A7CB78100F89BA5 /* LoginTitleTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginTitleTVCell.xib; sourceTree = "<group>"; };
 		650D5C232A04D9EC007F92F4 /* ProfileUpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateModel.swift; sourceTree = "<group>"; };
 		650D5C252A04DA3E007F92F4 /* ProfileUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateViewModel.swift; sourceTree = "<group>"; };
 		651A73592A037B6600799D81 /* ViewHotelDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHotelDetailsVC.swift; sourceTree = "<group>"; };
@@ -799,6 +803,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		650B1C8C2A7CB76700F89BA5 /* LoginTitleTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				650B1C8D2A7CB78100F89BA5 /* LoginTitleTVCell.swift */,
+				650B1C8E2A7CB78100F89BA5 /* LoginTitleTVCell.xib */,
+			);
+			path = LoginTitleTVCell;
+			sourceTree = "<group>";
+		};
 		651A735B2A03924700799D81 /* HotelPurchaseSummaryTVCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2104,6 +2117,7 @@
 		BF8C0D9228C19BD5009C3A6A /* TVCells */ = {
 			isa = PBXGroup;
 			children = (
+				650B1C8C2A7CB76700F89BA5 /* LoginTitleTVCell */,
 				654924AE2A1CDEEE00851538 /* CreateAccountTVCell */,
 				BF8C0D9328C19BD5009C3A6A /* RadioButtonTVCell */,
 				BF8C0D9628C19BD5009C3A6A /* TextfieldTVCell */,
@@ -2178,8 +2192,8 @@
 		BF8C0DA528C19BD5009C3A6A /* LabelTVCell */ = {
 			isa = PBXGroup;
 			children = (
-				BF8C0DA628C19BD5009C3A6A /* LabelTVCell.xib */,
 				BF8C0DA728C19BD5009C3A6A /* LabelTVCell.swift */,
+				BF8C0DA628C19BD5009C3A6A /* LabelTVCell.xib */,
 			);
 			path = LabelTVCell;
 			sourceTree = "<group>";
@@ -2531,6 +2545,7 @@
 				BF8C0E0A28C19BD5009C3A6A /* StarRatingCVCell.xib in Resources */,
 				BF8C0E4E28C19BD5009C3A6A /* ItineraryCVCell.xib in Resources */,
 				65C5CD0029F7BD7E00FDA690 /* FareBreakdownTVCell.xib in Resources */,
+				650B1C902A7CB78100F89BA5 /* LoginTitleTVCell.xib in Resources */,
 				BF8C0E6028C19BD5009C3A6A /* MenuBGTVCell.xib in Resources */,
 				BF8C0E9228C19BD5009C3A6A /* Poppins-ExtraBold.ttf in Resources */,
 				BF8C0E9728C19BD5009C3A6A /* OpenSans-Semibold.ttf in Resources */,
@@ -2853,6 +2868,7 @@
 				65DD51352A6257A000BA5421 /* MSummary.swift in Sources */,
 				652C6EDE2A5EB345008E2447 /* MulticityModel.swift in Sources */,
 				BF8C0E2128C19BD5009C3A6A /* TDetailsLoginTVCell.swift in Sources */,
+				650B1C8F2A7CB78100F89BA5 /* LoginTitleTVCell.swift in Sources */,
 				BF8C0E8128C19BD5009C3A6A /* StringExtension.swift in Sources */,
 				65C5CD5329F7E52400FDA690 /* Session_expiry_details.swift in Sources */,
 				BF8C0E1D28C19BD5009C3A6A /* CalenderVC.swift in Sources */,
@@ -3162,7 +3178,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KuwaitWays/Info.plist;
@@ -3200,7 +3216,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KuwaitWays/Info.plist;

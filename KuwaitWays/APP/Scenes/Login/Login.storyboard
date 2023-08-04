@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,7 +13,7 @@
         <!--LoginVC-->
         <scene sceneID="hF2-8p-dRS">
             <objects>
-                <viewController storyboardIdentifier="LoginVC" id="JKX-b5-njP" customClass="LoginVC" customModule="BeeoonsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="JKX-b5-njP" customClass="LoginVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h76-fT-SyD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,7 +26,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhG-LJ-MfG">
-                                        <rect key="frame" x="346.5" y="55" width="54.5" height="31"/>
+                                        <rect key="frame" x="341" y="55" width="60" height="34.5"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="SKIP"/>
@@ -66,7 +66,7 @@
         <!--Create AccountVC-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="CreateAccountVC" id="Y6W-OH-hqX" customClass="CreateAccountVC" customModule="BeeoonsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateAccountVC" id="Y6W-OH-hqX" customClass="CreateAccountVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -79,10 +79,10 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEG-dQ-Ukh">
-                                        <rect key="frame" x="349.5" y="69" width="54.5" height="31"/>
+                                        <rect key="frame" x="15" y="66" width="40" height="34"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="SKIP"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
                                         <connections>
                                             <action selector="didTapOnSkipBtn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="RfZ-lM-KQO"/>
                                         </connections>
@@ -94,8 +94,8 @@
                                     <constraint firstItem="Wue-8e-cHg" firstAttribute="leading" secondItem="485-r0-aU7" secondAttribute="leading" id="4ys-XZ-SB8"/>
                                     <constraint firstAttribute="trailing" secondItem="Wue-8e-cHg" secondAttribute="trailing" id="LPd-PW-KjX"/>
                                     <constraint firstAttribute="bottom" secondItem="Wue-8e-cHg" secondAttribute="bottom" id="Mv8-yM-PZR"/>
+                                    <constraint firstItem="eEG-dQ-Ukh" firstAttribute="leading" secondItem="485-r0-aU7" secondAttribute="leading" constant="15" id="NMe-2v-l8t"/>
                                     <constraint firstItem="Wue-8e-cHg" firstAttribute="top" secondItem="eEG-dQ-Ukh" secondAttribute="bottom" id="NQD-Oi-WxY"/>
-                                    <constraint firstAttribute="trailing" secondItem="eEG-dQ-Ukh" secondAttribute="trailing" constant="10" id="tSo-aW-Wel"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -119,7 +119,7 @@
         <!--Reset PasswordVC-->
         <scene sceneID="QDj-zv-EaA">
             <objects>
-                <viewController storyboardIdentifier="ResetPasswordVC" id="geu-ua-Dvo" customClass="ResetPasswordVC" customModule="BeeoonsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResetPasswordVC" id="geu-ua-Dvo" customClass="ResetPasswordVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0rn-sa-3qg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -141,10 +141,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HBC-6u-Ghw">
-                                <rect key="frame" x="344.5" y="64" width="54.5" height="31"/>
+                                <rect key="frame" x="15" y="68" width="40" height="34"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="SKIP"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
                                 <connections>
                                     <action selector="didTapOnSkipBtn:" destination="geu-ua-Dvo" eventType="touchUpInside" id="Yvt-al-95O"/>
                                 </connections>
@@ -153,9 +153,9 @@
                         <viewLayoutGuide key="safeArea" id="n7P-dw-CR0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="n7P-dw-CR0" firstAttribute="trailing" secondItem="HBC-6u-Ghw" secondAttribute="trailing" constant="15" id="JuU-eY-OHY"/>
                             <constraint firstAttribute="bottom" secondItem="5K0-Wz-XhS" secondAttribute="bottom" id="NMb-ZV-Bff"/>
                             <constraint firstItem="5K0-Wz-XhS" firstAttribute="top" secondItem="0rn-sa-3qg" secondAttribute="top" id="X9q-tf-mG4"/>
+                            <constraint firstItem="HBC-6u-Ghw" firstAttribute="leading" secondItem="n7P-dw-CR0" secondAttribute="leading" constant="15" id="aW3-d5-5bp"/>
                             <constraint firstItem="5K0-Wz-XhS" firstAttribute="leading" secondItem="n7P-dw-CR0" secondAttribute="leading" id="bru-G1-mgP"/>
                             <constraint firstItem="n7P-dw-CR0" firstAttribute="trailing" secondItem="5K0-Wz-XhS" secondAttribute="trailing" id="tEU-Lo-b0L"/>
                             <constraint firstItem="HBC-6u-Ghw" firstAttribute="top" secondItem="n7P-dw-CR0" secondAttribute="top" constant="20" id="tq8-au-C2J"/>
@@ -172,7 +172,7 @@
         <!--Edit ProfileVC-->
         <scene sceneID="CKK-g1-yyk">
             <objects>
-                <viewController storyboardIdentifier="EditProfileVC" id="J6c-0h-s7Q" customClass="EditProfileVC" customModule="BeeoonsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfileVC" id="J6c-0h-s7Q" customClass="EditProfileVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Meh-BI-pTx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -184,7 +184,7 @@
                                         <rect key="frame" x="0.0" y="283" width="414" height="613"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amW-RH-xws" customClass="NavBar" customModule="BeeoonsApp" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amW-RH-xws" customClass="NavBar" customModule="KuwaitWays" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -278,8 +278,9 @@
     </scenes>
     <resources>
         <image name="bird" width="3579" height="2389"/>
+        <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <namedColor name="AppBackgroundColor">
-            <color red="0.0" green="0.32899999618530273" blue="0.62000000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.067000001668930054" green="0.19599999487400055" blue="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

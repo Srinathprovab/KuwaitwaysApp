@@ -63,12 +63,7 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
         
         commonTableView.registerTVCells(["EmptyTVCell",
                                          "CreateAccountTVCell",
-                                         "LabelTVCell",
-                                         "TextfieldTVCell",
-                                         "RadioButtonTVCell",
-                                         "ButtonTVCell",
-                                         "LogoImgTVCell",
-                                         "LabelWithButtonTVCell"])
+                                         "LogoImgTVCell"])
         
         appendLoginTvcells()
     }
@@ -77,7 +72,7 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
     func appendLoginTvcells() {
         tablerow.removeAll()
         
-        tablerow.append(TableRow(height:30,cellType:.EmptyTVCell))
+        tablerow.append(TableRow(height:5,cellType:.EmptyTVCell))
         tablerow.append(TableRow(cellType:.LogoImgTVCell))
         tablerow.append(TableRow(cellType:.CreateAccountTVCell))
         
@@ -197,12 +192,12 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
         dismiss(animated: true)
     }
     
-    override func didTapOnBackToLoginBtn(cell: LabelWithButtonTVCell) {
-        guard let vc = LoginVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.isvcfrom = "CreateAccountVC"
-        self.present(vc, animated: true)
-    }
+//    override func didTapOnBackToLoginBtn(cell: LabelWithButtonTVCell) {
+//        guard let vc = LoginVC.newInstance.self else {return}
+//        vc.modalPresentationStyle = .fullScreen
+//        vc.isvcfrom = "CreateAccountVC"
+//        self.present(vc, animated: true)
+//    }
     
     func registerUserSucess(response: RegisterUserModel) {
         if response.status == false {

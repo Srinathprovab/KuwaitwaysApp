@@ -51,7 +51,7 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
         
         commonTableView.registerTVCells(["EmptyTVCell",
                                          "LogoImgTVCell",
-                                         "LabelTVCell",
+                                         "LoginTitleTVCell",
                                          "TextfieldTVCell",
                                          "RadioButtonTVCell",
                                          "ButtonTVCell"])
@@ -66,9 +66,9 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
         
         tablerow.append(TableRow(height:60,cellType:.EmptyTVCell))
         tablerow.append(TableRow(cellType:.LogoImgTVCell))
-        tablerow.append(TableRow(title:"Reset Your Password",subTitle: "Enter your email and we'll send you the instructions to recover your password:",key: "resetpass",cellType:.LabelTVCell))
+        tablerow.append(TableRow(title:"Reset Your Password",subTitle: "Enter your email and we'll send you the instructions to recover your password:",key: "resetpass",cellType:.LoginTitleTVCell))
         tablerow.append(TableRow(title:"Email Address*",text:"1", tempText: "Email Adress",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Mobile Number*",key: "mobile",text:"4", moreData:["+91","+988","+133"], tempText: "Mobile",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Mobile Number*",key: "mobile1",text:"4", moreData:["+91","+988","+133"], tempText: "Mobile",cellType:.TextfieldTVCell))
         
         tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Send",cellType:.ButtonTVCell))

@@ -74,7 +74,7 @@ enum TVCellType {
     case CommonTVAddTravellerTVCell
     case PriceSummaryTVCell
     case AddDeatilsOfGuestTVCell
-    
+    case LoginTitleTVCell
     
     
     //Hotel

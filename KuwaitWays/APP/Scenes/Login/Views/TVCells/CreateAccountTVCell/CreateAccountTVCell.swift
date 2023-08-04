@@ -103,15 +103,10 @@ class CreateAccountTVCell: TableViewCell {
         countryCodeTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
         countryCodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
 
-        //setupTV()
+       
     }
     
     
-    func setupTV() {
-        countrycodeTV.delegate = self
-        countrycodeTV.dataSource = self
-        countrycodeTV.register(UINib(nibName: "FromCityTVCell", bundle: nil), forCellReuseIdentifier: "cell")
-    }
     
     
     
@@ -289,35 +284,3 @@ extension CreateAccountTVCell {
 }
 
 
-
-extension CreateAccountTVCell:UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterdcountrylist.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var ccell = UITableViewCell()
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? FromCityTVCell {
-                cell.selectionStyle = .none
-                cell.titlelbl.text = filterdcountrylist[indexPath.row].name
-                cell.subTitlelbl.isHidden = true
-                ccell = cell
-            }
-        
-        
-        return ccell
-    }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(countrylist[indexPath.row].name)
-        print(countrylist[indexPath.row].country_code)
-       
-        countryCodeTF.text = countrylist[indexPath.row].country_code
-        countrycodeTVHeight.constant = 0
-    }
-    
-    
-    
-    
-}

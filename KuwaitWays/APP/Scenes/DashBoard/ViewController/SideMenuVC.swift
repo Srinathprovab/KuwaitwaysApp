@@ -236,6 +236,13 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         present(vc, animated: true)
     }
     
+    func gotoLoginVC() {
+        guard let vc = LoginVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.isvcfrom = "menu"
+        present(vc, animated: true)
+    }
+    
 }
 
 extension SideMenuVC:LogoutViewmodelDelegate {
@@ -247,6 +254,10 @@ extension SideMenuVC:LogoutViewmodelDelegate {
         
         DispatchQueue.main.async {[self] in
             setupMenuTVCells()
+        }
+        
+        DispatchQueue.main.async {[self] in
+            gotoLoginVC()
         }
     }
     

@@ -53,7 +53,7 @@ class TextfieldTVCell: TableViewCell {
     var chkBool = true
     var isSearchBool = Bool()
     var searchText = String()
-    
+    var cname = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -86,11 +86,12 @@ class TextfieldTVCell: TableViewCell {
     override func updateUI() {
         
         btnHeight.constant = 0
+        loadCountryNamesAndCode()
         
         setupTextField(txtField1: txtField, tagno: Int(cellInfo?.text ?? "") ?? 0, placeholder: cellInfo?.tempText ?? "",title: cellInfo?.title ?? "",subTitle: cellInfo?.subTitle ?? "")
         setupTextField(txtField1: countrycodeTF, tagno: Int(cellInfo?.text ?? "") ?? 0, placeholder: cellInfo?.tempText ?? "",title: "Code",subTitle: defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? "")
         
-       
+        
         key = cellInfo?.key ?? ""
         switch cellInfo?.key {
             
@@ -114,7 +115,7 @@ class TextfieldTVCell: TableViewCell {
             countryCodeBtnView.isHidden = false
             countrycodeTF.textColor = .SubTitleColor
             txtField.textColor = .SubTitleColor
-            txtfildHolderView.isUserInteractionEnabled = false
+            txtfildHolderView.isUserInteractionEnabled = true
             break
             
         case "email":
@@ -139,6 +140,11 @@ class TextfieldTVCell: TableViewCell {
             setupGenderDropDown()
             break
             
+        case "mobile1":
+            txtfildHolderView.isUserInteractionEnabled = true
+            countryCodeBtnView.isHidden = false
+            countrycodeTF.keyboardType = .emailAddress
+            break
             
         default:
             break
@@ -176,6 +182,9 @@ class TextfieldTVCell: TableViewCell {
         
         countryCodeBtnView.isHidden = true
         countryCodeBtn.isHidden = true
+        setupDropDown()
+        countrycodeTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
+        countrycodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
         
     }
     
@@ -203,6 +212,20 @@ class TextfieldTVCell: TableViewCell {
     @objc func editingText(textField:UITextField) {
         txtField.setOutlineColor(.black, for: .editing)
         txtField.setOutlineColor(.black, for: .normal)
+        
+        if textField.tag == 4 {
+            if let text = textField.text {
+                let length = text.count
+                if length != mobilenoMaxLength {
+                    mobilenoMaxLengthBool = false
+                }else{
+                    mobilenoMaxLengthBool = true
+                }
+                
+            } else {
+                mobilenoMaxLengthBool = false
+            }
+        }
         
         delegate?.editingTextField(tf: textField)
     }
@@ -272,7 +295,80 @@ class TextfieldTVCell: TableViewCell {
     }
     
     
-   
+    
+    
+    //MARK: - loadCountryNamesAndCode
+    func loadCountryNamesAndCode(){
+        countryNames.removeAll()
+        countrycodesArray.removeAll()
+        countrylist.forEach { i in
+            countryNames.append(i.name ?? "")
+            countrycodesArray.append(i.country_code ?? "")
+        }
+        DispatchQueue.main.async {[self] in
+            dropDown.dataSource = countryNames
+        }
+    }
+    
+    
+    func setupDropDown() {
+        
+        dropDown.direction = .bottom
+        dropDown.backgroundColor = .WhiteColor
+        dropDown.anchorView = self.countryCodeBtnView
+        dropDown.bottomOffset = CGPoint(x: 0, y: countryCodeBtnView.frame.size.height + 25)
+        dropDown.selectionAction = { [weak self] (index: Int, item: String) in
+            self?.countrycodeTF.text = self?.countrycodesArray[index] ?? ""
+            self?.countrycodeTF.resignFirstResponder()
+            self?.cname = self?.countryNames[index] ?? ""
+            self?.txtField.text = ""
+            self?.txtField.becomeFirstResponder()
+            self?.delegate?.didTapOnCountryCodeBtnAction(cell: self!)
+        }
+        
+    }
+    
+    
+    @objc func searchTextBegin(textField: MDCOutlinedTextField) {
+        textField.text = ""
+        loadCountryNamesAndCode()
+        dropDown.show()
+    }
+    
+    
+    @objc func searchTextChanged(textField: MDCOutlinedTextField) {
+        searchText = textField.text ?? ""
+        if searchText == "" {
+            isSearchBool = false
+            filterContentForSearchText(searchText)
+        }else {
+            isSearchBool = true
+            filterContentForSearchText(searchText)
+        }
+        
+        
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        print("Filterin with:", searchText)
+        
+        filterdcountrylist.removeAll()
+        filterdcountrylist = countrylist.filter { thing in
+            return "\(thing.name?.lowercased() ?? "")".contains(searchText.lowercased())
+        }
+        
+        countryNames.removeAll()
+        countrycodesArray.removeAll()
+        filterdcountrylist.forEach { i in
+            countryNames.append(i.name ?? "")
+            countrycodesArray.append(i.country_code ?? "")
+        }
+        dropDown.dataSource = countryNames
+        dropDown.show()
+        
+    }
+    
+    
 }
 
 
@@ -280,12 +376,24 @@ extension TextfieldTVCell {
     override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         
-        if key == "mobile" || textField.tag == 88 {
-            maxLength = 8
+        if key == "mobile" {
+            maxLength = 10
             guard CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) else {
                 return false
             }
-        }else {
+        } else  if key == "mobile1"{
+            
+            if textField == txtField{
+                
+                maxLength = cname.getMobileNumberMaxLength() ?? 8
+                guard CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) else {
+                    return false
+                }
+            }else {
+                maxLength = 10
+            }
+            
+        } else {
             maxLength = 50
         }
         
