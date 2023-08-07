@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate {
+class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModelDelegate {
     
     
     
@@ -133,9 +133,23 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate {
         
         setupMenu()
         vm = IndexPageViewModel(self)
+        vm1 = CountryListViewModel(self)
     }
     
     
+    
+    //MARK: - callcountryLiatAPI
+    func callcountryLiatAPI() {
+        vm1?.CALL_GET_COUNTRY_LIST_API(dictParam: [:])
+    }
+    
+    func countryList(response: CountryListModel) {
+        countrylist = response.country_list ?? []
+        
+        DispatchQueue.main.async {
+            
+        }
+    }
     
     //MARK: - CALL_INDEX_PAGE_API
     
@@ -150,6 +164,11 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate {
         sliderimageshotel = response.top_dest_hotel ?? []
         currencyType = response.currency ?? ""
         
+        
+        
+        DispatchQueue.main.async {[self] in
+            callcountryLiatAPI()
+        }
         DispatchQueue.main.async {[self] in
             setupTV()
         }
