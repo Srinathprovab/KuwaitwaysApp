@@ -67,7 +67,7 @@ class LoadWebViewVC: UIViewController, TimerManagerDelegate {
         
         
         
-        let seconds = 50.0
+        let seconds = 120.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
             if  openpaymentgatewaybool == false {
                 

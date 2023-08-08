@@ -121,6 +121,8 @@ class ContactInformationTVCell: TableViewCell {
         countryCodeBtn.isHidden = true
         countrycodeTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
         countrycodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
+        
+        mobileTF.keyboardType = .numberPad
     }
     
     

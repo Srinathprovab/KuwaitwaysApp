@@ -116,6 +116,7 @@ class TextfieldTVCell: TableViewCell {
             countrycodeTF.textColor = .SubTitleColor
             txtField.textColor = .SubTitleColor
             txtfildHolderView.isUserInteractionEnabled = true
+            self.txtField.keyboardType = .numberPad
             break
             
         case "email":
@@ -144,6 +145,7 @@ class TextfieldTVCell: TableViewCell {
             txtfildHolderView.isUserInteractionEnabled = true
             countryCodeBtnView.isHidden = false
             countrycodeTF.keyboardType = .emailAddress
+            self.txtField.keyboardType = .numberPad
             break
             
         default:
