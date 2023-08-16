@@ -201,7 +201,6 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         bookNowBtn.setTitle("", for: .normal)
         
         commonTableView.registerTVCells(["AddItineraryTVCell",
-                                         "BookNowTVCell",
                                          "EmptyTVCell",
                                          "TitleLblTVCell",
                                          "FareBreakdownTVCell",

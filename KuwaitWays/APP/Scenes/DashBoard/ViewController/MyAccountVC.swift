@@ -13,8 +13,8 @@ class MyAccountVC: BaseTableVC, ProfileUpdateViewModelDelegate {
     @IBOutlet weak var nav: NavBar!
     @IBOutlet weak var profilePicView: UIView!
     @IBOutlet weak var profilePic: UIImageView!
-    
     @IBOutlet weak var loginToBtnView: UIView!
+    
     var tablerow = [TableRow]()
     static var newInstance: EditProfileVC? {
         let storyboard = UIStoryboard(name: Storyboard.Login.name,
