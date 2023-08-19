@@ -97,15 +97,15 @@ class TravellerEconomyVC: BaseTableVC {
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
             if journeyType == "oneway" {
-                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.childCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }else if journeyType == "circle" {
-                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.rchildCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.rinfantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }else {
-                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.mchildCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }
@@ -139,69 +139,62 @@ class TravellerEconomyVC: BaseTableVC {
     
     
     override func didTapOnIncrementButton(cell: TravellerEconomyTVCell) {
-        
-        if (infantsCount) > 8 {
-            showToast(message: "Infants Count not mor than 9 ")
-            showAlertOnWindow(title: "", message: "Infants Count not mor than 9", titles: ["OK"], completionHanlder: nil)
-        }else if (adultsCount + childCount) > 8 {
-            showToast(message: "adultsCount not mor than 9 ")
-            showAlertOnWindow(title: "", message: "Adults Count Not More Than 9", titles: ["OK"], completionHanlder: nil)
-        }else  {
+        if cell.titlelbl.text == "Infant" && cell.count >= adultsCount {
+            //            showToast(message: "Infant count cannot exceed the number of adults")
+            //            showAlertOnWindow(title: "", message: "Infants Cannot Exceed Adults", titles: ["OK"], completionHanlder: nil)
+        } else if (adultsCount + childCount) > 8 {
+            //            showToast(message: "Total travelers cannot be more than 9")
+            //            showAlertOnWindow(title: "", message: "Total Travelers Not More Than 9", titles: ["OK"], completionHanlder: nil)
+        } else  {
             if cell.count >= 0 {
                 cell.count += 1
                 cell.countlbl.text = "\(cell.count)"
             }
             
-            if cell.titlelbl.text == "Adults" {
+            if cell.titlelbl.text == "Adult" {
                 adultsCount = cell.count
-            }else if cell.titlelbl.text == "Child"{
+            } else if cell.titlelbl.text == "Child" {
                 childCount = cell.count
-            }else if cell.titlelbl.text == "Infant"{
+            } else if cell.titlelbl.text == "Infant" {
                 infantsCount = cell.count
             }
         }
         
         print("Total Count === \(adultsCount + childCount + infantsCount)")
         defaults.set((adultsCount + childCount + infantsCount), forKey: UserDefaultsKeys.totalTravellerCount)
-        
     }
     
     
     override func didTapOnDecrementButton(cell: TravellerEconomyTVCell) {
-        
-        if cell.count > 0 {
-            cell.count -= 1
-        }
-        print(cell.count)
-        
-        if cell.titlelbl.text == "Adults" {
-            if cell.count == 0 {
-                cell.count = 1
+        if cell.titlelbl.text == "Infant" {
+            // Decrement the infant count if it's greater than or equal to 0
+            if cell.count > 0 {
+                cell.count -= 1
             }
-            adultsCount = cell.count
-            deleteRecords(title: "Adult", index: cell.count)
-        }else if cell.titlelbl.text == "Child"{
-            childCount = cell.count
-            deleteRecords(title: "Child", index: cell.count)
-        }else {
             infantsCount = cell.count
-            deleteRecords(title: "Infant", index: cell.count)
-        }
-        
-        
-        if (adultsCount + childCount) > 8 {
-            showToast(message: "adultsCount not mor than 9 ")
-            showAlertOnWindow(title: "", message: "Adults Count Not More Than 9", titles: ["OK"], completionHanlder: nil)
-        }else {
-            cell.countlbl.text = "\(cell.count)"
+        } else {
+            if cell.count > 0 {
+                cell.count -= 1
+            }
             
+            if cell.titlelbl.text == "Adult" {
+                if cell.count == 0 {
+                    cell.count = 1
+                }
+                adultsCount = cell.count
+            } else if cell.titlelbl.text == "Child" {
+                childCount = cell.count
+            } else {
+                infantsCount = cell.count
+            }
         }
         
+        cell.countlbl.text = "\(cell.count)"
         print("Total Count === \(adultsCount + childCount + infantsCount)")
         defaults.set((adultsCount + childCount + infantsCount), forKey: UserDefaultsKeys.totalTravellerCount)
-        
     }
     
+
     
     
     

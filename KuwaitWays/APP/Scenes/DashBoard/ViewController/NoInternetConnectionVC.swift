@@ -20,6 +20,7 @@ class NoInternetConnectionVC: UIViewController {
     
     
     var key = String()
+    var titleStr = String()
     static var newInstance: NoInternetConnectionVC? {
         let storyboard = UIStoryboard(name: Storyboard.Main.name,
                                       bundle: nil)
@@ -36,7 +37,7 @@ class NoInternetConnectionVC: UIViewController {
     
     func noresultSetup(){
         wifiImg.image = UIImage(named: "oops")
-        setupLabels(lbl: titlelbl, text: "No Results Found", textcolor: .AppLabelColor, font: .LatoMedium(size: 18))
+        setupLabels(lbl: titlelbl, text: titleStr, textcolor: .AppLabelColor, font: .LatoMedium(size: 18))
         setupLabels(lbl: subTitlelbl, text: "Please Search Again", textcolor: .AppLabelColor, font: .LatoLight(size: 14))
         setupLabels(lbl: btnlbl, text: "Search Again", textcolor: .WhiteColor, font: .LatoSemibold(size: 20))
     }

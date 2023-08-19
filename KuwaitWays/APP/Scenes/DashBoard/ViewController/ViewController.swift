@@ -169,9 +169,9 @@ class TimerManager {
     var timer: Timer?
     var totalTime = 1
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-
+    
     private init() {}
-
+    
     func startTimer() {
         
         
@@ -179,12 +179,13 @@ class TimerManager {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
         }
-
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
-                
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        RunLoop.current.add(timer!, forMode: RunLoop.Mode.common)
+        
+        
     }
-
+    
     @objc func updateTimer() {
         if totalTime != 0 {
             totalTime -= 1
@@ -195,7 +196,7 @@ class TimerManager {
             endBackgroundTask()
         }
     }
-
+    
     @objc func sessionStop() {
         if let timer = timer {
             timer.invalidate()

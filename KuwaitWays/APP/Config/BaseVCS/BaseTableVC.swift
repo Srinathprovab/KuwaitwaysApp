@@ -9,6 +9,7 @@ import UIKit
 import MaterialComponents
 
 class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegate, SelectGenderTVCellDelegate, RadioButtonTVCellDelegate, SignUpWithTVCellDelegate, MenuBGTVCellDelegate,LabelWithButtonTVCellDelegate, SelectTabTVCellDelegate, SearchFlightTVCellDelegate, TravellerEconomyTVCellDelegate, SearchFlightResultInfoTVCellDelegate, BookNowTVCellDelegate, TDetailsLoginTVCellDelegate,PromocodeTVCellDelegate, PriceSummaryTVCellDelegate, AddTravellersDetailsTVCellDelegate, CheckBoxTVCellDelegate,MultiCityTripTVCellDelegate, HotelSearchResultTVCellDelegate, RoomsTVCellDelegate, StarRatingTVCellDelegate, ChooseProfilPpictureTVCellDelegate,checkOptionsTVCellDelegate, AboutusTVCellDelegate, RoundTripTVcellDelegate, SortByPriceTVCellDelegate, SliderTVCellDelegate, AddInfantaTravellerTVCellDelegate, AddAdultTravellerTVCellDelegate, ContactInformationTVCellDelegate, AddChildTravellerTVCellDelegate, SaveTravellerDetailsTVCellDelegate, AcceptTermsAndConditionTVCellDelegate, FareRulesTVCellDelegate, MyBookingsTVCellsDelegate, CreateAccountTVCellDelegate, AddCityTVCellDelegate, AddDeatilsOfTravellerTVCellDelegate, CommonTVAddTravellerTVCellDelegate, AddDeatilsOfGuestTVCellDelegate {
+   
     
     
     
@@ -177,18 +178,13 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func didTapOnSelectIssuingCountryBtn(cell: SaveTravellerDetailsTVCell) {}
     func didTapOnTitleBtnAction(cell:SaveTravellerDetailsTVCell) {}
     
-    func didTapOnMrBtnAction(cell: AddDeatilsOfTravellerTVCell) {}
-    func didTapOnMrsBtnAction(cell: AddDeatilsOfTravellerTVCell) {}
-    func didTapOnMissBtnAction(cell: AddDeatilsOfTravellerTVCell) {}
-    func didTapOnSaveTravellerDetailsBtnAction(cell: AddDeatilsOfTravellerTVCell) {}
+  
     func donedatePicker(cell: AddDeatilsOfTravellerTVCell) {}
     func cancelDatePicker(cell: AddDeatilsOfTravellerTVCell) {}
-    func didTapOnSelectNationalityBtn(cell: AddDeatilsOfTravellerTVCell) {}
     func didTapOnSelectIssuingCountryBtn(cell: AddDeatilsOfTravellerTVCell) {}
     func didTapOnTitleBtnAction(cell:AddDeatilsOfTravellerTVCell) {}
     func didTapOnMealPreferenceBtn(cell: AddDeatilsOfTravellerTVCell) {}
     func didTapOnSpecialAssicintenceBtn(cell: AddDeatilsOfTravellerTVCell) {}
-    func editingMDCOutlinedTextField(tf: MDCOutlinedTextField) {}
     
     func didTapOnTAndCAction(cell: AcceptTermsAndConditionTVCell) {}
     func didTapOnPrivacyPolicyAction(cell: AcceptTermsAndConditionTVCell) {}
@@ -209,20 +205,9 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func didTapOnMrBtnAction(cell: AddDeatilsOfGuestTVCell) {}
     func didTapOnMrsBtnAction(cell: AddDeatilsOfGuestTVCell) {}
     func didTapOnCountryCodeBtnAction(cell:TextfieldTVCell){}
+    func editingMDCOutlinedTextField(tf: MDCOutlinedTextField) {}
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
     
     

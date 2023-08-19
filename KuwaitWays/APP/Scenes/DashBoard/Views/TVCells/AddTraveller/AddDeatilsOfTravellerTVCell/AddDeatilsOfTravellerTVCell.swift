@@ -35,16 +35,9 @@ struct Traveler {
 protocol AddDeatilsOfTravellerTVCellDelegate {
     func didTapOnExpandAdultViewbtnAction(cell:AddDeatilsOfTravellerTVCell)
     func tfeditingChanged(tf:UITextField)
-    
     func didTapOnTitleBtnAction(cell:AddDeatilsOfTravellerTVCell)
-    func didTapOnMrBtnAction(cell:AddDeatilsOfTravellerTVCell)
-    func didTapOnMrsBtnAction(cell:AddDeatilsOfTravellerTVCell)
-    func didTapOnMissBtnAction(cell:AddDeatilsOfTravellerTVCell)
-    func didTapOnSaveTravellerDetailsBtnAction(cell:AddDeatilsOfTravellerTVCell)
-    func editingMDCOutlinedTextField(tf:UITextField)
     func donedatePicker(cell:AddDeatilsOfTravellerTVCell)
     func cancelDatePicker(cell:AddDeatilsOfTravellerTVCell)
-    func didTapOnSelectNationalityBtn(cell:AddDeatilsOfTravellerTVCell)
     func didTapOnSelectIssuingCountryBtn(cell:AddDeatilsOfTravellerTVCell)
     func didTapOnMealPreferenceBtn(cell:AddDeatilsOfTravellerTVCell)
     func didTapOnSpecialAssicintenceBtn(cell:AddDeatilsOfTravellerTVCell)
@@ -58,19 +51,10 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     @IBOutlet weak var saveView: UIView!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     
-    
-    @IBOutlet weak var mrRadioImg: UIImageView!
-    @IBOutlet weak var mrlbl: UILabel!
-    @IBOutlet weak var mrBtn: UIButton!
-    @IBOutlet weak var mrsRadioImg: UIImageView!
-    @IBOutlet weak var mrslbl: UILabel!
-    @IBOutlet weak var mrsBtn: UIButton!
-    
     @IBOutlet weak var mnameTF: UITextField!
     @IBOutlet weak var fnameTF: UITextField!
     @IBOutlet weak var lnameTF: UITextField!
     @IBOutlet weak var dobTF: UITextField!
-    @IBOutlet weak var nationalityTF: UITextField!
     @IBOutlet weak var passportnoTF: UITextField!
     @IBOutlet weak var passportIssuingCountryTF: UITextField!
     @IBOutlet weak var passportExpireDateTF: UITextField!
@@ -78,7 +62,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleTF: UITextField!
     @IBOutlet weak var nameTitleSelectBtn: UIButton!
-    @IBOutlet weak var passportNationalitySelectBtn: UIButton!
     @IBOutlet weak var passportIssueingCountrySelectBtn: UIButton!
     
     @IBOutlet weak var frequentFlyrPgmTF: UITextField!
@@ -93,7 +76,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     @IBOutlet weak var fnameView: UIView!
     @IBOutlet weak var lnameView: UIView!
     @IBOutlet weak var dobView: UIView!
-    @IBOutlet weak var nationalityView: UIView!
     @IBOutlet weak var passportnoView: UIView!
     @IBOutlet weak var issuecountryView: UIView!
     @IBOutlet weak var passportexpireView: UIView!
@@ -245,19 +227,13 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         collapsView()
         
         
-        mrRadioImg.image = UIImage(named: "radioUnselected")?.withRenderingMode(.alwaysOriginal)
-        mrsRadioImg.image = UIImage(named: "radioUnselected")?.withRenderingMode(.alwaysOriginal)
-        setuplabels(lbl: mrlbl, text: "Male", textcolor: .AppLabelColor, font: .OpenSansBold(size: 14), align: .left)
-        setuplabels(lbl: mrslbl, text: "Female", textcolor: .AppLabelColor, font: .OpenSansBold(size: 14), align: .left)
-        mrBtn.setTitle("", for: .normal)
-        mrsBtn.setTitle("", for: .normal)
+        
         
         setupTextField(txtField: titleTF, tag1: 1, label: "Title*", placeholder: "MR")
         setupTextField(txtField: fnameTF, tag1: 1, label: "First Name*", placeholder: "First Name")
         setupTextField(txtField: mnameTF, tag1: 1, label: "Middle Name(Optional)", placeholder: "Middle Name(Optional)")
         setupTextField(txtField: lnameTF, tag1: 2, label: "Last Name*", placeholder: "Last Name")
         setupTextField(txtField: dobTF, tag1: 3, label: "Date of Birth*", placeholder: "DOB")
-        setupTextField(txtField: nationalityTF, tag1: 4, label: "Nationality*", placeholder: "Nationality")
         setupTextField(txtField: passportnoTF, tag1: 5, label: "Passport NO*", placeholder: "Passport NO")
         setupTextField(txtField: passportIssuingCountryTF, tag1: 6, label: "Passport Issuing Country*", placeholder: "Issuing Country")
         setupTextField(txtField: passportExpireDateTF, tag1: 7, label: "Passport Exprity Date*", placeholder: "Exprity Date")
@@ -268,14 +244,12 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         setupTextField(txtField: specialAssicintenceTF, tag1: 11, label: "Special Assistance(Optional)", placeholder: "Special Assistance(Optional)")
         
         
-        passportNationalitySelectBtn.setTitle("", for: .normal)
         passportIssueingCountrySelectBtn.setTitle("", for: .normal)
         frequentFlyrPgmBtn.setTitle("", for: .normal)
         mealPreferenceBtn.setTitle("", for: .normal)
         specialAssicintenceBtn.setTitle("", for: .normal)
         
         
-        passportNationalitySelectBtn.addTarget(self, action: #selector(didTapOnPassportNationalitySelectBtnAction(_:)), for: .touchUpInside)
         passportIssueingCountrySelectBtn.addTarget(self, action: #selector(didTapOnPassportIssuingCountrySelectBtnAction(_:)), for: .touchUpInside)
         
         frequentFlyrPgmBtn.addTarget(self, action: #selector(didTapOnFrequentFlyrPgmBtn(_:)), for: .touchUpInside)
@@ -286,7 +260,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         showdobDatePicker()
         showexpirDatePicker()
         setupTitleDropDown()
-        setupDropDown()
         setupIssuingCountryDropDown()
         setupDropdownforSpecialAssicintence()
         setupDropdownforMeallist()
@@ -296,7 +269,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         setupView(v: mnameView)
         setupView(v: lnameView)
         setupView(v: dobView)
-        setupView(v: nationalityView)
         setupView(v: passportnoView)
         setupView(v: issuecountryView)
         setupView(v: passportexpireView)
@@ -307,10 +279,8 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
         //        passportNationalitySelectBtn.isHidden = true
         //        passportIssueingCountrySelectBtn.isHidden = true
-        nationalityTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
         passportIssuingCountryTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
         
-        nationalityTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
         passportIssuingCountryTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
         
     }
@@ -380,22 +350,27 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             switch item {
             case "Mr":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "1"
+                travelerArray[self?.indexposition ?? 0].gender = "1"
                 break
                 
             case "Master":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "4"
+                travelerArray[self?.indexposition ?? 0].gender = "1"
                 break
                 
             case "Ms":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "2"
+                travelerArray[self?.indexposition ?? 0].gender = "2"
                 break
                 
             case "Miss":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "3"
+                travelerArray[self?.indexposition ?? 0].gender = "2"
                 break
                 
             case "Mrs":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "5"
+                travelerArray[self?.indexposition ?? 0].gender = "2"
                 break
                 
             default:
@@ -411,26 +386,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     }
     
     
-    func setupDropDown() {
-        
-        dropDown.direction = .bottom
-        dropDown.backgroundColor = .WhiteColor
-        dropDown.anchorView = self.nationalityTF
-        dropDown.bottomOffset = CGPoint(x: 0, y: nationalityTF.frame.size.height + 20)
-        dropDown.selectionAction = { [weak self] (index: Int, item: String) in
-            self?.nationalityTF.text = self?.countryNames[index] ?? ""
-            
-            if travelerArray.count <= self?.indexposition ?? 0 {
-                travelerArray += Array(repeating: Traveler(), count: (self?.indexposition ?? 0) - travelerArray.count + 1)
-            }
-            
-            travelerArray[self?.indexposition ?? 0].nationality = self?.originArray[index] ?? ""
-            self?.passportnoTF.becomeFirstResponder()
-            self?.nationalityView.layer.borderColor = UIColor.AppBorderColor.cgColor
-            self?.delegate?.didTapOnSelectNationalityBtn(cell: self!)
-        }
-        
-    }
     
     
     func setupIssuingCountryDropDown() {
@@ -596,7 +551,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             travelerArray[indexposition].dob = dobTF.text
             self.dobView.layer.borderColor = UIColor.AppBorderColor.cgColor
             self.dobTF.resignFirstResponder()
-            self.nationalityTF.becomeFirstResponder()
+            self.passportnoTF.becomeFirstResponder()
             
         } else if passportExpireDateTF.isFirstResponder {
             passportExpireDateTF.text = formatter.string(from: passportDatePicker.date)
@@ -633,8 +588,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 }
                 showdobDatePicker()
             }
-        }else  if textField == nationalityTF {
-            dropDown.show()
         }else if textField == passportIssuingCountryTF {
             dropDown1.show()
         }
@@ -702,68 +655,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     }
     
     
-    
-    @IBAction func didTapOnMrBtnAction(_ sender: Any) {
-        self.mrRadioImg.image = UIImage(named: "radioSelected")?.withRenderingMode(.alwaysOriginal).withTintColor(HexColor("#254179"))
-        self.mrsRadioImg.image = UIImage(named: "radioUnselected")
-        
-        if travelerArray.count <= indexposition {
-            travelerArray += Array(repeating: Traveler(), count: indexposition - travelerArray.count + 1)
-        }
-        
-        // Update the gender property of the Traveler object at the specified index
-        travelerArray[indexposition].gender = "1"
-        if cellInfo?.key == "adult" {
-            titledropDown.dataSource = ["Mr"]
-            titleTF.text = "Mr"
-            travelerArray[self.indexposition ].mrtitle = "1"
-        }else {
-            titledropDown.dataSource = ["Master"]
-            titleTF.text = "Master"
-            travelerArray[self.indexposition ].mrtitle = "4"
-        }
-        
-        self.titleView.layer.borderColor = UIColor.AppBorderColor.cgColor
-        delegate?.didTapOnMrBtnAction(cell: self)
-    }
-    
-    @IBAction func didTapOnMrsBtnAction(_ sender: Any) {
-        self.mrRadioImg.image = UIImage(named: "radioUnselected")
-        self.mrsRadioImg.image = UIImage(named: "radioSelected")?.withRenderingMode(.alwaysOriginal).withTintColor(HexColor("#254179"))
-        
-        if travelerArray.count <= indexposition {
-            travelerArray += Array(repeating: Traveler(), count: indexposition - travelerArray.count + 1)
-        }
-        
-        // Update the gender property of the Traveler object at the specified index
-        travelerArray[indexposition].gender = "2"
-        
-        
-        if cellInfo?.key == "adult" {
-            titledropDown.dataSource = ["Ms"]
-            titleTF.text = "Ms"
-            travelerArray[self.indexposition ].mrtitle = "2"
-        }else {
-            titledropDown.dataSource = ["Miss"]
-            titleTF.text = "Miss"
-            travelerArray[self.indexposition ].mrtitle = "3"
-        }
-        
-        self.titleView.layer.borderColor = UIColor.AppBorderColor.cgColor
-        delegate?.didTapOnMrsBtnAction(cell: self)
-    }
-    
-    //    @IBAction func didTapOnMissBtnAction(_ sender: Any) {
-    //        delegate?.didTapOnMissBtnAction(cell: self)
-    //    }
-    
-    
-    //    @IBAction func didTapOnSaveTravellerDetailsBtnAction(_ sender: Any) {
-    //        delegate?.didTapOnSaveTravellerDetailsBtnAction(cell: self)
-    //    }
-    
-    
-    
     @IBAction func didTapOnExpandAdultViewbtnAction(_ sender: Any) {
         delegate?.didTapOnExpandAdultViewbtnAction(cell: self)
     }
@@ -776,9 +667,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         loadCountryNamesAndCode1(tf: textField)
         
         switch textField {
-        case nationalityTF:
-            dropDown.show()
-            break
+            
             
         case passportIssuingCountryTF:
             dropDown1.show()
@@ -795,14 +684,15 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     @objc func searchTextChanged(textField: UITextField) {
         searchText = textField.text ?? ""
-        if searchText == "" {
-            isSearchBool = false
-            filterContentForSearchText(searchText, tf: nationalityTF)
-        }else {
-            isSearchBool = true
-            filterContentForSearchText(searchText, tf: passportIssuingCountryTF)
-        }
-        
+        //        if searchText == "" {
+        //            isSearchBool = false
+        //            filterContentForSearchText(searchText, tf: nationalityTF)
+        //        }else {
+        //            isSearchBool = true
+        //            filterContentForSearchText(searchText, tf: passportIssuingCountryTF)
+        //        }
+        isSearchBool = true
+        filterContentForSearchText(searchText, tf: passportIssuingCountryTF)
         
     }
     
@@ -816,9 +706,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
         loadCountryNamesAndCode1(tf: tf)
         switch tf {
-        case nationalityTF:
-            dropDown.show()
-            break
+            
             
         case passportIssuingCountryTF:
             dropDown1.show()
@@ -867,9 +755,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         }
         
         switch tf {
-        case nationalityTF:
-            dropDown.dataSource = countryNames
-            break
+            
             
         case passportIssuingCountryTF:
             dropDown1.dataSource = countryNames

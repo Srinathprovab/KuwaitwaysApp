@@ -46,8 +46,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
     var vm:FlightDetailsViewModel?
     override func viewWillAppear(_ animated: Bool) {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-        
+        addObserver()
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
             if journeyType == "oneway" {
@@ -79,15 +78,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
     }
     
     
-    func timerDidFinish() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
-    
-    func updateTimer() {
-        
-    }
+  
     
 
     @objc func offline(notificatio:UNNotification) {
@@ -120,31 +111,37 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
     func flightDetails(response: FlightDetailsModel) {
         
         
-        holderView.isHidden = false
-        grandTotal = "\(response.priceDetails?.api_currency ?? ""):\(response.priceDetails?.grand_total ?? "")"
-        jm = response.journeySummary ?? []
-        fd = response.flightDetails ?? [[]]
-        fareRulesData = response.fareRulehtml ?? []
-        farepricedetails = response.priceDetails
-        baggageAllowance1 = response.baggageAllowance ?? []
         
-        Adults_Base_Price = String(response.priceDetails?.adultsBasePrice ?? "0")
-        Adults_Tax_Price = String(response.priceDetails?.adultsTaxPrice ?? "0")
-        Childs_Base_Price = String(response.priceDetails?.childBasePrice ?? "0")
-        Childs_Tax_Price = String(response.priceDetails?.childTaxPrice ?? "0")
-        Infants_Base_Price = String(response.priceDetails?.infantBasePrice ?? "0")
-        Infants_Tax_Price = String(response.priceDetails?.infantTaxPrice ?? "0")
-        AdultsTotalPrice = String(response.priceDetails?.adultsTotalPrice ?? "0")
-        ChildTotalPrice = String(response.priceDetails?.childTotalPrice ?? "0")
-        InfantTotalPrice = String(response.priceDetails?.infantTotalPrice ?? "0")
-        sub_total_adult = String(response.priceDetails?.sub_total_adult ?? "0")
-        sub_total_child = String(response.priceDetails?.sub_total_child ?? "0")
-        sub_total_infant = String(response.priceDetails?.sub_total_infant ?? "0")
-        
-        DispatchQueue.main.async {[self] in
-            setupUI()
+        if response.status == true {
+            
+            holderView.isHidden = false
+            grandTotal = "\(response.priceDetails?.api_currency ?? ""):\(response.priceDetails?.grand_total ?? "")"
+            jm = response.journeySummary ?? []
+            fd = response.flightDetails ?? [[]]
+            fareRulesData = response.fareRulehtml ?? []
+            farepricedetails = response.priceDetails
+            baggageAllowance1 = response.baggageAllowance ?? []
+            
+            Adults_Base_Price = String(response.priceDetails?.adultsBasePrice ?? "0")
+            Adults_Tax_Price = String(response.priceDetails?.adultsTaxPrice ?? "0")
+            Childs_Base_Price = String(response.priceDetails?.childBasePrice ?? "0")
+            Childs_Tax_Price = String(response.priceDetails?.childTaxPrice ?? "0")
+            Infants_Base_Price = String(response.priceDetails?.infantBasePrice ?? "0")
+            Infants_Tax_Price = String(response.priceDetails?.infantTaxPrice ?? "0")
+            AdultsTotalPrice = String(response.priceDetails?.adultsTotalPrice ?? "0")
+            ChildTotalPrice = String(response.priceDetails?.childTotalPrice ?? "0")
+            InfantTotalPrice = String(response.priceDetails?.infantTotalPrice ?? "0")
+            sub_total_adult = String(response.priceDetails?.sub_total_adult ?? "0")
+            sub_total_child = String(response.priceDetails?.sub_total_child ?? "0")
+            sub_total_infant = String(response.priceDetails?.sub_total_infant ?? "0")
+            
+            DispatchQueue.main.async {[self] in
+                setupUI()
+            }
+            
+        }else {
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
         }
-        
         
     }
     
@@ -355,7 +352,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
                                      tempText: farepricedetails?.childTaxPrice,
                                      cellType:.FareBreakdownTVCell))
             
-            tablerow.append(TableRow(title:"Infanta",
+            tablerow.append(TableRow(title:"Infant",
                                      subTitle: "X\(String(infantsCount))",
                                      key:farepricedetails?.api_currency,
                                      text: farepricedetails?.infantBasePrice,
@@ -510,4 +507,57 @@ extension SelectedFlightInfoVC {
     //        }
     //
     //    }
+}
+
+
+
+
+extension SelectedFlightInfoVC {
+    
+    func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(nointernet), name: Notification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
+        
+    }
+    
+    @objc func nointernet(){
+        gotoNoInternetConnectionVC(key: "nointernet", titleStr: "")
+    }
+    
+    @objc func resultnil(){
+        gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+    }
+    
+    @objc func reload(){
+        DispatchQueue.main.async {[self] in
+            callAPI()
+        }
+    }
+    
+    
+    func gotoNoInternetConnectionVC(key:String,titleStr:String) {
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.key = key
+        vc.titleStr = titleStr
+        self.present(vc, animated: false)
+    }
+    
+   
+    func timerDidFinish() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    func updateTimer() {
+        
+    }
+    
+    
+    
+    
+    
 }

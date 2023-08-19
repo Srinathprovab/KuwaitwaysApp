@@ -38,11 +38,10 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
     
     
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
         
-        TimerManager.shared.startTimer()
         
+        TimerManager.shared.sessionStop()
+        addObserver()
         
         
         if !UserDefaults.standard.bool(forKey: "ExecuteOnce") {
@@ -113,18 +112,8 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         
     }
     
-    @objc func offline() {
-        callapibool = true
-        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.key = "offline"
-        self.present(vc, animated: false)
-    }
-    
-    @objc func reload() {
-        callAPI()
-    }
-    
+   
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -484,5 +473,34 @@ extension DashBoardVC: UIGestureRecognizerDelegate {
         default:
             break
         }
+    }
+}
+
+
+
+
+extension DashBoardVC {
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(nointernet), name: Notification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
+    }
+    
+    @objc func nointernet(){
+        gotoNoInternetConnectionVC(key: "nointernet", titleStr: "")
+    }
+    
+    @objc func reload(){
+        DispatchQueue.main.async {[self] in
+            callAPI()
+        }
+    }
+    
+    func gotoNoInternetConnectionVC(key:String,titleStr:String) {
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.key = key
+        vc.titleStr = titleStr
+        self.present(vc, animated: false)
     }
 }

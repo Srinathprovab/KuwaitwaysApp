@@ -27,23 +27,13 @@ class ContactInfoVC: BaseTableVC, TimerManagerDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-        
+        addObserver()
         countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
         billingCountryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
         
     }
     
-    func timerDidFinish() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
-    
-    func updateTimer() {
-        
-    }
-    
+   
     
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
@@ -158,6 +148,53 @@ class ContactInfoVC: BaseTableVC, TimerManagerDelegate {
         }
         
     }
+    
+    
+}
+
+
+
+
+extension ContactInfoVC {
+    
+    func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
+        
+    }
+    
+    
+    @objc func resultnil(){
+        gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+    }
+    
+    @objc func reload(){
+       setupUI()
+    }
+    
+    
+    func gotoNoInternetConnectionVC(key:String,titleStr:String) {
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.key = key
+        vc.titleStr = titleStr
+        self.present(vc, animated: false)
+    }
+    
+   
+    func timerDidFinish() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    func updateTimer() {
+        
+    }
+    
+    
+    
     
     
 }

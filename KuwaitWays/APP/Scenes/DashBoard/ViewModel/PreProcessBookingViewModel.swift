@@ -7,10 +7,6 @@
 
 import Foundation
 
-
-
-
-
 protocol PreProcessBookingViewModelDelegate : BaseViewModelProtocol {
     
     func preProcessBookingDetails(response : PreProcessBookingModel)
@@ -51,15 +47,6 @@ class PreProcessBookingViewModel {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     func CALL_MOBILE_BOOKING_API(dictParam: [String: Any]){
         let parms = NSDictionary(dictionary:dictParam)
         print("Parameters = \(parms)")
@@ -92,7 +79,7 @@ class PreProcessBookingViewModel {
         ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.processpassengerdetail + key,parameters: parms, resultType: ProcessPassangerDetailModel.self, p:dictParam) { sucess, result, errorMessage in
             
             DispatchQueue.main.async {
-              //  self.view?.hideLoader()
+                self.view?.hideLoader()
                 if sucess {
                     guard let response = result else {return}
                     self.view.processPassengerDetails(response: response)
@@ -110,7 +97,7 @@ class PreProcessBookingViewModel {
         let parms = NSDictionary(dictionary:dictParam)
         print("Parameters = \(parms)")
         
-        //   self.view?.showLoader()
+           self.view?.showLoader()
         
         ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.prebooking + key,parameters: parms, resultType: ProcessPassangerDetailModel.self, p:dictParam) { sucess, result, errorMessage in
             

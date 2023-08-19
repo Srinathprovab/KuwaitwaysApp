@@ -41,20 +41,14 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         vm = FlightListViewModel(self)
     }
     
-    @objc func resultnil(notificatio:UNNotification) {
-        callapibool = true
-        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.key = "noresult"
-        self.present(vc, animated: false)
-    }
     
     
     
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
+        
         TimerManager.shared.delegate = self
+        addObserver()
+        
         
         if callapibool == true {
             DispatchQueue.main.async {[self] in
@@ -66,26 +60,6 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         
     }
     
-    
-    func timerDidFinish() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
-    
-    func updateTimer() {
-        DispatchQueue.main.async {[self] in
-            var totalTime = TimerManager.shared.totalTime
-            let minutes =  totalTime / 60
-            let seconds = totalTime % 60
-            let formattedTime = String(format: "%02d:%02d", minutes, seconds)
-            
-            setuplabels(lbl: sessonlbl, text: "Your Session Expires In: \(formattedTime)",
-                        textcolor: .AppLabelColor,
-                        font: .OpenSansRegular(size: 12),
-                        align: .left)
-        }
-    }
     
     
     
@@ -332,10 +306,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             
         }else {
             
-            guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-            vc.modalPresentationStyle = .overCurrentContext
-            vc.key = "noresult"
-            self.present(vc, animated: true)
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+
         }
     }
     
@@ -363,7 +335,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             bookingsource = response.data?.booking_source ?? ""
             bookingsourcekey = response.data?.booking_source_key ?? ""
             
-         //   TimerManager.shared.totalTime = 20
+            //   TimerManager.shared.totalTime = 20
             TimerManager.shared.totalTime = response.session_expiry_details?.session_start_time ?? 0
             TimerManager.shared.startTimer()
             
@@ -446,10 +418,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             
         }else {
             
-            guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-            vc.modalPresentationStyle = .overCurrentContext
-            vc.key = "noresult"
-            self.present(vc, animated: true)
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+
         }
     }
     
@@ -1050,6 +1020,67 @@ extension SearchFlightResultVC:AppliedFilters {
         
     }
     
+    
+    
+}
+
+
+
+
+
+extension SearchFlightResultVC {
+    
+    func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(nointernet), name: Notification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
+        
+    }
+    
+    @objc func nointernet(){
+        gotoNoInternetConnectionVC(key: "nointernet", titleStr: "")
+    }
+    
+    @objc func resultnil(){
+        gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+    }
+    
+    @objc func reload(){
+        DispatchQueue.main.async {[self] in
+            callAPI()
+        }
+    }
+    
+    
+    func gotoNoInternetConnectionVC(key:String,titleStr:String) {
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.key = key
+        vc.titleStr = titleStr
+        self.present(vc, animated: false)
+    }
+    
+    
+    func timerDidFinish() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    func updateTimer() {
+        DispatchQueue.main.async {[self] in
+            var totalTime = TimerManager.shared.totalTime
+            let minutes =  totalTime / 60
+            let seconds = totalTime % 60
+            let formattedTime = String(format: "%02d:%02d", minutes, seconds)
+            
+            setuplabels(lbl: sessonlbl, text: "Your Session Expires In: \(formattedTime)",
+                        textcolor: .AppLabelColor,
+                        font: .OpenSansRegular(size: 12),
+                        align: .left)
+        }
+    }
     
     
 }

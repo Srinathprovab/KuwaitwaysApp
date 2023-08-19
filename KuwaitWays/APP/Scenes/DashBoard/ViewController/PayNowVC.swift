@@ -8,7 +8,7 @@
 import UIKit
 
 class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListViewModelDelegate, TimerManagerDelegate {
-   
+    
     
     
     @IBOutlet weak var holderView: UIView!
@@ -49,7 +49,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     
     var tokenkey = String()
     let datePicker = UIDatePicker()
-    var addDetailsArray = ["srinath","badmi","Taarak","srinath","badmi","Taarak"]
     var tablerow = [TableRow]()
     var bool = true
     var name = String()
@@ -93,9 +92,10 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     override func viewWillAppear(_ animated: Bool) {
         searchTextArray.removeAll()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-        
-        callAPI1()
+        addObserver()
+        DispatchQueue.main.async {[self] in
+            callAPI1()
+        }
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.tabselect) {
             if journeyType == "Flight" {
@@ -160,21 +160,8 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         }
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name(rawValue: "reload"), object: nil)
         
     }
-    
-    
-    func timerDidFinish() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
-    
-    func updateTimer() {
-        
-    }
-    
     
     
     func callAPI1() {
@@ -195,12 +182,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         specialAssistancelist1 = response.meal ?? []
     }
     
-    
-    
-    //MARK: - reload commonTableView
-    @objc func reload(notification:NSNotification) {
-        commonTableView.reloadData()
-    }
+
     
     
     //MARK: - CALL_PRE_PROCESS_BOOKING_API
@@ -214,8 +196,13 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     }
     
     func preProcessBookingDetails(response: PreProcessBookingModel) {
-        DispatchQueue.main.async {[self] in
-            callMobileBookingAPI(res: response)
+        
+        if response.status == true{
+            DispatchQueue.main.async {[self] in
+                callMobileBookingAPI(res: response)
+            }
+        }else {
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
         }
     }
     
@@ -235,10 +222,13 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     
     
     func mobileBookingDetails(response: MobileBookingModel) {
-        activepaymentoptions = response.active_payment_options?[0] ?? ""
-        
-        DispatchQueue.main.async {[self] in
-            setupTVCells()
+        if response.status == 1 {
+            activepaymentoptions = response.active_payment_options?[0] ?? ""
+            DispatchQueue.main.async {[self] in
+                setupTVCells()
+            }
+        }else {
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
         }
     }
     
@@ -402,7 +392,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         commonTVData = tablerow
         commonTableView.reloadData()
     }
-
+    
     
     //MARK: - didTapOnViewFlightDetails
     @objc func didTapOnViewFlightDetails(_ sender:UIButton) {
@@ -490,7 +480,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     override func editingMDCOutlinedTextField(tf:UITextField){
         
     }
-
+    
     
     @IBAction func didTapOPayNowBtn(_ sender: Any) {
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.tabselect) {
@@ -531,11 +521,11 @@ extension PayNowVC {
         
         payload.removeAll()
         payload1.removeAll()
-       
+        
         var textfilldshouldmorethan3lettersBool = true
         // Assuming you have a positionsCount variable that holds the number of cells in the table view
         let positionsCount = commonTableView.numberOfRows(inSection: 0)
-
+        
         for position in 0..<positionsCount {
             // Fetch the cell for the given position
             if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfTravellerTVCell {
@@ -544,12 +534,12 @@ extension PayNowVC {
                     // Textfield is empty
                     cell.titleView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
-
+                    
                 } else {
                     // Textfield is not empty
                     callpaymentbool = true
                 }
-
+                
                 if cell.fnameTF.text?.isEmpty == true{
                     // Textfield is empty
                     cell.fnameView.layer.borderColor = UIColor.red.cgColor
@@ -564,7 +554,7 @@ extension PayNowVC {
                     // Textfield is not empty
                     callpaymentbool = true
                 }
-
+                
                 if cell.lnameTF.text?.isEmpty == true {
                     // Textfield is empty
                     cell.lnameView.layer.borderColor = UIColor.red.cgColor
@@ -579,8 +569,8 @@ extension PayNowVC {
                     // Textfield is not empty
                     callpaymentbool = true
                 }
-
-
+                
+                
                 if cell.dobTF.text?.isEmpty == true {
                     // Textfield is empty
                     cell.dobView.layer.borderColor = UIColor.red.cgColor
@@ -589,19 +579,8 @@ extension PayNowVC {
                     // Textfield is not empty
                     callpaymentbool = true
                 }
-
-
-                if cell.nationalityTF.text?.isEmpty == true {
-                    // Textfield is empty
-                    cell.nationalityView.layer.borderColor = UIColor.red.cgColor
-                    callpaymentbool = false
-                } else {
-                    // Textfield is not empty
-                    callpaymentbool = true
-                }
-
-
-
+                
+                
                 if cell.passportnoTF.text?.isEmpty == true {
                     // Textfield is empty
                     cell.passportnoView.layer.borderColor = UIColor.red.cgColor
@@ -610,8 +589,8 @@ extension PayNowVC {
                     // Textfield is not empty
                     callpaymentbool = true
                 }
-
-
+                
+                
                 if cell.passportIssuingCountryTF.text?.isEmpty == true {
                     // Textfield is empty
                     cell.issuecountryView.layer.borderColor = UIColor.red.cgColor
@@ -620,8 +599,8 @@ extension PayNowVC {
                     // Textfield is not empty
                     callpaymentbool = true
                 }
-
-
+                
+                
                 if cell.passportExpireDateTF.text?.isEmpty == true {
                     // Textfield is empty
                     cell.passportexpireView.layer.borderColor = UIColor.red.cgColor
@@ -630,11 +609,11 @@ extension PayNowVC {
                     // Textfield is not empty
                     callpaymentbool = true
                 }
-
-
+                
+                
             }
         }
-
+        
         
         let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
         let laedpassengerArray = travelerArray.compactMap({$0.laedpassenger})
@@ -673,7 +652,7 @@ extension PayNowVC {
         payload["passenger_type"] = passengertypeArray
         payload["lead_passenger"] = laedpassengerArray
         payload["gender"] = genderArray
-        payload["passenger_nationality"] = nationalityArray
+     //   payload["passenger_nationality"] = nationalityArray
         payload["name_title"] =  mrtitleArray
         payload["first_name"] =  firstnameArray
         payload["middle_name"] =  middlenameArray
@@ -700,10 +679,7 @@ extension PayNowVC {
         payload["booking_step"] = "book"
         payload["selectedCurrency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
-        
-        
-       
-        
+  
         do{
             
             let jsonData = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -726,11 +702,11 @@ extension PayNowVC {
         }catch{
             print(error.localizedDescription)
         }
-       
+        
         
     }
     
- 
+    
     
     
     func processPassengerDetails(response: ProcessPassangerDetailModel) {
@@ -941,7 +917,7 @@ extension PayNowVC:HotelMBViewModelDelegate {
         let firstnameArray = travelerArray.compactMap({$0.firstName})
         let lastNameArray = travelerArray.compactMap({$0.lastName})
         
-       
+        
         payload["search_id"] = hsearch_id
         payload["booking_source"] = hbooking_source
         payload["promo_code"] = ""
@@ -994,3 +970,54 @@ extension PayNowVC:HotelMBViewModelDelegate {
 }
 
 
+
+
+extension PayNowVC {
+    
+    func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(nointernet), name: Notification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
+        
+    }
+    
+    @objc func nointernet(){
+        gotoNoInternetConnectionVC(key: "nointernet", titleStr: "")
+    }
+    
+    @objc func resultnil(){
+        gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+    }
+    
+    @objc func reload(){
+        DispatchQueue.main.async {[self] in
+            callAPI()
+        }
+    }
+    
+    
+    func gotoNoInternetConnectionVC(key:String,titleStr:String) {
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.key = key
+        vc.titleStr = titleStr
+        self.present(vc, animated: false)
+    }
+    
+    
+    func timerDidFinish() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    func updateTimer() {
+        
+    }
+    
+    
+    
+    
+    
+}

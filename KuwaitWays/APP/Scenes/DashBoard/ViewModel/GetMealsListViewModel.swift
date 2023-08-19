@@ -27,7 +27,7 @@ class GetMealsListViewModel {
         let parms = NSDictionary(dictionary:dictParam)
         print("Parameters = \(parms)")
         
-        self.view?.showLoader()
+     //   self.view?.showLoader()
         
         ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.getMeals_list , parameters: parms, resultType: GetMealsListModel.self, p:dictParam) { sucess, result, errorMessage in
             
@@ -52,7 +52,7 @@ class GetMealsListViewModel {
         let parms = NSDictionary(dictionary:dictParam)
         print("Parameters = \(parms)")
         
-        self.view?.showLoader()
+     //   self.view?.showLoader()
         
         ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.getSpecialAssistancelist , parameters: parms, resultType: GetMealsListModel.self, p:dictParam) { sucess, result, errorMessage in
             
