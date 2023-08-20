@@ -302,6 +302,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
             callapibool = true
             present(vc, animated: true)
         }else {
+            NotificationCenter.default.post(name: NSNotification.Name("reloadTimer"), object: nil)
             callapibool = false
             dismiss(animated: true)
         }
@@ -427,28 +428,28 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         commonTableView.reloadData()
     }
     
-    override func didTapOnAddAdultBtn(cell: AddAdultTravellerTVCell) {
-        ageCategory = AgeCategory.adult
-        goToSaveTravellersDetailsVC(ptitle: "Adult", keyStr: "add", pid: "")
-    }
+//    override func didTapOnAddAdultBtn(cell: AddAdultTravellerTVCell) {
+//        ageCategory = AgeCategory.adult
+//        goToSaveTravellersDetailsVC(ptitle: "Adult", keyStr: "add", pid: "")
+//    }
+//
+//    override func didTapOnAddChildBtn(cell: AddChildTravellerTVCell) {
+//        ageCategory = AgeCategory.child
+//        goToSaveTravellersDetailsVC(ptitle: "Child", keyStr: "add", pid: "")
+//    }
+//
+//    override func didTapOnAddInfantaBtn(cell: AddInfantaTravellerTVCell) {
+//        ageCategory = AgeCategory.infant
+//        goToSaveTravellersDetailsVC(ptitle: "Infanta", keyStr: "add", pid: "")
+//    }
     
-    override func didTapOnAddChildBtn(cell: AddChildTravellerTVCell) {
-        ageCategory = AgeCategory.child
-        goToSaveTravellersDetailsVC(ptitle: "Child", keyStr: "add", pid: "")
-    }
+//    override func didTapOnEditTraveller(cell: AddAdultsOrGuestTVCell) {
+//        goToSaveTravellersDetailsVC(ptitle: cell.passengerType, keyStr: "edit", pid: cell.travellerId)
+//    }
     
-    override func didTapOnAddInfantaBtn(cell: AddInfantaTravellerTVCell) {
-        ageCategory = AgeCategory.infant
-        goToSaveTravellersDetailsVC(ptitle: "Infanta", keyStr: "add", pid: "")
-    }
-    
-    override func didTapOnEditTraveller(cell: AddAdultsOrGuestTVCell) {
-        goToSaveTravellersDetailsVC(ptitle: cell.passengerType, keyStr: "edit", pid: cell.travellerId)
-    }
-    
-    override func didTapOndeleteTravellerBtnAction(cell: AddAdultsOrGuestTVCell) {
-        commonTableView.reloadData()
-    }
+//    override func didTapOndeleteTravellerBtnAction(cell: AddAdultsOrGuestTVCell) {
+//        commonTableView.reloadData()
+//    }
     
     override func didTapOnSelectAdultTraveller(Cell: AddAdultsOrGuestTVCell) {
         

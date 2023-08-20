@@ -1036,6 +1036,22 @@ extension SearchFlightResultVC {
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTimer), name: NSNotification.Name("reloadTimer"), object: nil)
+        
+    }
+    
+    
+    @objc func reloadTimer(){
+        DispatchQueue.main.async {
+            TimerManager.shared.delegate = self
+        }
+    }
+    
+    
+    @objc func reload(){
+        DispatchQueue.main.async {[self] in
+            callAPI()
+        }
     }
     
     @objc func nointernet(){
@@ -1046,11 +1062,7 @@ extension SearchFlightResultVC {
         gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
     }
     
-    @objc func reload(){
-        DispatchQueue.main.async {[self] in
-            callAPI()
-        }
-    }
+   
     
     
     func gotoNoInternetConnectionVC(key:String,titleStr:String) {

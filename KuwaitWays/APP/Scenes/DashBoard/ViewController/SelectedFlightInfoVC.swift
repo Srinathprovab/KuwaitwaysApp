@@ -245,6 +245,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
     }
     
     @objc func gotoBackScreen() {
+        NotificationCenter.default.post(name: NSNotification.Name("reloadTimer"), object: nil)
         callapibool = false
         dismiss(animated: true)
     }
@@ -520,6 +521,15 @@ extension SelectedFlightInfoVC {
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTimer), name: NSNotification.Name("reloadTimer"), object: nil)
+        
+    }
+    
+    
+    @objc func reloadTimer(){
+        DispatchQueue.main.async {
+            TimerManager.shared.delegate = self
+        }
     }
     
     @objc func nointernet(){

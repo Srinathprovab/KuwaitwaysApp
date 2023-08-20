@@ -8,7 +8,6 @@
 import UIKit
 
 class ContactInfoVC: BaseTableVC, TimerManagerDelegate {
-   
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
@@ -33,7 +32,7 @@ class ContactInfoVC: BaseTableVC, TimerManagerDelegate {
         
     }
     
-   
+    
     
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
@@ -42,7 +41,7 @@ class ContactInfoVC: BaseTableVC, TimerManagerDelegate {
         self.present(vc, animated: false)
     }
     
-   
+    
     
     
     override func viewDidLoad() {
@@ -104,6 +103,7 @@ class ContactInfoVC: BaseTableVC, TimerManagerDelegate {
     
     
     @objc func didTapOnBackBtnAction(_ sender:UIButton) {
+        NotificationCenter.default.post(name: NSNotification.Name("reloadTimer"), object: nil)
         callapibool = false
         dismiss(animated: true)
     }
@@ -161,7 +161,15 @@ extension ContactInfoVC {
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTimer), name: NSNotification.Name("reloadTimer"), object: nil)
         
+    }
+    
+    
+    @objc func reloadTimer(){
+        DispatchQueue.main.async {
+            TimerManager.shared.delegate = self
+        }
     }
     
     
@@ -170,7 +178,7 @@ extension ContactInfoVC {
     }
     
     @objc func reload(){
-       setupUI()
+        setupUI()
     }
     
     
@@ -182,7 +190,7 @@ extension ContactInfoVC {
         self.present(vc, animated: false)
     }
     
-   
+    
     func timerDidFinish() {
         guard let vc = PopupVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
