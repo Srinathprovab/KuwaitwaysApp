@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0E53B56A5D97959B5FC00B91 /* Pods_KuwaitWaysTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5A5F32473A8084BE83BB18 /* Pods_KuwaitWaysTests.framework */; };
+		6508EC232A921B2F00397C53 /* BillingAddressTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508EC212A921B2F00397C53 /* BillingAddressTVCell.swift */; };
+		6508EC242A921B2F00397C53 /* BillingAddressTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6508EC222A921B2F00397C53 /* BillingAddressTVCell.xib */; };
 		650B1C8F2A7CB78100F89BA5 /* LoginTitleTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650B1C8D2A7CB78100F89BA5 /* LoginTitleTVCell.swift */; };
 		650B1C902A7CB78100F89BA5 /* LoginTitleTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650B1C8E2A7CB78100F89BA5 /* LoginTitleTVCell.xib */; };
 		650D5C242A04D9EC007F92F4 /* ProfileUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650D5C232A04D9EC007F92F4 /* ProfileUpdateModel.swift */; };
@@ -395,6 +397,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6508EC212A921B2F00397C53 /* BillingAddressTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingAddressTVCell.swift; sourceTree = "<group>"; };
+		6508EC222A921B2F00397C53 /* BillingAddressTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BillingAddressTVCell.xib; sourceTree = "<group>"; };
 		650B1C8D2A7CB78100F89BA5 /* LoginTitleTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTitleTVCell.swift; sourceTree = "<group>"; };
 		650B1C8E2A7CB78100F89BA5 /* LoginTitleTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginTitleTVCell.xib; sourceTree = "<group>"; };
 		650D5C232A04D9EC007F92F4 /* ProfileUpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateModel.swift; sourceTree = "<group>"; };
@@ -803,6 +807,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6508EC202A921B2300397C53 /* BillingAddressTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				6508EC212A921B2F00397C53 /* BillingAddressTVCell.swift */,
+				6508EC222A921B2F00397C53 /* BillingAddressTVCell.xib */,
+			);
+			path = BillingAddressTVCell;
+			sourceTree = "<group>";
+		};
 		650B1C8C2A7CB76700F89BA5 /* LoginTitleTVCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1235,6 +1248,7 @@
 		65C5CD0629F7C04700FDA690 /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				6508EC202A921B2300397C53 /* BillingAddressTVCell */,
 				653ED0D52A4B006B00BEEDC2 /* PriceSummary */,
 				652A9A2F2A276600008E565D /* BookedAdultDetailsTVCell */,
 				652A9A2C2A27557C008E565D /* BookingConfirmedTVCell */,
@@ -2598,6 +2612,7 @@
 				BF8C0E8828C19BD5009C3A6A /* Oswald-SemiBold.ttf in Resources */,
 				BF8C0E9128C19BD5009C3A6A /* Oswald-Medium.ttf in Resources */,
 				BF8C0E3528C19BD5009C3A6A /* BookNowTVCell.xib in Resources */,
+				6508EC242A921B2F00397C53 /* BillingAddressTVCell.xib in Resources */,
 				BF8C0E5728C19BD5009C3A6A /* Login.storyboard in Resources */,
 				BF8C0E1028C19BD5009C3A6A /* Main.storyboard in Resources */,
 				65F355462A447A6900465622 /* AddDeatilsOfTravellerTVCell.xib in Resources */,
@@ -2930,6 +2945,7 @@
 				BF8C0DF628C19BD5009C3A6A /* HotelSearchResultVC.swift in Sources */,
 				BF8C0EA128C19BD6009C3A6A /* StoryboardExtension.swift in Sources */,
 				65C5CD3229F7D8B300FDA690 /* CountryListViewModel.swift in Sources */,
+				6508EC232A921B2F00397C53 /* BillingAddressTVCell.swift in Sources */,
 				BF8C0E6528C19BD5009C3A6A /* ButtonTVCell.swift in Sources */,
 				BF8C0E8228C19BD5009C3A6A /* TextFieldExtension.swift in Sources */,
 				BF8C0E1128C19BD5009C3A6A /* ViewController.swift in Sources */,

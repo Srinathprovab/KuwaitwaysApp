@@ -221,7 +221,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         contentView.backgroundColor = .clear
         holderView.layer.borderColor = UIColor.AppBorderColor.cgColor
         holderView.layer.borderWidth = 1
-        holderView.layer.cornerRadius = 8
+        holderView.layer.cornerRadius = 4
         holderView.clipsToBounds = true
         
         collapsView()

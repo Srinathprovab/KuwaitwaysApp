@@ -274,6 +274,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
                                          "HotelPurchaseSummaryTVCell",
                                          "AddDeatilsOfTravellerTVCell",
                                          "CommonTVAddTravellerTVCell",
+                                         "BillingAddressTVCell",
                                          "AddInfantaTravellerTVCell"])
         
     }
@@ -382,7 +383,8 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
             }
         }
         
-        
+        tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
+        tablerow.append(TableRow(cellType:.BillingAddressTVCell))
         tablerow.append(TableRow(cellType:.PromocodeTVCell))
         tablerow.append(TableRow(cellType:.PriceSummaryTVCell))
         tablerow.append(TableRow(title:"I Accept T&C and Privacy Policy",cellType:.AcceptTermsAndConditionTVCell))
@@ -510,8 +512,24 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     }
     
     
-}
+    //MARK: - BillingAddressTVCell didTapOnBillingAddressDropDownBtnAction
+    override func didTapOnBillingAddressDropDownBtnAction(cell: BillingAddressTVCell) {
+        if cell.expandViewBool == true {
+            
+            cell.expandView()
+            cell.expandViewBool = false
+        }else {
+            
+            cell.collapsView()
+            cell.expandViewBool = true
+        }
+        
+        commonTableView.beginUpdates()
+        commonTableView.endUpdates()
+    }
 
+    
+}
 
 
 //MARK: - Did Tap On Flight Pay Now Button API Calls
