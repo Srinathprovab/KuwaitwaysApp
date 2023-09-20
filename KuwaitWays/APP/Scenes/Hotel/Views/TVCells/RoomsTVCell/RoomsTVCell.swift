@@ -57,7 +57,7 @@ class RoomsTVCell: TableViewCell, TwinSuperiorRoomTVCellDelegate {
         delegate?.didTapOnCancellationPolicyBtn(cell: cell)
     }
     
-
+    
 }
 
 
@@ -78,7 +78,7 @@ extension RoomsTVCell:UITableViewDataSource,UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TwinSuperiorRoomTVCell {
             cell.selectionStyle = .none
             cell.delegate = self
-           
+            
             
             if indexPath.section < rooms.count && indexPath.row < rooms[indexPath.section].count {
                 
@@ -93,21 +93,21 @@ extension RoomsTVCell:UITableViewDataSource,UITableViewDelegate {
                 cell.kwdPricelbl.text = data.xml_net
                 cell.ratekey = data.rateKey ?? ""
                 
-               
+                
                 // Access the cancellationPolicies array
-                    if let cancellationPolicies1 = data.cancellationPolicies {
+                if let cancellationPolicies1 = data.cancellationPolicies {
+                    
+                    
+                    
+                    // Iterate over the cancellationPolicies array
+                    for policy in cancellationPolicies1 {
+                        let amount = policy.amount
+                        let fromDate = policy.from
+                        cell.CancellationPolicyAmount = amount ?? ""
+                        cell.CancellationPolicyFromDate = fromDate ?? ""
                         
-                     
-                        
-                        // Iterate over the cancellationPolicies array
-                        for policy in cancellationPolicies1 {
-                            let amount = policy.amount
-                            let fromDate = policy.from
-                            cell.CancellationPolicyAmount = amount ?? ""
-                            cell.CancellationPolicyFromDate = fromDate ?? ""
-                            
-                        }
                     }
+                }
                 
                 
                 if data.refund == true {
@@ -118,7 +118,7 @@ extension RoomsTVCell:UITableViewDataSource,UITableViewDelegate {
                     cell.nonRefundablelbl.textColor = HexColor("#FF0808")
                 }
                 
-
+                
                 
             } else {
                 print("Index out of range error: indexPath = \(indexPath)")

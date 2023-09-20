@@ -28,7 +28,7 @@ class BookHotelVC: BaseTableVC {
     }
     
     
-
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -38,7 +38,7 @@ class BookHotelVC: BaseTableVC {
     
     override func viewDidAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name("reload"), object: nil)
         
@@ -60,7 +60,7 @@ class BookHotelVC: BaseTableVC {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
-        
+        setInitalValues()
     }
     
     func setupUI() {
@@ -85,6 +85,23 @@ class BookHotelVC: BaseTableVC {
         
         appendHotelSearctTvcells(str: "hotel")
         
+        
+    }
+    
+    
+    func setInitalValues() {
+        
+        adtArray.removeAll()
+        chArray.removeAll()
+        
+        adtArray.append("2")
+        chArray.append("0")
+        
+        defaults.set("1", forKey: UserDefaultsKeys.roomcount)
+        defaults.set("2", forKey: UserDefaultsKeys.hoteladultscount)
+        defaults.set("0", forKey: UserDefaultsKeys.hotelchildcount)
+        
+        defaults.set("Rooms \(defaults.string(forKey: UserDefaultsKeys.roomcount) ?? ""),Adults \(defaults.string(forKey: UserDefaultsKeys.hoteladultscount) ?? "")", forKey: UserDefaultsKeys.selectPersons)
         
     }
     
@@ -142,22 +159,41 @@ class BookHotelVC: BaseTableVC {
     
     override func didTapOnSearchHotelsBtn(cell:ButtonTVCell){
         
+       
+        payload.removeAll()
         payload["city"] = defaults.string(forKey: UserDefaultsKeys.locationcity)
         payload["hotel_destination"] = defaults.string(forKey: UserDefaultsKeys.locationid)
         payload["hotel_checkin"] = defaults.string(forKey: UserDefaultsKeys.checkin)
         payload["hotel_checkout"] = defaults.string(forKey: UserDefaultsKeys.checkout)
-        payload["rooms"] = defaults.string(forKey: UserDefaultsKeys.roomcount)
+        
+        payload["rooms"] = "\(defaults.string(forKey: UserDefaultsKeys.roomcount) ?? "1")"
         payload["adult"] = adtArray
         payload["child"] = chArray
-        payload["childAge_1"] = ["0"]
+        
+        for roomIndex in 0..<totalRooms {
+            if let numChildren = Int(chArray[roomIndex]), numChildren > 0 {
+                var childAges: [String] = Array(repeating: "0", count: numChildren)
+                
+                if numChildren > 2 {
+                    childAges.append("0")
+                }
+                
+                payload["childAge_\(roomIndex + 1)"] = childAges
+            }
+        }
+        
+        
         payload["nationality"] = nationalityCode
+        payload["language"] = "english"
+        payload["search_source"] = "postman"
+        payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
+        payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         
-        
-        if defaults.string(forKey: UserDefaultsKeys.locationcity) == "Add City" || defaults.string(forKey: UserDefaultsKeys.locationcity) == nil {
+        if defaults.string(forKey: UserDefaultsKeys.locationcity) == "Add City" || defaults.string(forKey: UserDefaultsKeys.locationcity) == nil{
             showToast(message: "Enter Hotel or City ")
-        }else if defaults.string(forKey: UserDefaultsKeys.checkin) == "Check In" || defaults.string(forKey: UserDefaultsKeys.checkin) == nil{
+        }else if defaults.string(forKey: UserDefaultsKeys.checkin) == "Add Check In Date" || defaults.string(forKey: UserDefaultsKeys.checkin) == nil{
             showToast(message: "Enter Checkin Date")
-        }else if defaults.string(forKey: UserDefaultsKeys.checkout) == "Check Out" || defaults.string(forKey: UserDefaultsKeys.checkout) == nil{
+        }else if defaults.string(forKey: UserDefaultsKeys.checkout) == "Add Check Out Date" || defaults.string(forKey: UserDefaultsKeys.checkout) == nil{
             showToast(message: "Enter Checkout Date")
         }else if defaults.string(forKey: UserDefaultsKeys.checkout) == defaults.string(forKey: UserDefaultsKeys.checkin) {
             showToast(message: "Enter Different Dates")
@@ -168,7 +204,22 @@ class BookHotelVC: BaseTableVC {
         }else if checkDepartureAndReturnDates(payload, p1: "hotel_checkin", p2: "hotel_checkout") == false {
             showToast(message: "Invalid Date")
         }else {
+            
+            
+            do{
+                
+                let jsonData = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
+                let jsonStringData =  NSString(data: jsonData as Data, encoding: NSUTF8StringEncoding)! as String
+                
+                print(jsonStringData)
+                
+                
+            }catch{
+                print(error.localizedDescription)
+            }
+            
             gotoSearchHotelsResultVC()
+            
         }
     }
     

@@ -70,13 +70,13 @@ class PreProcessBookingViewModel {
     
     
     
-    func CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: [String: Any],key:String){
+    func CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: [String: Any]){
         let parms = NSDictionary(dictionary:dictParam)
         print("Parameters = \(parms)")
         
         self.view?.showLoader()
         
-        ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.processpassengerdetail + key,parameters: parms, resultType: ProcessPassangerDetailModel.self, p:dictParam) { sucess, result, errorMessage in
+        ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.processpassengerdetail,parameters: parms, resultType: ProcessPassangerDetailModel.self, p:dictParam) { sucess, result, errorMessage in
             
             DispatchQueue.main.async {
                 self.view?.hideLoader()

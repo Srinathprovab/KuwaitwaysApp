@@ -481,13 +481,14 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         switch ageCategory {
         case .adult:
             
-            components.year = -100
-            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            components.year = -12 // Allow selecting a date at least 12 years in the past
+            dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
+            
+            //            components.year = -100
+            //            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
         case .child:
             components.year = -12
-            //components.year = -1
             dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
-            //  dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
         case .infant:
             components.year = -2
             dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
@@ -684,13 +685,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     @objc func searchTextChanged(textField: UITextField) {
         searchText = textField.text ?? ""
-        //        if searchText == "" {
-        //            isSearchBool = false
-        //            filterContentForSearchText(searchText, tf: nationalityTF)
-        //        }else {
-        //            isSearchBool = true
-        //            filterContentForSearchText(searchText, tf: passportIssuingCountryTF)
-        //        }
         isSearchBool = true
         filterContentForSearchText(searchText, tf: passportIssuingCountryTF)
         

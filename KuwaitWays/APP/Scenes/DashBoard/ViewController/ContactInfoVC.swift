@@ -28,7 +28,7 @@ class ContactInfoVC: BaseTableVC, TimerManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         addObserver()
         countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
-        billingCountryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
+        billingCountryCode = "KW"
         
     }
     

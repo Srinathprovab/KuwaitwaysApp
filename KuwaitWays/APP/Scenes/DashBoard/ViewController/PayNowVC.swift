@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListViewModelDelegate, TimerManagerDelegate {
+class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDelegate {
     
     
     
@@ -63,7 +63,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     var hbookingToken = String()
     var vm:PreProcessBookingViewModel?
     var vm1:HotelMBViewModel?
-    var vm2:GetMealsListViewModel?
     var positionsCount = 0
     var searchTextArray = [String]()
     
@@ -76,7 +75,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         TimerManager.shared.delegate = self
         vm = PreProcessBookingViewModel(self)
         vm1 = HotelMBViewModel(self)
-        vm2 = GetMealsListViewModel(self)
+        
     }
     
     
@@ -93,9 +92,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         searchTextArray.removeAll()
         
         addObserver()
-        DispatchQueue.main.async {[self] in
-            callAPI1()
-        }
+        
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.tabselect) {
             if journeyType == "Flight" {
@@ -164,25 +161,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     }
     
     
-    func callAPI1() {
-        DispatchQueue.main.async {[self] in
-            vm2?.CALL_GET_MEAL_LIST_API(dictParam: [:])
-        }
-    }
-    
-    
-    func mealList(response: GetMealsListModel) {
-        meallist = response.meal ?? []
-        DispatchQueue.main.async {[self] in
-            vm2?.CALL_GET_special_Assistance_list_API(dictParam: [:])
-        }
-    }
-    
-    func specialAssistancelist(response: GetMealsListModel) {
-        specialAssistancelist1 = response.meal ?? []
-    }
-    
-
     
     
     //MARK: - CALL_PRE_PROCESS_BOOKING_API
@@ -198,6 +176,8 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     func preProcessBookingDetails(response: PreProcessBookingModel) {
         
         if response.status == true{
+            tokenkey1 = response.form_params?.token_key ?? ""
+            
             DispatchQueue.main.async {[self] in
                 callMobileBookingAPI(res: response)
             }
@@ -208,22 +188,32 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
     
     //MARK: - CALL_MOBILE_BOOKING_API
     func callMobileBookingAPI(res:PreProcessBookingModel) {
-        tmpFlightPreBookingId = res.form_params?.booking_id ?? ""
-        tokenkey1 = res.form_params?.token_key ?? ""
         
+       
         payload.removeAll()
         payload["search_id"] = searchid
         payload["booking_source"] = bookingsourcekey
         payload["promocode_val"] = ""
         payload["access_key"] = accesskey
         payload["booking_id"] = res.form_params?.booking_id
+        
+        
         vm?.CALL_MOBILE_BOOKING_API(dictParam: payload)
     }
     
     
     func mobileBookingDetails(response: MobileBookingModel) {
         if response.status == 1 {
+            
             activepaymentoptions = response.active_payment_options?[0] ?? ""
+            tmpFlightPreBookingId = response.tmp_flight_pre_booking_id ?? ""
+            accesskey = response.access_key_tp ?? ""
+            bookingsource = response.booking_source ?? ""
+            
+            specialAssistancelist1 = response.special_allowance ?? []
+            meallist = response.meal_list ?? []
+            
+            
             DispatchQueue.main.async {[self] in
                 setupTVCells()
             }
@@ -385,7 +375,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         }
         
         tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(cellType:.BillingAddressTVCell))
+        //   tablerow.append(TableRow(cellType:.BillingAddressTVCell))
         tablerow.append(TableRow(cellType:.PromocodeTVCell))
         tablerow.append(TableRow(cellType:.PriceSummaryTVCell))
         tablerow.append(TableRow(title:"I Accept T&C and Privacy Policy",cellType:.AcceptTermsAndConditionTVCell))
@@ -428,28 +418,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         commonTableView.reloadData()
     }
     
-//    override func didTapOnAddAdultBtn(cell: AddAdultTravellerTVCell) {
-//        ageCategory = AgeCategory.adult
-//        goToSaveTravellersDetailsVC(ptitle: "Adult", keyStr: "add", pid: "")
-//    }
-//
-//    override func didTapOnAddChildBtn(cell: AddChildTravellerTVCell) {
-//        ageCategory = AgeCategory.child
-//        goToSaveTravellersDetailsVC(ptitle: "Child", keyStr: "add", pid: "")
-//    }
-//
-//    override func didTapOnAddInfantaBtn(cell: AddInfantaTravellerTVCell) {
-//        ageCategory = AgeCategory.infant
-//        goToSaveTravellersDetailsVC(ptitle: "Infanta", keyStr: "add", pid: "")
-//    }
     
-//    override func didTapOnEditTraveller(cell: AddAdultsOrGuestTVCell) {
-//        goToSaveTravellersDetailsVC(ptitle: cell.passengerType, keyStr: "edit", pid: cell.travellerId)
-//    }
-    
-//    override func didTapOndeleteTravellerBtnAction(cell: AddAdultsOrGuestTVCell) {
-//        commonTableView.reloadData()
-//    }
     
     override func didTapOnSelectAdultTraveller(Cell: AddAdultsOrGuestTVCell) {
         
@@ -528,7 +497,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, GetMealsListVie
         commonTableView.beginUpdates()
         commonTableView.endUpdates()
     }
-
+    
     
 }
 
@@ -643,19 +612,33 @@ extension PayNowVC {
         let lastNameArray = travelerArray.compactMap({$0.lastName})
         let dobArray = travelerArray.compactMap({$0.dob})
         let passportnoArray = travelerArray.compactMap({$0.passportno})
-        let nationalityArray = travelerArray.compactMap({$0.nationality})
         let passportIssuingCountryArray = travelerArray.compactMap({$0.passportIssuingCountry})
         let passportExpireDateArray = travelerArray.compactMap({$0.passportExpireDate})
-        let frequentFlyrNoArray = travelerArray.compactMap({$0.frequentFlyrNo})
-        let mealNameArray = travelerArray.compactMap({$0.meal})
-        let specialAssicintenceArray = travelerArray.compactMap({$0.specialAssicintence})
+//        let frequentFlyrNoArray = travelerArray.compactMap({$0.frequentFlyrNo})
+//        let mealNameArray = travelerArray.compactMap({$0.meal})
+//        let specialAssicintenceArray = travelerArray.compactMap({$0.specialAssicintence})
+//        let nationalityArray = travelerArray.compactMap({$0.nationality})
         
         
+        // Convert arrays to string representations
+        let laedpassengerString = "[\"" + laedpassengerArray.joined(separator: "\",\"") + "\"]"
+        let genderString = "[\"" + genderArray.joined(separator: "\",\"") + "\"]"
+        let mrtitleString = "[\"" + mrtitleArray.joined(separator: "\",\"") + "\"]"
+        let firstnameString = "[\"" + firstnameArray.joined(separator: "\",\"") + "\"]"
+        let middlenameString = "[\"" + middlenameArray.joined(separator: "\",\"") + "\"]"
+        let lastNameString = "[\"" + lastNameArray.joined(separator: "\",\"") + "\"]"
+        let dobString = "[\"" + dobArray.joined(separator: "\",\"") + "\"]"
+        let passportnoString = "[\"" + passportnoArray.joined(separator: "\",\"") + "\"]"
+        let passportIssuingCountryString = "[\"" + passportIssuingCountryArray.joined(separator: "\",\"") + "\"]"
+        let passportExpireDateString = "[\"" + passportExpireDateArray.joined(separator: "\",\"") + "\"]"
+        let passengertypeArrayString = "[\"" + passengertypeArray.joined(separator: "\",\"") + "\"]"
+        
+  
         payload["search_id"] = searchid
         payload["tmp_flight_pre_booking_id"] = tmpFlightPreBookingId
-        payload["access_key_tp"] =  accesskey
         payload["token_key"] = tokenkey1
         payload["access_key"] =  accesskey
+        payload["access_key_tp"] =  accesskey
         payload["insurance_policy_type"] = "0"
         payload["insurance_policy_option"] = "0"
         payload["insurance_policy_cover_type"] = "0"
@@ -668,58 +651,47 @@ extension PayNowVC {
         payload["mealsAmount"] = "0"
         payload["baggageAmount"] = "0"
         
-        payload["passenger_type"] = passengertypeArray
-        payload["lead_passenger"] = laedpassengerArray
-        payload["gender"] = genderArray
-     //   payload["passenger_nationality"] = nationalityArray
-        payload["name_title"] =  mrtitleArray
-        payload["first_name"] =  firstnameArray
-        payload["middle_name"] =  middlenameArray
-        payload["last_name"] =  lastNameArray
-        payload["date_of_birth"] =  dobArray
-        payload["passenger_passport_number"] =  passportnoArray
-        payload["passenger_passport_issuing_country"] =  passportIssuingCountryArray
-        payload["passenger_passport_expiry"] =  passportExpireDateArray
-        payload["Frequent"] = [["Select"]]
-        payload["ff_no"] = [[""]]
+        
+        payload["passenger_type"] = passengertypeArrayString
+        payload["lead_passenger"] = laedpassengerString
+        payload["gender"] = genderString
+        payload["name_title"] =  mrtitleString
+        payload["first_name"] =  firstnameString
+        payload["middle_name"] =  middlenameString
+        payload["last_name"] =  lastNameString
+        payload["date_of_birth"] =  dobString
+        payload["passenger_passport_number"] =  passportnoString
+        payload["passenger_passport_issuing_country"] =  passportIssuingCountryString
+        payload["passenger_nationality"] = passportIssuingCountryString
+        payload["passenger_passport_expiry"] =  passportExpireDateString
+        payload["Frequent"] = "\([["Select"]])"
+        payload["ff_no"] = "\([[""]])"
         payload["payment_method"] =  "PNHB1"
         
-        payload["address2"] = ""
-        payload["billing_address_1"] = ""
-        payload["billing_state"] = ""
-        payload["billing_city"] = ""
-        payload["billing_zipcode"] = ""
+        //        payload["address2"] = ""
+        //        payload["billing_address_1"] = ""
+        //        payload["billing_state"] = ""
+        //        payload["billing_city"] = ""
+        //        payload["billing_zipcode"] = ""
         payload["billing_email"] = email
         payload["passenger_contact"] = mobile
-        payload["billing_country"] = billingCountryName
-        payload["country_mobile_code"] = billingCountryCode
+        payload["country_mobile_code"] = countryCode
         payload["insurance"] = "1"
         payload["tc"] = "on"
         payload["booking_step"] = "book"
         payload["selectedCurrency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
-  
-        do{
-            
-            let jsonData = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
-            let jsonStringData =  NSString(data: jsonData as Data, encoding: NSUTF8StringEncoding)! as String
-            
-            if textfilldshouldmorethan3lettersBool == false {
-                showToast(message: "Enter More Than 3 Chars")
-            }else if callpaymentbool == false {
-                showToast(message: "Add Details")
-                
-            }else if checkTermsAndCondationStatus == false {
-                showToast(message: "Please Accept T&C and Privacy Policy")
-            }else {
-                print(jsonStringData)
-                payload1["passenger_request"] = jsonStringData
-                vm?.CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: payload, key: tmpFlightPreBookingId)
-                
-            }
-            
-        }catch{
-            print(error.localizedDescription)
+        
+        
+        
+        if textfilldshouldmorethan3lettersBool == false {
+            showToast(message: "Enter More Than 3 Chars")
+        }else if callpaymentbool == false {
+            showToast(message: "Add Details")
+        }else if checkTermsAndCondationStatus == false {
+            showToast(message: "Please Accept T&C and Privacy Policy")
+        }else {
+            vm?.CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: payload)
         }
         
         

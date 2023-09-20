@@ -147,14 +147,15 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
                 showToast(message: "Enter Password")
                 setcolor(tf: cell.createPassTF, color: .red)
                 setcolor(tf: cell.createPassTF, color: .red)
+            }else  if pass.isValidPassword() == true {
+                showToast(message: "Enter Valid Password")
+                setcolor(tf: cell.createPassTF, color: .red)
             }else  if cpass.isEmpty == true {
                 showToast(message: "Enter Conform Password")
-                setcolor(tf: cell.confPassTF, color: .red)
                 setcolor(tf: cell.confPassTF, color: .red)
             }else  if pass != cpass {
                 showToast(message: "Password Should Match")
                 setcolor(tf: cell.createPassTF, color: .red)
-                setcolor(tf: cell.confPassTF, color: .red)
             }else  if mobilenoMaxLengthBool == false {
                 showToast(message: "Enter Valid Mobile No")
                 setcolor(tf: cell.mobileTF, color: .red)

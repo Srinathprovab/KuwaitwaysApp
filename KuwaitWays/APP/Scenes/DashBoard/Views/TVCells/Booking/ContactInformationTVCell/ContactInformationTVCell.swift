@@ -76,7 +76,6 @@ class ContactInformationTVCell: TableViewCell {
             countrycodesArray.append(i.country_code ?? "")
             isocountrycodeArray.append(i.iso_country_code ?? "")
             originArray.append(i.origin ?? "")
-            print(i.name ?? "")
         }
         
         DispatchQueue.main.async {[self] in
@@ -219,15 +218,8 @@ class ContactInformationTVCell: TableViewCell {
     
     @objc func searchTextChanged(textField: UITextField) {
         searchText = textField.text ?? ""
-        if searchText == "" {
-            isSearchBool = false
-            filterContentForSearchText(searchText)
-        }else {
-            isSearchBool = true
-            filterContentForSearchText(searchText)
-        }
-        
-        
+        isSearchBool = false
+        filterContentForSearchText(searchText)
     }
     
     func filterContentForSearchText(_ searchText: String) {
@@ -242,6 +234,9 @@ class ContactInformationTVCell: TableViewCell {
         dropDown.show()
         
     }
+    
+    
+
     
     
 }

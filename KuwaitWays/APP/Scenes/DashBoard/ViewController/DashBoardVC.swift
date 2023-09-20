@@ -207,7 +207,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
             break
             
         case "Hotel":
-            gotoBookHotelVC()
+         //   gotoBookHotelVC()
             break
         default:
             break

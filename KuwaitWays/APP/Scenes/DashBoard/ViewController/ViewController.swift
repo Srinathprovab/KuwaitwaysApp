@@ -153,9 +153,6 @@ class ViewController: UIViewController {
 }
 
 
-
-
-
 protocol TimerManagerDelegate: AnyObject {
     func timerDidFinish()
     func updateTimer()
@@ -172,19 +169,30 @@ class TimerManager {
     
     private init() {}
     
+//    func startTimer() {
+//
+//
+//        endBackgroundTask() // End any existing background task (if any)
+//        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+//            self?.endBackgroundTask()
+//        }
+//
+//        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+//
+//
+//    }
+    
     func startTimer() {
-        
-        
         endBackgroundTask() // End any existing background task (if any)
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
         }
         
+        // Schedule the timer in the common run loop mode
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-        RunLoop.current.add(timer!, forMode: RunLoop.Mode.common)
-        
-        
+        RunLoop.current.add(timer!, forMode: .common)
     }
+
     
     @objc func updateTimer() {
         if totalTime != 0 {
@@ -203,6 +211,12 @@ class TimerManager {
             self.timer = nil
         }
     }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+
     
     private func endBackgroundTask() {
         guard backgroundTask != .invalid else { return }

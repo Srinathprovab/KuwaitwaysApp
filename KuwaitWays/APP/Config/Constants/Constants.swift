@@ -93,8 +93,8 @@ var TotalPrice_API = String()
 var grandTotal = String()
 var subtotal = String()
 var checkTermsAndCondationStatus = false
-var meallist = [Meal]()
-var specialAssistancelist1 = [Meal]()
+var meallist = [Meal_list]()
+var specialAssistancelist1 = [Special_allowance]()
 
 
 //paynow screen
@@ -160,7 +160,7 @@ var htokenkey = String()
 var hd:HotelDetailsModel?
 var latitudeArray: [Double] = []
 var longitudeArray: [Double] = []
-
+var totalRooms = 0
 var facilityArray = [String]()
 
 
@@ -182,7 +182,7 @@ struct ApiEndpoints {
     static let getFlightDetails = "flight/getFlightDetails"
     static let preprocessbooking = "flight/pre_process_booking"
     static let mobilebooking = "flight/booking"
-    static let processpassengerdetail = "flight/process_passenger_detail/"
+    static let processpassengerdetail = "flight/process_passenger_detail"
     static let prebooking = "flight/pre_booking/"
     static let prepaymentconfirmation = "flight/pre_payment_confirmation/"
     static let sendtopayment = "flight/send_to_payment/"

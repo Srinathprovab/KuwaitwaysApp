@@ -183,11 +183,12 @@ class TextfieldTVCell: TableViewCell {
         forgetPwdBtn.isHidden = true
         
         countryCodeBtnView.isHidden = true
-        countryCodeBtn.isHidden = true
+       // countryCodeBtn.isHidden = true
         setupDropDown()
         countrycodeTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
         countrycodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
-        
+        countryCodeBtn.addTarget(self, action: #selector(didTapOnCountryCodeBtnAction(_:)), for: .touchUpInside)
+
     }
     
     
@@ -370,6 +371,10 @@ class TextfieldTVCell: TableViewCell {
         
     }
     
+    
+    @objc func didTapOnCountryCodeBtnAction(_ sender:UIButton) {
+        dropDown.show()
+    }
     
 }
 
