@@ -22,6 +22,7 @@ target 'KuwaitWays' do
   pod 'MaterialComponents/TextControls+OutlinedTextFields'
   pod 'AARatingBar'
   pod 'Alamofire'
+  pod 'GoogleMaps'
 
 
   target 'KuwaitWaysTests' do

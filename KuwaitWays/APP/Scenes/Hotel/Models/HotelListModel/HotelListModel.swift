@@ -12,7 +12,7 @@ struct HotelListModel : Codable {
     let booking_source : String?
     let search_id : Int?
     let total_count : Int?
-    //   let filters_display : Filters_display?
+    let filters_display : Filters_display?
     let offset : Int?
     let status : Int?
     let filter_result_count : Int?
@@ -26,7 +26,7 @@ struct HotelListModel : Codable {
         case booking_source = "booking_source"
         case search_id = "search_id"
         case total_count = "total_count"
-        //        case filters_display = "filters_display"
+        case filters_display = "filters_display"
         case offset = "offset"
         case status = "status"
         case filter_result_count = "filter_result_count"
@@ -41,7 +41,7 @@ struct HotelListModel : Codable {
         booking_source = try values.decodeIfPresent(String.self, forKey: .booking_source)
         search_id = try values.decodeIfPresent(Int.self, forKey: .search_id)
         total_count = try values.decodeIfPresent(Int.self, forKey: .total_count)
-        //     filters_display = try values.decodeIfPresent(Filters_display.self, forKey: .filters_display)
+        filters_display = try values.decodeIfPresent(Filters_display.self, forKey: .filters_display)
         offset = try values.decodeIfPresent(Int.self, forKey: .offset)
         status = try values.decodeIfPresent(Int.self, forKey: .status)
         filter_result_count = try values.decodeIfPresent(Int.self, forKey: .filter_result_count)

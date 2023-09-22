@@ -19,7 +19,6 @@ class ViewHotelDetailsVC: BaseTableVC {
     var isVcFrom = String()
     var tablerow = [TableRow]()
     var payload = [String:Any]()
-    var vm:HotelDetailsViewModel?
     
     
     static var newInstance: ViewHotelDetailsVC? {
@@ -30,49 +29,11 @@ class ViewHotelDetailsVC: BaseTableVC {
     }
     
     
-    
-
-    @objc func offline(notificatio:UNNotification) {
-        callapibool = true
-        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
-        self.setupTVCells(hotelDetails: hd!)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name("sessionStop"), object: nil)
+        setupTVCells(hotelDetails: hd!)
+        addObserver()
     }
     
-    @objc func stopTimer() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
-    
-    //    func callAPI() {
-    //        payload["booking_source"] = hbooking_source
-    //        payload["hotel_id"] = hotelid
-    //        payload["search_id"] = hsearch_id
-    //        vm?.CALL_GET_HOTEL_DETAILS_API(dictParam: payload)
-    //    }
-    //
-    
-    //    func hotelDetails(response: HotelDetailsModel) {
-    //        print(" ====== hotelDetails ====== ")
-    //        holderView.isHidden = false
-    //        //        titlelbl.text = "\(response.currency_obj?.to_currency ?? "") \(response.currency_obj?.conversion_rate ?? "")"
-    //        htoken = response.hotel_details?.token ?? ""
-    //        htokenkey = response.hotel_details?.tokenKey ?? ""
-    //
-    //        DispatchQueue.main.async {
-    //            self.setupTVCells(hotelDetails: response)
-    //        }
-    //    }
     
     
     
@@ -80,7 +41,6 @@ class ViewHotelDetailsVC: BaseTableVC {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
-     //   vm = HotelDetailsViewModel(self)
     }
     
     func setupUI() {
@@ -137,18 +97,9 @@ class ViewHotelDetailsVC: BaseTableVC {
     
     
     override func didTapOnRoomTvcell(cell:TwinSuperiorRoomTVCell) {
-        //        ratekeyArray.removeAll()
-        //        ratekeyArray.append(cell.ratekey)
+        
     }
     
-    //    @objc func didTapOnBookNowBtn(_ sender:UIButton) {
-    //        guard let vc = PayNowVC.newInstance.self else {return}
-    //        vc.modalPresentationStyle = .fullScreen
-    //        isFromVCBool = true
-    //        self.present(vc, animated: false)
-    //
-    //    }
-    //
     
 }
 
@@ -176,17 +127,7 @@ extension ViewHotelDetailsVC {
                                  subTitle: hotelDetails.hotel_details?.format_desc?[0].content,
                                  cellType:.RatingWithLabelsTVCell))
         
-        //
-        //        if isVcFrom != "PayNowVC" {
-        //            tablerow.append(TableRow(title:"Rooms",
-        //                                     moreData: hotelDetails.hotel_details?.rooms,
-        //                                     cellType:.RoomsTVCell))
-        //        }
-        //
-        //
-        //        tablerow.append(TableRow(title:"Facilities",
-        //                                 moreData: ["Facilites1","Facilites2","Facilites3","Facilites4"],
-        //                                 cellType:.FacilitiesTVCell))
+        
         
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
         
@@ -195,4 +136,45 @@ extension ViewHotelDetailsVC {
         commonTableView.reloadData()
         
     }
+}
+
+
+
+extension ViewHotelDetailsVC {
+    
+    func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: Notification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name("reload"), object: nil)
+        
+    }
+    
+    
+    
+    @objc func reload(notification: NSNotification){
+        commonTableView.reloadData()
+    }
+    
+    //MARK: - resultnil
+    @objc func resultnil(notification: NSNotification){
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.key = "noresult"
+        self.present(vc, animated: false)
+    }
+    
+    
+    @objc func offline(notificatio:UNNotification) {
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.key = "offline"
+        self.present(vc, animated: false)
+    }
+    
+    
+    
 }

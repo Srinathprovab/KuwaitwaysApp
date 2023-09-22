@@ -549,10 +549,11 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
 
 
 extension SearchFlightResultVC:AppliedFilters {
-    func hotelFilterByApplied(minpricerange: Double, maxpricerange: Double, starRating: String) {
+    func hotelFilterByApplied(minpricerange: Double, maxpricerange: Double, starRating: String, refundableTypeArray: [String], nearByLocA: [String], niberhoodA: [String], aminitiesA: [String]) {
         
     }
     
+   
     
     func filterByApplied(minpricerange: Double, maxpricerange: Double, noofstopsFA: [String], departureTimeFilter: [String], arrivalTimeFilter: [String], airlinesFA: [String], cancellationTypeFA: [String], connectingFlightsFA: [String], connectingAirportsFA: [String]) {
         

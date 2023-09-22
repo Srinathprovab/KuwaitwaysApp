@@ -2,12 +2,12 @@
 //  HotelSecureBookingModel.swift
 //  KuwaitWays
 //
-//  Created by FCI on 04/05/23.
+//  Created by FCI on 21/09/23.
 //
 
 import Foundation
 
-struct HotelSecureBookingModel : Codable {
+struct HSecureBookingModel : Codable {
     let status : Int?
     let message : String?
     let url : String?

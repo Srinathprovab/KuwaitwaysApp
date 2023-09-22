@@ -36,9 +36,14 @@ protocol AppliedFilters:AnyObject {
                          connectingFlightsFA:[String],
                          connectingAirportsFA:[String])
     
+    
     func hotelFilterByApplied(minpricerange:Double,
                               maxpricerange:Double,
-                              starRating: String)
+                              starRating: String,
+                              refundableTypeArray:[String],
+                              nearByLocA:[String],
+                              niberhoodA:[String],
+                              aminitiesA:[String])
     
 }
 
@@ -75,7 +80,7 @@ class FilterSearchVC: BaseTableVC {
     var hpricesArray = ["Deal","Name"," Star"]
     var amenitiesArray = ["Wi-Fi","Breakfast","Parking","Swimming Pool"]
     var amenitiesArray1 = ["Others(379)","Others(379)"]
-    
+    var paymentTypeArray = ["Refundable","Non Refundable"]
     var filterTapKey = String()
     var minpricerangefilter = Double()
     var maxpricerangefilter = Double()
@@ -89,6 +94,10 @@ class FilterSearchVC: BaseTableVC {
     var ConnectingAirportsFilterArray = [String]()
     
     var starRatingFilter = String()
+    var selectedNeighbourwoodArray = [String]()
+    var selectednearBylocationsArray = [String]()
+    var selectedamenitiesArray = [String]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -219,11 +228,14 @@ class FilterSearchVC: BaseTableVC {
         tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Prices",key: "hotel",cellType:.SliderTVCell))
         tablerow.append(TableRow(title:"Star Rating",cellType:.StarRatingTVCell))
-        //        tablerow.append(TableRow(title:"Amenities",key: "hotel",data: amenitiesArray,cellType:.CheckBoxTVCell))
-        //        tablerow.append(TableRow(title:"Amenities",key: "hotel",data: amenitiesArray1,cellType:.CheckBoxTVCell))
-        if facilityArray.count != 0 {
-            tablerow.append(TableRow(title:"Facilities",key: "hotel",data: facilityArray,cellType:.CheckBoxTVCell))
-        }
+        
+        
+        tablerow.append(TableRow(title:"Booking Type",data: paymentTypeArray,cellType:.CheckBoxTVCell))
+        tablerow.append(TableRow(title:"Neighbourhood",data: neighbourwoodArray,cellType:.CheckBoxTVCell))
+        tablerow.append(TableRow(title:"Near By Location's",data: nearBylocationsArray,cellType:.CheckBoxTVCell))
+        tablerow.append(TableRow(title:"Amenities",data: amenitiesArray,cellType:.CheckBoxTVCell))
+        
+        
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
@@ -466,62 +478,112 @@ class FilterSearchVC: BaseTableVC {
     
     override func didTapOnCheckBox(cell:checkOptionsTVCell){
         
-        switch cell.filtertitle {
-        case "No Of Stops":
-            if cell.titlelbl.text == "0 Stop" {
-                noOfStopsFilterArray.append("0")
-            }else if cell.titlelbl.text == "1 Stop" {
-                noOfStopsFilterArray.append("1")
+        if let tabselect = defaults.object(forKey: UserDefaultsKeys.tabselect) as? String {
+            if tabselect == "Flight" {
+                
+                switch cell.filtertitle {
+                case "No Of Stops":
+                    if cell.titlelbl.text == "0 Stop" {
+                        noOfStopsFilterArray.append("0")
+                    }else if cell.titlelbl.text == "1 Stop" {
+                        noOfStopsFilterArray.append("1")
+                    }else {
+                        noOfStopsFilterArray.append("2")
+                    }
+                    
+                    print(noOfStopsFilterArray.joined(separator: "---"))
+                    break
+                    
+                    
+                    
+                case "Outbound Departurn Time":
+                    departureTimeFilter.append(cell.titlelbl.text ?? "")
+                    break
+                    
+                case "Inbound Departurn Time":
+                    arrivalTimeFilter.append(cell.titlelbl.text ?? "")
+                    break
+                    
+                case "Cancellations Type":
+                    
+                    if cell.titlelbl.text == "Refundable" {
+                        refundablerTypeFilteArray.append("Refundable")
+                    }else {
+                        refundablerTypeFilteArray.append("Non Refundable")
+                    }
+                    print(refundablerTypeFilteArray.joined(separator: "---"))
+                    break
+                    
+                case "Airlines":
+                    airlinesFilterArray.append(cell.titlelbl.text ?? "")
+                    print(airlinesFilterArray.joined(separator: "---"))
+                    break
+                    
+                    
+                    
+                case "Connecting Flights":
+                    connectingFlightsFilterArray.append(cell.titlelbl.text ?? "")
+                    print(connectingFlightsFilterArray.joined(separator: "---"))
+                    break
+                    
+                    
+                case "Connecting Airports":
+                    ConnectingAirportsFilterArray.append(cell.titlelbl.text ?? "")
+                    print(ConnectingAirportsFilterArray.joined(separator: "---"))
+                    break
+                    
+                    
+                    
+                default:
+                    break
+                }
             }else {
-                noOfStopsFilterArray.append("2")
+                
+                switch cell.filtertitle {
+                    
+                    
+                case "Booking Type":
+                    
+                    if cell.titlelbl.text == "Refundable" {
+                        refundablerTypeFilteArray.append("Refundable")
+                    }else {
+                        refundablerTypeFilteArray.append("Non Refundable")
+                    }
+                    
+                    print(refundablerTypeFilteArray)
+                    break
+                    
+                    
+                    
+                case "Neighbourhood":
+                    selectedNeighbourwoodArray.append(cell.titlelbl.text ?? "")
+                    print(selectedNeighbourwoodArray.joined(separator: "---"))
+                    break
+                    
+                    
+                case "Near By Location's":
+                    selectednearBylocationsArray.append(cell.titlelbl.text ?? "")
+                    print(selectednearBylocationsArray.joined(separator: "---"))
+                    break
+                    
+                    
+                case "Amenities":
+                    selectedamenitiesArray.append(cell.titlelbl.text ?? "")
+                    print(selectedamenitiesArray.joined(separator: "---"))
+                    break
+                    
+                    
+                    
+                    
+                default:
+                    break
+                }
+                
             }
-            
-            print(noOfStopsFilterArray.joined(separator: "---"))
-            break
-            
-            
-            
-        case "Outbound Departurn Time":
-            departureTimeFilter.append(cell.titlelbl.text ?? "")
-            break
-            
-        case "Inbound Departurn Time":
-            arrivalTimeFilter.append(cell.titlelbl.text ?? "")
-            break
-            
-        case "Cancellations Type":
-            
-            if cell.titlelbl.text == "Refundable" {
-                refundablerTypeFilteArray.append("Refundable")
-            }else {
-                refundablerTypeFilteArray.append("Non Refundable")
-            }
-            print(refundablerTypeFilteArray.joined(separator: "---"))
-            break
-            
-        case "Airlines":
-            airlinesFilterArray.append(cell.titlelbl.text ?? "")
-            print(airlinesFilterArray.joined(separator: "---"))
-            break
-            
-            
-            
-        case "Connecting Flights":
-            connectingFlightsFilterArray.append(cell.titlelbl.text ?? "")
-            print(connectingFlightsFilterArray.joined(separator: "---"))
-            break
-            
-            
-        case "Connecting Airports":
-            ConnectingAirportsFilterArray.append(cell.titlelbl.text ?? "")
-            print(ConnectingAirportsFilterArray.joined(separator: "---"))
-            break
-            
-            
-            
-        default:
-            break
         }
+        
+        
+        
         
     }
     
@@ -529,81 +591,137 @@ class FilterSearchVC: BaseTableVC {
     override func didTapOnDeselectCheckBox(cell:checkOptionsTVCell){
         
         
-        switch cell.filtertitle {
-        case "No Of Stops":
-            
-            if cell.titlelbl.text == "0 Stop" {
-                if let index = noOfStopsFilterArray.firstIndex(of: "0") {
-                    noOfStopsFilterArray.remove(at: index)
-                }
-            }else if cell.titlelbl.text == "1 Stop" {
-                if let index = noOfStopsFilterArray.firstIndex(of: "1") {
-                    noOfStopsFilterArray.remove(at: index)
+        if let tabselect = defaults.object(forKey: UserDefaultsKeys.tabselect) as? String {
+            if tabselect == "Flight" {
+                
+                switch cell.filtertitle {
+                case "No Of Stops":
+                    
+                    if cell.titlelbl.text == "0 Stop" {
+                        if let index = noOfStopsFilterArray.firstIndex(of: "0") {
+                            noOfStopsFilterArray.remove(at: index)
+                        }
+                    }else if cell.titlelbl.text == "1 Stop" {
+                        if let index = noOfStopsFilterArray.firstIndex(of: "1") {
+                            noOfStopsFilterArray.remove(at: index)
+                        }
+                    }else {
+                        if let index = noOfStopsFilterArray.firstIndex(of: "2") {
+                            noOfStopsFilterArray.remove(at: index)
+                        }
+                    }
+                    print(noOfStopsFilterArray.joined(separator: "---"))
+                    break
+                    
+                    
+                case "Outbound Departurn Time":
+                    if let index = departureTimeFilter.firstIndex(of: cell.titlelbl.text ?? "") {
+                        departureTimeFilter.remove(at: index)
+                    }
+                    break
+                    
+                case "Inbound Departurn Time":
+                    if let index = arrivalTimeFilter.firstIndex(of: cell.titlelbl.text ?? "") {
+                        arrivalTimeFilter.remove(at: index)
+                    }
+                    break
+                    
+                case "Cancellations Type":
+                    
+                    if cell.titlelbl.text == "Refundable" {
+                        if let index = refundablerTypeFilteArray.firstIndex(of: "Refundable") {
+                            refundablerTypeFilteArray.remove(at: index)
+                        }
+                    }else {
+                        if let index = refundablerTypeFilteArray.firstIndex(of: "Non Refundable") {
+                            refundablerTypeFilteArray.remove(at: index)
+                        }
+                    }
+                    print(refundablerTypeFilteArray)
+                    break
+                    
+                    
+                case "Airlines":
+                    if let index = airlinesFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
+                        airlinesFilterArray.remove(at: index)
+                    }
+                    print(airlinesFilterArray.joined(separator: "---"))
+                    break
+                    
+                    
+                case "Connecting Flights":
+                    if let index = connectingFlightsFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
+                        connectingFlightsFilterArray.remove(at: index)
+                    }
+                    print(connectingFlightsFilterArray.joined(separator: "---"))
+                    break
+                    
+                    
+                case "Connecting Airports":
+                    if let index = ConnectingAirportsFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
+                        ConnectingAirportsFilterArray.remove(at: index)
+                    }
+                    print(ConnectingAirportsFilterArray.joined(separator: "---"))
+                    break
+                    
+                    
+                    
+                default:
+                    break
                 }
             }else {
-                if let index = noOfStopsFilterArray.firstIndex(of: "2") {
-                    noOfStopsFilterArray.remove(at: index)
+                switch cell.filtertitle {
+                    
+                    
+                case "Booking Type":
+                    
+                    if cell.titlelbl.text == "Refundable" {
+                        if let index = refundablerTypeFilteArray.firstIndex(of: "Refundable") {
+                            refundablerTypeFilteArray.remove(at: index)
+                        }
+                    }else {
+                        if let index = refundablerTypeFilteArray.firstIndex(of: "Non Refundable") {
+                            refundablerTypeFilteArray.remove(at: index)
+                        }
+                    }
+                    print(refundablerTypeFilteArray)
+                    break
+                    
+                    
+                case "Neighbourhood":
+                    
+                    if let index = selectedNeighbourwoodArray.firstIndex(of: cell.titlelbl.text ?? "") {
+                        selectedNeighbourwoodArray.remove(at: index)
+                    }
+                    print(selectedNeighbourwoodArray.joined(separator: "---"))
+                    break
+                    
+                    
+                case "Near By Location's":
+                    
+                    if let index = selectednearBylocationsArray.firstIndex(of: cell.titlelbl.text ?? "") {
+                        selectednearBylocationsArray.remove(at: index)
+                    }
+                    print(selectednearBylocationsArray.joined(separator: "---"))
+                    break
+                    
+                    
+                case "Amenities":
+                    
+                    if let index = selectedamenitiesArray.firstIndex(of: cell.titlelbl.text ?? "") {
+                        selectedamenitiesArray.remove(at: index)
+                    }
+                    print(selectedamenitiesArray.joined(separator: "---"))
+                    break
+                    
+                    
+                default:
+                    break
                 }
             }
-            print(noOfStopsFilterArray.joined(separator: "---"))
-            break
             
-            
-        case "Outbound Departurn Time":
-            if let index = departureTimeFilter.firstIndex(of: cell.titlelbl.text ?? "") {
-                departureTimeFilter.remove(at: index)
-            }
-            break
-            
-        case "Inbound Departurn Time":
-            if let index = arrivalTimeFilter.firstIndex(of: cell.titlelbl.text ?? "") {
-                arrivalTimeFilter.remove(at: index)
-            }
-            break
-            
-        case "Cancellations Type":
-            
-            if cell.titlelbl.text == "Refundable" {
-                if let index = refundablerTypeFilteArray.firstIndex(of: "Refundable") {
-                    refundablerTypeFilteArray.remove(at: index)
-                }
-            }else {
-                if let index = refundablerTypeFilteArray.firstIndex(of: "Non Refundable") {
-                    refundablerTypeFilteArray.remove(at: index)
-                }
-            }
-            print(refundablerTypeFilteArray)
-            break
-            
-            
-        case "Airlines":
-            if let index = airlinesFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
-                airlinesFilterArray.remove(at: index)
-            }
-            print(airlinesFilterArray.joined(separator: "---"))
-            break
-            
-            
-        case "Connecting Flights":
-            if let index = connectingFlightsFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
-                connectingFlightsFilterArray.remove(at: index)
-            }
-            print(connectingFlightsFilterArray.joined(separator: "---"))
-            break
-            
-            
-        case "Connecting Airports":
-            if let index = ConnectingAirportsFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
-                ConnectingAirportsFilterArray.remove(at: index)
-            }
-            print(ConnectingAirportsFilterArray.joined(separator: "---"))
-            break
-            
-            
-            
-        default:
-            break
         }
+        
     }
     
     
@@ -635,7 +753,11 @@ class FilterSearchVC: BaseTableVC {
                 
                 delegate?.hotelFilterByApplied(minpricerange: minpricerangefilter,
                                                maxpricerange: maxpricerangefilter,
-                                               starRating: starRatingFilter)
+                                               starRating: starRatingFilter,
+                                               refundableTypeArray: refundablerTypeFilteArray,
+                                               nearByLocA: selectednearBylocationsArray,
+                                               niberhoodA: selectedNeighbourwoodArray,
+                                               aminitiesA: selectedamenitiesArray)
             }
         }
         

@@ -7,16 +7,14 @@
 
 import UIKit
 import MapKit
+import GoogleMaps
 
-class MapViewVC: UIViewController, TimerManagerDelegate {
+class MapViewVC: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var nav: NavBar!
-    @IBOutlet weak var holderView: UIView!
+    @IBOutlet weak var googleMapView: UIView!
     @IBOutlet weak var navHeight: NSLayoutConstraint!
-    @IBOutlet weak var textFieldHolderView: UIView!
-    @IBOutlet weak var searchImg: UIImageView!
-    @IBOutlet weak var searchTF: UITextField!
-    @IBOutlet weak var mapView: MKMapView!
+    
     
     static var newInstance: MapViewVC? {
         let storyboard = UIStoryboard(name: Storyboard.Hotel.name,
@@ -24,40 +22,7 @@ class MapViewVC: UIViewController, TimerManagerDelegate {
         let vc = storyboard.instantiateViewController(withIdentifier: self.className()) as? MapViewVC
         return vc
     }
-    
-    
-    @objc func offline(notificatio:UNNotification) {
-        callapibool = true
-        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false)
-    }
-    
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-        
-        
-        print(latitudeArray)
-        print(longitudeArray)
-        
-        
-        TimerManager.shared.delegate = self
-        
-    }
-    
-    func timerDidFinish() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
-    
-    func updateTimer() {
-        
-    }
-    
-  
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,80 +30,72 @@ class MapViewVC: UIViewController, TimerManagerDelegate {
         // Do any additional setup after loading the view.
         setupUI()
         
-        mapView.delegate = self
-        addAnnotations()
+       
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     func setupUI() {
         
-        self.view.backgroundColor = .black.withAlphaComponent(0.4)
-        self.holderView.backgroundColor = .WhiteColor
+        self.googleMapView.backgroundColor = .WhiteColor
         nav.titlelbl.text = "Map View"
-        nav.backBtn.addTarget(self, action: #selector(backbtnAction(_:)), for: .touchUpInside)
-        
-        let screenHeight = UIScreen.main.bounds.size.height
-        if screenHeight > 835 {
-            navHeight.constant = 130
-        }else {
-            navHeight.constant = 100
-        }
-        
-        textFieldHolderView.backgroundColor = HexColor("#F0F0F0")
-        textFieldHolderView.layer.cornerRadius = 6
-        textFieldHolderView.clipsToBounds = true
-        searchImg.image = UIImage(named: "search")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppBackgroundColor)
-        searchTF.font = UIFont.OpenSansMedium(size: 16)
-        searchTF.placeholder = "Search By Location"
-        searchTF.setLeftPaddingPoints(20)
-        searchTF.addTarget(self, action: #selector(editingChanged(_:)), for: .editingChanged)
+        nav.backBtn.addTarget(self, action: #selector(backbtnAction), for: .touchUpInside)
         
     }
     
     
-    @objc func backbtnAction(_ sender:UIButton) {
+    @objc func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            if !latitudeArray.isEmpty && !longitudeArray.isEmpty {
+                // Calculate the average latitude and longitude
+                let averageLatitude = latitudeArray.map { Double($0) ?? 0.0 }.reduce(0.0, +) / Double(latitudeArray.count)
+                let averageLongitude = longitudeArray.map { Double($0) ?? 0.0 }.reduce(0.0, +) / Double(longitudeArray.count)
+                
+                // Set the camera to center on the average coordinates
+                let camera = GMSCameraPosition.camera(withLatitude: averageLatitude, longitude: averageLongitude, zoom: 12.0)
+
+                let gmsView = GMSMapView.map(withFrame: view.bounds, camera: camera)
+                googleMapView.addSubview(gmsView)
+                addMarkersToMap(gmsView)
+                
+                locationManager.stopUpdatingLocation() // You may want to stop updates after you have the user's location
+            }
+        }
+    }
+
+    
+    func addMarkersToMap(_ mapView: GMSMapView) {
+        for index in 0..<latitudeArray.count {
+            if let latitude = Double(latitudeArray[index]), let longitude = Double(longitudeArray[index]) {
+                let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            //    marker.title = "Location \(index + 1)"
+
+                // Create a custom marker icon with an image
+                if let markerImage = UIImage(named: "loc1")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppNavBackColor) {
+                    let markerView = UIImageView(image: markerImage)
+                    marker.iconView = markerView
+                } else {
+                    print("Error: Marker image not found or is nil.")
+                }
+
+                marker.map = mapView
+            } else {
+                print("Error: Invalid latitude or longitude values at index \(index).")
+            }
+        }
+    }
+
+    
+    
+    
+    @objc func backbtnAction() {
         callapibool = false
         dismiss(animated: true)
     }
     
     
-    @objc func editingChanged(_ textField:UITextField) {
-        print(textField.text)
-    }
-    
 }
 
-extension MapViewVC: MKMapViewDelegate {
-    
-    
-    func addAnnotations() {
-        for i in 0..<latitudeArray.count {
-            let latitude = latitudeArray[i]
-            let longitude = longitudeArray[i]
-            
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            mapView.addAnnotation(annotation)
-        }
-    }
-    
-    
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKPointAnnotation else { return nil }
-        
-        let identifier = "AnnotationIdentifier"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-        } else {
-            annotationView?.annotation = annotation
-        }
-        
-        annotationView?.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.red)
-        
-        return annotationView
-    }
-    
-}
 

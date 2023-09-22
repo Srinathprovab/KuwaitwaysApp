@@ -7,7 +7,9 @@
 
 import UIKit
 
-class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocumentInteractionControllerDelegate {
+class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocumentInteractionControllerDelegate, HSecureBookingViewModelDelegate {
+    
+    
     
     @IBOutlet weak var navBar: NavBar!
     @IBOutlet weak var navHeight: NSLayoutConstraint!
@@ -16,6 +18,8 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
     var viewmodel:VocherDetailsViewModel?
     var tablerow = [TableRow]()
     var vocherdata1:VocherModelDetails?
+    var hotelVoucherData:HotelVoucherData?
+    var hotelvm:HSecureBookingViewModel?
     var kwdPrice = String()
     
     static var newInstance: BookingConfirmedVC? {
@@ -38,41 +42,18 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
         
         if callapibool == true {
             BASE_URL = ""
-            DispatchQueue.main.async {[self] in
-                //viewmodel?.CALL_REDIRECT_VOCHER_API(dictParam: [:], url: vocherurl )
-                viewmodel?.CALL_GET_VOUCHER_DETAILS_API(dictParam: [:], url: vocherurl )
+            
+            if let tabselect = defaults.object(forKey: UserDefaultsKeys.tabselect) as? String {
+                if tabselect == "Flight" {
+                    callFlightVoucherDetailsAPI()
+                }else {
+                    callHotelSecureBookingAPI()
+                }
             }
         }
     }
     
     
-    func redirectvocherDetails(response: GetvoucherUrlModel) {
-        DispatchQueue.main.async {[self] in
-            viewmodel?.CALL_GET_VOUCHER_DETAILS_API(dictParam: [:], url: response.url ?? "" )
-        }
-    }
-    
-    
-    
-    func vocherdetails(response: VocherModel) {
-        BASE_URL = BASE_URL1
-        
-        vocherdata1 = response.data
-        fdetails = response.flight_details?.summary ?? []
-        kwdPrice = "\(response.price?.api_currency ?? ""):\(response.price?.api_total_display_fare ?? 0)"
-        vouchercustomerdetails = vocherdata1?.booking_details?.first?.customer_details ?? []
-        
-        
-        vocherdata1?.booking_details?.forEach({ i in
-            bookingRefrence = i.app_reference ?? ""
-            bookingsource = i.booking_source ?? ""
-            bookingStatus = i.status ?? ""
-        })
-        
-        DispatchQueue.main.async {
-            self.setupTV()
-        }
-    }
     
     
     override func viewDidLoad() {
@@ -81,6 +62,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
         // Do any additional setup after loading the view.
         setupUI()
         viewmodel = VocherDetailsViewModel(self)
+        hotelvm = HSecureBookingViewModel(self)
     }
     
     
@@ -207,7 +189,7 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
         guard let vc = LoadWebViewVC.newInstance.self else {return}
         vc.urlString = url
         vc.isVcFrom = "voucher"
-        vc.modalPresentationStyle = .fullScreen
+        vc.modalPresentationStyle = .overCurrentContext
         callapibool = true
         self.present(vc, animated: true)
         
@@ -215,6 +197,84 @@ class BookingConfirmedVC: BaseTableVC,VocherDetailsViewModelDelegate, UIDocument
     
 }
 
+
+extension BookingConfirmedVC {
+    
+    //MARK: - Flight Related Stuf
+    
+    func callFlightVoucherDetailsAPI() {
+        DispatchQueue.main.async {[self] in
+            viewmodel?.CALL_GET_VOUCHER_DETAILS_API(dictParam: [:], url: vocherurl )
+        }
+    }
+    
+    
+    func redirectvocherDetails(response: GetvoucherUrlModel) {
+        DispatchQueue.main.async {[self] in
+            viewmodel?.CALL_GET_VOUCHER_DETAILS_API(dictParam: [:], url: response.url ?? "" )
+        }
+    }
+    
+    
+    
+    func vocherdetails(response: VocherModel) {
+        BASE_URL = BASE_URL1
+        
+        vocherdata1 = response.data
+        fdetails = response.flight_details?.summary ?? []
+        kwdPrice = "\(response.price?.api_currency ?? ""):\(response.price?.api_total_display_fare ?? 0)"
+        vouchercustomerdetails = vocherdata1?.booking_details?.first?.customer_details ?? []
+        
+        
+        vocherdata1?.booking_details?.forEach({ i in
+            bookingRefrence = i.app_reference ?? ""
+            bookingsource = i.booking_source ?? ""
+            bookingStatus = i.status ?? ""
+        })
+        
+        DispatchQueue.main.async {
+            self.setupTV()
+        }
+    }
+    
+    
+}
+
+
+
+
+extension BookingConfirmedVC {
+    
+    //MARK: - Hotel Related Stuf
+    
+    func callHotelSecureBookingAPI(){
+        hotelvm?.CALL_HOTEL_VOUCHER_API(dictParam: [:], urlstr: self.vocherurl)
+    }
+    
+    
+    func hotelVoucherDetails(response: HotelVoucherModel) {
+        BASE_URL = BASE_URL1
+        
+        hotelVoucherData = response.data
+//        fdetails = response.flight_details?.summary ?? []
+        kwdPrice = "\(response.data?.booking_details?[0].currency ?? ""):\(response.data?.booking_details?[0].grand_total ?? 0.0)"
+        
+        
+        vouchercustomerdetails = vocherdata1?.booking_details?.first?.customer_details ?? []
+        
+        
+        vocherdata1?.booking_details?.forEach({ i in
+            bookingRefrence = i.app_reference ?? ""
+            bookingsource = i.booking_source ?? ""
+            bookingStatus = i.status ?? ""
+        })
+        
+        DispatchQueue.main.async {
+            self.setupTV()
+        }
+    }
+    
+}
 
 
 extension BookingConfirmedVC {

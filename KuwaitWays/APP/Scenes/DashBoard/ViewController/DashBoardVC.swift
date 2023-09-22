@@ -90,19 +90,6 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         }
         
         
-        //Hotel default Values
-        defaults.set("1", forKey: UserDefaultsKeys.roomcount)
-        defaults.set("1", forKey: UserDefaultsKeys.hoteladultscount)
-        defaults.set("0", forKey: UserDefaultsKeys.hotelchildcount)
-        adtArray.removeAll()
-        chArray.removeAll()
-        adtArray.append("1")
-        chArray.append("0")
-        defaults.set("\(defaults.string(forKey: UserDefaultsKeys.roomcount) ?? "") Rooms,\(defaults.string(forKey: UserDefaultsKeys.hoteladultscount) ?? "") Adults,\(defaults.string(forKey: UserDefaultsKeys.hotelchildcount) ?? "") Childreen", forKey: UserDefaultsKeys.selectPersons)
-        defaults.set(1, forKey: UserDefaultsKeys.guestcount)
-        
-        
-        
         if callapibool == true {
             callAPI()
         }
@@ -207,7 +194,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
             break
             
         case "Hotel":
-         //   gotoBookHotelVC()
+            gotoBookHotelVC()
             break
         default:
             break

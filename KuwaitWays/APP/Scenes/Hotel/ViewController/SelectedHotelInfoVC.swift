@@ -38,17 +38,11 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate, TimerMana
     
     
     
-    @objc func offline(notificatio:UNNotification) {
-        callapibool = true
-        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.key = "offline"
-        self.present(vc, animated: false)
-    }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
+        TimerManager.shared.delegate = self
+        addObserver()
         
         if  callapibool == true {
             ratekeyArray.removeAll()
@@ -56,24 +50,15 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate, TimerMana
             callAPI()
         }
         
-        TimerManager.shared.delegate = self
     }
     
-    func timerDidFinish() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
-    
-    func updateTimer() {
-        
-    }
     
     
     func callAPI() {
         payload["booking_source"] = hbooking_source
         payload["hotel_id"] = hotelid
         payload["search_id"] = hsearch_id
+        
         vm?.CALL_GET_HOTEL_DETAILS_API(dictParam: payload)
     }
     
@@ -219,7 +204,7 @@ extension SelectedHotelInfoVC {
         
         
         tablerow.append(TableRow(title:"Facilities",
-                                 moreData: hotelDetails.hotel_details?.facility,
+                                 moreData: hotelDetails.hotel_details?.facility_search,
                                  cellType:.FacilitiesTVCell))
         
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
@@ -232,3 +217,53 @@ extension SelectedHotelInfoVC {
 }
 
 
+
+
+extension SelectedHotelInfoVC {
+    
+    func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: Notification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name("reload"), object: nil)
+        
+    }
+    
+    
+    
+    @objc func reload(notification: NSNotification){
+        commonTableView.reloadData()
+    }
+    
+    //MARK: - resultnil
+    @objc func resultnil(notification: NSNotification){
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.key = "noresult"
+        self.present(vc, animated: false)
+    }
+    
+    
+    @objc func offline(notificatio:UNNotification) {
+        callapibool = true
+        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.key = "offline"
+        self.present(vc, animated: false)
+    }
+    
+    
+    func timerDidFinish() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    func updateTimer() {
+        
+    }
+    
+    
+}

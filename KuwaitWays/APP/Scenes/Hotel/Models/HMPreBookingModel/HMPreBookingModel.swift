@@ -8,22 +8,22 @@
 import Foundation
 
 struct HMPreBookingModel : Codable {
-    let status : Int?
+    let status : Bool?
     let msg : String?
-    let data : HMPreBookingData?
+    let form_url : String?
 
     enum CodingKeys: String, CodingKey {
 
         case status = "status"
         case msg = "msg"
-        case data = "data"
+        case form_url = "form_url"
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        status = try values.decodeIfPresent(Int.self, forKey: .status)
+        status = try values.decodeIfPresent(Bool.self, forKey: .status)
         msg = try values.decodeIfPresent(String.self, forKey: .msg)
-        data = try values.decodeIfPresent(HMPreBookingData.self, forKey: .data)
+        form_url = try values.decodeIfPresent(String.self, forKey: .form_url)
     }
 
 }

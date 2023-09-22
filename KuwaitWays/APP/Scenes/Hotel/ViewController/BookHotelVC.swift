@@ -159,7 +159,6 @@ class BookHotelVC: BaseTableVC {
     
     override func didTapOnSearchHotelsBtn(cell:ButtonTVCell){
         
-       
         payload.removeAll()
         payload["city"] = defaults.string(forKey: UserDefaultsKeys.locationcity)
         payload["hotel_destination"] = defaults.string(forKey: UserDefaultsKeys.locationid)
@@ -171,6 +170,8 @@ class BookHotelVC: BaseTableVC {
         payload["child"] = chArray
         
         for roomIndex in 0..<totalRooms {
+            
+            
             if let numChildren = Int(chArray[roomIndex]), numChildren > 0 {
                 var childAges: [String] = Array(repeating: "0", count: numChildren)
                 

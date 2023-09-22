@@ -25,12 +25,6 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var saveView: UIView!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
-    @IBOutlet weak var mrRadioImg: UIImageView!
-    @IBOutlet weak var mrlbl: UILabel!
-    @IBOutlet weak var mrBtn: UIButton!
-    @IBOutlet weak var mrsRadioImg: UIImageView!
-    @IBOutlet weak var mrslbl: UILabel!
-    @IBOutlet weak var mrsBtn: UIButton!
     @IBOutlet weak var mnameTF: UITextField!
     @IBOutlet weak var fnameTF: UITextField!
     @IBOutlet weak var lnameTF: UITextField!
@@ -108,8 +102,9 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
                 
                 // Update the gender property of the Traveler object at the specified index
                 travelerArray[self.indexposition ].passengertype = "AD"
-                travelerArray[self.indexposition ].laedpassenger = "1"
+                travelerArray[self.indexposition ].laedpassenger = "0"
                 travelerArray[self.indexposition ].middlename = ""
+                titledropDown.dataSource = ["Mr","Ms","Mrs"]
             } else {
                 if travelerArray.count <= self.indexposition {
                     travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
@@ -119,12 +114,15 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
                 travelerArray[self.indexposition ].passengertype = "CH"
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 travelerArray[self.indexposition ].middlename = ""
+                titledropDown.dataSource = ["Master","Miss"]
             }
             
         }
         
         
         if cellInfo?.title == "Adult 1" {
+            setAttributedText(str1: "Adult 1", str2: "  Lead Passanger")
+            travelerArray[self.indexposition ].laedpassenger = "1"
             expandView()
             expandViewBool = false
         }
@@ -143,16 +141,7 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
         holderView.clipsToBounds = true
         
         collapsView()
-        
-        
-        mrRadioImg.image = UIImage(named: "radioUnselected")?.withRenderingMode(.alwaysOriginal)
-        mrsRadioImg.image = UIImage(named: "radioUnselected")?.withRenderingMode(.alwaysOriginal)
-        setuplabels(lbl: mrlbl, text: "Male", textcolor: .AppLabelColor, font: .OpenSansBold(size: 14), align: .left)
-        setuplabels(lbl: mrslbl, text: "Female", textcolor: .AppLabelColor, font: .OpenSansBold(size: 14), align: .left)
-        mrBtn.setTitle("", for: .normal)
-        mrsBtn.setTitle("", for: .normal)
-        
-        setupTextField(txtField: titleTF, tag1: 1, label: "Title*", placeholder: "MR")
+        setupTextField(txtField: titleTF, tag1: 1, label: "Title*", placeholder: "Mr")
         setupTextField(txtField: fnameTF, tag1: 1, label: "First Name*", placeholder: "First Name")
         setupTextField(txtField: mnameTF, tag1: 1, label: "Middle Name(Optional)", placeholder: "Middle Name(Optional)")
         setupTextField(txtField: lnameTF, tag1: 2, label: "Last Name*", placeholder: "Last Name")
@@ -197,7 +186,6 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
         titledropDown.direction = .bottom
         titledropDown.backgroundColor = .WhiteColor
         titledropDown.anchorView = self.titleView
-        titledropDown.dataSource = ["MR","MS","MRS"]
         titledropDown.bottomOffset = CGPoint(x: 0, y: titleView.frame.size.height + 20)
         titledropDown.selectionAction = { [weak self] (index: Int, item: String) in
             self?.titleTF.text = item
@@ -207,16 +195,29 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
             }
             
             switch item {
-            case "MR":
+            case "Mr":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "1"
+                travelerArray[self?.indexposition ?? 0].gender = "1"
                 break
                 
-            case "MS":
+            case "Master":
+                travelerArray[self?.indexposition ?? 0].mrtitle = "4"
+                travelerArray[self?.indexposition ?? 0].gender = "1"
+                break
+                
+            case "Ms":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "2"
+                travelerArray[self?.indexposition ?? 0].gender = "2"
                 break
                 
-            case "MRS":
+            case "Miss":
                 travelerArray[self?.indexposition ?? 0].mrtitle = "3"
+                travelerArray[self?.indexposition ?? 0].gender = "2"
+                break
+                
+            case "Mrs":
+                travelerArray[self?.indexposition ?? 0].mrtitle = "5"
+                travelerArray[self?.indexposition ?? 0].gender = "2"
                 break
                 
             default:
@@ -266,7 +267,6 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
     }
     
     
-    
     private func getIndexPath() -> IndexPath? {
         guard let tableView = superview as? UITableView else {
             return nil
@@ -277,32 +277,7 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
     
     
     
-    @IBAction func didTapOnMrBtnAction(_ sender: Any) {
-        self.mrRadioImg.image = UIImage(named: "radioSelected")?.withRenderingMode(.alwaysOriginal).withTintColor(HexColor("#254179"))
-        self.mrsRadioImg.image = UIImage(named: "radioUnselected")
-        
-        if travelerArray.count <= indexposition {
-            travelerArray += Array(repeating: Traveler(), count: indexposition - travelerArray.count + 1)
-        }
-        
-        // Update the gender property of the Traveler object at the specified index
-        travelerArray[indexposition].gender = "1"
-        
-        delegate?.didTapOnMrBtnAction(cell: self)
-    }
     
-    @IBAction func didTapOnMrsBtnAction(_ sender: Any) {
-        self.mrRadioImg.image = UIImage(named: "radioUnselected")
-        self.mrsRadioImg.image = UIImage(named: "radioSelected")?.withRenderingMode(.alwaysOriginal).withTintColor(HexColor("#254179"))
-        
-        if travelerArray.count <= indexposition {
-            travelerArray += Array(repeating: Traveler(), count: indexposition - travelerArray.count + 1)
-        }
-        
-        // Update the gender property of the Traveler object at the specified index
-        travelerArray[indexposition].gender = "2"
-        delegate?.didTapOnMrsBtnAction(cell: self)
-    }
     
     
     @IBAction func didTapOnExpandAdultViewbtnAction(_ sender: Any) {
@@ -315,7 +290,25 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
         titledropDown.show()
     }
     
-
+    
+    
+    func setAttributedText(str1:String,str2:String)  {
+        
+        let atter1 = [NSAttributedString.Key.foregroundColor:UIColor.AppLabelColor,NSAttributedString.Key.font:UIFont.LatoRegular(size: 14)] as [NSAttributedString.Key : Any]
+        let atter2 = [NSAttributedString.Key.foregroundColor:UIColor.AppNavBackColor,NSAttributedString.Key.font:UIFont.LatoRegular(size: 10)] as [NSAttributedString.Key : Any]
+        
+        let atterStr1 = NSMutableAttributedString(string: str1, attributes: atter1)
+        let atterStr2 = NSMutableAttributedString(string: str2, attributes: atter2)
+        
+        
+        let combination = NSMutableAttributedString()
+        combination.append(atterStr1)
+        combination.append(atterStr2)
+        
+        titlelbl.attributedText = combination
+        
+    }
+    
 }
 
 

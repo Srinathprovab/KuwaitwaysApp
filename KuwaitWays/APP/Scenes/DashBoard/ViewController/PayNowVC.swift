@@ -46,7 +46,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var leadPassengerA = [String]()
     var activepaymentoptions = String()
     var tokenkey1 = String()
-    
+    var callpaymenthotelbool = true
     var tokenkey = String()
     let datePicker = UIDatePicker()
     var tablerow = [TableRow]()
@@ -64,10 +64,9 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var vm:PreProcessBookingViewModel?
     var vm1:HotelMBViewModel?
     var positionsCount = 0
-    var searchTextArray = [String]()
+    var callpaymentbool = Bool()
     
-    var callpaymentbool = true
-    
+    // Initialize an array to store the validation state for each cell
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,18 +77,8 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         
     }
     
-    
-    
-    @objc func offline(notificatio:UNNotification) {
-        callapibool = true
-        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.key = "offline"
-        self.present(vc, animated: false)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        searchTextArray.removeAll()
+        
         
         addObserver()
         
@@ -156,71 +145,11 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             }
         }
         
-        
-        
     }
     
     
     
     
-    //MARK: - CALL_PRE_PROCESS_BOOKING_API
-    func callAPI() {
-        payload.removeAll()
-        payload["search_id"] = searchid
-        payload["booking_source"] = bookingsourcekey
-        payload["access_key"] = accesskey
-        payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid)
-        vm?.CALL_PRE_PROCESS_BOOKING_API(dictParam: payload)
-    }
-    
-    func preProcessBookingDetails(response: PreProcessBookingModel) {
-        
-        if response.status == true{
-            tokenkey1 = response.form_params?.token_key ?? ""
-            
-            DispatchQueue.main.async {[self] in
-                callMobileBookingAPI(res: response)
-            }
-        }else {
-            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
-        }
-    }
-    
-    //MARK: - CALL_MOBILE_BOOKING_API
-    func callMobileBookingAPI(res:PreProcessBookingModel) {
-        
-       
-        payload.removeAll()
-        payload["search_id"] = searchid
-        payload["booking_source"] = bookingsourcekey
-        payload["promocode_val"] = ""
-        payload["access_key"] = accesskey
-        payload["booking_id"] = res.form_params?.booking_id
-        
-        
-        vm?.CALL_MOBILE_BOOKING_API(dictParam: payload)
-    }
-    
-    
-    func mobileBookingDetails(response: MobileBookingModel) {
-        if response.status == 1 {
-            
-            activepaymentoptions = response.active_payment_options?[0] ?? ""
-            tmpFlightPreBookingId = response.tmp_flight_pre_booking_id ?? ""
-            accesskey = response.access_key_tp ?? ""
-            bookingsource = response.booking_source ?? ""
-            
-            specialAssistancelist1 = response.special_allowance ?? []
-            meallist = response.meal_list ?? []
-            
-            
-            DispatchQueue.main.async {[self] in
-                setupTVCells()
-            }
-        }else {
-            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
-        }
-    }
     
     
     func setupUI() {
@@ -252,6 +181,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansMedium(size: 20))
         setupLabels(lbl: bookNowlbl, text: "PAY NOW", textcolor: .WhiteColor, font: .OpenSansMedium(size: 16))
         bookNowBtn.setTitle("", for: .normal)
+        
         
         commonTableView.registerTVCells(["TDetailsLoginTVCell",
                                          "EmptyTVCell",
@@ -351,8 +281,13 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         
         for i in 1...adultsCount {
             positionsCount += 1
-            let travellerCell = TableRow(title: "Adult \(i)", key: "adult", characterLimit: positionsCount, cellType: .AddDeatilsOfTravellerTVCell)
-            searchTextArray.append("Adult \(i)")
+            let travellerCell = TableRow(title: "Adult \(i)",
+                                         subTitle: "",
+                                         key: "adult",
+                                         characterLimit: positionsCount,
+                                         cellType: .AddDeatilsOfTravellerTVCell)
+            
+            
             tablerow.append(travellerCell)
             
         }
@@ -361,18 +296,35 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         if childCount != 0 {
             for i in 1...childCount {
                 positionsCount += 1
-                tablerow.append(TableRow(title:"Child \(i)",key:"child",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
-                searchTextArray.append("Child \(i)")
+                
+                let travellerCell = TableRow(title: "Child \(i)",
+                                             subTitle: "",
+                                             key: "child",
+                                             characterLimit: positionsCount,
+                                             cellType: .AddDeatilsOfTravellerTVCell)
+                
+                tablerow.append(travellerCell)
             }
         }
+        
+        
         
         if infantsCount != 0 {
             for i in 1...infantsCount {
                 positionsCount += 1
-                tablerow.append(TableRow(title:"Infant \(i)",key:"infant",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
-                searchTextArray.append("Infant \(i)")
+                let travellerCell = TableRow(title: "Infant \(i)",
+                                             subTitle: "",
+                                             key: "infant",
+                                             characterLimit: positionsCount,
+                                             cellType: .AddDeatilsOfTravellerTVCell)
+                
+                
+                
+                tablerow.append(travellerCell)
+                
             }
         }
+        
         
         tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
         //   tablerow.append(TableRow(cellType:.BillingAddressTVCell))
@@ -387,6 +339,11 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     }
     
     
+    
+    
+    
+    
+    
     //MARK: - didTapOnViewFlightDetails
     @objc func didTapOnViewFlightDetails(_ sender:UIButton) {
         guard let vc = ViewFlightDetailsVC.newInstance.self else {return}
@@ -398,7 +355,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     //MARK: - didTapOnViewHotelDetails
     @objc func didTapOnViewHotelDetails(_ sender:UIButton) {
         guard let vc = ViewHotelDetailsVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
+        vc.modalPresentationStyle = .overCurrentContext
         isFromVCBool = true
         self.present(vc, animated: true)
     }
@@ -501,9 +458,155 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     
 }
 
+extension PayNowVC {
+    
+    //MARK: - CALL_PRE_PROCESS_BOOKING_API
+    func callAPI() {
+        payload.removeAll()
+        payload["search_id"] = searchid
+        payload["booking_source"] = bookingsourcekey
+        payload["access_key"] = accesskey
+        payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid)
+        vm?.CALL_PRE_PROCESS_BOOKING_API(dictParam: payload)
+    }
+    
+    func preProcessBookingDetails(response: PreProcessBookingModel) {
+        
+        if response.status == true{
+            tokenkey1 = response.form_params?.token_key ?? ""
+            
+            DispatchQueue.main.async {[self] in
+                callMobileBookingAPI(res: response)
+            }
+        }else {
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+        }
+    }
+    
+    //MARK: - CALL_MOBILE_BOOKING_API
+    func callMobileBookingAPI(res:PreProcessBookingModel) {
+        
+        
+        payload.removeAll()
+        payload["search_id"] = searchid
+        payload["booking_source"] = bookingsourcekey
+        payload["promocode_val"] = ""
+        payload["access_key"] = accesskey
+        payload["booking_id"] = res.form_params?.booking_id
+        
+        
+        vm?.CALL_MOBILE_BOOKING_API(dictParam: payload)
+    }
+    
+    
+    func mobileBookingDetails(response: MobileBookingModel) {
+        if response.status == 1 {
+            
+            activepaymentoptions = response.active_payment_options?[0] ?? ""
+            tmpFlightPreBookingId = response.tmp_flight_pre_booking_id ?? ""
+            accesskey = response.access_key_tp ?? ""
+            bookingsource = response.booking_source ?? ""
+            
+            specialAssistancelist1 = response.special_allowance ?? []
+            meallist = response.meal_list ?? []
+            
+            
+            DispatchQueue.main.async {[self] in
+                setupTVCells()
+            }
+        }else {
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+        }
+    }
+    
+    
+    
+}
+
+
 
 //MARK: - Did Tap On Flight Pay Now Button API Calls
 extension PayNowVC {
+    
+    
+    // Define a validation function for a cell
+    func validateCell(_ cell: AddDeatilsOfTravellerTVCell) -> Bool {
+        var isValid1 = true
+        
+        // Validate titleTF
+        if cell.titleTF.text?.isEmpty == true {
+            cell.titleView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else {
+            cell.titleView.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        // Validate fnameTF
+        if cell.fnameTF.text?.isEmpty == true {
+            cell.fnameView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else if (cell.fnameTF.text?.count ?? 0) <= 3 {
+            showToast(message: "Enter More Than 3 Chars")
+            cell.fnameView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else {
+            cell.fnameView.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        // Validate lnameTF
+        if cell.lnameTF.text?.isEmpty == true {
+            cell.lnameView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else if (cell.lnameTF.text?.count ?? 0) <= 3 {
+            showToast(message: "Enter More Than 3 Chars")
+            cell.lnameView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else {
+            cell.lnameView.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        
+        // Validate dobTF
+        if cell.dobTF.text?.isEmpty == true {
+            cell.dobView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else {
+            cell.dobView.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        
+        // Validate passportnoTF
+        if cell.passportnoTF.text?.isEmpty == true {
+            cell.passportnoView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else {
+            cell.passportnoTF.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        
+        // Validate passportIssuingCountryTF
+        if cell.passportIssuingCountryTF.text?.isEmpty == true {
+            cell.issuecountryView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else {
+            cell.issuecountryView.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        
+        // Validate passportExpireDateTF
+        if cell.passportExpireDateTF.text?.isEmpty == true {
+            cell.passportexpireView.layer.borderColor = UIColor.red.cgColor
+            isValid1 = false
+        } else {
+            cell.passportexpireView.layer.borderColor = UIColor.clear.cgColor
+        }
+        
+        
+        
+        return isValid1
+    }
+    
+    
     
     func tapOnPayNow() {
         
@@ -511,96 +614,29 @@ extension PayNowVC {
         payload1.removeAll()
         
         var textfilldshouldmorethan3lettersBool = true
-        // Assuming you have a positionsCount variable that holds the number of cells in the table view
-        let positionsCount = commonTableView.numberOfRows(inSection: 0)
         
+        
+        
+        
+        let positionsCount = commonTableView.numberOfRows(inSection: 0)
         for position in 0..<positionsCount {
             // Fetch the cell for the given position
             if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfTravellerTVCell {
                 
-                if cell.titleTF.text?.isEmpty == true {
-                    // Textfield is empty
-                    cell.titleView.layer.borderColor = UIColor.red.cgColor
-                    callpaymentbool = false
-                    
+                
+                // Call the validation function for the cell
+                var isValid = validateCell(cell)
+                
+                // Update your global validation state (callpaymentbool) based on this cell's validation result
+                if isValid == true{
+                    callpaymentbool = true
                 } else {
-                    // Textfield is not empty
-                    callpaymentbool = true
-                }
-                
-                if cell.fnameTF.text?.isEmpty == true{
-                    // Textfield is empty
-                    cell.fnameView.layer.borderColor = UIColor.red.cgColor
-                    cell.callpaymentbool = false
-                }else if ((cell.fnameTF.text?.count ?? 0) <= 3) {
-                    // Textfield is empty
-                    showToast(message: "Enter More Than 3 Chars")
-                    cell.fnameView.layer.borderColor = UIColor.red.cgColor
-                    textfilldshouldmorethan3lettersBool = false
                     callpaymentbool = false
-                }else {
-                    // Textfield is not empty
-                    callpaymentbool = true
                 }
-                
-                if cell.lnameTF.text?.isEmpty == true {
-                    // Textfield is empty
-                    cell.lnameView.layer.borderColor = UIColor.red.cgColor
-                    callpaymentbool = false
-                } else if ((cell.lnameTF.text?.count ?? 0) <= 3) {
-                    // Textfield is empty
-                    showToast(message: "Enter More Than 3 Chars")
-                    cell.lnameView.layer.borderColor = UIColor.red.cgColor
-                    textfilldshouldmorethan3lettersBool = false
-                    cell.callpaymentbool = false
-                }else {
-                    // Textfield is not empty
-                    callpaymentbool = true
-                }
-                
-                
-                if cell.dobTF.text?.isEmpty == true {
-                    // Textfield is empty
-                    cell.dobView.layer.borderColor = UIColor.red.cgColor
-                    callpaymentbool = false
-                } else {
-                    // Textfield is not empty
-                    callpaymentbool = true
-                }
-                
-                
-                if cell.passportnoTF.text?.isEmpty == true {
-                    // Textfield is empty
-                    cell.passportnoView.layer.borderColor = UIColor.red.cgColor
-                    callpaymentbool = false
-                } else {
-                    // Textfield is not empty
-                    callpaymentbool = true
-                }
-                
-                
-                if cell.passportIssuingCountryTF.text?.isEmpty == true {
-                    // Textfield is empty
-                    cell.issuecountryView.layer.borderColor = UIColor.red.cgColor
-                    callpaymentbool = false
-                } else {
-                    // Textfield is not empty
-                    callpaymentbool = true
-                }
-                
-                
-                if cell.passportExpireDateTF.text?.isEmpty == true {
-                    // Textfield is empty
-                    cell.passportexpireView.layer.borderColor = UIColor.red.cgColor
-                    callpaymentbool = false
-                } else {
-                    // Textfield is not empty
-                    callpaymentbool = true
-                }
-                
                 
             }
         }
+        
         
         
         let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
@@ -614,10 +650,10 @@ extension PayNowVC {
         let passportnoArray = travelerArray.compactMap({$0.passportno})
         let passportIssuingCountryArray = travelerArray.compactMap({$0.passportIssuingCountry})
         let passportExpireDateArray = travelerArray.compactMap({$0.passportExpireDate})
-//        let frequentFlyrNoArray = travelerArray.compactMap({$0.frequentFlyrNo})
-//        let mealNameArray = travelerArray.compactMap({$0.meal})
-//        let specialAssicintenceArray = travelerArray.compactMap({$0.specialAssicintence})
-//        let nationalityArray = travelerArray.compactMap({$0.nationality})
+        //        let frequentFlyrNoArray = travelerArray.compactMap({$0.frequentFlyrNo})
+        //        let mealNameArray = travelerArray.compactMap({$0.meal})
+        //        let specialAssicintenceArray = travelerArray.compactMap({$0.specialAssicintence})
+        //        let nationalityArray = travelerArray.compactMap({$0.nationality})
         
         
         // Convert arrays to string representations
@@ -633,7 +669,7 @@ extension PayNowVC {
         let passportExpireDateString = "[\"" + passportExpireDateArray.joined(separator: "\",\"") + "\"]"
         let passengertypeArrayString = "[\"" + passengertypeArray.joined(separator: "\",\"") + "\"]"
         
-  
+        
         payload["search_id"] = searchid
         payload["tmp_flight_pre_booking_id"] = tmpFlightPreBookingId
         payload["token_key"] = tokenkey1
@@ -687,6 +723,7 @@ extension PayNowVC {
         if textfilldshouldmorethan3lettersBool == false {
             showToast(message: "Enter More Than 3 Chars")
         }else if callpaymentbool == false {
+            
             showToast(message: "Add Details")
         }else if checkTermsAndCondationStatus == false {
             showToast(message: "Please Accept T&C and Privacy Policy")
@@ -782,7 +819,7 @@ extension PayNowVC:HotelMBViewModelDelegate {
         for i in 1...adultsCount {
             positionsCount += 1
             let travellerCell = TableRow(title: "Adult \(i)", key: "adult", characterLimit: positionsCount, cellType: .AddDeatilsOfGuestTVCell)
-            searchTextArray.append("Adult \(i)")
+            
             tablerow.append(travellerCell)
             
         }
@@ -792,7 +829,7 @@ extension PayNowVC:HotelMBViewModelDelegate {
             for i in 1...childCount {
                 positionsCount += 1
                 tablerow.append(TableRow(title:"Child \(i)",key:"child",characterLimit: positionsCount,cellType:.AddDeatilsOfGuestTVCell))
-                searchTextArray.append("Child \(i)")
+                
             }
         }
         
@@ -807,10 +844,10 @@ extension PayNowVC:HotelMBViewModelDelegate {
                                  headerText: defaults.string(forKey: UserDefaultsKeys.hoteladultscount),
                                  buttonTitle: defaults.string(forKey: UserDefaultsKeys.checkin),
                                  key1: defaults.string(forKey: UserDefaultsKeys.refundtype),
-                                 questionType: "KWD:30.00",
+                                 questionType: "KWD:00.00",
                                  TotalQuestions:grandTotal,
                                  cellType:.HotelPurchaseSummaryTVCell,
-                                 questionBase: "KWD:150.00"))
+                                 questionBase: "\(grandTotal)"))
         tablerow.append(TableRow(title:"I Accept T&C and Privacy Policy",cellType:.AcceptTermsAndConditionTVCell))
         tablerow.append(TableRow(height:30, bgColor:.AppBGcolor,cellType:.EmptyTVCell))
         
@@ -826,12 +863,15 @@ extension PayNowVC:HotelMBViewModelDelegate {
     
     //MARK: - callHotelMobileBookingAPI
     func callHotelMobileBookingAPI() {
+        
+        let ratekeyArrayString = "[\"" + ratekeyArray.joined(separator: "\",\"") + "\"]"
+        
         payload.removeAll()
         payload["search_id"] = hsearch_id
         payload["booking_source"] = hbooking_source
         payload["token"] = htoken
         payload["token_key"] = htokenkey
-        payload["rateKey"] = ratekeyArray
+        payload["rateKey"] = ratekeyArrayString
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         
         
@@ -854,6 +894,8 @@ extension PayNowVC:HotelMBViewModelDelegate {
         
     }
     
+    
+    
     func hotelTapPayNow() {
         
         
@@ -862,99 +904,96 @@ extension PayNowVC:HotelMBViewModelDelegate {
         
         
         
-        
-        var callpaymenthotelbool = true
         var matchingCells: [AddDeatilsOfGuestTVCell] = []
         // Replace with the desired search texts
         
-        for case let cell as AddDeatilsOfGuestTVCell in commonTableView.visibleCells {
-            if let cellText = cell.titlelbl.text, searchTextArray.contains(cellText) {
-                matchingCells.append(cell)
-            }
-        }
-        
-        for cell in matchingCells {
-            
-            if cell.titleTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.titleView.layer.borderColor = UIColor.red.cgColor
-                callpaymenthotelbool = false
+        let positionsCount = commonTableView.numberOfRows(inSection: 0)
+        for position in 0..<positionsCount {
+            // Fetch the cell for the given position
+            if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfGuestTVCell {
                 
-            } else {
-                // Textfield is not empty
+                
+                if cell.titleTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.titleView.layer.borderColor = UIColor.red.cgColor
+                    callpaymenthotelbool = false
+                    
+                } else {
+                    // Textfield is not empty
+                    
+                    
+                }
+                
+                if cell.fnameTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    
+                    
+                    cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                    callpaymenthotelbool = false
+                } else {
+                    // Textfield is not empty
+                    
+                    
+                }
+                
+                if cell.lnameTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.lnameView.layer.borderColor = UIColor.red.cgColor
+                    callpaymenthotelbool = false
+                } else {
+                    // Textfield is not empty
+                }
+                
             }
             
-            if cell.fnameTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.fnameView.layer.borderColor = UIColor.red.cgColor
-                callpaymenthotelbool = false
-            } else {
-                // Textfield is not empty
-            }
             
-            if cell.lnameTF.text?.isEmpty == true {
-                // Textfield is empty
-                cell.lnameView.layer.borderColor = UIColor.red.cgColor
-                callpaymenthotelbool = false
-            } else {
-                // Textfield is not empty
-            }
+            let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
+            let passengertypeArray = travelerArray.compactMap({$0.passengertype})
+            let firstnameArray = travelerArray.compactMap({$0.firstName})
+            let lastNameArray = travelerArray.compactMap({$0.lastName})
             
+            
+            let mrtitleString = "[\"" + mrtitleArray.joined(separator: "\",\"") + "\"]"
+            let firstnameString = "[\"" + firstnameArray.joined(separator: "\",\"") + "\"]"
+            let lastNameString = "[\"" + lastNameArray.joined(separator: "\",\"") + "\"]"
+            let passengertypeString = "[\"" + passengertypeArray.joined(separator: "\",\"") + "\"]"
+            
+            
+            payload["search_id"] = hsearch_id
+            payload["booking_source"] = hbooking_source
+            payload["promo_code"] = ""
+            payload["token"] = hbookingToken
+            payload["redeem_points_post"] = "0"
+            payload["reducing_amount"] = "0"
+            payload["reward_usable"] = "0"
+            payload["reward_earned"] = "0"
+            payload["billing_email"] = email
+            payload["passenger_contact"] = mobile
+            payload["first_name"] =  firstnameString
+            payload["last_name"] =  lastNameString
+            payload["name_title"] =  mrtitleString
+            payload["billing_country"] = billingCountryCode
+            payload["country_code"] = countryCode
+            payload["passenger_type"] = passengertypeString
+            
+            if billingCountryCode == "" {
+                showToast(message: "Enter Country Code")
+            }else if callpaymenthotelbool == false{
+                showToast(message: "Add Details")
+            }else if checkTermsAndCondationStatus == false {
+                showToast(message: "Please Accept T&C and Privacy Policy")
+            }else {
+                vm1?.CALL_GET_HOTEL_MOBILE_PRE_BOOKING_DETAILS_API(dictParam: payload)
+            }
         }
-        
-        
-        let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
-        let passengertypeArray = travelerArray.compactMap({$0.passengertype})
-        let firstnameArray = travelerArray.compactMap({$0.firstName})
-        let lastNameArray = travelerArray.compactMap({$0.lastName})
-        
-        
-        payload["search_id"] = hsearch_id
-        payload["booking_source"] = hbooking_source
-        payload["promo_code"] = ""
-        payload["token"] = hbookingToken
-        payload["redeem_points_post"] = "0"
-        payload["reducing_amount"] = "0"
-        payload["reward_usable"] = "0"
-        payload["reward_earned"] = "0"
-        payload["billing_email"] = email
-        payload["passenger_contact"] = mobile
-        payload["first_name"] =  firstnameArray
-        payload["last_name"] =  lastNameArray
-        payload["name_title"] =  mrtitleArray
-        payload["billing_country"] = billingCountryCode
-        payload["country_code"] = countryCode
-        payload["passenger_type"] = passengertypeArray
-        
-        if billingCountryCode == "" {
-            showToast(message: "Enter Country Code")
-        }else if callpaymenthotelbool == false{
-            showToast(message: "Add Details")
-        }else if checkTermsAndCondationStatus == false {
-            showToast(message: "Please Accept T&C and Privacy Policy")
-        }else {
-            vm1?.CALL_GET_HOTEL_MOBILE_PRE_BOOKING_DETAILS_API(dictParam: payload)
-        }
-        
     }
     
     
     func hotelMobilePreBookingDetails(response: HMPreBookingModel) {
         BASE_URL = ""
         secureapidonebool = true
-        vm1?.CALL_GET_HOTEL_SECURE_BOOKING_API(dictParam: [:], urlstr: response.data?.post_data?.url ?? "")
+        gotoLoadWebViewVC(url: response.form_url ?? "")
     }
-    
-    
-    func hotelSecureBookingDetails(response: HotelSecureBookingModel) {
-        BASE_URL = BASE_URL1
-        
-        if response.status == 1 {
-            print(response.url)
-            gotoLoadWebViewVC(url: response.url ?? "")
-        }
-    }
-    
     
     
     
@@ -1006,9 +1045,5 @@ extension PayNowVC {
     func updateTimer() {
         
     }
-    
-    
-    
-    
     
 }

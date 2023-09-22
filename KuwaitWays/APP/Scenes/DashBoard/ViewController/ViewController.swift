@@ -127,9 +127,22 @@ class ViewController: UIViewController {
         if ExecuteOnceBool == true {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
                 self.gotodashBoardScreen()
+                
+                
+//                defaults.set("Hotel", forKey: UserDefaultsKeys.tabselect)
+//                self.gotoBookingConfirmedVC(url: "https://kuwaitways.com/mobile_webservices/index.php/voucher/hotel/KW-H-DW-21092023-1202-8911/PTBSID0000000089/BOOKING_CONFIRMED/show_voucher")
             })
         }
         
+    }
+    
+    
+    func gotoBookingConfirmedVC(url:String) {
+        guard let vc = BookingConfirmedVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.vocherurl = url
+        callapibool = true
+        present(vc, animated: true)
     }
     
     

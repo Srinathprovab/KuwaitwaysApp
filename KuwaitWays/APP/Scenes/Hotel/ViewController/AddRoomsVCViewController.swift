@@ -30,7 +30,7 @@ class AddRoomsVCViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var tv: UITableView!
     
-    var totalRooms = Int()
+    
     var totalAdults = Int()
     var totalChildren = Int()
     static var newInstance: AddRoomsVCViewController? {
@@ -334,19 +334,29 @@ class AddRoomsVCViewController: UIViewController, UITableViewDelegate, UITableVi
             adtArray.removeAll()
             chArray.removeAll()
             totalRooms = cell.roomCount
-            totalAdults = (cell.adultcount + cell.adultcount2)
-            switch totalRooms {
-            case 1:
+            //  totalAdults = (cell.adultcount + cell.adultcount2)
+            
+            
+            
+            if totalRooms == 1 {
+                
                 totalAdults = (cell.adultcount)
                 totalChildren = (cell.childCount)
+                
                 adtArray.append("\(cell.adultcount)")
                 chArray.append("\(cell.childCount)")
                 
-                break
                 
-            case 2:
+                
+                
+            }
+            
+            if totalRooms == 2 {
+                
                 totalAdults = (cell.adultcount + cell.adultcount2)
                 totalChildren = (cell.childCount + cell.childCount2)
+                
+                
                 adtArray.append("\(cell.adultcount)")
                 chArray.append("\(cell.childCount)")
                 
@@ -354,9 +364,10 @@ class AddRoomsVCViewController: UIViewController, UITableViewDelegate, UITableVi
                 chArray.append("\(cell.childCount2)")
                 
                 
-                break
-                
-            case 3:
+            }
+            
+            
+            if totalRooms == 3 {
                 totalAdults = (cell.adultcount + cell.adultcount2 + cell.adultcount3)
                 totalChildren = (cell.childCount + cell.childCount2 + cell.childCount3)
                 adtArray.append("\(cell.adultcount)")
@@ -367,24 +378,29 @@ class AddRoomsVCViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 adtArray.append("\(cell.adultcount3)")
                 chArray.append("\(cell.childCount3)")
-                
-                break
-                
-           
-                
-                
-            default:
-                break
             }
+            
+            
+           
+            
         }
         
+        
+        
+        print("totalRooms ==== \(totalRooms)")
+        print("totalAdults ==== \(totalAdults)")
+        print("totalChildren ==== \(totalChildren)")
+        
+        print("adtArray ==== \(adtArray)")
+        print("chArray ==== \(chArray)")
         
         defaults.set(totalRooms, forKey: UserDefaultsKeys.roomcount)
         defaults.set(totalAdults, forKey: UserDefaultsKeys.hoteladultscount)
         defaults.set(totalChildren, forKey: UserDefaultsKeys.hotelchildcount)
-        defaults.set((totalAdults + totalChildren), forKey: UserDefaultsKeys.guestcount)
         
-     
+        
+        
+        
         if totalChildren == 0 {
             defaults.set("Rooms \(defaults.string(forKey: UserDefaultsKeys.roomcount) ?? ""):Adults \(defaults.string(forKey: UserDefaultsKeys.hoteladultscount) ?? "")", forKey: UserDefaultsKeys.selectPersons)
         }else {
@@ -392,7 +408,8 @@ class AddRoomsVCViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         
-        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
+        
+        NotificationCenter.default.post(name: NSNotification.Name("hotelrooms"), object: nil)
         dismiss(animated: true)
         
     }

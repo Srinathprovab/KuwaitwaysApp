@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -24,21 +26,21 @@
             <objects>
                 <viewController storyboardIdentifier="BookHotelVC" id="Y6W-OH-hqX" customClass="BookHotelVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YO3-xj-xfF">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZgR-ja-1PI" customClass="NavBar" customModule="KuwaitWays" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="128"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="avX-en-LYA"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cUO-dD-G9i">
-                                        <rect key="frame" x="0.0" y="128" width="600" height="472"/>
+                                        <rect key="frame" x="0.0" y="128" width="393" height="724"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -79,25 +81,25 @@
             <objects>
                 <viewController storyboardIdentifier="HotelSearchResultVC" id="1bW-nx-n0d" customClass="HotelSearchResultVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1VL-CO-iif">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3W-sP-LMD">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-6h-byr" customClass="NavBar" customModule="KuwaitWays" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="128"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="O5T-TJ-fh3"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3hX-X3-jdQ">
-                                        <rect key="frame" x="0.0" y="178" width="600" height="422"/>
+                                        <rect key="frame" x="0.0" y="178" width="393" height="674"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rda-Tu-uMy">
-                                        <rect key="frame" x="0.0" y="128" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="128" width="393" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpi-bq-zdV">
                                                 <rect key="frame" x="16.000000000000004" y="5" width="37.333333333333343" height="18"/>
@@ -112,7 +114,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="KU6-Ce-dJJ">
-                                                <rect key="frame" x="499" y="10" width="85" height="30"/>
+                                                <rect key="frame" x="292" y="10" width="85" height="30"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWE-6C-HJ0">
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -232,25 +234,25 @@
             <objects>
                 <viewController storyboardIdentifier="SelectedHotelInfoVC" id="DP3-a1-mL9" customClass="SelectedHotelInfoVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MPv-X3-hZP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0b-Lc-18M">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQj-ce-l33" customClass="NavBar" customModule="KuwaitWays" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="128"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="xPJ-s8-XC3"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="itx-xe-aUV">
-                                        <rect key="frame" x="0.0" y="128" width="600" height="402"/>
+                                        <rect key="frame" x="0.0" y="128" width="393" height="654"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzv-EJ-N5G">
-                                        <rect key="frame" x="0.0" y="530" width="600" height="70"/>
+                                        <rect key="frame" x="0.0" y="782" width="393" height="70"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSN-uy-xbj">
                                                 <rect key="frame" x="20" y="24.666666666666629" width="42" height="21"/>
@@ -259,7 +261,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l0c-vt-KWc">
-                                                <rect key="frame" x="458" y="15" width="130" height="40"/>
+                                                <rect key="frame" x="251" y="15" width="130" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOK NOW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSC-wg-SiV">
                                                         <rect key="frame" x="19" y="9.6666666666666288" width="92" height="21"/>
@@ -342,62 +344,33 @@
             <objects>
                 <viewController storyboardIdentifier="MapViewVC" id="qW1-Md-LfT" customClass="MapViewVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Ge-Ks-BPu">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPs-1d-zv8">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7s-VA-ydR" customClass="NavBar" customModule="KuwaitWays" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="128"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="pAq-Jr-Mkm"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ub0-he-8qS">
-                                        <rect key="frame" x="30" y="145" width="540" height="45"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cvP-Db-Z3t">
-                                                <rect key="frame" x="18" y="12.666666666666657" width="20" height="20"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="20" id="CL2-Ln-LIs"/>
-                                                    <constraint firstAttribute="height" constant="20" id="cB7-Jc-dtN"/>
-                                                </constraints>
-                                            </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nda-vY-clD">
-                                                <rect key="frame" x="38" y="0.0" width="502" height="45"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="0aq-0P-4VH"/>
-                                            <constraint firstItem="cvP-Db-Z3t" firstAttribute="centerY" secondItem="Ub0-he-8qS" secondAttribute="centerY" id="EFs-st-LTh"/>
-                                            <constraint firstAttribute="trailing" secondItem="nda-vY-clD" secondAttribute="trailing" id="QcM-Mc-vQK"/>
-                                            <constraint firstItem="cvP-Db-Z3t" firstAttribute="leading" secondItem="Ub0-he-8qS" secondAttribute="leading" constant="18" id="XnE-Gr-7vb"/>
-                                            <constraint firstItem="nda-vY-clD" firstAttribute="leading" secondItem="cvP-Db-Z3t" secondAttribute="trailing" id="ax9-5E-ggt"/>
-                                            <constraint firstAttribute="bottom" secondItem="nda-vY-clD" secondAttribute="bottom" id="qa3-Ni-P68"/>
-                                            <constraint firstItem="nda-vY-clD" firstAttribute="top" secondItem="Ub0-he-8qS" secondAttribute="top" id="t7y-NK-f5N"/>
-                                        </constraints>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT1-Zv-dzG">
+                                        <rect key="frame" x="0.0" y="128" width="393" height="724"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="n95-JW-oBG">
-                                        <rect key="frame" x="0.0" y="210" width="600" height="390"/>
-                                    </mapView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="n95-JW-oBG" firstAttribute="leading" secondItem="BPs-1d-zv8" secondAttribute="leading" id="0td-H1-lZh"/>
                                     <constraint firstItem="c7s-VA-ydR" firstAttribute="top" secondItem="BPs-1d-zv8" secondAttribute="top" id="BcY-Rh-whj"/>
-                                    <constraint firstAttribute="bottom" secondItem="n95-JW-oBG" secondAttribute="bottom" id="Bv9-wJ-qzG"/>
-                                    <constraint firstItem="n95-JW-oBG" firstAttribute="top" secondItem="Ub0-he-8qS" secondAttribute="bottom" constant="20" id="FKm-Oc-oxy"/>
-                                    <constraint firstItem="Ub0-he-8qS" firstAttribute="leading" secondItem="BPs-1d-zv8" secondAttribute="leading" constant="30" id="Frw-Bm-pee"/>
                                     <constraint firstAttribute="trailing" secondItem="c7s-VA-ydR" secondAttribute="trailing" id="Inb-YF-Usn"/>
-                                    <constraint firstItem="Ub0-he-8qS" firstAttribute="top" secondItem="c7s-VA-ydR" secondAttribute="bottom" constant="17" id="NPh-dY-kPN"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ub0-he-8qS" secondAttribute="trailing" constant="30" id="RSR-RE-w4m"/>
-                                    <constraint firstAttribute="trailing" secondItem="n95-JW-oBG" secondAttribute="trailing" id="jFX-xu-8MK"/>
+                                    <constraint firstAttribute="trailing" secondItem="tT1-Zv-dzG" secondAttribute="trailing" id="hmp-1l-1kl"/>
+                                    <constraint firstAttribute="bottom" secondItem="tT1-Zv-dzG" secondAttribute="bottom" id="oAV-cL-OLb"/>
+                                    <constraint firstItem="tT1-Zv-dzG" firstAttribute="top" secondItem="c7s-VA-ydR" secondAttribute="bottom" id="r3y-KM-tin"/>
                                     <constraint firstItem="c7s-VA-ydR" firstAttribute="leading" secondItem="BPs-1d-zv8" secondAttribute="leading" id="uu0-Jh-1Fx"/>
+                                    <constraint firstItem="tT1-Zv-dzG" firstAttribute="leading" secondItem="BPs-1d-zv8" secondAttribute="leading" id="vb0-Rz-DJ0"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -411,13 +384,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="holderView" destination="BPs-1d-zv8" id="Hg9-s2-ip0"/>
-                        <outlet property="mapView" destination="n95-JW-oBG" id="HL3-F8-UrM"/>
+                        <outlet property="googleMapView" destination="tT1-Zv-dzG" id="Fof-x8-Fvn"/>
                         <outlet property="nav" destination="c7s-VA-ydR" id="EI9-so-60Z"/>
                         <outlet property="navHeight" destination="pAq-Jr-Mkm" id="n9O-QX-Seb"/>
-                        <outlet property="searchImg" destination="cvP-Db-Z3t" id="HoC-WZ-8Bd"/>
-                        <outlet property="searchTF" destination="nda-vY-clD" id="Ior-Mq-sib"/>
-                        <outlet property="textFieldHolderView" destination="Ub0-he-8qS" id="1JS-C7-Qna"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TdY-DS-5se" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -429,18 +398,18 @@
             <objects>
                 <viewController storyboardIdentifier="AddRoomsVCViewController" id="9qD-dX-gbS" customClass="AddRoomsVCViewController" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Etb-NM-rSO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecd-zj-uEe">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gA1-OO-22E">
-                                        <rect key="frame" x="0.0" y="190" width="600" height="410"/>
+                                        <rect key="frame" x="0.0" y="190" width="393" height="662"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wX5-tF-6il">
-                                        <rect key="frame" x="0.0" y="150" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="150" width="393" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIS-jL-ege">
                                                 <rect key="frame" x="17" y="9.6666666666666572" width="42" height="21"/>
@@ -449,7 +418,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AyE-3h-Shn">
-                                                <rect key="frame" x="557" y="0.0" width="43" height="40"/>
+                                                <rect key="frame" x="350" y="0.0" width="43" height="40"/>
                                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="multiply" catalog="system"/>
@@ -503,21 +472,21 @@
             <objects>
                 <viewController storyboardIdentifier="ModifyHotelSearchVC" id="7cs-km-cT8" customClass="ModifyHotelSearchVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JdM-JT-Xai">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eA7-uc-Ofz">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbO-sf-vOp" customClass="NavBar" customModule="KuwaitWays" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="128"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="W4p-QF-k5X"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zKJ-et-n8t">
-                                        <rect key="frame" x="0.0" y="128" width="600" height="472"/>
+                                        <rect key="frame" x="0.0" y="128" width="393" height="724"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -558,19 +527,19 @@
             <objects>
                 <viewController storyboardIdentifier="CancellationPolicyPopupVC" id="MU0-62-g1N" customClass="CancellationPolicyPopupVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="giz-1P-dh1">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uWj-vi-kGe">
-                                <rect key="frame" x="180" y="235" width="240" height="130"/>
+                                <rect key="frame" x="76.666666666666686" y="361" width="240" height="130"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Cancellation Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1UI-C7-xSP">
-                                        <rect key="frame" x="10" y="10" width="136.33333333333334" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancellation Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1UI-C7-xSP">
+                                        <rect key="frame" x="10" y="10" width="151" height="22"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="16"/>
                                         <color key="textColor" name="AppLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wp3-DM-YV6">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wp3-DM-YV6">
                                         <rect key="frame" x="0.0" y="37" width="240" height="1"/>
                                         <color key="backgroundColor" name="AppBorderColor"/>
                                         <constraints>
@@ -581,7 +550,7 @@
                                         <rect key="frame" x="170" y="100" width="60" height="25"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Close" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO6-sK-0fb">
-                                                <rect key="frame" x="14.666666666666686" y="5.6666666666666856" width="31" height="14"/>
+                                                <rect key="frame" x="14.333333333333343" y="4.3333333333333144" width="31" height="16.666666666666668"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -614,13 +583,13 @@
                                             <constraint firstAttribute="height" constant="1" id="KB7-Nx-FCS"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZi-hw-pNd">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZi-hw-pNd">
                                         <rect key="frame" x="10" y="43" width="220" height="20"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                         <color key="textColor" name="AppLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFQ-lH-hh8">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFQ-lH-hh8">
                                         <rect key="frame" x="10" y="68" width="220" height="20"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                         <color key="textColor" name="AppLabelColor"/>
@@ -672,21 +641,21 @@
             <objects>
                 <viewController storyboardIdentifier="ViewHotelDetailsVC" id="yV2-t5-OLE" customClass="ViewHotelDetailsVC" customModule="KuwaitWays" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Sqb-01-VP0">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mnf-bM-7ic">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHa-tk-saU" customClass="NavBar" customModule="KuwaitWays" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="128"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="ERv-dj-UsB"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8hr-sa-B9E">
-                                        <rect key="frame" x="0.0" y="128" width="600" height="472"/>
+                                        <rect key="frame" x="0.0" y="128" width="393" height="724"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -742,9 +711,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

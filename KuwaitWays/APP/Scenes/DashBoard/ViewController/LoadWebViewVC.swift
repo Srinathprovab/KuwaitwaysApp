@@ -156,7 +156,8 @@ class LoadWebViewVC: UIViewController, TimerManagerDelegate {
     
     
     func gotoBookingConfirmedVC(url:String) {
-        TimerManager.shared.sessionStop()
+        TimerManager.shared.stopTimer()
+        BASE_URL = BASE_URL1
         guard let vc = BookingConfirmedVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
         vc.vocherurl = url
@@ -167,6 +168,8 @@ class LoadWebViewVC: UIViewController, TimerManagerDelegate {
     
     
     func gotoDashBoardTabbarVC() {
+        BASE_URL = BASE_URL1
+        TimerManager.shared.stopTimer()
         guard let vc = DBTabbarController.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
         vc.selectedIndex = 0

@@ -158,10 +158,13 @@ var ratekeyArray = [String]()
 var htoken = String()
 var htokenkey = String()
 var hd:HotelDetailsModel?
-var latitudeArray: [Double] = []
-var longitudeArray: [Double] = []
+var latitudeArray: [String] = []
+var longitudeArray: [String] = []
 var totalRooms = 0
 var facilityArray = [String]()
+var neighbourwoodArray = [String]()
+var amenitiesArray = [String]()
+var nearBylocationsArray = [String]()
 
 
 

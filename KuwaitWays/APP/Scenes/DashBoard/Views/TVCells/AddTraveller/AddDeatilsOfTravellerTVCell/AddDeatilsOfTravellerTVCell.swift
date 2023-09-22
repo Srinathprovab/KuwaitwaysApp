@@ -113,7 +113,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     var isocountrycodeArray = [String]()
     var callpaymentbool = true
     
-    
+    var reuse_travelerArray: [Traveler] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -131,6 +131,16 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     override func prepareForReuse() {
         collapsView()
+        
+        if travelerArray.count <= self.indexposition {
+            travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
+            configure(with: travelerArray[self.indexposition])
+        }
+    }
+    
+    
+    func configure(with travelerData: Traveler) {
+        fnameTF.text = travelerData.firstName // Assuming travelerData is a String
     }
     
     
@@ -157,6 +167,8 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     override func updateUI() {
         
         titlelbl.text = cellInfo?.title
+        
+       
         
         guard let characterLimit = cellInfo?.characterLimit else {
             return
@@ -207,6 +219,9 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
         
         if cellInfo?.title == "Adult 1" {
+            
+            setAttributedText(str1: "Adult 1", str2: "  Lead Passanger")
+            travelerArray[self.indexposition ].laedpassenger = "1"
             expandView()
             expandViewBool = false
         }
@@ -229,7 +244,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
         
         
-        setupTextField(txtField: titleTF, tag1: 1, label: "Title*", placeholder: "MR")
+        setupTextField(txtField: titleTF, tag1: 1, label: "Title*", placeholder: "Mr")
         setupTextField(txtField: fnameTF, tag1: 1, label: "First Name*", placeholder: "First Name")
         setupTextField(txtField: mnameTF, tag1: 1, label: "Middle Name(Optional)", placeholder: "Middle Name(Optional)")
         setupTextField(txtField: lnameTF, tag1: 2, label: "Last Name*", placeholder: "Last Name")
@@ -768,6 +783,22 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     
     
+    func setAttributedText(str1:String,str2:String)  {
+        
+        let atter1 = [NSAttributedString.Key.foregroundColor:UIColor.AppLabelColor,NSAttributedString.Key.font:UIFont.LatoRegular(size: 14)] as [NSAttributedString.Key : Any]
+        let atter2 = [NSAttributedString.Key.foregroundColor:UIColor.AppNavBackColor,NSAttributedString.Key.font:UIFont.LatoRegular(size: 10)] as [NSAttributedString.Key : Any]
+        
+        let atterStr1 = NSMutableAttributedString(string: str1, attributes: atter1)
+        let atterStr2 = NSMutableAttributedString(string: str2, attributes: atter2)
+        
+        
+        let combination = NSMutableAttributedString()
+        combination.append(atterStr1)
+        combination.append(atterStr2)
+        
+        titlelbl.attributedText = combination
+        
+    }
 }
 
 

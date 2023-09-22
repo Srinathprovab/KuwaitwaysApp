@@ -167,7 +167,7 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
             break
             
         case "Hotels":
-          //  gotoBookHotelsVC()
+            gotoBookHotelsVC()
             break
             
         case "Logout":

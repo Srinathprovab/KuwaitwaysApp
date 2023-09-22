@@ -12,32 +12,32 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-//struct Filters_display : Codable {
-//	let p : P?
-//	let currency : Currency?
-//	let loc : [Loc]?
-//	let facility : [Facility]?
-//	let a_type : [A_type]?
-//	let star : [Star]?
-//
-//	enum CodingKeys: String, CodingKey {
-//
-//		case p = "p"
-//		case currency = "currency"
-//		case loc = "loc"
-//		case facility = "facility"
-//		case a_type = "a_type"
-//		case star = "star"
-//	}
-//
-//	init(from decoder: Decoder) throws {
-//		let values = try decoder.container(keyedBy: CodingKeys.self)
-//		p = try values.decodeIfPresent(P.self, forKey: .p)
-//		currency = try values.decodeIfPresent(Currency.self, forKey: .currency)
-//		loc = try values.decodeIfPresent([Loc].self, forKey: .loc)
-//		facility = try values.decodeIfPresent([Facility].self, forKey: .facility)
-//		a_type = try values.decodeIfPresent([A_type].self, forKey: .a_type)
-//		star = try values.decodeIfPresent([Star].self, forKey: .star)
-//	}
-//
-//}
+struct Hotel_cancelation_policy : Codable {
+	let booking_reference : String?
+	let amount : String?
+	let date : String?
+	let currency : String?
+	let origin : String?
+	let app_reference : String?
+
+	enum CodingKeys: String, CodingKey {
+
+		case booking_reference = "booking_reference"
+		case amount = "amount"
+		case date = "date"
+		case currency = "currency"
+		case origin = "origin"
+		case app_reference = "app_reference"
+	}
+
+	init(from decoder: Decoder) throws {
+		let values = try decoder.container(keyedBy: CodingKeys.self)
+		booking_reference = try values.decodeIfPresent(String.self, forKey: .booking_reference)
+		amount = try values.decodeIfPresent(String.self, forKey: .amount)
+		date = try values.decodeIfPresent(String.self, forKey: .date)
+		currency = try values.decodeIfPresent(String.self, forKey: .currency)
+		origin = try values.decodeIfPresent(String.self, forKey: .origin)
+		app_reference = try values.decodeIfPresent(String.self, forKey: .app_reference)
+	}
+
+}
