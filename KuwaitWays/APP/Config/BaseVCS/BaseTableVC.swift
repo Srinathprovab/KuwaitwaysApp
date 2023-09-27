@@ -177,7 +177,7 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func didTapOnSelectIssuingCountryBtn(cell: SaveTravellerDetailsTVCell) {}
     func didTapOnTitleBtnAction(cell:SaveTravellerDetailsTVCell) {}
     
-  
+    
     func donedatePicker(cell: AddDeatilsOfTravellerTVCell) {}
     func cancelDatePicker(cell: AddDeatilsOfTravellerTVCell) {}
     func didTapOnSelectIssuingCountryBtn(cell: AddDeatilsOfTravellerTVCell) {}
@@ -207,9 +207,9 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func editingMDCOutlinedTextField(tf: MDCOutlinedTextField) {}
     func didTapOnBillingAddressDropDownBtnAction(cell: BillingAddressTVCell) {}
     
-   
     
- 
+    
+    
     
     
     
@@ -659,6 +659,9 @@ extension BaseTableVC: UITableViewDataSource {
                 commonCell = cell
                 
                 
+            case .TotalNoofTravellerTVCell:
+                let cell: TotalNoofTravellerTVCell = commonTV.dequeTVCell(indexPath: indexPath)
+                commonCell = cell
                 
                 
                 

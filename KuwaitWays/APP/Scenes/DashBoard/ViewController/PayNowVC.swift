@@ -271,23 +271,17 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         
         if defaults.bool(forKey: UserDefaultsKeys.loggedInStatus) == false {
             tablerow.append(TableRow(cellType:.TDetailsLoginTVCell))
-            positionsCount = 1
         }
         
         
         
-        tablerow.append(TableRow(height:20, bgColor:.AppBGcolor,cellType:.EmptyTVCell))
-        
-        
+        passengertypeArray.removeAll()
+        tablerow.append(TableRow(height:20, bgColor:.AppHolderViewColor,cellType:.EmptyTVCell))
+        tablerow.append(TableRow(title:"Passenger Details",cellType:.TotalNoofTravellerTVCell))
         for i in 1...adultsCount {
             positionsCount += 1
-            let travellerCell = TableRow(title: "Adult \(i)",
-                                         subTitle: "",
-                                         key: "adult",
-                                         characterLimit: positionsCount,
-                                         cellType: .AddDeatilsOfTravellerTVCell)
-            
-            
+            passengertypeArray.append("Adult")
+            let travellerCell = TableRow(title: "Adult \(i)", key: "adult", characterLimit: positionsCount, cellType: .AddDeatilsOfTravellerTVCell)
             tablerow.append(travellerCell)
             
         }
@@ -296,35 +290,18 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         if childCount != 0 {
             for i in 1...childCount {
                 positionsCount += 1
-                
-                let travellerCell = TableRow(title: "Child \(i)",
-                                             subTitle: "",
-                                             key: "child",
-                                             characterLimit: positionsCount,
-                                             cellType: .AddDeatilsOfTravellerTVCell)
-                
-                tablerow.append(travellerCell)
+                passengertypeArray.append("Child")
+                tablerow.append(TableRow(title:"Child \(i)",key:"child",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
             }
         }
-        
-        
         
         if infantsCount != 0 {
             for i in 1...infantsCount {
                 positionsCount += 1
-                let travellerCell = TableRow(title: "Infant \(i)",
-                                             subTitle: "",
-                                             key: "infant",
-                                             characterLimit: positionsCount,
-                                             cellType: .AddDeatilsOfTravellerTVCell)
-                
-                
-                
-                tablerow.append(travellerCell)
-                
+                passengertypeArray.append("Infant")
+                tablerow.append(TableRow(title:"Infant \(i)",key:"infant",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
             }
         }
-        
         
         tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
         //   tablerow.append(TableRow(cellType:.BillingAddressTVCell))
@@ -529,82 +506,6 @@ extension PayNowVC {
 extension PayNowVC {
     
     
-    // Define a validation function for a cell
-    func validateCell(_ cell: AddDeatilsOfTravellerTVCell) -> Bool {
-        var isValid1 = true
-        
-        // Validate titleTF
-        if cell.titleTF.text?.isEmpty == true {
-            cell.titleView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else {
-            cell.titleView.layer.borderColor = UIColor.clear.cgColor
-        }
-        
-        // Validate fnameTF
-        if cell.fnameTF.text?.isEmpty == true {
-            cell.fnameView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else if (cell.fnameTF.text?.count ?? 0) <= 3 {
-            showToast(message: "Enter More Than 3 Chars")
-            cell.fnameView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else {
-            cell.fnameView.layer.borderColor = UIColor.clear.cgColor
-        }
-        
-        // Validate lnameTF
-        if cell.lnameTF.text?.isEmpty == true {
-            cell.lnameView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else if (cell.lnameTF.text?.count ?? 0) <= 3 {
-            showToast(message: "Enter More Than 3 Chars")
-            cell.lnameView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else {
-            cell.lnameView.layer.borderColor = UIColor.clear.cgColor
-        }
-        
-        
-        // Validate dobTF
-        if cell.dobTF.text?.isEmpty == true {
-            cell.dobView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else {
-            cell.dobView.layer.borderColor = UIColor.clear.cgColor
-        }
-        
-        
-        // Validate passportnoTF
-        if cell.passportnoTF.text?.isEmpty == true {
-            cell.passportnoView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else {
-            cell.passportnoTF.layer.borderColor = UIColor.clear.cgColor
-        }
-        
-        
-        // Validate passportIssuingCountryTF
-        if cell.passportIssuingCountryTF.text?.isEmpty == true {
-            cell.issuecountryView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else {
-            cell.issuecountryView.layer.borderColor = UIColor.clear.cgColor
-        }
-        
-        
-        // Validate passportExpireDateTF
-        if cell.passportExpireDateTF.text?.isEmpty == true {
-            cell.passportexpireView.layer.borderColor = UIColor.red.cgColor
-            isValid1 = false
-        } else {
-            cell.passportexpireView.layer.borderColor = UIColor.clear.cgColor
-        }
-        
-        
-        
-        return isValid1
-    }
     
     
     
@@ -614,24 +515,80 @@ extension PayNowVC {
         payload1.removeAll()
         
         var textfilldshouldmorethan3lettersBool = true
-        
-        
-        
-        
+        var callpaymentbool = true
+        var fnameCharBool = true
+        var lnameCharBool = true
         let positionsCount = commonTableView.numberOfRows(inSection: 0)
         for position in 0..<positionsCount {
             // Fetch the cell for the given position
             if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfTravellerTVCell {
                 
-                
-                // Call the validation function for the cell
-                var isValid = validateCell(cell)
-                
-                // Update your global validation state (callpaymentbool) based on this cell's validation result
-                if isValid == true{
-                    callpaymentbool = true
-                } else {
+                if cell.titleTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.titleView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
+                    
+                } else {
+                    // Textfield is not empty
+                }
+                
+                if cell.fnameTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                }else if (cell.fnameTF.text?.count ?? 0) <= 3{
+                    cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                    fnameCharBool = false
+                }else {
+                    fnameCharBool = true
+                }
+                
+                if cell.lnameTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.lnameView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                }else if (cell.lnameTF.text?.count ?? 0) <= 3{
+                    cell.lnameView.layer.borderColor = UIColor.red.cgColor
+                    lnameCharBool = false
+                } else {
+                    // Textfield is not empty
+                    lnameCharBool = true
+                }
+                
+                
+                if cell.dobTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.dobView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
+                }
+                
+                
+                if cell.passportnoTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.passportnoView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
+                }
+                
+                
+                if cell.passportIssuingCountryTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.issuecountryView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
+                }
+                
+                
+                if cell.passportExpireDateTF.text?.isEmpty == true {
+                    // Textfield is empty
+                    cell.passportexpireView.layer.borderColor = UIColor.red.cgColor
+                    callpaymentbool = false
+                } else {
+                    // Textfield is not empty
                 }
                 
             }
@@ -903,48 +860,51 @@ extension PayNowVC:HotelMBViewModelDelegate {
         payload1.removeAll()
         
         
-        
-        var matchingCells: [AddDeatilsOfGuestTVCell] = []
-        // Replace with the desired search texts
-        
+        var callpaymenthotelbool = true
+        var fnameCharBool = true
+        var lnameCharBool = true
         let positionsCount = commonTableView.numberOfRows(inSection: 0)
         for position in 0..<positionsCount {
             // Fetch the cell for the given position
             if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfGuestTVCell {
                 
-                
                 if cell.titleTF.text?.isEmpty == true {
                     // Textfield is empty
                     cell.titleView.layer.borderColor = UIColor.red.cgColor
-                    callpaymenthotelbool = false
+                    callpaymentbool = false
                     
                 } else {
                     // Textfield is not empty
-                    
-                    
                 }
                 
                 if cell.fnameTF.text?.isEmpty == true {
                     // Textfield is empty
-                    
-                    
                     cell.fnameView.layer.borderColor = UIColor.red.cgColor
-                    callpaymenthotelbool = false
-                } else {
-                    // Textfield is not empty
-                    
-                    
+                    callpaymentbool = false
+                }else if (cell.fnameTF.text?.count ?? 0) <= 3{
+                    cell.fnameView.layer.borderColor = UIColor.red.cgColor
+                    fnameCharBool = false
+                }else {
+                    fnameCharBool = true
                 }
                 
                 if cell.lnameTF.text?.isEmpty == true {
                     // Textfield is empty
                     cell.lnameView.layer.borderColor = UIColor.red.cgColor
-                    callpaymenthotelbool = false
+                    callpaymentbool = false
+                }else if (cell.lnameTF.text?.count ?? 0) <= 3{
+                    cell.lnameView.layer.borderColor = UIColor.red.cgColor
+                    lnameCharBool = false
                 } else {
                     // Textfield is not empty
+                    lnameCharBool = true
                 }
                 
+                
+                
+                
             }
+        }
             
             
             let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
@@ -980,13 +940,17 @@ extension PayNowVC:HotelMBViewModelDelegate {
                 showToast(message: "Enter Country Code")
             }else if callpaymenthotelbool == false{
                 showToast(message: "Add Details")
+            }else if fnameCharBool == false{
+                showToast(message: "More Than 3 Char")
+            }else if lnameCharBool == false{
+                showToast(message: "More Than 3 Char")
             }else if checkTermsAndCondationStatus == false {
                 showToast(message: "Please Accept T&C and Privacy Policy")
             }else {
                 vm1?.CALL_GET_HOTEL_MOBILE_PRE_BOOKING_DETAILS_API(dictParam: payload)
             }
         }
-    }
+    
     
     
     func hotelMobilePreBookingDetails(response: HMPreBookingModel) {

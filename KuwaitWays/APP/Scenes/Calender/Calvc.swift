@@ -253,7 +253,7 @@ class Calvc: UIViewController {
                         }else {
                             defaults.set(calstartDate, forKey: UserDefaultsKeys.calDepDate)
                             //                            keyStr = "select"
-                            NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
+                            NotificationCenter.default.post(name: Notification.Name("reloadTV"), object: nil)
                             dismiss(animated: false)
                         }
                         
@@ -266,7 +266,7 @@ class Calvc: UIViewController {
                             defaults.set(calstartDate, forKey: UserDefaultsKeys.rcalDepDate)
                             defaults.set(calendDate, forKey: UserDefaultsKeys.rcalRetDate)
                             //                            keyStr = "select1"
-                            NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
+                            NotificationCenter.default.post(name: Notification.Name("reloadTV"), object: nil)
                             dismiss(animated: false)
                         }
                     }else {
@@ -277,7 +277,7 @@ class Calvc: UIViewController {
                             defaults.set(calstartDate, forKey: UserDefaultsKeys.mcalDepDate)
                             depatureDatesArray[self.celltag] = calstartDate
                             
-                            NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
+                            NotificationCenter.default.post(name: Notification.Name("reloadTV"), object: nil)
                             dismiss(animated: false)
                             //gotoSearchFlightsVC()
                         }

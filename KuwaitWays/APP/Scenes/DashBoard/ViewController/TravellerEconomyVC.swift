@@ -97,15 +97,15 @@ class TravellerEconomyVC: BaseTableVC {
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
             if journeyType == "oneway" {
-                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.childCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }else if journeyType == "circle" {
-                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.rchildCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.rinfantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }else {
-                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.mchildCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }
@@ -137,64 +137,91 @@ class TravellerEconomyVC: BaseTableVC {
     
     
     
-    
     override func didTapOnIncrementButton(cell: TravellerEconomyTVCell) {
-        if cell.titlelbl.text == "Infant" && cell.count >= adultsCount {
-            //            showToast(message: "Infant count cannot exceed the number of adults")
-            //            showAlertOnWindow(title: "", message: "Infants Cannot Exceed Adults", titles: ["OK"], completionHanlder: nil)
-        } else if (adultsCount + childCount) > 8 {
-            //            showToast(message: "Total travelers cannot be more than 9")
-            //            showAlertOnWindow(title: "", message: "Total Travelers Not More Than 9", titles: ["OK"], completionHanlder: nil)
-        } else  {
-            if cell.count >= 0 {
+        if cell.titlelbl.text == "Infant" {
+            // Increment the infant count if it's less than the number of adults
+            if infantsCount < adultsCount {
+                infantsCount += 1
                 cell.count += 1
                 cell.countlbl.text = "\(cell.count)"
             }
             
-            if cell.titlelbl.text == "Adult" {
-                adultsCount = cell.count
-            } else if cell.titlelbl.text == "Child" {
-                childCount = cell.count
-            } else if cell.titlelbl.text == "Infant" {
-                infantsCount = cell.count
+            
+        } else if cell.titlelbl.text == "Adults" {
+            // Increment adults, but don't exceed 9 travelers in total
+            if (adultsCount + childCount) < 9 {
+                adultsCount += 1
+                cell.count += 1
+                cell.countlbl.text = "\(cell.count)"
+            }
+        } else {
+            if (adultsCount + childCount) < 9 {
+                // Increment children, but don't exceed 9 travelers in total
+                if cell.count >= 0 {
+                    cell.count += 1
+                    cell.countlbl.text = "\(cell.count)"
+                }
+                if cell.titlelbl.text == "Child" {
+                    childCount = cell.count
+                }
             }
         }
         
-        print("Total Count === \(adultsCount + childCount + infantsCount)")
-        defaults.set((adultsCount + childCount + infantsCount), forKey: UserDefaultsKeys.totalTravellerCount)
+        updateTotalTravelerCount()
     }
-    
     
     override func didTapOnDecrementButton(cell: TravellerEconomyTVCell) {
         if cell.titlelbl.text == "Infant" {
-            // Decrement the infant count if it's greater than or equal to 0
-            if cell.count > 0 {
+            // Decrement the infant count if it's greater than 0
+            if infantsCount > 0 {
+                infantsCount -= 1
                 cell.count -= 1
+                cell.countlbl.text = "\(cell.count)"
             }
-            infantsCount = cell.count
-        } else {
-            if cell.count > 0 {
+        } else if cell.titlelbl.text == "Adults" {
+            // Decrement adults, but don't go below 1
+            if adultsCount > 1 {
+                adultsCount -= 1
                 cell.count -= 1
+                cell.countlbl.text = "\(cell.count)"
+                
+                
+                
+                // Set child count to 0
+                if let infantCell = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? TravellerEconomyTVCell {
+                    infantCell.count = 0
+                    infantCell.countlbl.text = "\(infantCell.count)"
+                    infantsCount = 0
+                }
+                
             }
             
-            if cell.titlelbl.text == "Adult" {
-                if cell.count == 0 {
-                    cell.count = 1
-                }
-                adultsCount = cell.count
-            } else if cell.titlelbl.text == "Child" {
+        } else {
+            // Decrement children
+            if cell.count > 0 {
+                cell.count -= 1
+                cell.countlbl.text = "\(cell.count)"
+            }
+            if cell.titlelbl.text == "Child" {
                 childCount = cell.count
-            } else {
-                infantsCount = cell.count
             }
         }
         
-        cell.countlbl.text = "\(cell.count)"
-        print("Total Count === \(adultsCount + childCount + infantsCount)")
-        defaults.set((adultsCount + childCount + infantsCount), forKey: UserDefaultsKeys.totalTravellerCount)
+        updateTotalTravelerCount()
     }
     
-
+    
+    
+    
+    func updateTotalTravelerCount() {
+        let totalTravelers = adultsCount + childCount + infantsCount
+        print("Total Count === \(totalTravelers)")
+        defaults.set(totalTravelers, forKey: UserDefaultsKeys.totalTravellerCount)
+    }
+    
+    
+    
+    
     
     
     
@@ -249,10 +276,6 @@ class TravellerEconomyVC: BaseTableVC {
         
         
         
-//        guard let vc = BookFlightVC.newInstance.self else {return}
-//        vc.modalPresentationStyle = .overCurrentContext
-//        self.present(vc, animated: false)
-        
         NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
         self.dismiss(animated: true)
     }
@@ -295,48 +318,6 @@ class TravellerEconomyVC: BaseTableVC {
         }
     }
     
-    
-    
-    
-    //MARK: - DELETING COREDATA OBJECT
-    func deleteRecords(title:String,index:Int) {
-        
-        print("DELETING COREDATA OBJECT")
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "PassengerDetails")
-        request.predicate = NSPredicate(format: "title = %@", "\(title)")
-        request.returnsObjectsAsFaults = false
-        
-        do {
-            let objects = try context.fetch(request)
-            
-            if title == "Adult" {
-                if objects.count > 0 && objects.count > adultsCount {
-                    context.delete(objects[index] as! NSManagedObject)
-                }
-            }else if title == "Child" {
-                if objects.count > 0 && objects.count > childCount {
-                    context.delete(objects[index] as! NSManagedObject)
-                }
-            }else {
-                if objects.count > 0 && objects.count > infantsCount {
-                    context.delete(objects[index] as! NSManagedObject)
-                }
-            }
-            
-            
-            
-        } catch {
-            print ("There was an error")
-        }
-        
-        
-        do {
-            try context.save()
-        } catch {
-            print ("There was an error")
-        }
-    }
 }
 
 

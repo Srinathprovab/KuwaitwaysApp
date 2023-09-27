@@ -76,7 +76,7 @@ enum TVCellType {
     case AddDeatilsOfGuestTVCell
     case LoginTitleTVCell
     case BillingAddressTVCell
-    
+    case TotalNoofTravellerTVCell
     
     //Hotel
     case HotelSearchResultTVCell
