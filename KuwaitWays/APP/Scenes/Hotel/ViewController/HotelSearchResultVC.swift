@@ -232,6 +232,14 @@ extension HotelSearchResultVC {
             facilityArray = Array(Set(facilityArray))
             
             
+            response.data?.hotelSearchResult?.forEach { i in
+                let mapModel = MapModel(
+                    longitude: i.longitude ?? "",
+                    latitude: i.latitude ?? "",
+                    hotelname: i.name ?? ""
+                )
+                mapModelArray.append(mapModel)
+            }
             
             
             response.filters_display?.loc?.forEach({ i in
@@ -245,11 +253,6 @@ extension HotelSearchResultVC {
             response.filters_display?.facility?.forEach({ i in
                 amenitiesArray.append(i.v ?? "")
             })
-            
-            
-            
-            
-            
             
             DispatchQueue.main.async {
                 self.setupTVCells(hotelList: self.hotelSearchResultArray)

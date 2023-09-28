@@ -20,23 +20,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ulg-7R-U4Z">
-                        <rect key="frame" x="16" y="2" width="354" height="84"/>
+                        <rect key="frame" x="10" y="2" width="366" height="84"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fe-vZ-XLQ">
-                                <rect key="frame" x="14" y="13.999999999999998" width="328" height="20.333333333333329"/>
+                                <rect key="frame" x="14" y="13.999999999999998" width="340" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="J9D-rv-U3C">
-                                <rect key="frame" x="5" y="39.333333333333329" width="344" height="2"/>
+                                <rect key="frame" x="5" y="39.333333333333336" width="356" height="2"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="zyT-7k-XPz"/>
                                 </constraints>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krj-1q-VhA">
-                                <rect key="frame" x="23" y="45.333333333333336" width="306" height="1"/>
+                                <rect key="frame" x="23" y="45.333333333333336" width="318" height="1"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="lTF-ZW-4nb"/>
@@ -49,7 +49,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abr-Er-oqM">
-                                <rect key="frame" x="292" y="56.666666666666657" width="42" height="20"/>
+                                <rect key="frame" x="304" y="56.666666666666657" width="42" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -78,10 +78,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ulg-7R-U4Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Wmw-nw-4lW"/>
+                    <constraint firstItem="ulg-7R-U4Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Wmw-nw-4lW"/>
                     <constraint firstItem="ulg-7R-U4Z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="XK1-m3-L5X"/>
                     <constraint firstAttribute="bottom" secondItem="ulg-7R-U4Z" secondAttribute="bottom" constant="2" id="r4g-3D-qJF"/>
-                    <constraint firstAttribute="trailing" secondItem="ulg-7R-U4Z" secondAttribute="trailing" constant="16" id="yb5-E6-YCt"/>
+                    <constraint firstAttribute="trailing" secondItem="ulg-7R-U4Z" secondAttribute="trailing" constant="10" id="yb5-E6-YCt"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

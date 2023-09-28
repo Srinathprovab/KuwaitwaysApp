@@ -40,7 +40,7 @@ var isvcfrom1 = String()
 var profildata:ProfileUpdateData?
 var menubool = Bool()
 var loginmenubool = false
-
+var mapModelArray: [MapModel] = []
 
 //MARK: - COREDATE SAVE PASSENGER DETAILS
 let appDelegate = UIApplication.shared.delegate as! AppDelegate

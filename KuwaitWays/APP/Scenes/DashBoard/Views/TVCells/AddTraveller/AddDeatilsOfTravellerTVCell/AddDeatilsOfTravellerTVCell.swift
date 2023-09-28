@@ -195,6 +195,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
         
         if cellInfo?.title == "Adult 1" {
+            
             setAttributedText(str1: "Adult 1", str2: "  Lead Passanger")
             travelerArray[self.indexposition ].laedpassenger = "1"
             expandView()

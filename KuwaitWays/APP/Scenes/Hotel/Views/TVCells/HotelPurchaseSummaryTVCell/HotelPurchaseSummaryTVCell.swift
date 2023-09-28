@@ -70,6 +70,11 @@ class HotelPurchaseSummaryTVCell: TableViewCell {
     func setupUI() {
         contentView.backgroundColor = .AppHolderViewColor
         holderview.backgroundColor = .WhiteColor
+        holderview.layer.borderColor = UIColor.AppBorderColor.cgColor
+        holderview.layer.borderWidth = 1
+        holderview.layer.cornerRadius = 4
+        holderview.clipsToBounds = true
+        
         setuplabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: UIFont.OpenSansMedium(size: 16), align: .left)
         setuplabels(lbl: roomtypelbl, text: "Room Type", textcolor: HexColor("#999898"), font: UIFont.OpenSansRegular(size: 14), align: .left)
         setuplabels(lbl: noofguestlbl, text: "No Of Guest ", textcolor: HexColor("#999898"), font: UIFont.OpenSansRegular(size: 14), align: .left)

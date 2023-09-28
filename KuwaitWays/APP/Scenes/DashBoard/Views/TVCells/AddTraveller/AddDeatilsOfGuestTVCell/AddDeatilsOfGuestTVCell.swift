@@ -130,14 +130,13 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
     
     
     func setupUI() {
-        
+        contentView.backgroundColor = .AppBGcolor
         setuplabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14), align: .left)
         dropdownimg.image = UIImage(named: "down")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppLabelColor)
         
-        contentView.backgroundColor = .clear
         holderView.layer.borderColor = UIColor.AppBorderColor.cgColor
         holderView.layer.borderWidth = 1
-        holderView.layer.cornerRadius = 8
+        holderView.layer.cornerRadius = 4
         holderView.clipsToBounds = true
         
         collapsView()

@@ -16,6 +16,7 @@
 			dependencies = (
 			);
 			name = GoogleMaps;
+			productName = GoogleMaps;
 		};
 /* End PBXAggregateTarget section */
 
@@ -268,7 +269,7 @@
 		9869BE90A4E205295E92E1930E059FC0 /* IQUIView+Hierarchy.h in Headers */ = {isa = PBXBuildFile; fileRef = AC47E221E1882DF8D20DF0BEE61378BD /* IQUIView+Hierarchy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9917CEAD8CE1CEB7FEC031255AED8FA8 /* SDWebImageError.h in Headers */ = {isa = PBXBuildFile; fileRef = 937DD424FD30C163960248BD483EA182 /* SDWebImageError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		994327308CC7ECE7850C804FA0EA5F21 /* NSImage+Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = D8394B95D28BE4AC406479956ECBDE68 /* NSImage+Compatibility.m */; };
-		996F40F26849BA52FA35085D6E3FDC51 /* MARKRangeSlider-MARKRangeSlider in Resources */ = {isa = PBXBuildFile; fileRef = 4E80A1B13E8896061B58150D3096574A /* MARKRangeSlider-MARKRangeSlider */; };
+		996F40F26849BA52FA35085D6E3FDC51 /* MARKRangeSlider.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4E80A1B13E8896061B58150D3096574A /* MARKRangeSlider.bundle */; };
 		99709E1C4991C49EE5601FF9461B2969 /* SDImageHEICCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 17A391D435EF1C9B657122F0ECC9A7CD /* SDImageHEICCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99D058E53EFEE3AC4857CDE3DBA5C004 /* ParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7F3D63E3E22B7A0FE2C949F6406067 /* ParameterEncoder.swift */; };
 		9A1A50529CFE591E3590283BA12DE3B6 /* MDCTextControlLabelAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = A5CB6BCD16E657E33C15432BAA544479 /* MDCTextControlLabelAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -739,7 +740,7 @@
 		191C9C0DE1122D444AB29741631BC456 /* CAMediaTimingFunction+MDCAnimationTiming.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CAMediaTimingFunction+MDCAnimationTiming.m"; path = "components/AnimationTiming/src/CAMediaTimingFunction+MDCAnimationTiming.m"; sourceTree = "<group>"; };
 		19EF3AD8B9BBC830EF35FAB61846C3FB /* SwiftyJSON.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.release.xcconfig; sourceTree = "<group>"; };
 		1B1A207FDFACDE8AE929F6E9C5D8C18E /* SDWebImageError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageError.m; path = SDWebImage/Core/SDWebImageError.m; sourceTree = "<group>"; };
-		1C9E2BF863BF9A4EC5CB940CAF52CB45 /* GoogleMapsBase.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = GoogleMapsBase.xcframework; path = Base/Frameworks/GoogleMapsBase.xcframework; sourceTree = "<group>"; };
+		1C9E2BF863BF9A4EC5CB940CAF52CB45 /* GoogleMapsBase.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = GoogleMapsBase.xcframework; path = Base/Frameworks/GoogleMapsBase.xcframework; sourceTree = "<group>"; };
 		1CB7B7A0EEF18ACE3409E837A8E3D23F /* IQBarButtonItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IQBarButtonItem.m; path = IQKeyboardManager/IQToolbar/IQBarButtonItem.m; sourceTree = "<group>"; };
 		1CCC87F1832E91AFAC76C1E955D17BA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		1D4087F3D25C71D1FB7861D845F36700 /* DropDown-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "DropDown-Info.plist"; sourceTree = "<group>"; };
@@ -823,7 +824,7 @@
 		4DE8404F3F3CAE10FF58D502BBE0109C /* IQUIScrollView+Additions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "IQUIScrollView+Additions.h"; path = "IQKeyboardManager/Categories/IQUIScrollView+Additions.h"; sourceTree = "<group>"; };
 		4DFA1FDA0A5DBBE27EE054B5B956AA00 /* MaterialAnimationTiming.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialAnimationTiming.h; path = components/AnimationTiming/src/MaterialAnimationTiming.h; sourceTree = "<group>"; };
 		4E70D4363D5FB7A71AB7C408ACE70258 /* SwiftRangeSlider-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftRangeSlider-Info.plist"; sourceTree = "<group>"; };
-		4E80A1B13E8896061B58150D3096574A /* MARKRangeSlider-MARKRangeSlider */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "MARKRangeSlider-MARKRangeSlider"; path = MARKRangeSlider.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E80A1B13E8896061B58150D3096574A /* MARKRangeSlider.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MARKRangeSlider.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		5107E187B57581613AFE94765E165665 /* SDWebImageDefine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageDefine.m; path = SDWebImage/Core/SDWebImageDefine.m; sourceTree = "<group>"; };
 		5138B7FDEF05928322FC497517760C1F /* IQKeyboardManager-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "IQKeyboardManager-Info.plist"; sourceTree = "<group>"; };
 		522F64E4E203A2CDA4B90767F7FF9554 /* SDImageAssetManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageAssetManager.h; path = SDWebImage/Private/SDImageAssetManager.h; sourceTree = "<group>"; };
@@ -944,7 +945,7 @@
 		8B8FAB0D627B17EDE1366984278705D9 /* MBProgressHUD */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBProgressHUD; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B97E2B1D3A46AE9C2488F248952F68A /* SDWebImage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SDWebImage.debug.xcconfig; sourceTree = "<group>"; };
 		8BB30F2454EF052C3D9EF6FE9DF40280 /* JTAppleCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JTAppleCalendar.release.xcconfig; sourceTree = "<group>"; };
-		8BD503E2922CE7236FE54785F4415451 /* GoogleMaps.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = GoogleMaps.xcframework; path = Maps/Frameworks/GoogleMaps.xcframework; sourceTree = "<group>"; };
+		8BD503E2922CE7236FE54785F4415451 /* GoogleMaps.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = GoogleMaps.xcframework; path = Maps/Frameworks/GoogleMaps.xcframework; sourceTree = "<group>"; };
 		8BDA89BA171C90D00BAD0E26D625304A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		8C5D0194E84F337C6BF9B9DC0CCB1215 /* SDGraphicsImageRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDGraphicsImageRenderer.h; path = SDWebImage/Core/SDGraphicsImageRenderer.h; sourceTree = "<group>"; };
 		8CF7B2B948930E98C36D87191630A9C2 /* RangeSliderTrack.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RangeSliderTrack.swift; path = SwiftRangeSlider/RangeSliderTrack.swift; sourceTree = "<group>"; };
@@ -979,7 +980,7 @@
 		9CB76CB8EA644E226F84AA3CF5045073 /* MARKRangeSlider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MARKRangeSlider.h; path = Source/MARKRangeSlider.h; sourceTree = "<group>"; };
 		9CF78776607A7C6C45E72E2F16F25DB9 /* IQKeyboardManager-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IQKeyboardManager-umbrella.h"; sourceTree = "<group>"; };
 		9D54FEEFB40255EFDC9828FA1063EBC7 /* MDCTextControlLabelBehavior.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTextControlLabelBehavior.h; path = components/TextControls/src/Enums/MDCTextControlLabelBehavior.h; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DA43F702A5779E71614DDC1D712CF1A /* SDWebImageCompat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageCompat.h; path = SDWebImage/Core/SDWebImageCompat.h; sourceTree = "<group>"; };
 		9E0C483FEDABED68CDC86A90771DD7CA /* Toast-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Toast-Swift.release.xcconfig"; sourceTree = "<group>"; };
 		9E264658F2758A413DD461A2E1EECDDF /* UIImage+MaterialRTL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MaterialRTL.m"; path = "Sources/UIImage+MaterialRTL.m"; sourceTree = "<group>"; };
@@ -1048,7 +1049,7 @@
 		BB92F399C596832FB77F3991182AA69D /* JTAppleCalendar-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "JTAppleCalendar-umbrella.h"; sourceTree = "<group>"; };
 		BCBE91ABD69D634F250BBD9F30806D48 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		BE3E8B9B1B2D802CB207F66A096F18FD /* SDInternalMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDInternalMacros.h; path = SDWebImage/Private/SDInternalMacros.h; sourceTree = "<group>"; };
-		BE5ECCE45D62287B4D7F0F4CE2262988 /* GoogleMapsCore.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = GoogleMapsCore.xcframework; path = Maps/Frameworks/GoogleMapsCore.xcframework; sourceTree = "<group>"; };
+		BE5ECCE45D62287B4D7F0F4CE2262988 /* GoogleMapsCore.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = GoogleMapsCore.xcframework; path = Maps/Frameworks/GoogleMapsCore.xcframework; sourceTree = "<group>"; };
 		BF3F7761A58590B6F0EF79FDD280A2F2 /* Pods-KuwaitWays.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KuwaitWays.debug.xcconfig"; sourceTree = "<group>"; };
 		BF5C80D6267E995D5CF1401DD52EB01C /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManagerConstants.h; path = IQKeyboardManager/Constants/IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
 		C00D8F74EDA3FD3A80997CEE2403E93D /* SDAssociatedObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDAssociatedObject.h; path = SDWebImage/Private/SDAssociatedObject.h; sourceTree = "<group>"; };
@@ -1467,7 +1468,6 @@
 				DE9155F51061019535C72AC9440420CF /* Validation.swift */,
 				78F54731BC1EA81F0635A5A823B2FDD7 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1505,7 +1505,6 @@
 				E3CA992BADBE50F2BE1DE7ECCB8F3329 /* Maps */,
 				CBB350E5040A0A073E60975D823EB1BC /* Support Files */,
 			);
-			name = GoogleMaps;
 			path = GoogleMaps;
 			sourceTree = "<group>";
 		};
@@ -1545,7 +1544,6 @@
 				87FE3AEFCC3D71E8DE457B99C7C248E1 /* UserInteractionFunctions.swift */,
 				D6D71F2F57F72F9AE9296A6747C0358C /* Support Files */,
 			);
-			name = JTAppleCalendar;
 			path = JTAppleCalendar;
 			sourceTree = "<group>";
 		};
@@ -1582,7 +1580,6 @@
 				9E63735BB632F3C7BC3A81379DC6DBFD /* IQUIViewController+Additions.m */,
 				9C817F10754C9768EFA9FE8E31E6EA17 /* Support Files */,
 			);
-			name = IQKeyboardManager;
 			path = IQKeyboardManager;
 			sourceTree = "<group>";
 		};
@@ -1613,7 +1610,6 @@
 				8CF7B2B948930E98C36D87191630A9C2 /* RangeSliderTrack.swift */,
 				B179576762582FA0E4FC6D6D42765D44 /* Support Files */,
 			);
-			name = SwiftRangeSlider;
 			path = SwiftRangeSlider;
 			sourceTree = "<group>";
 		};
@@ -1671,7 +1667,6 @@
 				B823E71D7B5FDB6B6E0FEAA558840028 /* Resources */,
 				B7E3C1F06D92D334385B7EE5CA9F9BA6 /* Support Files */,
 			);
-			name = MARKRangeSlider;
 			path = MARKRangeSlider;
 			sourceTree = "<group>";
 		};
@@ -1701,7 +1696,6 @@
 				0C44F8F0197D28C56BBDFDBAE18B16F1 /* TextControls+Enums */,
 				A82E3E351AAB317F6688877BE06B9166 /* TextControls+OutlinedTextFields */,
 			);
-			name = MaterialComponents;
 			path = MaterialComponents;
 			sourceTree = "<group>";
 		};
@@ -1896,7 +1890,6 @@
 				9F6A34E6CBADA63D224E42E5B656ADD4 /* Constants.swift */,
 				ACF92136B51E2ACF2CF09F019CC6580C /* Support Files */,
 			);
-			name = AARatingBar;
 			path = AARatingBar;
 			sourceTree = "<group>";
 		};
@@ -1921,7 +1914,6 @@
 				259214F89D7E2BBBEDBAEC19749D8091 /* SwiftyJSON.swift */,
 				0BF3C7B6EDF19CD278E19E3556E381B1 /* Support Files */,
 			);
-			name = SwiftyJSON;
 			path = SwiftyJSON;
 			sourceTree = "<group>";
 		};
@@ -1969,7 +1961,6 @@
 				4A0B928593F59D8042A2F3A6E1E2C0E6 /* Reachability.swift */,
 				0DFCF88508323382513F2FFB46DF19A1 /* Support Files */,
 			);
-			name = ReachabilitySwift;
 			path = ReachabilitySwift;
 			sourceTree = "<group>";
 		};
@@ -2037,7 +2028,6 @@
 				91ADC8621E4B544B5310D7BA66597CD4 /* UIView+MaterialRTL.m */,
 				399BF8920C57B2F69515DB3000B2BD7D /* Support Files */,
 			);
-			name = MDFInternationalization;
 			path = MDFInternationalization;
 			sourceTree = "<group>";
 		};
@@ -2104,7 +2094,6 @@
 				FC7368814F74170AB749F996D6DFC733 /* Resources */,
 				36E60AE8404F2A90C41E141BDB1BAA3A /* Support Files */,
 			);
-			name = DropDown;
 			path = DropDown;
 			sourceTree = "<group>";
 		};
@@ -2145,7 +2134,6 @@
 				9F39A03AAE3C0B1DED188E5848326CA3 /* MBProgressHUD.m */,
 				7289BCB25027E33818B65E63F164DDF8 /* Support Files */,
 			);
-			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -2187,7 +2175,6 @@
 				4FB9BC39D2C0E7E20EC2EADCEB32E667 /* Core */,
 				058D224B07315E37F64878B77C92372A /* Support Files */,
 			);
-			name = SDWebImage;
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
@@ -2233,7 +2220,6 @@
 				ED1BD47DCB631C3B8A85798B906904F8 /* TTRangeSliderDelegate.h */,
 				404B080F97F8E890B1E4A56A6C249129 /* Support Files */,
 			);
-			name = TTRangeSlider;
 			path = TTRangeSlider;
 			sourceTree = "<group>";
 		};
@@ -2254,7 +2240,6 @@
 				F1F14CD5A3B36F48883BB9336A974025 /* Toast.swift */,
 				0F835F7C81388E0E35C719BF4B339616 /* Support Files */,
 			);
-			name = "Toast-Swift";
 			path = "Toast-Swift";
 			sourceTree = "<group>";
 		};
@@ -2344,7 +2329,7 @@
 				98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager */,
 				A0C8E428D980D3C9293A3C2BF740F0CD /* JTAppleCalendar */,
 				DED0AAB1584AC92F7B24D2EDA7BF14D6 /* MARKRangeSlider */,
-				4E80A1B13E8896061B58150D3096574A /* MARKRangeSlider-MARKRangeSlider */,
+				4E80A1B13E8896061B58150D3096574A /* MARKRangeSlider.bundle */,
 				A34157B3708EDB7D17422B3D92F591D2 /* MaterialComponents */,
 				8B8FAB0D627B17EDE1366984278705D9 /* MBProgressHUD */,
 				9A2AC0B8BAC6EF061EBC28825653DF99 /* MDFInternationalization */,
@@ -2811,7 +2796,7 @@
 			);
 			name = "MARKRangeSlider-MARKRangeSlider";
 			productName = MARKRangeSlider;
-			productReference = 4E80A1B13E8896061B58150D3096574A /* MARKRangeSlider-MARKRangeSlider */;
+			productReference = 4E80A1B13E8896061B58150D3096574A /* MARKRangeSlider.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		421B6ABF460857FE6CA2905EFB5A4F74 /* JTAppleCalendar */ = {
@@ -3102,7 +3087,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				996F40F26849BA52FA35085D6E3FDC51 /* MARKRangeSlider-MARKRangeSlider in Resources */,
+				996F40F26849BA52FA35085D6E3FDC51 /* MARKRangeSlider.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3965,6 +3950,7 @@
 			baseConfigurationReference = 5B46067B85638CF5F897DE233437032F /* MARKRangeSlider.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/MARKRangeSlider";
+				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				IBSC_MODULE = MARKRangeSlider;
 				INFOPLIST_FILE = "Target Support Files/MARKRangeSlider/ResourceBundle-MARKRangeSlider-MARKRangeSlider-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -4342,6 +4328,7 @@
 			baseConfigurationReference = B556FB28452417470CC73A94A4C36D85 /* MARKRangeSlider.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/MARKRangeSlider";
+				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				IBSC_MODULE = MARKRangeSlider;
 				INFOPLIST_FILE = "Target Support Files/MARKRangeSlider/ResourceBundle-MARKRangeSlider-MARKRangeSlider-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
