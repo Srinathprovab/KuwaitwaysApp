@@ -42,6 +42,7 @@ var menubool = Bool()
 var loginmenubool = false
 var mapModelArray: [MapModel] = []
 
+
 //MARK: - COREDATE SAVE PASSENGER DETAILS
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let context = appDelegate.persistentContainer.viewContext
@@ -49,6 +50,12 @@ var sliderimagesflight = [Flight_top_destinations1]()
 var sliderimageshotel = [Top_dest_hotel]()
 var imgPath = String()
 var currencyType = String()
+
+
+//MARK: - Filters
+var filterModel = FlightFilterModel()
+var hotelfiltermodel = HotelFilterModel()
+var sortBy: SortParameter = .nothing
 
 
 //MARK: - FLIGHT RESULT

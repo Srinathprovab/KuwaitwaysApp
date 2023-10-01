@@ -7,6 +7,35 @@
 
 import UIKit
 
+
+
+struct FlightFilterModel {
+    var minPriceRange = Double()
+    var maxPriceRange = Double()
+    var noOfStops: [String] = []
+    var refundableTypes: [String] = []
+    var airlines: [String] = []
+    var departureTime: [String] = []
+    var arrivalTime: [String] = []
+    var noOvernightFlight: [String] = []
+    var connectingFlights: [String] = []
+    var connectingAirports: [String] = []
+    var luggage: [String] = []
+}
+
+
+struct HotelFilterModel {
+    var minPriceRange =  Double()
+    var maxPriceRange =  Double()
+    var starRating = String()
+    var refundableTypes: [String] = []
+    var nearByLocA: [String] = []
+    var niberhoodA: [String] = []
+    var aminitiesA: [String] = []
+}
+
+
+
 enum SortParameter {
     case PriceHigh
     case PriceLow
@@ -73,7 +102,6 @@ class FilterSearchVC: BaseTableVC {
         return vc
     }
     
-    var sortBy: SortParameter = .nothing
     weak var delegate: AppliedFilters?
     var tablerow = [TableRow]()
     var departurnTimeArray = ["12 am - 6 am","06 am - 12 pm","12 pm - 06 pm","06 pm - 12 am"]
@@ -610,7 +638,6 @@ class FilterSearchVC: BaseTableVC {
                             noOfStopsFilterArray.remove(at: index)
                         }
                     }
-                    print(noOfStopsFilterArray.joined(separator: "---"))
                     break
                     
                     
@@ -637,7 +664,6 @@ class FilterSearchVC: BaseTableVC {
                             refundablerTypeFilteArray.remove(at: index)
                         }
                     }
-                    print(refundablerTypeFilteArray)
                     break
                     
                     
@@ -645,7 +671,6 @@ class FilterSearchVC: BaseTableVC {
                     if let index = airlinesFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
                         airlinesFilterArray.remove(at: index)
                     }
-                    print(airlinesFilterArray.joined(separator: "---"))
                     break
                     
                     
@@ -653,7 +678,6 @@ class FilterSearchVC: BaseTableVC {
                     if let index = connectingFlightsFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
                         connectingFlightsFilterArray.remove(at: index)
                     }
-                    print(connectingFlightsFilterArray.joined(separator: "---"))
                     break
                     
                     
@@ -661,7 +685,6 @@ class FilterSearchVC: BaseTableVC {
                     if let index = ConnectingAirportsFilterArray.firstIndex(of: cell.titlelbl.text ?? "") {
                         ConnectingAirportsFilterArray.remove(at: index)
                     }
-                    print(ConnectingAirportsFilterArray.joined(separator: "---"))
                     break
                     
                     
@@ -684,7 +707,6 @@ class FilterSearchVC: BaseTableVC {
                             refundablerTypeFilteArray.remove(at: index)
                         }
                     }
-                    print(refundablerTypeFilteArray)
                     break
                     
                     
@@ -693,7 +715,6 @@ class FilterSearchVC: BaseTableVC {
                     if let index = selectedNeighbourwoodArray.firstIndex(of: cell.titlelbl.text ?? "") {
                         selectedNeighbourwoodArray.remove(at: index)
                     }
-                    print(selectedNeighbourwoodArray.joined(separator: "---"))
                     break
                     
                     
@@ -702,7 +723,6 @@ class FilterSearchVC: BaseTableVC {
                     if let index = selectednearBylocationsArray.firstIndex(of: cell.titlelbl.text ?? "") {
                         selectednearBylocationsArray.remove(at: index)
                     }
-                    print(selectednearBylocationsArray.joined(separator: "---"))
                     break
                     
                     
@@ -711,7 +731,6 @@ class FilterSearchVC: BaseTableVC {
                     if let index = selectedamenitiesArray.firstIndex(of: cell.titlelbl.text ?? "") {
                         selectedamenitiesArray.remove(at: index)
                     }
-                    print(selectedamenitiesArray.joined(separator: "---"))
                     break
                     
                     
@@ -741,7 +760,62 @@ class FilterSearchVC: BaseTableVC {
                         maxpricerangefilter = Double(pricesFloat.max() ?? 0.0)
                     }
                     
-                    delegate?.filterByApplied(minpricerange: minpricerangefilter, maxpricerange: maxpricerangefilter, noofstopsFA: noOfStopsFilterArray,departureTimeFilter: departureTimeFilter,arrivalTimeFilter: arrivalTimeFilter, airlinesFA: airlinesFilterArray, cancellationTypeFA: refundablerTypeFilteArray, connectingFlightsFA: connectingFlightsFilterArray, connectingAirportsFA: ConnectingAirportsFilterArray)
+                    
+                    filterModel.minPriceRange = minpricerangefilter
+                    filterModel.maxPriceRange = maxpricerangefilter
+                    
+                    
+                    if departureTimeFilter.isEmpty == false {
+                        filterModel.departureTime = departureTimeFilter
+                    }
+                    
+                    if arrivalTimeFilter.isEmpty == false {
+                        filterModel.arrivalTime = arrivalTimeFilter
+                    }
+                    
+                    
+                    if !noOfStopsFilterArray.isEmpty {
+                        filterModel.noOfStops = noOfStopsFilterArray
+                    }
+                    
+                    if !refundablerTypeFilteArray.isEmpty {
+                        filterModel.refundableTypes = refundablerTypeFilteArray
+                    }
+                    
+                    if !airlinesFilterArray.isEmpty {
+                        filterModel.airlines = airlinesFilterArray
+                    }
+                    
+                    if !connectingFlightsFilterArray.isEmpty {
+                        filterModel.connectingFlights = connectingFlightsFilterArray
+                    }
+                    
+                    if !ConnectingAirportsFilterArray.isEmpty {
+                        filterModel.connectingAirports = ConnectingAirportsFilterArray
+                    }
+                    
+                    
+                    delegate?.filterByApplied(minpricerange: filterModel.minPriceRange,
+                                              maxpricerange: filterModel.maxPriceRange,
+                                              noofstopsFA: filterModel.noOfStops,
+                                              departureTimeFilter: filterModel.departureTime,
+                                              arrivalTimeFilter: filterModel.arrivalTime,
+                                              airlinesFA: filterModel.airlines,
+                                              cancellationTypeFA: filterModel.refundableTypes,
+                                              connectingFlightsFA: filterModel.connectingFlights,
+                                              connectingAirportsFA: filterModel.connectingAirports)
+                    
+                    
+                    
+                    //                    delegate?.filterByApplied(minpricerange: minpricerangefilter,
+                    //                                              maxpricerange: maxpricerangefilter,
+                    //                                              noofstopsFA: noOfStopsFilterArray,
+                    //                                              departureTimeFilter: departureTimeFilter,
+                    //                                              arrivalTimeFilter: arrivalTimeFilter,
+                    //                                              airlinesFA: airlinesFilterArray,
+                    //                                              cancellationTypeFA: refundablerTypeFilteArray,
+                    //                                              connectingFlightsFA: connectingFlightsFilterArray,
+                    //                                              connectingAirportsFA: ConnectingAirportsFilterArray)
                 }
             }else {
                 
@@ -751,18 +825,69 @@ class FilterSearchVC: BaseTableVC {
                     maxpricerangefilter = Double(pricesFloat.max() ?? 0.0)
                 }
                 
-                delegate?.hotelFilterByApplied(minpricerange: minpricerangefilter,
-                                               maxpricerange: maxpricerangefilter,
-                                               starRating: starRatingFilter,
-                                               refundableTypeArray: refundablerTypeFilteArray,
-                                               nearByLocA: selectednearBylocationsArray,
-                                               niberhoodA: selectedNeighbourwoodArray,
-                                               aminitiesA: selectedamenitiesArray)
+                //                delegate?.hotelFilterByApplied(minpricerange: minpricerangefilter,
+                //                                               maxpricerange: maxpricerangefilter,
+                //                                               starRating: starRatingFilter,
+                //                                               refundableTypeArray: refundablerTypeFilteArray,
+                //                                               nearByLocA: selectednearBylocationsArray,
+                //                                               niberhoodA: selectedNeighbourwoodArray,
+                //                                               aminitiesA: selectedamenitiesArray)
+                
+                
+                
+                hotelfiltermodel.minPriceRange = minpricerangefilter
+                hotelfiltermodel.maxPriceRange = maxpricerangefilter
+                
+                if starRatingFilter.isEmpty == false {
+                    hotelfiltermodel.starRating = starRatingFilter
+                }
+                
+                
+                if !refundablerTypeFilteArray.isEmpty {
+                    hotelfiltermodel.refundableTypes = refundablerTypeFilteArray
+                }
+                
+                if !selectednearBylocationsArray.isEmpty {
+                    hotelfiltermodel.nearByLocA = selectednearBylocationsArray
+                }
+                
+                if !selectedNeighbourwoodArray.isEmpty {
+                    hotelfiltermodel.niberhoodA = selectedNeighbourwoodArray
+                }
+                
+                if !selectedamenitiesArray.isEmpty {
+                    hotelfiltermodel.aminitiesA = selectedamenitiesArray
+                }
+                
+                
+                
+                delegate?.hotelFilterByApplied(minpricerange:  hotelfiltermodel.minPriceRange,
+                                               maxpricerange:  hotelfiltermodel.maxPriceRange,
+                                               starRating:  hotelfiltermodel.starRating,
+                                               refundableTypeArray: hotelfiltermodel.refundableTypes,
+                                               nearByLocA: hotelfiltermodel.nearByLocA,
+                                               niberhoodA: hotelfiltermodel.niberhoodA,
+                                               aminitiesA: hotelfiltermodel.aminitiesA)
             }
         }
         
         callapibool = false
         dismiss(animated: true)
+    }
+    
+    
+    
+    @IBAction func didTapOnResetBtnAction(_ sender: Any) {
+        sortBy = .nothing
+        if filterTapKey == "filter" {
+            DispatchQueue.main.async {[self] in
+                resetFilter()
+            }
+        }else {
+            DispatchQueue.main.async {[self] in
+                resetFlightSortFilter()
+            }
+        }
     }
     
     
@@ -802,3 +927,83 @@ extension FilterSearchVC {
     
 }
 
+
+
+
+extension FilterSearchVC {
+    
+    func resetFilter() {
+        // Reset all values in the FilterModel
+        
+        filterModel.minPriceRange = 0.0
+        filterModel.maxPriceRange = 0.0
+        filterModel.noOfStops = []
+        filterModel.refundableTypes = []
+        filterModel.airlines = []
+        
+        filterModel.connectingFlights = []
+        filterModel.connectingAirports = []
+        filterModel.luggage.removeAll()
+        
+        filterModel.departureTime = []
+        departureTimeFilter = []
+        filterModel.arrivalTime = []
+        arrivalTimeFilter = []
+        filterModel.noOvernightFlight = []
+        
+        // Deselect all cells in your checkOptionsTVCell table view
+        deselectAllCheckOptionsCells()
+        
+        // Reload the table view to reflect the changes
+        commonTableView.reloadData()
+    }
+    
+    func deselectAllCheckOptionsCells() {
+        // Iterate through the table view and deselect all cells
+        for section in 0..<commonTableView.numberOfSections {
+            for row in 0..<commonTableView.numberOfRows(inSection: section) {
+                if let cell = commonTableView.cellForRow(at: IndexPath(row: row, section: section)) as? checkOptionsTVCell {
+                     cell.unselected()
+                }
+            }
+        }
+    }
+    
+    
+    func resetFlightSortFilter() {
+        
+        if let tabSelected = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if tabSelected == "Flight" {
+                
+                if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                    resetSortBy(cell: cell1)
+                }
+                if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                    resetSortBy(cell: cell2)
+                }
+                
+                if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                    resetSortBy(cell: cell3)
+                }
+                if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                    resetSortBy(cell: cell4)
+                }
+                
+                if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                    resetSortBy(cell: cell5)
+                }
+                
+                
+            }else {
+                if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                    resetSortBy(cell: cell1)
+                }
+                if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                    resetSortBy(cell: cell2)
+                }
+            }
+        }
+    }
+    
+    
+}

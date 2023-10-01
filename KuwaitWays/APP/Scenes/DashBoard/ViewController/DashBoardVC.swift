@@ -49,7 +49,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
             defaults.set("+965", forKey: UserDefaultsKeys.mobilecountrycode)
             defaults.set("Kuwati", forKey: UserDefaultsKeys.mobilecountryname)
             
-            defaults.set("Flights", forKey: UserDefaultsKeys.tabselect)
+            defaults.set("Flight", forKey: UserDefaultsKeys.tabselect)
             defaults.set("oneway", forKey: UserDefaultsKeys.journeyType)
             defaults.set("KWD", forKey: UserDefaultsKeys.selectedCurrency)
             

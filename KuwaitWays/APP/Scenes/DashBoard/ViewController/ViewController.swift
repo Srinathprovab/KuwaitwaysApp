@@ -61,10 +61,6 @@ func checkDepartureAndReturnDates1(_ parameters: [String: Any],p1:String) -> Boo
 }
 
 
-
-
-
-
 //MARK: - check Departure And Return Dates
 func checkDepartureAndReturnDates(_ parameters: [String: Any],p1:String,p2:String) -> Bool {
     let dateFormatter = DateFormatter()
@@ -182,19 +178,7 @@ class TimerManager {
     
     private init() {}
     
-//    func startTimer() {
-//
-//
-//        endBackgroundTask() // End any existing background task (if any)
-//        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
-//            self?.endBackgroundTask()
-//        }
-//
-//        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-//
-//
-//    }
-    
+
     func startTimer() {
         endBackgroundTask() // End any existing background task (if any)
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in

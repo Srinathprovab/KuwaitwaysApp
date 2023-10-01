@@ -276,7 +276,7 @@ class TravellerEconomyVC: BaseTableVC {
         
         
         
-        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("calreloadTV"), object: nil)
         self.dismiss(animated: true)
     }
     
