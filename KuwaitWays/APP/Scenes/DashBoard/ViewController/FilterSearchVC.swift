@@ -10,8 +10,8 @@ import UIKit
 
 
 struct FlightFilterModel {
-    var minPriceRange = Double()
-    var maxPriceRange = Double()
+    var minPriceRange: Double?
+    var maxPriceRange: Double?
     var noOfStops: [String] = []
     var refundableTypes: [String] = []
     var airlines: [String] = []
@@ -126,6 +126,11 @@ class FilterSearchVC: BaseTableVC {
     var selectednearBylocationsArray = [String]()
     var selectedamenitiesArray = [String]()
     
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        addObserver()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -754,49 +759,66 @@ class FilterSearchVC: BaseTableVC {
                     delegate?.filtersSortByApplied(sortBy: sortBy)
                 }else {
                     
-                    if minpricerangefilter.isZero == true && maxpricerangefilter.isZero == true{
-                        let pricesFloat = prices.compactMap { Float($0) }
-                        minpricerangefilter = Double(pricesFloat.min() ?? 0.0)
-                        maxpricerangefilter = Double(pricesFloat.max() ?? 0.0)
+                    
+                    
+                    if minpricerangefilter != 0.0 {
+                        filterModel.minPriceRange = minpricerangefilter
                     }
                     
-                    
-                    filterModel.minPriceRange = minpricerangefilter
-                    filterModel.maxPriceRange = maxpricerangefilter
+                    if maxpricerangefilter != 0.0 {
+                        filterModel.maxPriceRange = maxpricerangefilter
+                    }
                     
                     
                     if departureTimeFilter.isEmpty == false {
                         filterModel.departureTime = departureTimeFilter
+                    }else {
+                        filterModel.departureTime.removeAll()
                     }
                     
                     if arrivalTimeFilter.isEmpty == false {
                         filterModel.arrivalTime = arrivalTimeFilter
+                    }else {
+                        filterModel.arrivalTime.removeAll()
                     }
                     
                     
                     if !noOfStopsFilterArray.isEmpty {
                         filterModel.noOfStops = noOfStopsFilterArray
+                    }else {
+                        filterModel.noOfStops.removeAll()
                     }
                     
                     if !refundablerTypeFilteArray.isEmpty {
                         filterModel.refundableTypes = refundablerTypeFilteArray
+                    }else {
+                        filterModel.refundableTypes.removeAll()
                     }
                     
                     if !airlinesFilterArray.isEmpty {
                         filterModel.airlines = airlinesFilterArray
+                    }else {
+                        filterModel.airlines.removeAll()
                     }
                     
                     if !connectingFlightsFilterArray.isEmpty {
                         filterModel.connectingFlights = connectingFlightsFilterArray
+                    }else {
+                        filterModel.connectingFlights.removeAll()
                     }
+                    
                     
                     if !ConnectingAirportsFilterArray.isEmpty {
                         filterModel.connectingAirports = ConnectingAirportsFilterArray
+                    }else {
+                        filterModel.connectingAirports.removeAll()
                     }
                     
                     
-                    delegate?.filterByApplied(minpricerange: filterModel.minPriceRange,
-                                              maxpricerange: filterModel.maxPriceRange,
+                    
+                    
+                    delegate?.filterByApplied(minpricerange: filterModel.minPriceRange ?? 0.0 ,
+                                              maxpricerange: filterModel.maxPriceRange ?? 0.0 ,
                                               noofstopsFA: filterModel.noOfStops,
                                               departureTimeFilter: filterModel.departureTime,
                                               arrivalTimeFilter: filterModel.arrivalTime,
@@ -807,15 +829,6 @@ class FilterSearchVC: BaseTableVC {
                     
                     
                     
-                    //                    delegate?.filterByApplied(minpricerange: minpricerangefilter,
-                    //                                              maxpricerange: maxpricerangefilter,
-                    //                                              noofstopsFA: noOfStopsFilterArray,
-                    //                                              departureTimeFilter: departureTimeFilter,
-                    //                                              arrivalTimeFilter: arrivalTimeFilter,
-                    //                                              airlinesFA: airlinesFilterArray,
-                    //                                              cancellationTypeFA: refundablerTypeFilteArray,
-                    //                                              connectingFlightsFA: connectingFlightsFilterArray,
-                    //                                              connectingAirportsFA: ConnectingAirportsFilterArray)
                 }
             }else {
                 
@@ -935,21 +948,32 @@ extension FilterSearchVC {
     func resetFilter() {
         // Reset all values in the FilterModel
         
-        filterModel.minPriceRange = 0.0
-        filterModel.maxPriceRange = 0.0
+        
+        filterModel.minPriceRange = Double(prices.compactMap { Float($0) }.min() ?? 0.0)
+        filterModel.maxPriceRange = Double(prices.compactMap { Float($0) }.max() ?? 0.0)
+        if let cell = commonTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SliderTVCell {
+            cell.setupUI()
+        }
+        
+        
         filterModel.noOfStops = []
         filterModel.refundableTypes = []
         filterModel.airlines = []
-        
         filterModel.connectingFlights = []
         filterModel.connectingAirports = []
         filterModel.luggage.removeAll()
-        
-        filterModel.departureTime = []
-        departureTimeFilter = []
-        filterModel.arrivalTime = []
-        arrivalTimeFilter = []
         filterModel.noOvernightFlight = []
+        filterModel.departureTime = []
+        filterModel.arrivalTime = []
+        
+        noOfStopsFilterArray.removeAll()
+        airlinesFilterArray.removeAll()
+        refundablerTypeFilteArray.removeAll()
+        connectingFlightsFilterArray.removeAll()
+        ConnectingAirportsFilterArray.removeAll()
+        departureTimeFilter.removeAll()
+        arrivalTimeFilter.removeAll()
+        
         
         // Deselect all cells in your checkOptionsTVCell table view
         deselectAllCheckOptionsCells()
@@ -963,7 +987,7 @@ extension FilterSearchVC {
         for section in 0..<commonTableView.numberOfSections {
             for row in 0..<commonTableView.numberOfRows(inSection: section) {
                 if let cell = commonTableView.cellForRow(at: IndexPath(row: row, section: section)) as? checkOptionsTVCell {
-                     cell.unselected()
+                    cell.unselected()
                 }
             }
         }
@@ -1006,4 +1030,89 @@ extension FilterSearchVC {
     }
     
     
+}
+
+
+
+extension FilterSearchVC {
+    
+    func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(resetallFilters), name: Notification.Name("resetallFilters"), object: nil)
+        
+        loadinitiallFlightFilterValues()
+    }
+    
+    @objc func resetallFilters() {
+        
+        DispatchQueue.main.async {
+            self.resetFilter()
+        }
+        
+        DispatchQueue.main.async {
+            sortBy = .nothing
+        }
+        
+    }
+    
+    
+    
+    
+    func loadinitiallFlightFilterValues(){
+        
+        
+        
+        
+        if !filterModel.refundableTypes.isEmpty {
+            refundablerTypeFilteArray = filterModel.refundableTypes
+        }
+        
+        
+        if !filterModel.departureTime.isEmpty {
+            departureTimeFilter = filterModel.departureTime
+        }
+        
+        
+        if !filterModel.arrivalTime.isEmpty {
+            arrivalTimeFilter = filterModel.arrivalTime
+        }
+        
+        if !filterModel.noOfStops.isEmpty {
+            noOfStopsFilterArray = filterModel.noOfStops
+        }
+        
+        
+        if !filterModel.connectingFlights.isEmpty {
+            connectingFlightsFilterArray = filterModel.connectingFlights
+        }
+        
+        
+        if !filterModel.connectingAirports.isEmpty {
+            ConnectingAirportsFilterArray = filterModel.connectingAirports
+        }
+        
+        if !filterModel.airlines.isEmpty {
+            airlinesFilterArray = filterModel.airlines
+        }
+        
+    }
+    
+    
+    func loadinitiallHotelFilterValues(){
+        if !hotelfiltermodel.refundableTypes.isEmpty {
+            refundablerTypeFilteArray = hotelfiltermodel.refundableTypes
+        }
+        
+        if !hotelfiltermodel.aminitiesA.isEmpty {
+            selectedamenitiesArray = hotelfiltermodel.aminitiesA
+        }
+        
+        if !hotelfiltermodel.nearByLocA.isEmpty {
+            selectednearBylocationsArray = hotelfiltermodel.nearByLocA
+        }
+        
+        if !hotelfiltermodel.niberhoodA.isEmpty {
+            selectedNeighbourwoodArray = hotelfiltermodel.niberhoodA
+        }
+    }
 }

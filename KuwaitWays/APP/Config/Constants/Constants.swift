@@ -174,7 +174,6 @@ var amenitiesArray = [String]()
 var nearBylocationsArray = [String]()
 
 
-
 /* URL endpoints */
 struct ApiEndpoints {
     

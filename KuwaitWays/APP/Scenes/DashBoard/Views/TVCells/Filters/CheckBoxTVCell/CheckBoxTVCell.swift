@@ -148,21 +148,6 @@ extension CheckBoxTVCell:UITableViewDataSource,UITableViewDelegate {
     }
     
     
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        if let cell = tableView.cellForRow(at: indexPath) as? checkOptionsTVCell {
-    //            cell.checkImg.image = UIImage(named: "chk")?.withRenderingMode(.alwaysOriginal)
-    //            delegate?.didTapOnCheckBox(cell: cell)
-    //        }
-    //    }
-    //
-    //
-    //    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-    //        if let cell = tableView.cellForRow(at: indexPath) as? checkOptionsTVCell {
-    //            cell.checkImg.image = UIImage(named: "uncheck")?.withRenderingMode(.alwaysOriginal)
-    //            delegate?.didTapOnDeselectCheckBox(cell: cell)
-    //        }
-    //    }
-    //
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? checkOptionsTVCell {
@@ -171,7 +156,7 @@ extension CheckBoxTVCell:UITableViewDataSource,UITableViewDelegate {
             
             // Update your data source to reflect the selected state
             // For example, if you're using filterModel:
-            filterModel.luggage.append(cell.titlelbl.text ?? "")
+            //  filterModel.luggage.append(cell.titlelbl.text ?? "")
             
             delegate?.didTapOnCheckBox(cell: cell)
         }
@@ -183,11 +168,6 @@ extension CheckBoxTVCell:UITableViewDataSource,UITableViewDelegate {
             if let index = selectedIndices.firstIndex(of: indexPath) {
                 selectedIndices.remove(at: index)
                 
-                // Update your data source to reflect the deselected state
-                // For example, if you're using filterModel:
-                if let deselectedItem = cell.titlelbl.text {
-                    filterModel.luggage.removeAll { $0 == deselectedItem }
-                }
             }
             
             delegate?.didTapOnDeselectCheckBox(cell: cell)
@@ -228,6 +208,7 @@ extension CheckBoxTVCell {
                     DispatchQueue.main.async {
                         cell.sele()
                         self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {
@@ -253,6 +234,7 @@ extension CheckBoxTVCell {
                     DispatchQueue.main.async {
                         cell.sele()
                         self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {
@@ -279,6 +261,7 @@ extension CheckBoxTVCell {
                     DispatchQueue.main.async {
                         cell.sele()
                         self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {
@@ -308,6 +291,8 @@ extension CheckBoxTVCell {
                     }) {
                         DispatchQueue.main.async {
                             cell.sele()
+                            self.selectedIndices.append(indexPath)
+                            self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                         }
                         print("Selected: \(cell.titlelbl.text ?? "")")
                     } else {
@@ -331,6 +316,8 @@ extension CheckBoxTVCell {
                     
                     DispatchQueue.main.async {
                         cell.sele()
+                        self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {
@@ -354,6 +341,8 @@ extension CheckBoxTVCell {
                     
                     DispatchQueue.main.async {
                         cell.sele()
+                        self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {
@@ -378,6 +367,8 @@ extension CheckBoxTVCell {
                     
                     DispatchQueue.main.async {
                         cell.sele()
+                        self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {
@@ -420,6 +411,7 @@ extension CheckBoxTVCell {
                     DispatchQueue.main.async {
                         cell.sele()
                         self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {
@@ -447,6 +439,7 @@ extension CheckBoxTVCell {
                     DispatchQueue.main.async {
                         cell.sele()
                         self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {
@@ -501,6 +494,7 @@ extension CheckBoxTVCell {
                     DispatchQueue.main.async {
                         cell.sele()
                         self.selectedIndices.append(indexPath)
+                        self.checkOptionsTV.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                     }
                     print("Selected: \(cell.titlelbl.text ?? "")")
                 } else {

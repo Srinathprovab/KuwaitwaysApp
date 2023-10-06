@@ -125,8 +125,8 @@ class ViewController: UIViewController {
                 self.gotodashBoardScreen()
                 
                 
-//                defaults.set("Hotel", forKey: UserDefaultsKeys.tabselect)
-//                self.gotoBookingConfirmedVC(url: "https://kuwaitways.com/mobile_webservices/index.php/voucher/hotel/KW-H-DW-21092023-1202-8911/PTBSID0000000089/BOOKING_CONFIRMED/show_voucher")
+                //                defaults.set("Hotel", forKey: UserDefaultsKeys.tabselect)
+                //                self.gotoBookingConfirmedVC(url: "https://kuwaitways.com/mobile_webservices/index.php/voucher/hotel/KW-H-DW-21092023-1202-8911/PTBSID0000000089/BOOKING_CONFIRMED/show_voucher")
             })
         }
         
@@ -171,26 +171,53 @@ protocol TimerManagerDelegate: AnyObject {
 class TimerManager {
     static let shared = TimerManager() // Singleton instance
     weak var delegate: TimerManagerDelegate?
-    
-    var timer: Timer?
-    var totalTime = 1
+
+    private var timer: Timer?
+    private var startTime: Date?
+    private var totalTime = 60 // Initial total time in seconds
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-    
+    private var isRunning = false
+
     private init() {}
+
+    func setTotalTime(_ newTotalTime: Int) {
+        // You can use this method to set a new total time
+        totalTime = newTotalTime
+    }
     
+    // Getter method to access totalTime
+        func getTotalTime() -> Int {
+            return totalTime
+        }
+
 
     func startTimer() {
+        if isRunning {
+            return // Timer is already running
+        }
+
         endBackgroundTask() // End any existing background task (if any)
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
         }
         
+        // Check if there's elapsed time and subtract it from the total time
+        if let startTime = startTime {
+            let elapsedTime = Date().timeIntervalSince(startTime)
+            totalTime -= Int(elapsedTime)
+            // Ensure totalTime doesn't go negative
+            totalTime = max(0, totalTime)
+        }
+
         // Schedule the timer in the common run loop mode
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .common)
+        
+        // Update the start time to the current time
+        startTime = Date()
+        isRunning = true
     }
 
-    
     @objc func updateTimer() {
         if totalTime != 0 {
             totalTime -= 1
@@ -201,24 +228,28 @@ class TimerManager {
             endBackgroundTask()
         }
     }
-    
+
     @objc func sessionStop() {
         if let timer = timer {
             timer.invalidate()
             self.timer = nil
         }
-    }
-    
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+        isRunning = false
     }
 
-    
+    func stopTimer() {
+        if isRunning {
+            if let timer = timer {
+                timer.invalidate()
+                self.timer = nil
+            }
+            isRunning = false
+        }
+    }
+
     private func endBackgroundTask() {
         guard backgroundTask != .invalid else { return }
         UIApplication.shared.endBackgroundTask(backgroundTask)
         backgroundTask = .invalid
     }
 }
-

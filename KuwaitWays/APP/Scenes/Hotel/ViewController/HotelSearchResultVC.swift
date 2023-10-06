@@ -208,7 +208,7 @@ extension HotelSearchResultVC {
             hsearch_id = String(response.search_id ?? 0)
             
             
-            TimerManager.shared.totalTime = response.session_expiry_details?.session_start_time ?? 0
+            TimerManager.shared.setTotalTime(900)
             TimerManager.shared.startTimer()
             
             
@@ -430,7 +430,7 @@ extension HotelSearchResultVC {
     }
     
     func updateTimer() {
-        var totalTime = TimerManager.shared.totalTime
+        var totalTime = TimerManager.shared.getTotalTime()
         let minutes =  totalTime / 60
         let seconds = totalTime % 60
         let formattedTime = String(format: "%02d:%02d", minutes, seconds)
