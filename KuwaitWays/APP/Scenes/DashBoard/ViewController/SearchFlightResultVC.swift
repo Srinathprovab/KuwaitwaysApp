@@ -253,8 +253,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             bookingsource = response.data?.booking_source ?? ""
             bookingsourcekey = response.data?.booking_source_key ?? ""
             
-            TimerManager.shared.setTotalTime(900)
-            TimerManager.shared.startTimer()
+            TimerManager.shared.stopTimer()
+            TimerManager.shared.startTimer(time: 900)
             
             
             nav.citylbl.text = "\(response.data?.search_params?.from_loc?.joined(separator: "-") ?? "")|\(response.data?.search_params?.to_loc?.joined(separator: "-") ?? "")"
@@ -336,8 +336,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             bookingsourcekey = response.data?.booking_source_key ?? ""
             
             //   TimerManager.shared.totalTime = 20
-            TimerManager.shared.setTotalTime(900)
-            TimerManager.shared.startTimer()
+            TimerManager.shared.stopTimer()
+            TimerManager.shared.startTimer(time: 900)
             
             
             holderView.isHidden = false
@@ -1083,7 +1083,7 @@ extension SearchFlightResultVC {
     
     func updateTimer() {
         DispatchQueue.main.async {[self] in
-            var totalTime = TimerManager.shared.getTotalTime()
+            var totalTime = TimerManager.shared.totalTime
             let minutes =  totalTime / 60
             let seconds = totalTime % 60
             let formattedTime = String(format: "%02d:%02d", minutes, seconds)

@@ -226,6 +226,7 @@ class BookHotelVC: BaseTableVC {
     
     
     func gotoSearchHotelsResultVC(){
+        defaults.set(false, forKey: "hoteltfilteronce")
         guard let vc = HotelSearchResultVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
         vc.nationalityCode = self.nationalityCode

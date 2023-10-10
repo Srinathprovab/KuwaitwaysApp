@@ -295,6 +295,7 @@ class BookFlightVC: BaseTableVC {
     
     
     func gotoSearchFlightResultVC(input:[String:Any]) {
+        defaults.set(false, forKey: "flightfilteronce")
         guard let vc = SearchFlightResultVC.newInstance.self else {return}
         vc.modalPresentationStyle = .fullScreen
         loderBool = true

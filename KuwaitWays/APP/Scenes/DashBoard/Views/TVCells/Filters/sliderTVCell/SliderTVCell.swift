@@ -95,34 +95,45 @@ class SliderTVCell: TableViewCell, TTRangeSliderDelegate {
     
     
     func setupInitivalues() {
-        
-        
-        // Check if filterModel has values for minPriceRange and maxPriceRange
-        if let minPrice = filterModel.minPriceRange, let maxPrice = filterModel.maxPriceRange {
-            // Set the slider values manually
-            minValue = Float(minPrice)
-            maxValue = Float(maxPrice)
-            
-            rangeSlider.minValue = minValue
-            rangeSlider.maxValue = maxValue
-            
-            DispatchQueue.main.async { [self] in
-                rangeSlider.selectedMinimum = Float(minPrice)
-                rangeSlider.selectedMaximum = Float(maxPrice)
+        if let selectedTap = defaults.object(forKey: UserDefaultsKeys.tabselect) as? String {
+            if selectedTap == "Flight" {
+                if let minPrice = filterModel.minPriceRange, let maxPrice = filterModel.maxPriceRange {
+                    // Both minPrice and maxPrice have values in filterModel
+                    minValue = Float(minPrice)
+                    maxValue = Float(maxPrice)
+                    
+                    
+                    rangeSlider.minValue = prices.compactMap { Float($0) }.min()!
+                    rangeSlider.maxValue = prices.compactMap { Float($0) }.max()!
+                    
+                    // Set the thumbs to the values
+                    rangeSlider.selectedMinimum = minValue
+                    rangeSlider.selectedMaximum = maxValue
+                    
+                    //  Update the slider's appearance
+                    rangeSlider.setNeedsDisplay()
+                }
+                
+                
+            } else {
+                if let minPrice = hotelfiltermodel.minPriceRange, let maxPrice = hotelfiltermodel.maxPriceRange {
+                    // Both minPrice and maxPrice have values in filterModel
+                    minValue = Float(minPrice)
+                    maxValue = Float(maxPrice)
+                    
+                    
+                    rangeSlider.minValue = prices.compactMap { Float($0) }.min()!
+                    rangeSlider.maxValue = prices.compactMap { Float($0) }.max()!
+                    
+                    // Set the thumbs to the values
+                    rangeSlider.selectedMinimum = minValue
+                    rangeSlider.selectedMaximum = maxValue
+                    
+                    //  Update the slider's appearance
+                    rangeSlider.setNeedsDisplay()
+                }
+                
             }
-        } else {
-            // If no values are available in filterModel, set default values
-            let pricesFloat = prices.compactMap { Float($0) }
-            minValue = pricesFloat.min() ?? 0.0
-            maxValue = pricesFloat.max() ?? 100.0 // Set default max value
-            
-            
-            rangeSlider.minValue = minValue
-            rangeSlider.maxValue = maxValue
-            
-            // Set the thumbs to the default values
-            rangeSlider.selectedMinimum = minValue
-            rangeSlider.selectedMaximum = maxValue
         }
         
         // Update labels and other UI elements as needed

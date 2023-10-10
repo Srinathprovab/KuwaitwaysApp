@@ -105,10 +105,9 @@ class Calvc: UIViewController {
         
         calendarView.ibCalendarDelegate = self
         calendarView.ibCalendarDataSource = self
-        calendarView.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        calendarView.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         calendarView.minimumLineSpacing = 10
         calendarView.minimumInteritemSpacing = 10
-        
         
         
         calendarView.visibleDates { (visibleDates) in
