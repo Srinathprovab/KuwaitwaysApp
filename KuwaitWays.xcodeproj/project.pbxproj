@@ -205,6 +205,7 @@
 		65C8D6B02A08D19C00FB40D1 /* MyBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C8D6AF2A08D19C00FB40D1 /* MyBookingViewModel.swift */; };
 		65C8D6B42A08E06600FB40D1 /* MyBookingsTVCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C8D6B22A08E06600FB40D1 /* MyBookingsTVCells.swift */; };
 		65C8D6B52A08E06600FB40D1 /* MyBookingsTVCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65C8D6B32A08E06600FB40D1 /* MyBookingsTVCells.xib */; };
+		65D333392AD6EBC2001A700D /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D333382AD6EBC2001A700D /* Details.swift */; };
 		65D7B4E92A011409001CFCBD /* CityOrHotelListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D7B4E82A011409001CFCBD /* CityOrHotelListModel.swift */; };
 		65D7B4ED2A011A3F001CFCBD /* AddRoomsVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D7B4EC2A011A3F001CFCBD /* AddRoomsVCViewController.swift */; };
 		65D7B4FA2A0139A1001CFCBD /* HotelListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D7B4F92A0139A1001CFCBD /* HotelListModel.swift */; };
@@ -616,6 +617,7 @@
 		65C8D6AF2A08D19C00FB40D1 /* MyBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingViewModel.swift; sourceTree = "<group>"; };
 		65C8D6B22A08E06600FB40D1 /* MyBookingsTVCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingsTVCells.swift; sourceTree = "<group>"; };
 		65C8D6B32A08E06600FB40D1 /* MyBookingsTVCells.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyBookingsTVCells.xib; sourceTree = "<group>"; };
+		65D333382AD6EBC2001A700D /* Details.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 		65D7B4E82A011409001CFCBD /* CityOrHotelListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityOrHotelListModel.swift; sourceTree = "<group>"; };
 		65D7B4EC2A011A3F001CFCBD /* AddRoomsVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRoomsVCViewController.swift; sourceTree = "<group>"; };
 		65D7B4F92A0139A1001CFCBD /* HotelListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelListModel.swift; sourceTree = "<group>"; };
@@ -1068,6 +1070,7 @@
 				652C7B5929F6A1870070935B /* FlightListModel.swift */,
 				652C7B5D29F6A24A0070935B /* J_flight_list.swift */,
 				652C7B6329F6A24B0070935B /* Flight_details.swift */,
+				65D333382AD6EBC2001A700D /* Details.swift */,
 				652C7B6629F6A24B0070935B /* Attr.swift */,
 				652C7B6A29F6A24C0070935B /* Destination.swift */,
 				652C7B6929F6A24C0070935B /* Fare.swift */,
@@ -2953,6 +2956,7 @@
 				BF8C0E7B28C19BD5009C3A6A /* NavBar.swift in Sources */,
 				BF8C0E5A28C19BD5009C3A6A /* EditProfileVC.swift in Sources */,
 				BF8C0E7C28C19BD5009C3A6A /* TableViewHelper.swift in Sources */,
+				65D333392AD6EBC2001A700D /* Details.swift in Sources */,
 				BF8C0E7F28C19BD5009C3A6A /* UIKitHelper.swift in Sources */,
 				BF8C0E7D28C19BD5009C3A6A /* UIViewControllerExtension.swift in Sources */,
 				6505B3E02ABC432E00F3FB77 /* Currency.swift in Sources */,
@@ -3342,7 +3346,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KuwaitWays/Info.plist;
@@ -3383,7 +3387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KuwaitWays/Info.plist;

@@ -195,17 +195,17 @@
                                         <rect key="frame" x="157" y="130" width="100" height="100"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bird" translatesAutoresizingMaskIntoConstraints="NO" id="ClD-Qb-aID">
-                                                <rect key="frame" x="5" y="5" width="90" height="90"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="AbK-uM-aot"/>
+                                            <constraint firstAttribute="trailing" secondItem="ClD-Qb-aID" secondAttribute="trailing" id="CJQ-zg-ZSW"/>
                                             <constraint firstAttribute="height" constant="100" id="Hav-CA-Qep"/>
-                                            <constraint firstItem="ClD-Qb-aID" firstAttribute="top" secondItem="pa1-z9-vhQ" secondAttribute="top" constant="5" id="S6F-SI-uBo"/>
-                                            <constraint firstAttribute="trailing" secondItem="ClD-Qb-aID" secondAttribute="trailing" constant="5" id="gnW-Is-79q"/>
-                                            <constraint firstAttribute="bottom" secondItem="ClD-Qb-aID" secondAttribute="bottom" constant="5" id="q5N-tP-fFB"/>
-                                            <constraint firstItem="ClD-Qb-aID" firstAttribute="leading" secondItem="pa1-z9-vhQ" secondAttribute="leading" constant="5" id="tVV-aI-0e9"/>
+                                            <constraint firstAttribute="bottom" secondItem="ClD-Qb-aID" secondAttribute="bottom" id="XJG-sv-otL"/>
+                                            <constraint firstItem="ClD-Qb-aID" firstAttribute="leading" secondItem="pa1-z9-vhQ" secondAttribute="leading" id="eTG-mX-EtL"/>
+                                            <constraint firstItem="ClD-Qb-aID" firstAttribute="top" secondItem="pa1-z9-vhQ" secondAttribute="top" id="ymq-1a-Ycv"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akQ-mH-lLk">
@@ -244,11 +244,11 @@
                                     <constraint firstItem="gaC-WP-u8x" firstAttribute="top" secondItem="UHk-NL-NrZ" secondAttribute="bottom" constant="20" id="9lR-8y-orm"/>
                                     <constraint firstAttribute="bottom" secondItem="gaC-WP-u8x" secondAttribute="bottom" id="Lzw-E6-KsR"/>
                                     <constraint firstItem="gaC-WP-u8x" firstAttribute="leading" secondItem="NRN-q9-ZUZ" secondAttribute="leading" id="PtB-tD-L95"/>
+                                    <constraint firstItem="akQ-mH-lLk" firstAttribute="centerX" secondItem="pa1-z9-vhQ" secondAttribute="centerX" id="Tu8-jK-J2C"/>
                                     <constraint firstAttribute="trailing" secondItem="gaC-WP-u8x" secondAttribute="trailing" id="VAi-Di-tYJ"/>
                                     <constraint firstItem="UHk-NL-NrZ" firstAttribute="top" secondItem="akQ-mH-lLk" secondAttribute="bottom" id="m43-CT-pc7"/>
                                     <constraint firstItem="akQ-mH-lLk" firstAttribute="top" secondItem="pa1-z9-vhQ" secondAttribute="bottom" constant="12" id="pyL-7j-s8t"/>
                                     <constraint firstItem="UHk-NL-NrZ" firstAttribute="trailing" secondItem="akQ-mH-lLk" secondAttribute="trailing" id="sGv-mM-lhd"/>
-                                    <constraint firstItem="akQ-mH-lLk" firstAttribute="centerX" secondItem="ClD-Qb-aID" secondAttribute="centerX" id="xfk-CL-pe7"/>
                                     <constraint firstItem="amW-RH-xws" firstAttribute="top" secondItem="NRN-q9-ZUZ" secondAttribute="top" id="xuE-gA-hKN"/>
                                     <constraint firstAttribute="trailing" secondItem="amW-RH-xws" secondAttribute="trailing" id="zfG-pa-fU1"/>
                                 </constraints>

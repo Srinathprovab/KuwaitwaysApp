@@ -111,11 +111,11 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         nav.backBtn.addTarget(self, action: #selector(didTapOnBackBtn(_:)), for: .touchUpInside)
         profilePicView.layer.cornerRadius = 50
         profilePicView.clipsToBounds = true
-        profilePicView.layer.borderWidth = 0.5
-        profilePicView.layer.borderColor = UIColor.AppBorderColor.cgColor
+        profilePicView.layer.borderWidth = 4
+        profilePicView.layer.borderColor = UIColor.WhiteColor.cgColor
         
-        profilePic.layer.cornerRadius = 45
-        profilePic.clipsToBounds = true
+//        profilePic.layer.cornerRadius = 45
+//        profilePic.clipsToBounds = true
         changePicBtn.setTitleColor(.AppBackgroundColor, for: .normal)
         changePicBtn.setTitle("Change Picture", for: .normal)
         changePicBtn.titleLabel?.font = UIFont.OpenSansMedium(size: 16)

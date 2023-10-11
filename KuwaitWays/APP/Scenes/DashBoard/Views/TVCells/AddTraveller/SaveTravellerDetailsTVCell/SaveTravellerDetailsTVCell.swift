@@ -95,6 +95,11 @@ class SaveTravellerDetailsTVCell: TableViewCell {
     var passIssuingCountryName = String()
     
     
+    
+    override func prepareForReuse() {
+        showdobDatePicker()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -356,7 +361,7 @@ class SaveTravellerDetailsTVCell: TableViewCell {
 
     
     func showdobDatePicker() {
-        // Formate Date
+        // Format Date
         dobDatePicker.datePickerMode = .date
         dobDatePicker.maximumDate = Date()
         dobDatePicker.preferredDatePickerStyle = .wheels
@@ -367,16 +372,17 @@ class SaveTravellerDetailsTVCell: TableViewCell {
         
         switch ageCategory {
         case .adult:
-            components.year = -100
-            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            components.year = -12 // Allow selecting a date at least 12 years in the past
+            dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
         case .child:
-            components.year = -12
-            //components.year = -1
+            components.year = -2 // Allow selecting a date at least 2 years in the past
+            dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
+            components.year = -11 // Allow selecting a date at most 11 years in the past
             dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
-          //  dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
         case .infant:
             components.year = -2
             dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+
         }
         
         // ToolBar

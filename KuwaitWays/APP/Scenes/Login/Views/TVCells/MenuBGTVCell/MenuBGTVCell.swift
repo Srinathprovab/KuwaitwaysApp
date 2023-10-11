@@ -13,6 +13,7 @@ protocol MenuBGTVCellDelegate {
 
 class MenuBGTVCell: TableViewCell {
     
+    @IBOutlet weak var profileImageView: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var editProfileView: UIView!
@@ -66,8 +67,8 @@ class MenuBGTVCell: TableViewCell {
     
     func setupUI() {
         profileImage.image = UIImage(named: "profile")?.withRenderingMode(.alwaysOriginal)
-        profileImage.layer.cornerRadius = 50
-        profileImage.clipsToBounds = true
+        profileImageView.layer.cornerRadius = 50
+        profileImageView.clipsToBounds = true
         
         editProfileBtn.setTitle("", for: .normal)
         loginBtn.setTitle("Login/Signup", for: .normal)

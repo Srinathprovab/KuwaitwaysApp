@@ -165,7 +165,7 @@ extension PriceSummaryTVCell :UITableViewDataSource,UITableViewDelegate {
                     cell.taxesKWDlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? ""):\(Childs_Tax_Price)"
                     
                 }else if adultsCount > 0 && childCount == 0 && infantsCount > 0{
-                    cell.adultCountlbl.text = "Traveller x \(infantsCount)(Infanta)"
+                    cell.adultCountlbl.text = "Traveller x \(infantsCount)(Infant)"
                     cell.adultKWDlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? ""):\(InfantTotalPrice)"
                     cell.fareKWDlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? ""):\(Infants_Base_Price)"
                     cell.taxesKWDlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? ""):\(Infants_Tax_Price)"
@@ -173,7 +173,7 @@ extension PriceSummaryTVCell :UITableViewDataSource,UITableViewDelegate {
                 
                 
             }else {
-                cell.adultCountlbl.text = "Traveller x \(infantsCount)(Infanta)"
+                cell.adultCountlbl.text = "Traveller x \(infantsCount)(Infant)"
                 cell.adultKWDlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? ""):\(InfantTotalPrice)"
                 cell.fareKWDlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? ""):\(Infants_Base_Price)"
                 cell.taxesKWDlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? ""):\(Infants_Tax_Price)"

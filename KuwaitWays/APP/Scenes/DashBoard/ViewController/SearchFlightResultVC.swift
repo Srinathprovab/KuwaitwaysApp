@@ -32,7 +32,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
     var finalInputArray = [String:Any]()
     let refreshControl = UIRefreshControl()
     var vm:FlightListViewModel?
-    
+    let dateFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +48,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         
         TimerManager.shared.delegate = self
         addObserver()
-        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
         
         if callapibool == true {
             DispatchQueue.main.async {[self] in
@@ -136,15 +136,15 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         sessonlbl.textColor = .AppLabelColor
         sessonlbl.font = UIFont.OpenSansRegular(size: 12)
         
-        flightsFoundlbl.text = "25 Flights found"
+       
         flightsFoundlbl.textColor = .AppLabelColor
         flightsFoundlbl.font = UIFont.OpenSansRegular(size: 12)
         
         filterView.addCornerRadiusWithShadow(color: .clear, borderColor: .clear, cornerRadius: 25)
         filterBtn.setTitle("", for: .normal)
         
-        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        commonTableView.refreshControl = refreshControl
+//        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+//        commonTableView.refreshControl = refreshControl
         setupTV()
     }
     
@@ -263,7 +263,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             
             
             holderView.isHidden = false
-            setuplabels(lbl: flightsFoundlbl, text: "\(response.data?.j_flight_list?.count ?? 0) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
+           
             
             multicityFlights = response.data?.j_flight_list ?? []
             multicityFlights.forEach { j in
@@ -341,9 +341,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             
             
             holderView.isHidden = false
-            setuplabels(lbl: flightsFoundlbl, text: "\(response.data?.j_flight_list?.count ?? 0) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
-            
-            
+           
             
             
             
@@ -355,8 +353,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                     j.flight_details?.summary?.forEach({ k in
                         
                         airlinesA.append(k.operator_name ?? "")
-                        connectingFlightsA.append(k.destination?.loc ?? "")
-                        connectingAirportA.append(k.origin?.loc ?? "")
+                        connectingFlightsA.append("\(k.operator_name ?? "") (\(k.operator_code ?? ""))")
+                       
                         
                         switch k.no_of_stops {
                         case 0:
@@ -374,6 +372,20 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                     })
                 }
             }
+            
+            oneWayFlights.forEach { i in
+                i.forEach { j in
+                    
+                    j.flight_details?.details?.forEach({ i in
+                        i.forEach { j in
+      connectingAirportA.append("\( j.destination?.airport_name ?? "") (\(j.destination?.loc ?? ""))")
+                        }
+                    })
+                }
+            }
+            
+            
+            
             
             prices = Array(Set(prices))
             noofStopsA = Array(Set(noofStopsA))
@@ -427,6 +439,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
     
     func setupTVCells(jfl:[[J_flight_list]]) {
         tablerow.removeAll()
+        setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
         
         jfl.forEach { i in
             i.forEach { j in
@@ -473,6 +486,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
     
     func setupRoundTripTVCells(jfl:[[J_flight_list]]) {
         commonTableView.separatorStyle = .none
+        setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
+        
         
         tablerow.removeAll()
         
@@ -510,6 +525,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
     
     func setupMulticityTVCells(jfl:[MJ_flight_list]) {
         commonTableView.separatorStyle = .none
+        setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
+        
         
         tablerow.removeAll()
         
@@ -543,14 +560,36 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
     }
     
     
-    
-    
 }
 
 
 extension SearchFlightResultVC:AppliedFilters {
     func hotelFilterByApplied(minpricerange: Double, maxpricerange: Double, starRating: String, refundableTypeArray: [String], nearByLocA: [String], niberhoodA: [String], aminitiesA: [String]) {
         
+    }
+    
+    
+    // Create a function to check if a given time string is within a time range
+    func isTimeInRange(time: String, range: String) -> Bool {
+        guard let departureDate = dateFormatter.date(from: time) else {
+            return false
+        }
+        
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: departureDate)
+        
+        switch range {
+        case "12 am - 6 am":
+            return hour >= 0 && hour < 6
+        case "06 am - 12 pm":
+            return hour >= 6 && hour < 12
+        case "12 pm - 06 pm":
+            return hour >= 12 && hour < 18
+        case "06 pm - 12 am":
+            return hour >= 18 && hour < 24
+        default:
+            return false
+        }
     }
     
    
@@ -589,15 +628,58 @@ extension SearchFlightResultVC:AppliedFilters {
                 let refundableMatch = cancellationTypeFA.isEmpty || flightList.contains(where: { $0.fareType == cancellationTypeFA.first })
                 
                 // Check if the flight list has at least one flight with the specified connecting flights
-                let connectingFlightsMatch = connectingFlightsFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { connectingFlightsFA.contains($0.destination?.loc ?? "") }) ?? false })
+                let connectingFlightsMatch = connectingFlightsFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { connectingFlightsFA.contains("\($0.operator_name ?? "") (\($0.operator_code ?? ""))") }) ?? false })
                 
-                // Check if the flight list has at least one flight with the specified connecting airports
-                let connectingAirportsMatch = connectingAirportsFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { $0.operator_name == connectingAirportsFA.first }) ?? false })
+                
+          
+                
+                let connectingAirportsMatch = flightList.contains { flight in
+                    if connectingAirportsFA.isEmpty {
+                        return true // Return true for all flights if 'connectingAirportsFA' is empty
+                    }
+
+                    // Check if 'details' is available and contains the specified airports
+                    if let details = flight.flight_details?.details {
+                        for summaryArray in details {
+                            if summaryArray.contains(where: { flightDetail in
+                                let airportName = flightDetail.destination?.airport_name ?? ""
+                                let airportloc = flightDetail.destination?.loc ?? ""
+                                return connectingAirportsFA.contains("\(airportName) (\(airportloc))")
+                            }) {
+                                return true // Return true for this flight if it contains a matching airport
+                            }
+                        }
+                    }
+
+                    return false // Return false if no matching airport is found in this flight
+                }
+
+                
+                
+                let depMatch = departureTimeFilter.isEmpty || flightList.contains { flight in
+                    if let departureDateTime = flight.flight_details?.summary?.first?.origin?.datetime {
+                        return departureTimeFilter.contains { departureTime in
+                            return isTimeInRange(time: departureDateTime, range: departureTime)
+                        }
+                    }
+                    return false
+                }
+
+                let arrMatch = arrivalTimeFilter.isEmpty || flightList.contains { flight in
+                    if let arrivalDateTime = flight.flight_details?.summary?.first?.destination?.datetime {
+                        return arrivalTimeFilter.contains { arrivalTime in
+                            return isTimeInRange(time: arrivalDateTime, range: arrivalTime)
+                        }
+                    }
+                    return false
+                }
+
+               
                 
                 
                 
                 // Check if the total price is within the specified range
-                return totalPrice >= minpricerange && totalPrice <= maxpricerange && noOfStopsMatch && airlinesMatch && refundableMatch && connectingFlightsMatch && connectingAirportsMatch
+                return totalPrice >= minpricerange && totalPrice <= maxpricerange && noOfStopsMatch && airlinesMatch && refundableMatch && connectingFlightsMatch && connectingAirportsMatch && depMatch && arrMatch
             }
             
             

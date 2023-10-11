@@ -120,15 +120,15 @@ class SliderTVCell: TableViewCell, TTRangeSliderDelegate {
                     // Both minPrice and maxPrice have values in filterModel
                     minValue = Float(minPrice)
                     maxValue = Float(maxPrice)
-                    
-                    
+
+
                     rangeSlider.minValue = prices.compactMap { Float($0) }.min()!
                     rangeSlider.maxValue = prices.compactMap { Float($0) }.max()!
-                    
+
                     // Set the thumbs to the values
                     rangeSlider.selectedMinimum = minValue
                     rangeSlider.selectedMaximum = maxValue
-                    
+
                     //  Update the slider's appearance
                     rangeSlider.setNeedsDisplay()
                 }
@@ -141,7 +141,6 @@ class SliderTVCell: TableViewCell, TTRangeSliderDelegate {
         maxValue1 = Double(String(format: "%.2f", Double(maxValue))) ?? 100.0 // Update the default max value here
         minlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "") \(minValue1)"
         maxlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "") \(maxValue1)"
-        
         
     }
     

@@ -37,7 +37,7 @@ class AboutUsVC: BaseTableVC,AboutusViewModelDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         isFromVCBool = false
-        BASE_URL = "https://kuwaitways.com/mobile_webservices/index.php/"
+        BASE_URL = BASE_URL1
     }
     
     
@@ -90,6 +90,7 @@ class AboutUsVC: BaseTableVC,AboutusViewModelDelegate {
     
     @objc func gotoBackBtnAction(){
         callapibool = false
+        BASE_URL = BASE_URL1
         dismiss(animated: true)
     }
     
