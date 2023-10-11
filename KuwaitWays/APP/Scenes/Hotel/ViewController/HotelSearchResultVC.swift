@@ -214,7 +214,7 @@ extension HotelSearchResultVC {
             
             
             hotelSearchResultArray = response.data?.hotelSearchResult ?? []
-            setupLabels(lbl: subtitlelbl, text: "\(hotelSearchResultArray.count) Hotels Found", textcolor: .WhiteColor, font: .OpenSansRegular(size: 12))
+          
             
             prices.removeAll()
             latitudeArray.removeAll()
@@ -325,23 +325,50 @@ extension HotelSearchResultVC:AppliedFilters {
         
     }
     
-    //    func hotelFilterByApplied(minpricerange: Double, maxpricerange: Double, starRating: String) {
-    //
-    //        print("====minpricerange ==== \(minpricerange)")
-    //        print("====maxpricerange ==== \(maxpricerange)")
-    //        print(" ==== starRating === \n\(starRating)")
-    //
-    //        let filteredArray = hotelSearchResultArray.filter { i in
-    //            guard let netPrice = Double(i.xml_net ?? "0.0") else { return false }
-    //            let ratingMatches = i.star_rating == Int(starRating) || starRating.isEmpty
-    //            return ratingMatches &&
-    //            netPrice >= minpricerange &&
-    //            netPrice <= maxpricerange
-    //        }
-    //
-    //
-    //        setupTVCells(hotelList: filteredArray)
-    //    }
+        func hotelFilterByApplied(minpricerange: Double, maxpricerange: Double, starRating: String) {
+            
+            // Set the filter flag to true
+            isSearchBool = true
+            
+            // Print filter parameters for debugging
+            print("Min Price Range: \(minpricerange)")
+            print("Max Price Range: \(maxpricerange)")
+            print("Star Rating: \(starRating)")
+//            print("Refundable Types: \(refundableTypeArray)")
+//            print(" ==== nearByLocA === \n\(nearByLocA)")
+//            print(" ==== niberhoodA === \n\(niberhoodA)")
+//            print(" ==== aminitiesA === \n\(aminitiesA)")
+            
+            
+            // Filter the hotels based on the specified criteria
+            let filteredArray = hotelSearchResultArray.filter { hotel in
+                guard let netPrice = Double(hotel.price ?? "0.0") else { return false }
+                
+                // Check if the hotel's star rating matches the selected star rating or is empty
+                let ratingMatches = starRating.isEmpty || String(hotel.star_rating ?? 0) == starRating
+                
+                // Check if the hotel's refund type matches any selected refundable types or the array is empty
+//                let refundableMatch = refundableTypeArray.isEmpty || refundableTypeArray.contains(hotel.refund ?? "")
+                
+                // Check if the hotel's price falls within the specified range
+                let priceInRange = netPrice >= minpricerange && netPrice <= maxpricerange
+                
+                return ratingMatches && priceInRange
+            }
+            
+            // Update the filtered results
+            filtered = filteredArray
+            
+            // Display a message if no hotels match the criteria
+            if filtered.count == 0 {
+                TableViewHelper.EmptyMessage(message: "No Data Found", tableview: commonTableView, vc: self)
+            } else {
+                TableViewHelper.EmptyMessage(message: "", tableview: commonTableView, vc: self)
+            }
+            
+            // Reload the table view with the filtered results
+            commonTableView.reloadData()
+        }
     
     
     
@@ -357,7 +384,7 @@ extension HotelSearchResultVC:AppliedFilters {
             commonTableView.reloadData()
         }else {
             tablerow.removeAll()
-            
+            setupLabels(lbl: subtitlelbl, text: "\(hotelList.count) Hotels Found", textcolor: .WhiteColor, font: .OpenSansRegular(size: 12))
             hotelList.forEach { i in
                 tablerow.append(TableRow(title:i.name,
                                          subTitle: "\(i.address ?? "")",
@@ -376,9 +403,6 @@ extension HotelSearchResultVC:AppliedFilters {
             commonTVData = tablerow
             commonTableView.reloadData()
         }
-        
-        
-        
         
     }
     
