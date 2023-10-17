@@ -22,9 +22,9 @@ class ItineraryTVCell: TableViewCell {
     @IBOutlet weak var toCityDatelbl: UILabel!
     @IBOutlet weak var hourslbl: UILabel!
     @IBOutlet weak var noOfStopslbl: UILabel!
-    @IBOutlet weak var round2: UIImageView!
-    @IBOutlet weak var round1: UIImageView!
-    @IBOutlet weak var round3: UIImageView!
+//    @IBOutlet weak var round2: UIImageView!
+//    @IBOutlet weak var round1: UIImageView!
+//    @IBOutlet weak var round3: UIImageView!
     @IBOutlet weak var layoverView: UIView!
     @IBOutlet weak var layoverCitylbl: UILabel!
     @IBOutlet weak var layoverHeight: NSLayoutConstraint!

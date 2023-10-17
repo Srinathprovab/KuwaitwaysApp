@@ -279,6 +279,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                             }
                             
                             if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
+                                cell.returnView.isHidden = false
                                 cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.rcalDepDate) ?? ""
                                 cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? ""
                             }
@@ -294,6 +295,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                             }
                             if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
                                 cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""
+                                cell.returnView.isHidden = true
                             }
                         }
                     }

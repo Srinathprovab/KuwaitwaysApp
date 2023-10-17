@@ -64,7 +64,7 @@ class TravellerEconomyVC: BaseTableVC {
         self.view.backgroundColor = .black.withAlphaComponent(0.3)
         holderView.backgroundColor = .black.withAlphaComponent(0.3)
         nav.backBtn.addTarget(self, action: #selector(gotoBackScreen), for: .touchUpInside)
-        nav.titlelbl.text = "Select Traveller , Economy"
+        nav.titlelbl.text = "Select Travellers, Class"
         if screenHeight > 835 {
             navHeight.constant = 130
         }else {
@@ -97,15 +97,15 @@ class TravellerEconomyVC: BaseTableVC {
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
             if journeyType == "oneway" {
-                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.childCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }else if journeyType == "circle" {
-                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.rchildCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.rinfantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }else {
-                tableRow.append(TableRow(title:"Adults",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
+                tableRow.append(TableRow(title:"Adult",subTitle: "12 Years And Above",text: "\(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Child",subTitle: "2 - 12 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.mchildCount) ?? "0")",cellType:.TravellerEconomyTVCell))
                 tableRow.append(TableRow(title:"Infant",subTitle: "2 Years",text: "\(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0")",cellType:.TravellerEconomyTVCell))
             }
@@ -147,7 +147,7 @@ class TravellerEconomyVC: BaseTableVC {
             }
             
             
-        } else if cell.titlelbl.text == "Adults" {
+        } else if cell.titlelbl.text == "Adult" {
             // Increment adults, but don't exceed 9 travelers in total
             if (adultsCount + childCount) < 9 {
                 adultsCount += 1
@@ -178,7 +178,7 @@ class TravellerEconomyVC: BaseTableVC {
                 cell.count -= 1
                 cell.countlbl.text = "\(cell.count)"
             }
-        } else if cell.titlelbl.text == "Adults" {
+        } else if cell.titlelbl.text == "Adult" {
             // Decrement adults, but don't go below 1
             if adultsCount > 1 {
                 adultsCount -= 1

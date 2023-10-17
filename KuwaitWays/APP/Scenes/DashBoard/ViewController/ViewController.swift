@@ -125,8 +125,8 @@ class ViewController: UIViewController {
                 self.gotodashBoardScreen()
                 
                 
-                //                defaults.set("Hotel", forKey: UserDefaultsKeys.tabselect)
-                //                self.gotoBookingConfirmedVC(url: "https://kuwaitways.com/mobile_webservices/index.php/voucher/hotel/KW-H-DW-21092023-1202-8911/PTBSID0000000089/BOOKING_CONFIRMED/show_voucher")
+//                                defaults.set("Flight", forKey: UserDefaultsKeys.tabselect)
+//                                self.gotoBookingConfirmedVC(url: "https://kuwaitways.com/mobile_webservices/index.php/voucher/flight/KWA-F-TP-0425-4745/PTBSID0000000016/show_voucher")
             })
         }
         

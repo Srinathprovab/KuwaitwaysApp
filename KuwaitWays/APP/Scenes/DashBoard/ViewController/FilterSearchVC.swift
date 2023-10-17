@@ -94,6 +94,7 @@ class FilterSearchVC: BaseTableVC {
     @IBOutlet weak var filterbtn: UIButton!
     @IBOutlet weak var buttonsViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var applyBtnView: UIView!
     
     static var newInstance: FilterSearchVC? {
         let storyboard = UIStoryboard(name: Storyboard.Main.name,
@@ -114,6 +115,7 @@ class FilterSearchVC: BaseTableVC {
     var maxpricerangefilter = Double()
     
     var noOfStopsFilterArray = [String]()
+    var storeNoofstopsFilter = [String]()
     var refundablerTypeFilteArray = [String]()
     var departureTimeFilter = [String]()
     var arrivalTimeFilter = [String]()
@@ -121,7 +123,7 @@ class FilterSearchVC: BaseTableVC {
     var connectingFlightsFilterArray = [String]()
     var ConnectingAirportsFilterArray = [String]()
     
-    var starRatingFilter = String()
+   
     var selectedNeighbourwoodArray = [String]()
     var selectednearBylocationsArray = [String]()
     var selectedamenitiesArray = [String]()
@@ -188,6 +190,10 @@ class FilterSearchVC: BaseTableVC {
                 setupHotelFilterTVCells()
             }
         }
+        
+        applyBtnView.layer.cornerRadius = 4
+        applyBtnView.clipsToBounds = true
+        
     }
     
     
@@ -212,8 +218,8 @@ class FilterSearchVC: BaseTableVC {
         //  tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Prices",cellType:.SliderTVCell))
         tablerow.append(TableRow(title:"No Of Stops",data: noofStopsA,cellType:.CheckBoxTVCell))
-        tablerow.append(TableRow(title:"Outbound Departurn Time",key:"time", data: departurnTimeArray,cellType:.CheckBoxTVCell))
-        tablerow.append(TableRow(title:"Inbound Departurn Time",key:"time", data: departurnTimeArray,cellType:.CheckBoxTVCell))
+        tablerow.append(TableRow(title:"Departurn Time",key:"time", data: departurnTimeArray,cellType:.CheckBoxTVCell))
+        tablerow.append(TableRow(title:"Arrival Time",key:"time", data: departurnTimeArray,cellType:.CheckBoxTVCell))
         tablerow.append(TableRow(title:"Airlines",data: airlinesA,cellType:.CheckBoxTVCell))
         tablerow.append(TableRow(title:"Cancellations Type",data: fareTypeA,cellType:.CheckBoxTVCell))
         tablerow.append(TableRow(title:"Connecting Flights",data: connectingFlightsA,cellType:.CheckBoxTVCell))
@@ -221,8 +227,8 @@ class FilterSearchVC: BaseTableVC {
         
         
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
-        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
+//        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
+//        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
         
         
         commonTVData = tablerow
@@ -244,8 +250,8 @@ class FilterSearchVC: BaseTableVC {
         
         
         tablerow.append((TableRow(height:30,cellType: .EmptyTVCell)))
-        tablerow.append((TableRow(title:"Apply",key: "btn",cellType: .ButtonTVCell)))
-        tablerow.append((TableRow(height:50,cellType: .EmptyTVCell)))
+//        tablerow.append((TableRow(title:"Apply",key: "btn",cellType: .ButtonTVCell)))
+//        tablerow.append((TableRow(height:50,cellType: .EmptyTVCell)))
         
         
         commonTVData = tablerow
@@ -258,20 +264,20 @@ class FilterSearchVC: BaseTableVC {
         buttonsView.isHidden = true
         tablerow.removeAll()
         
-        tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
+      //  tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Prices",key: "hotel",cellType:.SliderTVCell))
         tablerow.append(TableRow(title:"Star Rating",cellType:.StarRatingTVCell))
         
         
-        tablerow.append(TableRow(title:"Booking Type",data: paymentTypeArray,cellType:.CheckBoxTVCell))
+        tablerow.append(TableRow(title:"Booking Type",data: faretypeArray,cellType:.CheckBoxTVCell))
         tablerow.append(TableRow(title:"Neighbourhood",data: neighbourwoodArray,cellType:.CheckBoxTVCell))
         tablerow.append(TableRow(title:"Near By Location's",data: nearBylocationsArray,cellType:.CheckBoxTVCell))
         tablerow.append(TableRow(title:"Amenities",data: amenitiesArray,cellType:.CheckBoxTVCell))
         
         
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
-        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
+//        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
+//        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
         
         
         commonTVData = tablerow
@@ -516,6 +522,7 @@ class FilterSearchVC: BaseTableVC {
                 
                 switch cell.filtertitle {
                 case "No Of Stops":
+                    
                     if cell.titlelbl.text == "0 Stop" {
                         noOfStopsFilterArray.append("0")
                     }else if cell.titlelbl.text == "1 Stop" {
@@ -529,40 +536,35 @@ class FilterSearchVC: BaseTableVC {
                     
                     
                     
-                case "Outbound Departurn Time":
+                case "Departurn Time":
                     departureTimeFilter.append(cell.titlelbl.text ?? "")
                     break
                     
-                case "Inbound Departurn Time":
+                case "Arrival Time":
                     arrivalTimeFilter.append(cell.titlelbl.text ?? "")
                     break
                     
                 case "Cancellations Type":
                     
-                    if cell.titlelbl.text == "Refundable" {
-                        refundablerTypeFilteArray.append("Refundable")
-                    }else {
-                        refundablerTypeFilteArray.append("Non Refundable")
-                    }
-                    print(refundablerTypeFilteArray.joined(separator: "---"))
+                    refundablerTypeFilteArray.append(cell.titlelbl.text ?? "")
                     break
                     
                 case "Airlines":
                     airlinesFilterArray.append(cell.titlelbl.text ?? "")
-                    print(airlinesFilterArray.joined(separator: "---"))
+                   
                     break
                     
                     
                     
                 case "Connecting Flights":
                     connectingFlightsFilterArray.append(cell.titlelbl.text ?? "")
-                    print(connectingFlightsFilterArray.joined(separator: "---"))
+                   
                     break
                     
                     
                 case "Connecting Airports":
                     ConnectingAirportsFilterArray.append(cell.titlelbl.text ?? "")
-                    print(ConnectingAirportsFilterArray.joined(separator: "---"))
+                   
                     break
                     
                     
@@ -576,33 +578,26 @@ class FilterSearchVC: BaseTableVC {
                     
                     
                 case "Booking Type":
-                    
-                    if cell.titlelbl.text == "Refundable" {
-                        refundablerTypeFilteArray.append("Refundable")
-                    }else {
-                        refundablerTypeFilteArray.append("Non Refundable")
-                    }
-                    
-                    print(refundablerTypeFilteArray)
+                    refundablerTypeFilteArray.append(cell.titlelbl.text ?? "")
                     break
                     
                     
                     
                 case "Neighbourhood":
                     selectedNeighbourwoodArray.append(cell.titlelbl.text ?? "")
-                    print(selectedNeighbourwoodArray.joined(separator: "---"))
+                   
                     break
                     
                     
                 case "Near By Location's":
                     selectednearBylocationsArray.append(cell.titlelbl.text ?? "")
-                    print(selectednearBylocationsArray.joined(separator: "---"))
+                   
                     break
                     
                     
                 case "Amenities":
                     selectedamenitiesArray.append(cell.titlelbl.text ?? "")
-                    print(selectedamenitiesArray.joined(separator: "---"))
+                   
                     break
                     
                     
@@ -630,6 +625,8 @@ class FilterSearchVC: BaseTableVC {
                 switch cell.filtertitle {
                 case "No Of Stops":
                     
+                    
+                   
                     if cell.titlelbl.text == "0 Stop" {
                         if let index = noOfStopsFilterArray.firstIndex(of: "0") {
                             noOfStopsFilterArray.remove(at: index)
@@ -646,13 +643,13 @@ class FilterSearchVC: BaseTableVC {
                     break
                     
                     
-                case "Outbound Departurn Time":
+                case "Departurn Time":
                     if let index = departureTimeFilter.firstIndex(of: cell.titlelbl.text ?? "") {
                         departureTimeFilter.remove(at: index)
                     }
                     break
                     
-                case "Inbound Departurn Time":
+                case "Arrival Time":
                     if let index = arrivalTimeFilter.firstIndex(of: cell.titlelbl.text ?? "") {
                         arrivalTimeFilter.remove(at: index)
                     }
@@ -660,14 +657,8 @@ class FilterSearchVC: BaseTableVC {
                     
                 case "Cancellations Type":
                     
-                    if cell.titlelbl.text == "Refundable" {
-                        if let index = refundablerTypeFilteArray.firstIndex(of: "Refundable") {
-                            refundablerTypeFilteArray.remove(at: index)
-                        }
-                    }else {
-                        if let index = refundablerTypeFilteArray.firstIndex(of: "Non Refundable") {
-                            refundablerTypeFilteArray.remove(at: index)
-                        }
+                    if let index = refundablerTypeFilteArray.firstIndex(of: cell.titlelbl.text ?? "") {
+                        refundablerTypeFilteArray.remove(at: index)
                     }
                     break
                     
@@ -703,14 +694,8 @@ class FilterSearchVC: BaseTableVC {
                     
                 case "Booking Type":
                     
-                    if cell.titlelbl.text == "Refundable" {
-                        if let index = refundablerTypeFilteArray.firstIndex(of: "Refundable") {
-                            refundablerTypeFilteArray.remove(at: index)
-                        }
-                    }else {
-                        if let index = refundablerTypeFilteArray.firstIndex(of: "Non Refundable") {
-                            refundablerTypeFilteArray.remove(at: index)
-                        }
+                    if let index = refundablerTypeFilteArray.firstIndex(of: cell.titlelbl.text ?? "") {
+                        refundablerTypeFilteArray.remove(at: index)
                     }
                     break
                     
@@ -749,8 +734,10 @@ class FilterSearchVC: BaseTableVC {
     }
     
     
+    @IBAction func didTapOnApplyButtonAction(_ sender: Any) {
+   
     
-    override func btnAction(cell: ButtonTVCell) {
+  //  override func btnAction(cell: ButtonTVCell) {
         
         let pricesFloat = prices.compactMap { Float($0) }
         
@@ -1003,6 +990,7 @@ extension FilterSearchVC {
         arrivalTimeFilter.removeAll()
         
         
+        
         // Deselect all cells in your checkOptionsTVCell table view
         deselectAllCheckOptionsCells()
         
@@ -1199,7 +1187,12 @@ extension FilterSearchVC {
         hotelfiltermodel.niberhoodA.removeAll()
         hotelfiltermodel.starRating = ""
         
+        
         starRatingFilter = ""
+        if let cell = commonTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? StarRatingTVCell {
+            cell.starratingCV.reloadData()
+        }
+        
         refundablerTypeFilteArray.removeAll()
         selectednearBylocationsArray.removeAll()
         selectedNeighbourwoodArray.removeAll()

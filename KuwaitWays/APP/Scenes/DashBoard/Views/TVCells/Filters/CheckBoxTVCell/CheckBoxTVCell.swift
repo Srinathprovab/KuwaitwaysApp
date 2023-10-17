@@ -198,7 +198,7 @@ extension CheckBoxTVCell {
             
             
             
-        case "Inbound Departurn Time":
+        case "Arrival Time":
             if !filterModel.arrivalTime.isEmpty {
                 // Check if the cell's title matches any value in the luggage array
                 
@@ -224,7 +224,7 @@ extension CheckBoxTVCell {
                 }
             }
             
-        case "Outbound Departurn Time":
+        case "Departurn Time":
             if !filterModel.departureTime.isEmpty {
                 // Check if the cell's title matches any value in the luggage array
                 
@@ -279,12 +279,12 @@ extension CheckBoxTVCell {
             
             
         case "No Of Stops":
-            
+
             if !filterModel.noOfStops.isEmpty {
                 // Check if the cell's title matches any value in the luggage array
                 if let labelText = cell.titlelbl.text {
                     let words = labelText.components(separatedBy: " ")
-                    
+
                     // Check if any word in words exists in filterModel.noOfStops
                     if words.contains(where: { stop in
                         return filterModel.noOfStops.contains(stop)
@@ -307,6 +307,8 @@ extension CheckBoxTVCell {
                     cell.unselected() // Deselect the cell
                 }
             }
+            
+      
             
             
         case "Airlines":

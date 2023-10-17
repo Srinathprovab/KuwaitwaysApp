@@ -156,6 +156,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
     
     func setupTV() {
         self.view.backgroundColor = .AppBGcolor
+        commonTableView.backgroundColor = .AppBGcolor
         commonTableView.registerTVCells(["EmptyTVCell",
                                          "SelectTabTVCell",
                                          "HotelDealsTVCell",

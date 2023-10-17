@@ -168,7 +168,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         }
         
         
-        nav.titlelbl.text = ""
+        nav.titlelbl.text = "Flight Details"
         nav.backBtn.addTarget(self, action: #selector(gotoBackScreen), for: .touchUpInside)
         nav.citylbl.isHidden = false
         nav.datelbl.isHidden = false

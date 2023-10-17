@@ -36,8 +36,7 @@ class AboutUsVC: BaseTableVC,AboutusViewModelDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        isFromVCBool = false
-        BASE_URL = BASE_URL1
+        
     }
     
     
@@ -50,10 +49,22 @@ class AboutUsVC: BaseTableVC,AboutusViewModelDelegate {
     func callAPI() {
         BASE_URL = ""
         switch keystr {
+            
         case "aboutus":
             vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/8")
             break
+            
+            
         case "contactus":
+            vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/6")
+            break
+            
+            
+        case "terms":
+            vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/6")
+            break
+            
+        case "pp":
             vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/6")
             break
             

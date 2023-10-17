@@ -101,7 +101,7 @@ class SelectFromCityVC: BaseTableVC, SelectCityViewModelProtocal {
         if keyStr == "hotel" {
             searchTF.placeholder = "search hotel/city"
         }else {
-            searchTF.placeholder = "search airport /city"
+            searchTF.placeholder = "Search by location or airport"
         }
         nav.titlelbl.text = titleStr
         nav.backBtn.addTarget(self, action: #selector(dismisVC(_:)), for: .touchUpInside)

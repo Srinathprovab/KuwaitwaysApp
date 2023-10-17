@@ -86,7 +86,7 @@ class MyBookingVC: BaseTableVC {
         completedul.backgroundColor = .WhiteColor
         cancelledul.backgroundColor = .WhiteColor
         
-        commonTableView.backgroundColor = .AppHolderViewColor
+        commonTableView.backgroundColor = .AppBGcolor
         commonTableView.registerTVCells(["MyBookingsTVCells"])
         
         logintoBtnView.isHidden = true

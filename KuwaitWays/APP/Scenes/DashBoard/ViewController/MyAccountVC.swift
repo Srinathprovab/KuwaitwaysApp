@@ -134,14 +134,15 @@ class MyAccountVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         nav.backBtn.addTarget(self, action: #selector(didTapOnBackBtn(_:)), for: .touchUpInside)
         profilePicView.layer.cornerRadius = 50
         profilePicView.clipsToBounds = true
-        profilePicView.layer.borderWidth = 0.5
-        profilePicView.layer.borderColor = UIColor.AppBorderColor.cgColor
-        profilePic.layer.cornerRadius = 45
-        profilePic.clipsToBounds = true
+        profilePicView.layer.borderWidth = 4
+        profilePicView.layer.borderColor = UIColor.WhiteColor.cgColor
+//        profilePic.layer.cornerRadius = 45
+//        profilePic.clipsToBounds = true
         
         nav.backBtn.isHidden = true
         nav.editView.isHidden = false
         nav.editBtn.addTarget(self, action: #selector(didTapOnEditBtnAction(_:)), for: .touchUpInside)
+        commonTableView.backgroundColor = .AppBGcolor
         commonTableView.registerTVCells(["EmptyTVCell","LogoImgTVCell","LabelTVCell","TextfieldTVCell","RadioButtonTVCell","ButtonTVCell"])
         appendLoginTvcells()
     }

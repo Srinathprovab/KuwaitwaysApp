@@ -26,7 +26,7 @@ class SelectTabTVCell: TableViewCell {
     @IBOutlet weak var currencylbl: UILabel!
     
     var delegate:SelectTabTVCellDelegate?
-    var tabNames = ["Flight","Hotel"]
+    var tabNames = ["Flights","Hotels"]
     var tabImages = ["t1","t2","t3","t4","t5","t6"]
     var tabImages1 = ["f1","f2","f3","f4","f5","f6"]
     override func awakeFromNib() {
@@ -84,9 +84,11 @@ class SelectTabTVCell: TableViewCell {
         tabscv.clipsToBounds = true
         tabscv.showsVerticalScrollIndicator = false
         tabscv.isScrollEnabled = false
-        
+
     }
     
+    
+
     
     
     @IBAction func didTapOnMenuBtn(_ sender: Any) {

@@ -71,7 +71,7 @@ extension AddItineraryTVCell:UITableViewDelegate,UITableViewDataSource {
             
             let data = fd[indexPath.row]
             cell.inNolbl.text = "\(data.operator_code ?? "")-\(data.flight_number ?? "")"
-            cell.airlinecodelbl.text = data.operator_name
+            cell.airlinecodelbl.text = "\(data.origin?.city ?? "")-\(data.destination?.city ?? "")"
             
             cell.fromCityTimelbl.text = data.origin?.time
             cell.fromCityNamelbl.text = "\(data.origin?.city ?? "")(\(data.origin?.loc ?? ""))"
@@ -89,29 +89,29 @@ extension AddItineraryTVCell:UITableViewDelegate,UITableViewDataSource {
             cell.logoImg.sd_setImage(with: URL(string: data.operator_image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
 
         
-            switch data.no_of_stops {
-            case 0:
-                cell.round1.isHidden = true
-                cell.round2.isHidden = true
-                cell.round3.isHidden = true
-                break
+//            switch data.no_of_stops {
+//            case 0:
+//                cell.round1.isHidden = true
+//                cell.round2.isHidden = true
+//                cell.round3.isHidden = true
+//                break
+//
+//            case 1:
+//                cell.round1.isHidden = false
+//                cell.round2.isHidden = true
+//                cell.round3.isHidden = true
+//                break
+//
+//            case 2:
+//                cell.round1.isHidden = false
+//                cell.round2.isHidden = false
+//                cell.round3.isHidden = true
+//                break
                 
-            case 1:
-                cell.round1.isHidden = false
-                cell.round2.isHidden = true
-                cell.round3.isHidden = true
-                break
                 
-            case 2:
-                cell.round1.isHidden = false
-                cell.round2.isHidden = false
-                cell.round3.isHidden = true
-                break
-                
-                
-            default:
-                break
-            }
+//            default:
+//                break
+//            }
             
             //cell.layoverHeight.constant = 25
             if tableView.isLast(for: indexPath) == true {

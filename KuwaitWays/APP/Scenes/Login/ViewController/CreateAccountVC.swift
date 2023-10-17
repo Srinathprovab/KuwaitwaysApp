@@ -193,12 +193,7 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
         dismiss(animated: true)
     }
     
-//    override func didTapOnBackToLoginBtn(cell: LabelWithButtonTVCell) {
-//        guard let vc = LoginVC.newInstance.self else {return}
-//        vc.modalPresentationStyle = .fullScreen
-//        vc.isvcfrom = "CreateAccountVC"
-//        self.present(vc, animated: true)
-//    }
+
     
     func registerUserSucess(response: RegisterUserModel) {
         if response.status == false {

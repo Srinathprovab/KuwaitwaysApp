@@ -96,8 +96,8 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate, TimerManagerD
         mapBtn.addTarget(self, action: #selector(didTapOnMapviewBtn(_:)), for: .touchUpInside)
         filterpBtn.addTarget(self, action: #selector(didTapOnFilterwBtn(_:)), for: .touchUpInside)
         
-        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        commonTableView.refreshControl = refreshControl
+//        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+//        commonTableView.refreshControl = refreshControl
         
         commonTableView.registerTVCells(["EmptyTVCell",
                                          "HotelSearchResultTVCell"])
@@ -220,17 +220,21 @@ extension HotelSearchResultVC {
             latitudeArray.removeAll()
             longitudeArray.removeAll()
             facilityArray.removeAll()
+            faretypeArray .removeAll()
+            
+            
             hotelSearchResultArray.forEach { i in
                 prices.append("\(i.price ?? "")")
                 latitudeArray.append(i.latitude ?? "")
                 longitudeArray.append(i.longitude ?? "0.0")
+                faretypeArray.append(i.refund ?? "")
                 i.facility?.forEach({ j in
                     facilityArray.append(j.v ?? "")
                 })
             }
             prices = Array(Set(prices))
             facilityArray = Array(Set(facilityArray))
-            
+            faretypeArray = Array(Set(faretypeArray))
             
             response.data?.hotelSearchResult?.forEach { i in
                 let mapModel = MapModel(
@@ -325,50 +329,6 @@ extension HotelSearchResultVC:AppliedFilters {
         
     }
     
-        func hotelFilterByApplied(minpricerange: Double, maxpricerange: Double, starRating: String) {
-            
-            // Set the filter flag to true
-            isSearchBool = true
-            
-            // Print filter parameters for debugging
-            print("Min Price Range: \(minpricerange)")
-            print("Max Price Range: \(maxpricerange)")
-            print("Star Rating: \(starRating)")
-//            print("Refundable Types: \(refundableTypeArray)")
-//            print(" ==== nearByLocA === \n\(nearByLocA)")
-//            print(" ==== niberhoodA === \n\(niberhoodA)")
-//            print(" ==== aminitiesA === \n\(aminitiesA)")
-            
-            
-            // Filter the hotels based on the specified criteria
-            let filteredArray = hotelSearchResultArray.filter { hotel in
-                guard let netPrice = Double(hotel.price ?? "0.0") else { return false }
-                
-                // Check if the hotel's star rating matches the selected star rating or is empty
-                let ratingMatches = starRating.isEmpty || String(hotel.star_rating ?? 0) == starRating
-                
-                // Check if the hotel's refund type matches any selected refundable types or the array is empty
-//                let refundableMatch = refundableTypeArray.isEmpty || refundableTypeArray.contains(hotel.refund ?? "")
-                
-                // Check if the hotel's price falls within the specified range
-                let priceInRange = netPrice >= minpricerange && netPrice <= maxpricerange
-                
-                return ratingMatches && priceInRange
-            }
-            
-            // Update the filtered results
-            filtered = filteredArray
-            
-            // Display a message if no hotels match the criteria
-            if filtered.count == 0 {
-                TableViewHelper.EmptyMessage(message: "No Data Found", tableview: commonTableView, vc: self)
-            } else {
-                TableViewHelper.EmptyMessage(message: "", tableview: commonTableView, vc: self)
-            }
-            
-            // Reload the table view with the filtered results
-            commonTableView.reloadData()
-        }
     
     
     

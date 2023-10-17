@@ -56,6 +56,7 @@ var currencyType = String()
 var filterModel = FlightFilterModel()
 var hotelfiltermodel = HotelFilterModel()
 var sortBy: SortParameter = .nothing
+var starRatingFilter = String()
 
 
 //MARK: - FLIGHT RESULT
@@ -169,6 +170,7 @@ var latitudeArray: [String] = []
 var longitudeArray: [String] = []
 var totalRooms = 0
 var facilityArray = [String]()
+var faretypeArray = [String]()
 var neighbourwoodArray = [String]()
 var amenitiesArray = [String]()
 var nearBylocationsArray = [String]()

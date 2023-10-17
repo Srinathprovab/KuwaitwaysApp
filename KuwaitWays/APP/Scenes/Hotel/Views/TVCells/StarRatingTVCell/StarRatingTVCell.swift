@@ -45,8 +45,6 @@ class StarRatingTVCell: TableViewCell {
     
     
     func setupCV() {
-        
-        
         let nib = UINib(nibName: "StarRatingCVCell", bundle: nil)
         starratingCV.register(nib, forCellWithReuseIdentifier: "cell")
         starratingCV.delegate = self
@@ -56,15 +54,17 @@ class StarRatingTVCell: TableViewCell {
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 12
         layout.minimumLineSpacing = 12
-        // layout.sectionInset = UIEdgeInsets(top: 16, left: 10, bottom: 16, right: 10)
         starratingCV.collectionViewLayout = layout
         starratingCV.backgroundColor = .clear
         starratingCV.layer.cornerRadius = 4
         starratingCV.clipsToBounds = true
         starratingCV.showsHorizontalScrollIndicator = false
-        
-        
+
+        // Select the first item when setting up the collection view
+        let initialIndexPath = IndexPath(item: 0, section: 0)
+        starratingCV.selectItem(at: initialIndexPath, animated: false, scrollPosition: .centeredVertically)
     }
+
 }
 
 extension StarRatingTVCell:UICollectionViewDelegate,UICollectionViewDataSource {
@@ -76,6 +76,21 @@ extension StarRatingTVCell:UICollectionViewDelegate,UICollectionViewDataSource {
         var commonCell = UICollectionViewCell()
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? StarRatingCVCell {
             cell.titlelbl.text = array[indexPath.row]
+            
+      
+            
+            if starRatingFilter.isEmpty == false {
+                if starRatingFilter == array[indexPath.row] {
+                    cell.holderview.layer.borderColor = UIColor.AppNavBackColor.cgColor
+                    cell.titlelbl.textColor = .AppNavBackColor
+                    collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+                }
+            }else {
+                cell.holderview.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
+                cell.titlelbl.textColor = .AppLabelColor
+            }
+
+            
             commonCell = cell
         }
         return commonCell

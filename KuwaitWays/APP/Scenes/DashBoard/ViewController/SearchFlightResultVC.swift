@@ -136,36 +136,18 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         sessonlbl.textColor = .AppLabelColor
         sessonlbl.font = UIFont.OpenSansRegular(size: 12)
         
-       
+        
         flightsFoundlbl.textColor = .AppLabelColor
         flightsFoundlbl.font = UIFont.OpenSansRegular(size: 12)
         
         filterView.addCornerRadiusWithShadow(color: .clear, borderColor: .clear, cornerRadius: 25)
         filterBtn.setTitle("", for: .normal)
         
-//        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-//        commonTableView.refreshControl = refreshControl
+       
         setupTV()
     }
     
-    @objc func handleRefresh() {
-        // Perform data fetching or reloading here
-        let seconds = 2.0
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
-            // Put your code which should be executed with a delay here
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    setupTVCells(jfl: oneWayFlights)
-                }else if journyType == "circle"{
-                    setupRoundTripTVCells(jfl: oneWayFlights)
-                }else {
-                    setupMulticityTVCells(jfl: multicityFlights)
-                }
-            }
-            commonTableView.refreshControl?.endRefreshing()
-        }
-    }
-    
+
     
     
     func setupTV() {
@@ -263,7 +245,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             
             
             holderView.isHidden = false
-           
+            
             
             multicityFlights = response.data?.j_flight_list ?? []
             multicityFlights.forEach { j in
@@ -284,7 +266,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                         noofStopsA.append("1 Stop")
                         break
                     case 2:
-                        noofStopsA.append("1+ Stop")
+                        noofStopsA.append("2 Stops")
                         break
                     default:
                         break
@@ -307,7 +289,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         }else {
             
             gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
-
+            
         }
     }
     
@@ -341,7 +323,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             
             
             holderView.isHidden = false
-           
+            
             
             
             
@@ -354,7 +336,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                         
                         airlinesA.append(k.operator_name ?? "")
                         connectingFlightsA.append("\(k.operator_name ?? "") (\(k.operator_code ?? ""))")
-                       
+                        
                         
                         switch k.no_of_stops {
                         case 0:
@@ -364,7 +346,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                             noofStopsA.append("1 Stop")
                             break
                         case 2:
-                            noofStopsA.append("1+ Stop")
+                            noofStopsA.append("2 Stops")
                             break
                         default:
                             break
@@ -378,7 +360,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                     
                     j.flight_details?.details?.forEach({ i in
                         i.forEach { j in
-      connectingAirportA.append("\( j.destination?.airport_name ?? "") (\(j.destination?.loc ?? ""))")
+                            connectingAirportA.append("\( j.destination?.airport_name ?? "") (\(j.destination?.loc ?? ""))")
                         }
                     })
                 }
@@ -407,7 +389,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                 nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""
                 nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails)
                 
-                setupTVCells(jfl: response.data?.j_flight_list ?? [[]])
+               // setupTVCells(jfl: response.data?.j_flight_list ?? [[]])
+                setupRoundTripTVCells(jfl: response.data?.j_flight_list ?? [[]])
                 break
                 
             case "circle":
@@ -431,58 +414,58 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         }else {
             
             gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
-
+            
         }
     }
     
     
     
-    func setupTVCells(jfl:[[J_flight_list]]) {
-        tablerow.removeAll()
-        setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
-        
-        jfl.forEach { i in
-            i.forEach { j in
-                j.flight_details?.summary?.forEach({ k in
-                    
-                    
-                    tablerow.append(TableRow(title:j.access_key,
-                                             fromTime: k.origin?.time,
-                                             toTime:k.destination?.time,
-                                             fromCity: k.origin?.city,
-                                             toCity: k.destination?.city,
-                                             noosStops: "\(k.no_of_stops ?? 0) Stops",
-                                             airlineslogo: k.operator_image,
-                                             airlinesCode:"(\(k.operator_code ?? "")-\(k.operator_name ?? ""))",
-                                             kwdprice:"\(j.sITECurrencyType ?? ""):\(j.totalPrice_API ?? "")",
-                                             refundable:j.fareType,
-                                             travelTime: k.duration,
-                                             cellType:.SearchFlightResultInfoTVCell))
-                    
-                })
-            }
-        }
-        
-        tablerow.append(TableRow(height: 20,
-                                 bgColor: .AppHolderViewColor,
-                                 cellType:.EmptyTVCell))
-        
-        
-        
-        commonTVData = tablerow
-        commonTableView.reloadData()
-        
-        
-        if jfl.count == 0 {
-            tablerow.removeAll()
-            
-            TableViewHelper.EmptyMessage(message: "No Data Found", tableview: commonTableView, vc: self)
-            
-            commonTVData = tablerow
-            commonTableView.reloadData()
-        }
-        
-    }
+//    func setupTVCells(jfl:[[J_flight_list]]) {
+//        tablerow.removeAll()
+//        setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
+//
+//        jfl.forEach { i in
+//            i.forEach { j in
+//                j.flight_details?.summary?.forEach({ k in
+//
+//
+//                    tablerow.append(TableRow(title:j.access_key,
+//                                             fromTime: k.origin?.time,
+//                                             toTime:k.destination?.time,
+//                                             fromCity: k.origin?.city,
+//                                             toCity: k.destination?.city,
+//                                             noosStops: "\(k.no_of_stops ?? 0) Stops",
+//                                             airlineslogo: k.operator_image,
+//                                             airlinesCode:"(\(k.operator_code ?? "")-\(k.operator_name ?? ""))",
+//                                             kwdprice:"\(j.sITECurrencyType ?? ""):\(j.totalPrice_API ?? "")",
+//                                             refundable:j.fareType,
+//                                             travelTime: k.duration,
+//                                             cellType:.SearchFlightResultInfoTVCell))
+//
+//                })
+//            }
+//        }
+//
+//        tablerow.append(TableRow(height: 20,
+//                                 bgColor: .AppHolderViewColor,
+//                                 cellType:.EmptyTVCell))
+//
+//
+//
+//        commonTVData = tablerow
+//        commonTableView.reloadData()
+//
+//
+//        if jfl.count == 0 {
+//            tablerow.removeAll()
+//
+//            TableViewHelper.EmptyMessage(message: "No Data Found", tableview: commonTableView, vc: self)
+//
+//            commonTVData = tablerow
+//            commonTableView.reloadData()
+//        }
+//
+//    }
     
     func setupRoundTripTVCells(jfl:[[J_flight_list]]) {
         commonTableView.separatorStyle = .none
@@ -592,7 +575,7 @@ extension SearchFlightResultVC:AppliedFilters {
         }
     }
     
-   
+    
     
     func filterByApplied(minpricerange: Double, maxpricerange: Double, noofstopsFA: [String], departureTimeFilter: [String], arrivalTimeFilter: [String], airlinesFA: [String], cancellationTypeFA: [String], connectingFlightsFA: [String], connectingAirportsFA: [String]) {
         
@@ -631,13 +614,13 @@ extension SearchFlightResultVC:AppliedFilters {
                 let connectingFlightsMatch = connectingFlightsFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { connectingFlightsFA.contains("\($0.operator_name ?? "") (\($0.operator_code ?? ""))") }) ?? false })
                 
                 
-          
+                
                 
                 let connectingAirportsMatch = flightList.contains { flight in
                     if connectingAirportsFA.isEmpty {
                         return true // Return true for all flights if 'connectingAirportsFA' is empty
                     }
-
+                    
                     // Check if 'details' is available and contains the specified airports
                     if let details = flight.flight_details?.details {
                         for summaryArray in details {
@@ -650,10 +633,10 @@ extension SearchFlightResultVC:AppliedFilters {
                             }
                         }
                     }
-
+                    
                     return false // Return false if no matching airport is found in this flight
                 }
-
+                
                 
                 
                 let depMatch = departureTimeFilter.isEmpty || flightList.contains { flight in
@@ -664,7 +647,7 @@ extension SearchFlightResultVC:AppliedFilters {
                     }
                     return false
                 }
-
+                
                 let arrMatch = arrivalTimeFilter.isEmpty || flightList.contains { flight in
                     if let arrivalDateTime = flight.flight_details?.summary?.first?.destination?.datetime {
                         return arrivalTimeFilter.contains { arrivalTime in
@@ -673,8 +656,8 @@ extension SearchFlightResultVC:AppliedFilters {
                     }
                     return false
                 }
-
-               
+                
+                
                 
                 
                 
@@ -683,11 +666,13 @@ extension SearchFlightResultVC:AppliedFilters {
             }
             
             
-            if journyType == "oneway" {
-                setupTVCells(jfl: sortedArray)
-            }else {
-                setupRoundTripTVCells(jfl: sortedArray)
-            }
+            setupRoundTripTVCells(jfl: sortedArray)
+            
+//            if journyType == "oneway" {
+//                setupTVCells(jfl: sortedArray)
+//            }else {
+//                setupRoundTripTVCells(jfl: sortedArray)
+//            }
             
         }
         
@@ -723,7 +708,7 @@ extension SearchFlightResultVC:AppliedFilters {
         switch sortBy {
         case .PriceLow:
             if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
+                if journyType == "oneway" || journyType == "circle"{
                     
                     
                     let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
@@ -732,19 +717,21 @@ extension SearchFlightResultVC:AppliedFilters {
                         return totalPrice1 < totalPrice2
                     }
                     
-                    
-                    setupTVCells(jfl: sortedFlights)
-                    
-                }else if journyType == "circle" {
-                    let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
-                        let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                        let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                        return totalPrice1 < totalPrice2
-                    }
                     
                     setupRoundTripTVCells(jfl: sortedFlights)
                     
-                }else {
+                }
+//                else if journyType == "circle" {
+//                    let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
+//                        let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+//                        let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+//                        return totalPrice1 < totalPrice2
+//                    }
+//
+//
+//
+//                }
+                else {
                     let sortedFlights = multicityFlights.sorted(by: {$0.totalPrice ?? "" < $1.totalPrice ?? ""})
                     
                     setupMulticityTVCells(jfl: sortedFlights)
@@ -765,7 +752,7 @@ extension SearchFlightResultVC:AppliedFilters {
                     }
                     
                     
-                    setupTVCells(jfl: sortedFlights)
+                    setupRoundTripTVCells(jfl: sortedFlights)
                     
                     
                     
@@ -804,7 +791,7 @@ extension SearchFlightResultVC:AppliedFilters {
                         return time1 < time2
                     })
                     
-                    setupTVCells(jfl: sortedArray)
+                    setupRoundTripTVCells(jfl: sortedArray)
                     
                 }else if journyType == "circle" {
                     
@@ -843,7 +830,7 @@ extension SearchFlightResultVC:AppliedFilters {
                         return time1 > time2
                     })
                     
-                    setupTVCells(jfl: sortedArray)
+                    setupRoundTripTVCells(jfl: sortedArray)
                     
                 }else if journyType == "circle"{
                     let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
@@ -879,7 +866,7 @@ extension SearchFlightResultVC:AppliedFilters {
                         return time1 < time2
                     })
                     
-                    setupTVCells(jfl: sortedArray)
+                    setupRoundTripTVCells(jfl: sortedArray)
                     
                 }else if journyType == "circle"{
                     let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
@@ -913,8 +900,7 @@ extension SearchFlightResultVC:AppliedFilters {
                         return time1 > time2
                     })
                     
-                    setupTVCells(jfl: sortedArray)
-                    
+                    setupRoundTripTVCells(jfl: sortedArray)
                 }else if journyType == "circle"{
                     let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
                         let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
@@ -950,7 +936,7 @@ extension SearchFlightResultVC:AppliedFilters {
                         return durationseconds1 < durationseconds2
                     })
                     
-                    setupTVCells(jfl: sortedArray)
+                    setupRoundTripTVCells(jfl: sortedArray)
                     
                 }else if journyType == "circle"{
                     let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
@@ -987,7 +973,7 @@ extension SearchFlightResultVC:AppliedFilters {
                         return durationseconds1 > durationseconds2
                     })
                     
-                    setupTVCells(jfl: sortedArray)
+                    setupRoundTripTVCells(jfl: sortedArray)
                     
                 }else if journyType == "circle" {
                     let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
@@ -1023,7 +1009,7 @@ extension SearchFlightResultVC:AppliedFilters {
                         return operatorCode1 < operatorCode2
                     })
                     
-                    setupTVCells(jfl: sortedArray)
+                    setupRoundTripTVCells(jfl: sortedArray)
                     
                 }else if journyType == "circle"{
                     let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
@@ -1057,7 +1043,7 @@ extension SearchFlightResultVC:AppliedFilters {
                         return operatorCode1 > operatorCode2
                     })
                     
-                    setupTVCells(jfl: sortedArray)
+                    setupRoundTripTVCells(jfl: sortedArray)
                     
                     
                 }else if journyType == "circle"{
@@ -1085,7 +1071,7 @@ extension SearchFlightResultVC:AppliedFilters {
         case .nothing:
             let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
             if journyType == "oneway" {
-                setupTVCells(jfl: oneWayFlights)
+                setupRoundTripTVCells(jfl: oneWayFlights)
             }else if journyType == "circle"{
                 setupRoundTripTVCells(jfl: oneWayFlights)
             }else {
@@ -1145,7 +1131,7 @@ extension SearchFlightResultVC {
         gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
     }
     
-   
+    
     
     
     func gotoNoInternetConnectionVC(key:String,titleStr:String) {

@@ -41,7 +41,7 @@ class RadioButtonTVCell: TableViewCell {
         
         titlelbl.textColor = .SubTitleColor
         titlelbl.textAlignment = .left
-        titlelbl.font = UIFont.OpenSansRegular(size: 14)
+        titlelbl.font = UIFont.OpenSansBold(size: 14)
         titlelbl.numberOfLines = 0
         
         radioImg.image = UIImage(named: "radioUnselected")

@@ -135,7 +135,7 @@ class BookFlightVC: BaseTableVC {
         tablerow.removeAll()
         
         tablerow.append(TableRow(key:str,cellType:.SearchFlightTVCell))
-        tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
+     //   tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Best Deals Flights",key: "deals",cellType:.LabelTVCell))
         tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         tablerow.append(TableRow(key1:"flight",cellType:.HotelDealsTVCell))

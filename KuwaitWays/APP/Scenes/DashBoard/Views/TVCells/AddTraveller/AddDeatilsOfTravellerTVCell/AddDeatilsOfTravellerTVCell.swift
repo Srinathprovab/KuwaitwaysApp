@@ -73,6 +73,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     @IBOutlet weak var flyerPgmBtnView: UIView!
     
     
+    var mrplaceholder = String()
     let dobDatePicker = UIDatePicker()
     let passportDatePicker = UIDatePicker()
     let dropDown = DropDown()
@@ -140,6 +141,8 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     override func updateUI() {
         
         titlelbl.text = cellInfo?.title
+        mrplaceholder = cellInfo?.headerText ?? ""
+        
         
         guard let characterLimit = cellInfo?.characterLimit else {
             return
@@ -168,7 +171,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].middlename = ""
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 titledropDown.dataSource = ["Mr","Ms","Mrs"]
-                
+                titleTF.placeholder = "Mr"
             } else if cellInfo.key == "child" {
                 if travelerArray.count <= self.indexposition {
                     travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
@@ -178,7 +181,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].middlename = ""
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 titledropDown.dataSource = ["Master","Miss"]
-                
+                titleTF.placeholder = "Master"
             } else {
                 if travelerArray.count <= self.indexposition {
                     travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
@@ -188,9 +191,9 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].middlename = ""
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 titledropDown.dataSource = ["Master","Miss"]
-                
+                titleTF.placeholder = "Master"
             }
-            showdobDatePicker()
+          
         }
         
         
@@ -201,11 +204,14 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             expandView()
             expandViewBool = false
         }
+        
+         
     }
     
     
     func setupUI() {
         
+        showdobDatePicker()
         setuplabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .left)
         dropdownimg.image = UIImage(named: "down")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppLabelColor)
         
@@ -218,7 +224,8 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         collapsView()
         
         
-        setupTextField(txtField: titleTF, tag1: 11, label: "Title*", placeholder: "Mr")
+        setupTextField(txtField: titleTF, tag1: 11, label: "Title*", placeholder: mrplaceholder)
+        
         setupTextField(txtField: fnameTF, tag1: 1, label: "First Name*", placeholder: "First Name")
         setupTextField(txtField: lnameTF, tag1: 2, label: "Last Name*", placeholder: "Last Name")
         setupTextField(txtField: dobTF, tag1: 3, label: "Date of Birth*", placeholder: "DOB")
@@ -303,9 +310,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         txtField.addTarget(self, action: #selector(editingTextField1(textField:)), for: .editingChanged)
         
     }
-    
-    
-    
     
     
     func setupTitleDropDown() {
@@ -422,11 +426,14 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             components.year = -12 // Allow selecting a date at least 12 years in the past
             dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
             
-            //            components.year = -100
-            //            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            
         case .child:
             components.year = -12
             dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            
+            components.year = -2 // Allow selecting a date up to 2 years in the past
+            dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
+            
         case .infant:
             components.year = -2
             dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
@@ -514,12 +521,12 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             if let cellInfo = cellInfo {
                 if cellInfo.key == "adult" {
                     ageCategory = AgeCategory.adult
-                } else if cellInfo.key == "child" {
+                }else if cellInfo.key == "child" {
                     ageCategory = AgeCategory.child
-                } else {
+                }else {
                     ageCategory = AgeCategory.infant
                 }
-                showdobDatePicker()
+               showdobDatePicker()
             }
         }
         
@@ -527,6 +534,8 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             // loadCountryNamesAndCode()
         }
     }
+    
+    
     
     
     
@@ -590,6 +599,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     
     @objc func searchTextBegin(textField: UITextField) {
+        
         textField.text = ""
         filterdcountrylist.removeAll()
         filterdcountrylist = countrylist

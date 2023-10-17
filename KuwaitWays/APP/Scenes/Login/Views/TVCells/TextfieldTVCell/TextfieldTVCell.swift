@@ -183,7 +183,7 @@ class TextfieldTVCell: TableViewCell {
         forgetPwdBtn.isHidden = true
         
         countryCodeBtnView.isHidden = true
-       // countryCodeBtn.isHidden = true
+        countryCodeBtn.isHidden = true
         setupDropDown()
         countrycodeTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
         countrycodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
@@ -219,7 +219,7 @@ class TextfieldTVCell: TableViewCell {
         if textField.tag == 4 {
             if let text = textField.text {
                 let length = text.count
-                if length != mobilenoMaxLength {
+                if length != maxLength {
                     mobilenoMaxLengthBool = false
                 }else{
                     mobilenoMaxLengthBool = true
@@ -341,15 +341,7 @@ class TextfieldTVCell: TableViewCell {
     
     @objc func searchTextChanged(textField: MDCOutlinedTextField) {
         searchText = textField.text ?? ""
-        if searchText == "" {
-            isSearchBool = false
-            filterContentForSearchText(searchText)
-        }else {
-            isSearchBool = true
-            filterContentForSearchText(searchText)
-        }
-        
-        
+        filterContentForSearchText(searchText)
     }
     
     func filterContentForSearchText(_ searchText: String) {

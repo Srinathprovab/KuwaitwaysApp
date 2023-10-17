@@ -18,6 +18,8 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
         let vc = storyboard.instantiateViewController(withIdentifier: self.className()) as? ResetPasswordVC
         return vc
     }
+    
+    var countrycode = String()
     var email = String()
     var mobile = String()
     var payload = [String:Any]()
@@ -34,7 +36,7 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
+        countrycode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? "+965"
     }
     
     
@@ -96,7 +98,7 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
     
     
     override func didTapOnCountryCodeBtnAction(cell:TextfieldTVCell){
-        print(cell.countrycodeTF.text)
+        countrycode = cell.countrycodeTF.text ?? ""
     }
     
     
@@ -133,16 +135,25 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
                     }
                     
                 }else  if mobilenoMaxLengthBool == false {
+                    
                     showToast(message: "Enter Valid Mobile NO")
                     if cell.txtField.tag == 4 {
                         cell.txtField.setOutlineColor(.red, for: .normal)
                         cell.txtField.setOutlineColor(.red, for: .editing)
                     }
                    
+                }else  if countrycode.isEmpty == true {
+                    
+                    showToast(message: "Enter Country Code ")
+                    if cell.txtField.tag == 4 {
+                        cell.countrycodeTF.setOutlineColor(.red, for: .normal)
+                        cell.countrycodeTF.setOutlineColor(.red, for: .editing)
+                    }
+                   
                 }else {
                     
                     payload["email"] = email
-                    payload["phone"] = mobile
+                    payload["phone"] = countrycode + mobile
                     vm?.CALL_FORGET_PASSWORD_API(dictParam: payload)
                 }
             }

@@ -282,7 +282,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         for i in 1...adultsCount {
             positionsCount += 1
             passengertypeArray.append("Adult")
-            let travellerCell = TableRow(title: "Adult \(i)", key: "adult", characterLimit: positionsCount, cellType: .AddDeatilsOfTravellerTVCell)
+            let travellerCell = TableRow(title: "Adult \(i)", key: "adult", headerText: "Mr",characterLimit: positionsCount, cellType: .AddDeatilsOfTravellerTVCell)
             tablerow.append(travellerCell)
             
         }
@@ -292,7 +292,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             for i in 1...childCount {
                 positionsCount += 1
                 passengertypeArray.append("Child")
-                tablerow.append(TableRow(title:"Child \(i)",key:"child",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
+                tablerow.append(TableRow(title:"Child \(i)",key:"child",headerText: "Master",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
             }
         }
         
@@ -300,7 +300,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             for i in 1...infantsCount {
                 positionsCount += 1
                 passengertypeArray.append("Infant")
-                tablerow.append(TableRow(title:"Infant \(i)",key:"infant",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
+                tablerow.append(TableRow(title:"Infant \(i)",key:"infant",headerText: "Master",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
             }
         }
         
@@ -379,7 +379,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     
     func gotoAboutUsVC(keystr:String) {
         guard let vc = AboutUsVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
+        vc.modalPresentationStyle = .overCurrentContext
         vc.keystr = keystr
         present(vc, animated: true)
     }

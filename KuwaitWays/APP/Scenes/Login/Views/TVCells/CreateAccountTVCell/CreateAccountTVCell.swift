@@ -81,11 +81,11 @@ class CreateAccountTVCell: TableViewCell {
         
         setupTextField(txtField: fnameTF, tag1: 1, label: "First Name", placeholder: "Enter First Name")
         setupTextField(txtField: lnameTF, tag1: 2, label: "Last Name", placeholder: "Enter Last Name")
-        setupTextField(txtField: emailTF, tag1: 3, label: "Email", placeholder: "Enter Email Address")
+        setupTextField(txtField: emailTF, tag1: 3, label: "Email Address", placeholder: "Enter Email Address")
         setupTextField(txtField: countryCodeTF, tag1: 7, label: "Code", placeholder: "Kuwait")
         setupTextField(txtField: mobileTF, tag1: 4, label: "Mobile Number", placeholder: "Mobile Number")
         setupTextField(txtField: createPassTF, tag1: 5, label: "Create Password", placeholder: "Create Password")
-        setupTextField(txtField: confPassTF, tag1: 6, label: "Conform Password", placeholder: "Conform Password")
+        setupTextField(txtField: confPassTF, tag1: 6, label: "Confirm Password", placeholder: "Confirm Password")
         createPassTF.isSecureTextEntry = true
         confPassTF.isSecureTextEntry = true
         createAccountBtnView.addCornerRadiusWithShadow(color: .clear, borderColor: .clear, cornerRadius: 4)
@@ -99,7 +99,7 @@ class CreateAccountTVCell: TableViewCell {
         backtoLoginBtn.addTarget(self, action: #selector(didTapOnBackToLoginBtnAction(_:)), for: .touchUpInside)
         
         setupDropDown()
-     //   countryCodeBtn.isHidden = true
+        countryCodeBtn.isHidden = true
         countryCodeTF.addTarget(self, action: #selector(searchTextChanged(textField:)), for: .editingChanged)
         countryCodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
 
@@ -227,15 +227,7 @@ class CreateAccountTVCell: TableViewCell {
     
     @objc func searchTextChanged(textField: MDCOutlinedTextField) {
         searchText = textField.text ?? ""
-        if searchText == "" {
-            isSearchBool = false
-            filterContentForSearchText(searchText)
-        }else {
-            isSearchBool = true
-            filterContentForSearchText(searchText)
-        }
-        
-
+        filterContentForSearchText(searchText)
     }
     
     func filterContentForSearchText(_ searchText: String) {
