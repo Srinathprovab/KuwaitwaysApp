@@ -54,8 +54,9 @@ class SelectTabTVCell: TableViewCell {
     
     
     func setupUI() {
+        
         if screenHeight > 835 {
-            cvLeftConstraint.constant = 120
+            cvLeftConstraint.constant = 110
         }else {
             cvLeftConstraint.constant = 100
         }
