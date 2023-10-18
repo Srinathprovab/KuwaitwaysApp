@@ -47,14 +47,8 @@ class RoundTripTVcell: TableViewCell {
         kwdPricelbl.text = cellInfo?.kwdprice
         refundlbl.text = cellInfo?.refundable
         
-        if cellInfo?.key == "circle" {
-            summery1 = cellInfo?.moreData as! [Summary]
-            tvHeight.constant = CGFloat((summery1.count * 115))
-        }else {
-            msummery = cellInfo?.moreData as! [MSummary]
-            tvHeight.constant = CGFloat((msummery.count * 115))
-        }
-        
+        summery1 = cellInfo?.moreData as! [Summary]
+        tvHeight.constant = CGFloat((summery1.count * 115))
         flightDetailsTV.reloadData()
     }
     
@@ -92,12 +86,7 @@ class RoundTripTVcell: TableViewCell {
 extension RoundTripTVcell:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if cellInfo?.key == "circle" {
-            return summery1.count
-        }else {
-            return msummery.count
-        }
+        return summery1.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,17 +105,38 @@ extension RoundTripTVcell:UITableViewDelegate,UITableViewDataSource {
                 cell.noOfStopslbl.text = "\(data.no_of_stops ?? 0) Stops"
                 cell.inNolbl.text = "\(data.operator_name ?? "") (\(data.operator_code ?? "")-\(data.flight_number ?? ""))"
                 cell.logoImg.sd_setImage(with: URL(string: data.operator_image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
-            }else {
-                let data = msummery[indexPath.row]
-                cell.fromCityTimelbl.text = data.origin?.time
-                cell.fromCityNamelbl.text = data.origin?.city
-                cell.toCityTimelbl.text = data.destination?.time
-                cell.toCityNamelbl.text = data.destination?.city
-                cell.hourslbl.text = data.duration
-                cell.noOfStopslbl.text = "\(data.no_of_stops ?? 0) Stops"
-                cell.inNolbl.text = "\(data.operator_name ?? "") (\(data.operator_code ?? "")-\(data.flight_number ?? ""))"
-                cell.logoImg.sd_setImage(with: URL(string: data.operator_image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+                
+                switch data.no_of_stops {
+                case 0:
+                    cell.round1.isHidden = true
+                    cell.round2.isHidden = true
+                    break
+                case 1:
+                    cell.round1.isHidden = false
+                    break
+                case 2:
+                    cell.round1.isHidden = false
+                    cell.round2.isHidden = false
+                    break
+                default:
+                    break
+                }
+                
             }
+//            else {
+//                let data = msummery[indexPath.row]
+//                cell.fromCityTimelbl.text = data.origin?.time
+//                cell.fromCityNamelbl.text = data.origin?.city
+//                cell.toCityTimelbl.text = data.destination?.time
+//                cell.toCityNamelbl.text = data.destination?.city
+//                cell.hourslbl.text = data.duration
+//                cell.noOfStopslbl.text = "\(data.no_of_stops ?? 0) Stops"
+//                cell.inNolbl.text = "\(data.operator_name ?? "") (\(data.operator_code ?? "")-\(data.flight_number ?? ""))"
+//                cell.logoImg.sd_setImage(with: URL(string: data.operator_image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+//
+//
+//
+//            }
             
             c = cell
             

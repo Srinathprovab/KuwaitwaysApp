@@ -110,7 +110,7 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate, TimerMana
         setupLabels(lbl: bookNowlbl, text: "BOOK NOW", textcolor: .WhiteColor, font: .oswaldRegular(size: 16))
         bookNowBtn.setTitle("", for: .normal)
         bookNowBtn.addTarget(self, action: #selector(didTapOnBookNowBtn(_:)), for: .touchUpInside)
-        
+        titlelbl.isHidden = true
         commonTableView.registerTVCells(["EmptyTVCell",
                                          "HotelSearchResultTVCell",
                                          "RatingWithLabelsTVCell",
@@ -158,6 +158,9 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate, TimerMana
     override func didTapOnRoomTvcell(cell:TwinSuperiorRoomTVCell) {
         ratekeyArray.removeAll()
         ratekeyArray.append(cell.ratekey)
+        titlelbl.isHidden = false
+        titlelbl.text = "\(cell.kwdlbl.text ?? ""):\(cell.kwdPricelbl.text ?? "")"
+        
     }
     
     @objc func didTapOnBookNowBtn(_ sender:UIButton) {

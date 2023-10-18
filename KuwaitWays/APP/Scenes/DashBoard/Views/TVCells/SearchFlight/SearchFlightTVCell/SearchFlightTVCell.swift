@@ -158,7 +158,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
             if indexPath.row == 0 {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HolderViewTVCell {
                     cell.selectionStyle = .none
-                    cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.locationcity) ?? "city/location")"
+                    cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.locationcity) ?? "City/Location")"
                     cell.locImg.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                     cell.dropdownimg.isHidden = true
                     cell.fromBtn.addTarget(self, action: #selector(didTapOnLocationOrCityBtn(cell:)), for: .touchUpInside)
@@ -268,6 +268,8 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                         
                         
                         if let datestr1 = defaults.string(forKey: UserDefaultsKeys.rcalDepDate), let datestr2 = defaults.string(forKey: UserDefaultsKeys.rcalRetDate){
+                            
+                            cell.returnView.isHidden = false
                             if datestr1.isEmpty == true {
                                 cell.deplbl.text =  "Select Date"
                                 //cell.returnlbl.text =  "Select Date"
@@ -279,7 +281,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                             }
                             
                             if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
-                                cell.returnView.isHidden = false
+                                
                                 cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.rcalDepDate) ?? ""
                                 cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? ""
                             }
@@ -288,14 +290,14 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                         //                        cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "Select Date"
                         //                        cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "Select Date"
                         
-                        
+                        cell.returnView.isHidden = true
                         if let datestr1 = defaults.string(forKey: UserDefaultsKeys.calDepDate){
                             if datestr1.isEmpty == true {
                                 cell.deplbl.text =  "Select Date"
                             }
                             if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
                                 cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""
-                                cell.returnView.isHidden = true
+                               
                             }
                         }
                     }

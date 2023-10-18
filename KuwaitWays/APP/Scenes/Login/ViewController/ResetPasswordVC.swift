@@ -70,7 +70,7 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
         tablerow.append(TableRow(cellType:.LogoImgTVCell))
         tablerow.append(TableRow(title:"Reset Your Password",subTitle: "Enter your email and we'll send you the instructions to recover your password:",key: "resetpass",cellType:.LoginTitleTVCell))
         tablerow.append(TableRow(title:"Email Address*",text:"1", tempText: "Email Adress",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Mobile Number*",key: "mobile1",text:"4", moreData:["+91","+988","+133"], tempText: "Mobile",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Mobile Number*",key: "aaaa",text:"4",tempText: "Mobile",cellType:.TextfieldTVCell))
         
         tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Send",cellType:.ButtonTVCell))
@@ -134,15 +134,20 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
                         cell.txtField.setOutlineColor(.red, for: .editing)
                     }
                     
-                }else  if mobilenoMaxLengthBool == false {
-                    
-                    showToast(message: "Enter Valid Mobile NO")
-                    if cell.txtField.tag == 4 {
-                        cell.txtField.setOutlineColor(.red, for: .normal)
-                        cell.txtField.setOutlineColor(.red, for: .editing)
-                    }
-                   
-                }else  if countrycode.isEmpty == true {
+                }
+                
+//                else  if mobilenoMaxLengthBool == false {
+//
+//                    showToast(message: "Enter Valid Mobile NO")
+//                    if cell.txtField.tag == 4 {
+//                        cell.txtField.setOutlineColor(.red, for: .normal)
+//                        cell.txtField.setOutlineColor(.red, for: .editing)
+//                    }
+//
+//                }
+                
+                
+                else  if countrycode.isEmpty == true {
                     
                     showToast(message: "Enter Country Code ")
                     if cell.txtField.tag == 4 {
@@ -153,7 +158,7 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
                 }else {
                     
                     payload["email"] = email
-                    payload["phone"] = countrycode + mobile
+                    payload["phone"] = mobile
                     vm?.CALL_FORGET_PASSWORD_API(dictParam: payload)
                 }
             }

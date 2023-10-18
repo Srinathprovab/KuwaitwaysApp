@@ -725,7 +725,7 @@ extension PayNowVC {
                 showToast(message: "First name should have more than 3 characters")
             } else if !lnameCharBool {
                 showToast(message: "Last name should have more than 3 characters")
-            } else if !checkTermsAndCondationStatus {
+            } else if checkTermsAndCondationStatus == false {
                 showToast(message: "Please Accept T&C and Privacy Policy")
             } else {
                 vm?.CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: payload)

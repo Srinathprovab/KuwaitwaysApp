@@ -419,54 +419,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
     }
     
     
-    
-//    func setupTVCells(jfl:[[J_flight_list]]) {
-//        tablerow.removeAll()
-//        setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
-//
-//        jfl.forEach { i in
-//            i.forEach { j in
-//                j.flight_details?.summary?.forEach({ k in
-//
-//
-//                    tablerow.append(TableRow(title:j.access_key,
-//                                             fromTime: k.origin?.time,
-//                                             toTime:k.destination?.time,
-//                                             fromCity: k.origin?.city,
-//                                             toCity: k.destination?.city,
-//                                             noosStops: "\(k.no_of_stops ?? 0) Stops",
-//                                             airlineslogo: k.operator_image,
-//                                             airlinesCode:"(\(k.operator_code ?? "")-\(k.operator_name ?? ""))",
-//                                             kwdprice:"\(j.sITECurrencyType ?? ""):\(j.totalPrice_API ?? "")",
-//                                             refundable:j.fareType,
-//                                             travelTime: k.duration,
-//                                             cellType:.SearchFlightResultInfoTVCell))
-//
-//                })
-//            }
-//        }
-//
-//        tablerow.append(TableRow(height: 20,
-//                                 bgColor: .AppHolderViewColor,
-//                                 cellType:.EmptyTVCell))
-//
-//
-//
-//        commonTVData = tablerow
-//        commonTableView.reloadData()
-//
-//
-//        if jfl.count == 0 {
-//            tablerow.removeAll()
-//
-//            TableViewHelper.EmptyMessage(message: "No Data Found", tableview: commonTableView, vc: self)
-//
-//            commonTVData = tablerow
-//            commonTableView.reloadData()
-//        }
-//
-//    }
-    
+ 
     func setupRoundTripTVCells(jfl:[[J_flight_list]]) {
         commonTableView.separatorStyle = .none
         setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
@@ -668,12 +621,7 @@ extension SearchFlightResultVC:AppliedFilters {
             
             setupRoundTripTVCells(jfl: sortedArray)
             
-//            if journyType == "oneway" {
-//                setupTVCells(jfl: sortedArray)
-//            }else {
-//                setupRoundTripTVCells(jfl: sortedArray)
-//            }
-            
+
         }
         
         
@@ -693,13 +641,7 @@ extension SearchFlightResultVC:AppliedFilters {
             setupMulticityTVCells(jfl: sortedFlights)
         }
         
-        
-        
-        
-        
     }
-    
-    
     
     
     func filtersSortByApplied(sortBy: SortParameter) {
@@ -707,376 +649,120 @@ extension SearchFlightResultVC:AppliedFilters {
         
         switch sortBy {
         case .PriceLow:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" || journyType == "circle"{
-                    
-                    
-                    let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
-                        let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                        let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                        return totalPrice1 < totalPrice2
-                    }
-                    
-                    
-                    setupRoundTripTVCells(jfl: sortedFlights)
-                    
-                }
-//                else if journyType == "circle" {
-//                    let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
-//                        let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-//                        let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-//                        return totalPrice1 < totalPrice2
-//                    }
-//
-//
-//
-//                }
-                else {
-                    let sortedFlights = multicityFlights.sorted(by: {$0.totalPrice ?? "" < $1.totalPrice ?? ""})
-                    
-                    setupMulticityTVCells(jfl: sortedFlights)
-                }
+            let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
+                let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+                let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+                return totalPrice1 < totalPrice2
             }
+            
+            
+            setupRoundTripTVCells(jfl: sortedFlights)
             
             break
             
         case .PriceHigh:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    
-                    let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
-                        let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                        let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                        return totalPrice1 > totalPrice2
-                    }
-                    
-                    
-                    setupRoundTripTVCells(jfl: sortedFlights)
-                    
-                    
-                    
-                }else if journyType == "circle" {
-                    
-                    
-                    let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
-                        let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                        let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                        return totalPrice1 > totalPrice2
-                    }
-                    
-                    setupRoundTripTVCells(jfl: sortedFlights)
-                    
-                }else {
-                    
-                    let sortedFlights = multicityFlights.sorted(by: {$0.totalPrice ?? "" > $1.totalPrice ?? ""})
-                    
-                    setupMulticityTVCells(jfl: sortedFlights)
-                    
-                }
+            let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
+                let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+                let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+                return totalPrice1 > totalPrice2
             }
+            
+            setupRoundTripTVCells(jfl: sortedFlights)
             break
             
             
             
         case .DepartureLow:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                        let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                        return time1 < time2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else if journyType == "circle" {
-                    
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                        let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                        return time1 < time2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else {
-                    
-                    
-                    let sortedArray = multicityFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.flight_details?.summary?.first?.origin?.time ?? "0"
-                        let time2 = j2.flight_details?.summary?.first?.origin?.time ?? "0"
-                        return time1 < time2
-                    })
-                    
-                    setupMulticityTVCells(jfl: sortedArray)
-                    
-                }
-            }
+            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
+                let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
+                return time1 < time2
+            })
+            
+            setupRoundTripTVCells(jfl: sortedArray)
             break
             
         case .DepartureHigh:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                        let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                        return time1 > time2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else if journyType == "circle"{
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                        let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                        return time1 > time2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else{
-                    let sortedArray = multicityFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.flight_details?.summary?.first?.origin?.time ?? "0"
-                        let time2 = j2.flight_details?.summary?.first?.origin?.time ?? "0"
-                        return time1 > time2
-                    })
-                    
-                    setupMulticityTVCells(jfl: sortedArray)
-                    
-                }
-            }
+            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
+                let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
+                return time1 > time2
+            })
+            
+            setupRoundTripTVCells(jfl: sortedArray)
             break
             
             
             
         case .ArrivalLow:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                        let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                        return time1 < time2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else if journyType == "circle"{
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                        let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                        return time1 < time2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else {
-                    let sortedArray = multicityFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.flight_details?.summary?.first?.destination?.time ?? "0"
-                        let time2 = j2.flight_details?.summary?.first?.destination?.time ?? "0"
-                        return time1 < time2
-                    })
-                    
-                    setupMulticityTVCells(jfl: sortedArray)
-                }
-            }
+            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
+                let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
+                return time1 < time2
+            })
+            
+            setupRoundTripTVCells(jfl: sortedArray)
             break
             
         case .ArrivalHigh:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                        let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                        return time1 > time2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                }else if journyType == "circle"{
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                        let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                        return time1 > time2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else {
-                    let sortedArray = multicityFlights.sorted(by: { j1, j2 in
-                        let time1 = j1.flight_details?.summary?.first?.destination?.time ?? "0"
-                        let time2 = j2.flight_details?.summary?.first?.destination?.time ?? "0"
-                        return time1 > time2
-                    })
-                    
-                    setupMulticityTVCells(jfl: sortedArray)
-                }
-            }
+            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
+                let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
+                return time1 > time2
+            })
+            
+            setupRoundTripTVCells(jfl: sortedArray)
             break
             
             
             
             
         case .DurationLow:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                        let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                        return durationseconds1 < durationseconds2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else if journyType == "circle"{
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                        let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                        return durationseconds1 < durationseconds2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else {
-                    let sortedArray = multicityFlights.sorted(by: { j1, j2 in
-                        let durationseconds1 = j1.flight_details?.summary?.first?.duration_seconds ?? 0
-                        let durationseconds2 = j2.flight_details?.summary?.first?.duration_seconds ?? 0
-                        return durationseconds1 < durationseconds2
-                    })
-                    
-                    setupMulticityTVCells(jfl: sortedArray)
-                    
-                }
-            }
+            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
+                let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
+                return durationseconds1 < durationseconds2
+            })
+            
+            setupRoundTripTVCells(jfl: sortedArray)
             
             break
             
         case .DurationHigh:
             
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                        let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                        return durationseconds1 > durationseconds2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else if journyType == "circle" {
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                        let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                        return durationseconds1 > durationseconds2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else {
-                    let sortedArray = multicityFlights.sorted(by: { j1, j2 in
-                        let durationseconds1 = j1.flight_details?.summary?.first?.duration_seconds ?? 0
-                        let durationseconds2 = j2.flight_details?.summary?.first?.duration_seconds ?? 0
-                        return durationseconds1 > durationseconds2
-                    })
-                    
-                    setupMulticityTVCells(jfl: sortedArray)
-                    
-                }
-            }
+            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
+                let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
+                return durationseconds1 > durationseconds2
+            })
+            
+            setupRoundTripTVCells(jfl: sortedArray)
             break
             
             
         case .airlineaz:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
-                        let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
-                        return operatorCode1 < operatorCode2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else if journyType == "circle"{
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
-                        let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
-                        return operatorCode1 < operatorCode2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }
-            }else {
-                let sortedArray = multicityFlights.sorted(by: { j1, j2 in
-                    let operatorCode1 = j1.flight_details?.summary?.first?.operator_code ?? ""
-                    let operatorCode2 = j2.flight_details?.summary?.first?.operator_code ?? ""
-                    return operatorCode1 < operatorCode2
-                })
-                
-                setupMulticityTVCells(jfl: sortedArray)
-            }
+            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
+                let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
+                return operatorCode1 < operatorCode2
+            })
+            
+            setupRoundTripTVCells(jfl: sortedArray)
             break
             
         case .airlineza:
-            if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                if journyType == "oneway" {
-                    
-                    
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
-                        let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
-                        return operatorCode1 > operatorCode2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                    
-                }else if journyType == "circle"{
-                    let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                        let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
-                        let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
-                        return operatorCode1 > operatorCode2
-                    })
-                    
-                    setupRoundTripTVCells(jfl: sortedArray)
-                    
-                }else {
-                    let sortedArray = multicityFlights.sorted(by: { j1, j2 in
-                        let operatorCode1 = j1.flight_details?.summary?.first?.operator_code ?? ""
-                        let operatorCode2 = j2.flight_details?.summary?.first?.operator_code ?? ""
-                        return operatorCode1 > operatorCode2
-                    })
-                    
-                    setupMulticityTVCells(jfl: sortedArray)
-                }
-            }
+            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
+                let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
+                return operatorCode1 > operatorCode2
+            })
+            
+            setupRoundTripTVCells(jfl: sortedArray)
             break
             
             
         case .nothing:
-            let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
-            if journyType == "oneway" {
-                setupRoundTripTVCells(jfl: oneWayFlights)
-            }else if journyType == "circle"{
-                setupRoundTripTVCells(jfl: oneWayFlights)
-            }else {
-                setupMulticityTVCells(jfl: multicityFlights)
-            }
+            setupRoundTripTVCells(jfl: oneWayFlights)
             break
             
         default:

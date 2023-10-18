@@ -125,11 +125,13 @@ extension SelectTabTVCell:UICollectionViewDelegate,UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? SelectTabCVCell {
-            //            cell.imgHolderView.layer.borderColor = UIColor.AppNavBackColor.cgColor
-            //            cell.imgHolderView.layer.borderWidth = 2
-            //  cell.tabImg.image = UIImage(named: tabImages[indexPath.row])?.withRenderingMode(.alwaysOriginal).withTintColor(.AppNavBackColor)
-            
-            defaults.set(cell.titlelbl.text ?? "", forKey: UserDefaultsKeys.tabselect)
+           
+            if tabNames[indexPath.row] == "Flights" {
+                defaults.set("Flight", forKey: UserDefaultsKeys.tabselect)
+            }else {
+                defaults.set("Hotel", forKey: UserDefaultsKeys.tabselect)
+            }
+           
             delegate?.didTapOnDashboardTab(cell: self)
         }
     }

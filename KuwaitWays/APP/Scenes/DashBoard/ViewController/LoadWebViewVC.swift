@@ -216,13 +216,15 @@ extension LoadWebViewVC: WKNavigationDelegate {
         
         
         let str = webView.url?.absoluteString ?? ""
-        
+        webview.isHidden = false
         if apicallbool == false {
             
             if str.containsIgnoringCase(find: "paymentcancel") || str.containsIgnoringCase(find: "CANCELED") || str.containsIgnoringCase(find: "bookingFailuer"){
                 
+                webview.isHidden = true
+                self.gotoDashBoardTabbarVC()
                 showAlertOnWindow(title: "",message: "Somthing Went Wrong",titles: ["OK"]) { title in
-                    self.gotoDashBoardTabbarVC()
+                   
                 }
             }else {
                 

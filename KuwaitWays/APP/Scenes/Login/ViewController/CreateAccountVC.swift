@@ -143,11 +143,11 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
             }else if mobile.isEmpty == true {
                 showToast(message: "Enter Mobile Number")
                 setcolor(tf: cell.mobileTF, color: .red)
-            }else  if pass.isEmpty == true {
+            }else if pass.isEmpty == true {
                 showToast(message: "Enter Password")
                 setcolor(tf: cell.createPassTF, color: .red)
                 setcolor(tf: cell.createPassTF, color: .red)
-            }else  if pass.isValidPassword() == true {
+            }else  if pass.isValidPassword() == false {
                 showToast(message: "Enter Valid Password")
                 setcolor(tf: cell.createPassTF, color: .red)
             }else  if cpass.isEmpty == true {
