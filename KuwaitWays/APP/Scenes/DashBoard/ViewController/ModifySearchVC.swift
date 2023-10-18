@@ -237,7 +237,7 @@ class ModifySearchVC: BaseTableVC {
     }
     
     
-    override func didTapOnAddTravelerEconomy(cell:HolderViewTVCell){
+    override func didTapOnAddTravelerEconomy(){
         gotoAddTravelerVC()
     }
     

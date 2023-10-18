@@ -202,6 +202,7 @@ class FilterSearchVC: BaseTableVC {
         filterTapKey = "sort"
         sortul.backgroundColor = .AppNavBackColor
         filterul.backgroundColor = .WhiteColor
+
         setupSortTVCells()
     }
     
@@ -241,21 +242,21 @@ class FilterSearchVC: BaseTableVC {
     func setupSortTVCells() {
         tablerow.removeAll()
         
-        // tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(title:"PRICE",subTitle: "Low to high",buttonTitle: "High to low",cellType:.SortByPriceTVCell))
-        tablerow.append(TableRow(title:"Departure Time",subTitle: "Earlist  flight",buttonTitle: "Latest flight",cellType:.SortByPriceTVCell))
+        tablerow.append(TableRow(title:"PRICE",
+                                 subTitle: "Low to high",
+                                 buttonTitle: "High to low",
+                                 tempInfo: sortBy,
+                                 cellType:.SortByPriceTVCell))
+        tablerow.append(TableRow(title:"Departure Time",
+                                 subTitle: "Earlist  flight",buttonTitle: "Latest flight",tempInfo: sortBy,cellType:.SortByPriceTVCell))
         tablerow.append(TableRow(title:"Arrival Time",subTitle: "Earlist  flight",buttonTitle: "Latest flight",cellType:.SortByPriceTVCell))
-        tablerow.append(TableRow(title:"Duration",subTitle: "Low to high",buttonTitle: "High to low",cellType:.SortByPriceTVCell))
-        tablerow.append(TableRow(title:"AIRLINE",subTitle: "A-Z",buttonTitle: "Z-A",cellType:.SortByPriceTVCell))
-        
-        
+        tablerow.append(TableRow(title:"Duration",subTitle: "Low to high",buttonTitle: "High to low",tempInfo: sortBy,cellType:.SortByPriceTVCell))
+        tablerow.append(TableRow(title:"AIRLINE",subTitle: "A-Z",buttonTitle: "Z-A",tempInfo: sortBy,cellType:.SortByPriceTVCell))
         tablerow.append((TableRow(height:30,cellType: .EmptyTVCell)))
-//        tablerow.append((TableRow(title:"Apply",key: "btn",cellType: .ButtonTVCell)))
-//        tablerow.append((TableRow(height:50,cellType: .EmptyTVCell)))
-        
-        
+
         commonTVData = tablerow
         commonTableView.reloadData()
+        
     }
     
     
@@ -891,7 +892,7 @@ class FilterSearchVC: BaseTableVC {
     
     
     @IBAction func didTapOnResetBtnAction(_ sender: Any) {
-        sortBy = .nothing
+        
         
         
         if let tabSelected = defaults.string(forKey: UserDefaultsKeys.tabselect) {
@@ -901,7 +902,9 @@ class FilterSearchVC: BaseTableVC {
                         resetFilter()
                     }
                 }else {
+                    
                     DispatchQueue.main.async {[self] in
+                        sortBy = .nothing
                         resetFlightSortFilter()
                     }
                 }
@@ -960,7 +963,7 @@ extension FilterSearchVC {
     func resetFilter() {
         // Reset all values in the FilterModel
         
-        
+        sortBy = .nothing
         let pricesFloat = prices.compactMap { Float($0) }
         filterModel.minPriceRange = Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0)
         filterModel.maxPriceRange = Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0)

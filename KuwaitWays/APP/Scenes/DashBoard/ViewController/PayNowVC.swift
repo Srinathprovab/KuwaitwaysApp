@@ -155,13 +155,13 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     func setupUI() {
         
         if screenHeight > 835 {
-            navHeight.constant = 180
+            navHeight.constant = 185
         }else {
-            navHeight.constant = 130
+            navHeight.constant = 145
         }
         
         holderView.backgroundColor = .WhiteColor
-        nav.titlelbl.text = ""
+        nav.titlelbl.text = "Booking Details"
         nav.backBtn.addTarget(self, action: #selector(gotoBackScreen), for: .touchUpInside)
         nav.citylbl.isHidden = false
         nav.datelbl.isHidden = false

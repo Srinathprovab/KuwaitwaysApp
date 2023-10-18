@@ -59,6 +59,7 @@
 		652498DA2ADFD09200346013 /* AirlinesListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652498D92ADFD09200346013 /* AirlinesListModel.swift */; };
 		652498DC2ADFD0B600346013 /* Airline_list.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652498DB2ADFD0B500346013 /* Airline_list.swift */; };
 		652498DE2ADFD0D200346013 /* AirlinesListVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652498DD2ADFD0D200346013 /* AirlinesListVModel.swift */; };
+		652498E02ADFF22800346013 /* NationalityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652498DF2ADFF22700346013 /* NationalityVC.swift */; };
 		652A9A152A2752D9008E565D /* CommonBookingItinearyTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652A9A132A2752D9008E565D /* CommonBookingItinearyTVCell.swift */; };
 		652A9A162A2752D9008E565D /* CommonBookingItinearyTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652A9A142A2752D9008E565D /* CommonBookingItinearyTVCell.xib */; };
 		652A9A1A2A2752F8008E565D /* BookingItinearyTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652A9A182A2752F8008E565D /* BookingItinearyTVCell.xib */; };
@@ -476,6 +477,7 @@
 		652498D92ADFD09200346013 /* AirlinesListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlinesListModel.swift; sourceTree = "<group>"; };
 		652498DB2ADFD0B500346013 /* Airline_list.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airline_list.swift; sourceTree = "<group>"; };
 		652498DD2ADFD0D200346013 /* AirlinesListVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlinesListVModel.swift; sourceTree = "<group>"; };
+		652498DF2ADFF22700346013 /* NationalityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NationalityVC.swift; sourceTree = "<group>"; };
 		652A9A132A2752D9008E565D /* CommonBookingItinearyTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonBookingItinearyTVCell.swift; sourceTree = "<group>"; };
 		652A9A142A2752D9008E565D /* CommonBookingItinearyTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonBookingItinearyTVCell.xib; sourceTree = "<group>"; };
 		652A9A182A2752F8008E565D /* BookingItinearyTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookingItinearyTVCell.xib; sourceTree = "<group>"; };
@@ -1953,6 +1955,7 @@
 				65C5CD5829F7EF5B00FDA690 /* ViewFlightDetailsVC.swift */,
 				BF8C0D2528C19BD4009C3A6A /* NoInternetConnectionVC.swift */,
 				65434C4F2A408A0800BFCDE8 /* BookingConfirmedVC.swift */,
+				652498DF2ADFF22700346013 /* NationalityVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2930,6 +2933,7 @@
 				BF8C0E8628C19BD5009C3A6A /* UIColorManager.swift in Sources */,
 				BF8C0E7628C19BD5009C3A6A /* BaseTableVC.swift in Sources */,
 				BF8C0E6E28C19BD5009C3A6A /* SignUpWithTVCell.swift in Sources */,
+				652498E02ADFF22800346013 /* NationalityVC.swift in Sources */,
 				65C5CD5929F7EF5B00FDA690 /* ViewFlightDetailsVC.swift in Sources */,
 				BF8C0E3328C19BD5009C3A6A /* HotelDealsTVCell.swift in Sources */,
 				652A9A1B2A2752F8008E565D /* BookingItinearyTVCell.swift in Sources */,
@@ -3382,7 +3386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KuwaitWays/Info.plist;
@@ -3423,7 +3427,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KuwaitWays/Info.plist;

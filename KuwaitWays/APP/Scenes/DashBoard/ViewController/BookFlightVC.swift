@@ -137,7 +137,7 @@ class BookFlightVC: BaseTableVC {
         tablerow.removeAll()
         
         tablerow.append(TableRow(key:str,cellType:.SearchFlightTVCell))
-     //   tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
+        //   tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Best Deals Flights",key: "deals",cellType:.LabelTVCell))
         tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         tablerow.append(TableRow(key1:"flight",cellType:.HotelDealsTVCell))
@@ -267,26 +267,8 @@ class BookFlightVC: BaseTableVC {
     }
     
     
-    func gotoSelectCityVC(str:String,tokey:String) {
-        guard let vc = SelectFromCityVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.titleStr = str
-        vc.keyStr = "flight"
-        vc.tokey = tokey
-        self.present(vc, animated: true)
-    }
-    
-    func gotoCalenderVC() {
-        guard let vc = Calvc.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
-    
-    func gotoAddTravelerVC() {
-        
-        guard let vc = TravellerEconomyVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+    override func didTapOnSelectAirlines(){
+        gotoNationalityVC()
     }
     
     
@@ -294,17 +276,6 @@ class BookFlightVC: BaseTableVC {
         
     }
     
-    
-    
-    func gotoSearchFlightResultVC(input:[String:Any]) {
-        defaults.set(false, forKey: "flightfilteronce")
-        guard let vc = SearchFlightResultVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        loderBool = true
-        callapibool = true
-        vc.payload = input
-        self.present(vc, animated: true)
-    }
     
     
     
@@ -334,7 +305,7 @@ class BookFlightVC: BaseTableVC {
             payload["search_source"] = "search"
             payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
             payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
-
+            
             
             if defaults.string(forKey:UserDefaultsKeys.fromCity) == "" {
                 showToast(message: "Please Select From City")
@@ -374,7 +345,7 @@ class BookFlightVC: BaseTableVC {
             payload["search_source"] = "search"
             payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
             payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
-
+            
             if defaults.string(forKey:UserDefaultsKeys.rfromCity) == "" {
                 showToast(message: "Please Select From City")
             }else if defaults.string(forKey:UserDefaultsKeys.rtoCity) == "" {
@@ -422,7 +393,7 @@ class BookFlightVC: BaseTableVC {
         gotoSearchFlightResultVC(input: payload)
     }
     
-    override func didTapOnAddTravelerEconomy(cell:HolderViewTVCell){
+    override func didTapOnAddTravelerEconomy(){
         gotoAddTravelerVC()
     }
     
@@ -513,6 +484,48 @@ class BookFlightVC: BaseTableVC {
         
     }
     
+    
+    
+    func gotoSearchFlightResultVC(input:[String:Any]) {
+        defaults.set(false, forKey: "flightfilteronce")
+        guard let vc = SearchFlightResultVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        loderBool = true
+        callapibool = true
+        vc.payload = input
+        self.present(vc, animated: true)
+    }
+    
+    
+    func gotoSelectCityVC(str:String,tokey:String) {
+        guard let vc = SelectFromCityVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        vc.titleStr = str
+        vc.keyStr = "flight"
+        vc.tokey = tokey
+        self.present(vc, animated: true)
+    }
+    
+    func gotoCalenderVC() {
+        guard let vc = Calvc.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
+    
+    func gotoAddTravelerVC() {
+        
+        guard let vc = TravellerEconomyVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
+    
+    
+    
+    func gotoNationalityVC(){
+        guard let vc = NationalityVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
     
     
 }

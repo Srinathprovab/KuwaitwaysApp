@@ -14,7 +14,7 @@ protocol SearchFlightTVCellDelegate {
     func didTapOnToCity(cell:HolderViewTVCell)
     func didTapOnSelectDepDateBtn(cell:DualViewTVCell)
     func didTapOnSelectRepDateBtn(cell:DualViewTVCell)
-    func didTapOnAddTravelerEconomy(cell:HolderViewTVCell)
+    func didTapOnAddTravelerEconomy()
     func didTapOnSearchFlightsBtn(cell:SearchFlightTVCell)
     func didTapOnLocationOrCityBtn(cell:HolderViewTVCell)
     func didTapOnAddRooms(cell:HolderViewTVCell)
@@ -22,6 +22,9 @@ protocol SearchFlightTVCellDelegate {
     func didtapOnCheckOutBtn(cell:DualViewTVCell)
     func didTapOnSearchHotelsBtn(cell:ButtonTVCell)
     func didTapOnAirlinesSelectBtnAction(cell:AdvancedSearchTVCell)
+    
+    func didTapOnSelectAirlines()
+    
 }
 
 class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDelegate, AdvancedSearchTVCellDelegate {
@@ -54,7 +57,7 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
         countrylist.forEach { i in
             countryNameArray.append(i.name ?? "")
         }
-       
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reload"), object: nil)
         searchFlightTV.reloadData()
@@ -77,11 +80,11 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
         searchFlightTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell")
         searchFlightTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell1")
         searchFlightTV.register(UINib(nibName: "DualViewTVCell", bundle: nil), forCellReuseIdentifier: "cell2")
-        searchFlightTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell3")
+        searchFlightTV.register(UINib(nibName: "DualViewTVCell", bundle: nil), forCellReuseIdentifier: "cell3")
         searchFlightTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell5")
         searchFlightTV.register(UINib(nibName: "ButtonTVCell", bundle: nil), forCellReuseIdentifier: "cell4")
         searchFlightTV.register(UINib(nibName: "AdvancedSearchTVCell", bundle: nil), forCellReuseIdentifier: "cell66")
-
+        
         searchFlightTV.separatorStyle = .none
         searchFlightTV.delegate = self
         searchFlightTV.dataSource = self
@@ -122,8 +125,13 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
         delegate?.didtapOnCheckOutBtn(cell: cell)
     }
     
-    @objc func didTapOnAddTravelerEconomy(cell:HolderViewTVCell){
-        delegate?.didTapOnAddTravelerEconomy(cell: cell)
+    @objc func didTapOnAddTravelerEconomy(){
+        delegate?.didTapOnAddTravelerEconomy()
+    }
+    
+    
+    @objc func didTapOnSelectAirlines(){
+        delegate?.didTapOnSelectAirlines()
     }
     
     
@@ -132,7 +140,7 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     }
     
     @objc func didTapOnSelectNationality(cell:HolderViewTVCell){
-     //   cell.dropDown.show()
+        //   cell.dropDown.show()
     }
     
     
@@ -174,13 +182,13 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
         if self.key == "hotel" {
             return 5
         }else {
-            return 5
+            return 4
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var c = UITableViewCell()
-       
+        
         if self.key == "hotel" {
             
             if indexPath.row == 0 {
@@ -227,7 +235,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.fromBtn.addTarget(self, action: #selector(didTapOnSelectNationality(cell:)), for: .touchUpInside)
                     cell.swipeView.isHidden = true
                     cell.locImg.image = UIImage(named: "na")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
-
+                    
                     c = cell
                 }
             }else {
@@ -255,8 +263,6 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.toBtn.addTarget(self, action: #selector(didTapOnToCity(cell:)), for: .touchUpInside)
                     
                     if self.key == "roundtrip" {
-                        //                        cell.titlelbl.text = defaults.string(forKey: UserDefaultsKeys.rfromCity) ?? "From"
-                        //                        cell.tolabel.text = defaults.string(forKey: UserDefaultsKeys.rtoCity) ?? "To"
                         
                         if let fromstr = defaults.string(forKey: UserDefaultsKeys.rfromCity) {
                             if fromstr.isEmpty == true {
@@ -269,8 +275,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                         }
                         
                     }else {
-                        //                        cell.titlelbl.text = defaults.string(forKey: UserDefaultsKeys.fromCity) ?? "From"
-                        //                        cell.tolabel.text = defaults.string(forKey: UserDefaultsKeys.toCity) ?? "To"
+                        
                         if let fromstr = defaults.string(forKey: UserDefaultsKeys.fromCity) {
                             if fromstr.isEmpty == true {
                                 cell.titlelbl.text = "From"
@@ -290,6 +295,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "cell2") as? DualViewTVCell {
                     cell.selectionStyle = .none
                     cell.delegate = self
+                    cell.key = "date"
                     cell.hideRetView()
                     if self.key == "roundtrip" {
                         cell.showReturnView()
@@ -325,7 +331,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                             }
                             if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
                                 cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""
-                               
+                                
                             }
                         }
                     }
@@ -333,32 +339,53 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     c = cell
                 }
             }else  if indexPath.row == 2 {
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell3") as? HolderViewTVCell {
-                    cell.selectionStyle = .none
-                    cell.locImg.image = UIImage(named: "traveler")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
-                    cell.dropdownimg.isHidden = false
-                    cell.fromBtn.addTarget(self, action: #selector(didTapOnAddTravelerEconomy(cell:)), for: .touchUpInside)
-                    cell.tag = 3
-                    cell.swipeView.isHidden = true
-                    
-                    
-                    if self.key == "roundtrip" {
-                        cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? "+ Add Traveller")"
-                    }else {
-                        cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? "+ Add Traveller")"
-                    }
-                    
-                    c = cell
-                }
-            }else if indexPath.row == 3{
+                //                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell3") as? HolderViewTVCell {
+                //                    cell.selectionStyle = .none
+                //                    cell.locImg.image = UIImage(named: "traveler")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
+                //                    cell.dropdownimg.isHidden = false
+                //                    cell.fromBtn.addTarget(self, action: #selector(didTapOnAddTravelerEconomy(cell:)), for: .touchUpInside)
+                //                    cell.tag = 3
+                //                    cell.swipeView.isHidden = true
+                //
+                //
+                //                    if self.key == "roundtrip" {
+                //                        cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? "+ Add Traveller")"
+                //                    }else {
+                //                        cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? "+ Add Traveller")"
+                //                    }
+                //
+                //                    c = cell
+                //                }
                 
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell66") as? AdvancedSearchTVCell {
+                
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell3") as? DualViewTVCell {
                     cell.selectionStyle = .none
                     cell.delegate = self
-                    cell.callAPI()
-                    cell.airlineslbl.text = "\(defaults.string(forKey: UserDefaultsKeys.nationality) ?? "ALL")"
+                    cell.showReturnView()
+                    cell.key = "airlines"
+                    cell.cal1Img.image = UIImage(named: "traveler")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
+                    cell.cal2img.image = UIImage(named: "airlines")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
+                    
+                    if self.key == "roundtrip" {
+                        cell.deplbl.text = "\(defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? "+ Add Traveller")"
+                    }else {
+                        cell.deplbl.text = "\(defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? "+ Add Traveller")"
+                    }
+                    
+                    cell.returnlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.nationality) ?? "ALL")"
+                    
+                    cell.depBtn.addTarget(self, action: #selector(didTapOnAddTravelerEconomy), for: .touchUpInside)
+                    cell.returnBtn.addTarget(self, action: #selector(didTapOnSelectAirlines), for: .touchUpInside)
+                    
                     c = cell
                 }
+                
+                
+                
+                
+                
+                
+                
                 
             }else {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "cell4") as? ButtonTVCell {
@@ -388,7 +415,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                 break
                 
             case 3:
-                delegate?.didTapOnAddTravelerEconomy(cell: cell)
+                //delegate?.didTapOnAddTravelerEconomy(cell: cell)
                 break
                 
             default:

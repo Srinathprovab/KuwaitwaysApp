@@ -45,7 +45,7 @@ class SortByPriceTVCell: TableViewCell {
         lowlbl.text = cellInfo?.subTitle
         heighlbl.text = cellInfo?.buttonTitle
         
-        
+       
         
         switch sortBy {
             
@@ -125,7 +125,13 @@ class SortByPriceTVCell: TableViewCell {
             break
             
             
+        case .nothing:
+            starting()
+            break
+            
+            
         default:
+            starting()
             break
         }
         
@@ -167,6 +173,14 @@ class SortByPriceTVCell: TableViewCell {
         lowlbl.textColor = HexColor("#27272A")
         
         delegate?.didTapOnHeighToLowBtnAction(cell: self)
+    }
+    
+    
+    func starting(){
+        self.lowlbl.textColor = .AppLabelColor
+        self.lowView.backgroundColor = .WhiteColor
+        self.heighlbl.textColor = .AppLabelColor
+        self.heightView.backgroundColor = .WhiteColor
     }
     
     

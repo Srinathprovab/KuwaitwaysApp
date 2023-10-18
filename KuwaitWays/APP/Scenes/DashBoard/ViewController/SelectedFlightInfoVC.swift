@@ -162,9 +162,9 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         setupCV()
         
         if screenHeight > 835 {
-            navHeight.constant = 180
+            navHeight.constant = 185
         }else {
-            navHeight.constant = 140
+            navHeight.constant = 150
         }
         
         

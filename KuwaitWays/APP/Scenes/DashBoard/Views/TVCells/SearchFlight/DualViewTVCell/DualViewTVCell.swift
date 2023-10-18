@@ -42,7 +42,7 @@ class DualViewTVCell: UITableViewCell {
         holderView.backgroundColor = .AppHolderViewColor
         setupViews(v: depView, radius: 4, color: HexColor("#E6E8E7",alpha: 0.20))
         setupViews(v: returnView, radius: 4, color: HexColor("#E6E8E7",alpha: 0.20))
-       // returnView.backgroundColor = .AppBGColor
+        // returnView.backgroundColor = .AppBGColor
         returnlbl.isHidden = true
         cal2img.isHidden = true
         returnBtn.isHidden = true
@@ -92,9 +92,15 @@ class DualViewTVCell: UITableViewCell {
     
     
     @objc func didTapOnSelectDepDateBtn(_ sender:UIButton){
-        delegate?.didTapOnSelectDepDateBtn(cell: self)
+        if key == "date" {
+            delegate?.didTapOnSelectDepDateBtn(cell: self)
+        }
+        
     }
     @objc func didTapOnSelectRepDateBtn(_ sender:UIButton){
-        delegate?.didTapOnSelectRepDateBtn(cell: self)
+        if key == "date" {
+            delegate?.didTapOnSelectRepDateBtn(cell: self)
+        }
+        
     }
 }

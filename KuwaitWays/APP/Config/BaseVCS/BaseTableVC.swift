@@ -116,7 +116,7 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func didTapOnSelectRepDateBtn(cell: DualViewTVCell) {}
     func didTapOnDecrementButton(cell: TravellerEconomyTVCell) {}
     func didTapOnIncrementButton(cell: TravellerEconomyTVCell) {}
-    func didTapOnAddTravelerEconomy(cell:HolderViewTVCell){}
+    func didTapOnAddTravelerEconomy(){}
     func didTapOnSearchFlightsBtn(cell:SearchFlightTVCell){}
     func didTapOnRefunduableBtn(cell: SearchFlightResultInfoTVCell) {}
     func didTapOnBookNowBtn(cell: BookNowTVCell) {}
@@ -210,9 +210,7 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     
     func didTapOnAirlinesSelectBtnAction(cell:AdvancedSearchTVCell){}
     func didTapOnAdvancedSearchBtnAction(cell: AdvancedSearchTVCell) {}
-    
-    
-    
+    func didTapOnSelectAirlines(){}
     
     
     
