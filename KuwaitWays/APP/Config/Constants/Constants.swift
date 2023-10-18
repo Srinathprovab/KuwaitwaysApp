@@ -208,6 +208,8 @@ struct ApiEndpoints {
     //HOTEL
     static let gethotelcitylist = "ajax/get_hotel_city_list"
     static let mobileprehotelsearch = "general/mobile_pre_hotel_search"
+    static let general_ajaxHotelSearch_pagination = "general/ajaxHotelSearch_pagination"
+    
     static let hoteldetails = "hotel/mobile_details"
     static let hotelmobilebooking = "hotel/mobile_booking"
     static let mobilehotelprebooking = "hotel/mobile_hotel_pre_booking"

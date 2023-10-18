@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate, TimerManagerDelegate {
     
     @IBOutlet weak var nav: NavBar!
@@ -22,6 +24,8 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate, TimerManagerD
     @IBOutlet weak var filterpBtn: UIButton!
     
     
+    
+    var isLoadingData: Bool = false
     var isSearchBool = false
     var nationalityCode = String()
     var viewModel:HotelListViewModel?
@@ -206,46 +210,12 @@ extension HotelSearchResultVC {
             holderView.isHidden = false
             hbooking_source = response.booking_source ?? ""
             hsearch_id = String(response.search_id ?? 0)
-            
-            
+        
             TimerManager.shared.stopTimer()
             TimerManager.shared.startTimer(time: 900)
-            
-            
-            
             hotelSearchResultArray = response.data?.hotelSearchResult ?? []
-          
-            
-            prices.removeAll()
-            latitudeArray.removeAll()
-            longitudeArray.removeAll()
-            facilityArray.removeAll()
-            faretypeArray .removeAll()
-            
-            
-            hotelSearchResultArray.forEach { i in
-                prices.append("\(i.price ?? "")")
-                latitudeArray.append(i.latitude ?? "")
-                longitudeArray.append(i.longitude ?? "0.0")
-                faretypeArray.append(i.refund ?? "")
-                i.facility?.forEach({ j in
-                    facilityArray.append(j.v ?? "")
-                })
-            }
-            prices = Array(Set(prices))
-            facilityArray = Array(Set(facilityArray))
-            faretypeArray = Array(Set(faretypeArray))
-            
-            response.data?.hotelSearchResult?.forEach { i in
-                let mapModel = MapModel(
-                    longitude: i.longitude ?? "",
-                    latitude: i.latitude ?? "",
-                    hotelname: i.name ?? ""
-                )
-                mapModelArray.append(mapModel)
-            }
-            
-            
+            appendValues(list: hotelSearchResultArray)
+
             response.filters_display?.loc?.forEach({ i in
                 nearBylocationsArray.append(i.v ?? "")
             })
@@ -258,9 +228,7 @@ extension HotelSearchResultVC {
                 amenitiesArray.append(i.v ?? "")
             })
             
-            DispatchQueue.main.async {
-                self.setupTVCells(hotelList: self.hotelSearchResultArray)
-            }
+           
             
         }else {
             
@@ -270,6 +238,47 @@ extension HotelSearchResultVC {
             vc.modalPresentationStyle = .fullScreen
             vc.key = "noresult"
             self.present(vc, animated: false)
+        }
+        
+    }
+    
+    
+    
+    func appendValues(list:[HotelSearchResult]) {
+        
+        
+        prices.removeAll()
+        latitudeArray.removeAll()
+        longitudeArray.removeAll()
+        facilityArray.removeAll()
+        faretypeArray .removeAll()
+        
+        
+        list.forEach { i in
+            prices.append("\(i.price ?? "")")
+            latitudeArray.append(i.latitude ?? "")
+            longitudeArray.append(i.longitude ?? "0.0")
+            faretypeArray.append(i.refund ?? "")
+            i.facility?.forEach({ j in
+                facilityArray.append(j.v ?? "")
+            })
+        }
+        prices = Array(Set(prices))
+        facilityArray = Array(Set(facilityArray))
+        faretypeArray = Array(Set(faretypeArray))
+        
+        list.forEach { i in
+            let mapModel = MapModel(
+                longitude: i.longitude ?? "",
+                latitude: i.latitude ?? "",
+                hotelname: i.name ?? ""
+            )
+            mapModelArray.append(mapModel)
+        }
+        
+        
+        DispatchQueue.main.async {
+            self.setupTVCells(hotelList: list)
         }
         
     }
@@ -369,6 +378,51 @@ extension HotelSearchResultVC:AppliedFilters {
     
 }
 
+extension HotelSearchResultVC {
+   
+
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastRowIndex = tableView.numberOfRows(inSection: 0) - 1
+        if indexPath.row == lastRowIndex && !isLoadingData {
+            isLoadingData = true // Set the flag to indicate that data loading is in progress
+          //  callHotelSearchPaginationAPI()
+        }
+    }
+
+    func callHotelSearchPaginationAPI() {
+        print("You've reached the last cell, trigger the API call.")
+
+        payload.removeAll()
+        payload["booking_source"] = hbooking_source
+        payload["search_id"] = hsearch_id
+        payload["offset"] = "270"
+        payload["limit"] = "10"
+        payload["no_of_nights"] = "1"
+    
+
+       // viewModel?.CallHotelSearchPagenationAPI(dictParam: payload)
+    }
+
+    func hoteSearchPagenationResult(response: HotelListModel) {
+        isLoadingData = false // Reset the flag when the API call is complete
+
+        if let newResults = response.data?.hotelSearchResult, !newResults.isEmpty {
+            // Append the new data to the existing data
+            hotelSearchResultArray.append(contentsOf: newResults)
+        } else {
+            // No more items to load, update UI accordingly
+            print("No more items to load.")
+            // You can show a message or hide a loading indicator here
+        }
+
+        DispatchQueue.main.async { [self] in
+            self.appendValues(list: hotelSearchResultArray)
+        }
+    }
+}
+
+
+
 
 
 extension HotelSearchResultVC {
@@ -426,3 +480,5 @@ extension HotelSearchResultVC {
     }
     
 }
+
+

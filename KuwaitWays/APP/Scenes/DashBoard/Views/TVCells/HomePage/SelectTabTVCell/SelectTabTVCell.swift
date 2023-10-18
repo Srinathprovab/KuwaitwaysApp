@@ -24,6 +24,8 @@ class SelectTabTVCell: TableViewCell {
     @IBOutlet weak var langImg: UIImageView!
     @IBOutlet weak var langBtn: UIButton!
     @IBOutlet weak var currencylbl: UILabel!
+    @IBOutlet weak var cvLeftConstraint: NSLayoutConstraint!
+    
     
     var delegate:SelectTabTVCellDelegate?
     var tabNames = ["Flights","Hotels"]
@@ -52,6 +54,12 @@ class SelectTabTVCell: TableViewCell {
     
     
     func setupUI() {
+        if screenHeight > 835 {
+            cvLeftConstraint.constant = 120
+        }else {
+            cvLeftConstraint.constant = 100
+        }
+        
         holderView.backgroundColor = .AppBackgroundColor
         haiImg.image = UIImage(named: "menu")?.withRenderingMode(.alwaysOriginal).withTintColor(.WhiteColor)
         langImg.image = UIImage(named: "lang")?.withRenderingMode(.alwaysOriginal).withTintColor(.WhiteColor)
