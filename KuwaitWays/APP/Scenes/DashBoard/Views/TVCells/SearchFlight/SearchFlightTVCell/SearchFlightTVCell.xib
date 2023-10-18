@@ -34,6 +34,7 @@
                             <constraint firstItem="JIR-qb-Qib" firstAttribute="top" secondItem="owx-vK-fgk" secondAttribute="top" constant="16" id="Rne-GR-NFk"/>
                             <constraint firstAttribute="bottom" secondItem="JIR-qb-Qib" secondAttribute="bottom" constant="25" id="VL1-M1-D3b"/>
                             <constraint firstAttribute="trailing" secondItem="JIR-qb-Qib" secondAttribute="trailing" constant="16" id="Zqy-NN-vzH"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="403" id="iT8-wM-GFa"/>
                             <constraint firstItem="JIR-qb-Qib" firstAttribute="leading" secondItem="owx-vK-fgk" secondAttribute="leading" constant="16" id="pA1-Kl-u1C"/>
                         </constraints>
                     </view>
@@ -49,6 +50,7 @@
             <connections>
                 <outlet property="holderView" destination="owx-vK-fgk" id="kpT-1c-6it"/>
                 <outlet property="searchFlightTV" destination="JIR-qb-Qib" id="iNg-QB-lDs"/>
+                <outlet property="viewHeight" destination="JiP-ar-ZYn" id="Imq-0m-qEG"/>
             </connections>
             <point key="canvasLocation" x="210.86956521739131" y="169.08482142857142"/>
         </tableViewCell>

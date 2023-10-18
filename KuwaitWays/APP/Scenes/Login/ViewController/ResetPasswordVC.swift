@@ -69,8 +69,8 @@ class ResetPasswordVC: BaseTableVC, ForgetPasswordViewModelDelegate {
         tablerow.append(TableRow(height:60,cellType:.EmptyTVCell))
         tablerow.append(TableRow(cellType:.LogoImgTVCell))
         tablerow.append(TableRow(title:"Reset Your Password",subTitle: "Enter your email and we'll send you the instructions to recover your password:",key: "resetpass",cellType:.LoginTitleTVCell))
-        tablerow.append(TableRow(title:"Email Address*",text:"1", tempText: "Email Adress",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Mobile Number*",key: "aaaa",text:"4",tempText: "Mobile",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Email Address*",text:"1", tempText: "Email Address",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Mobile Number*",key: "aaaa",text:"4",tempText: "Mobile Number",cellType:.TextfieldTVCell))
         
         tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Send",cellType:.ButtonTVCell))

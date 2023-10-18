@@ -21,15 +21,17 @@ protocol SearchFlightTVCellDelegate {
     func didtapOnCheckInBtn(cell:DualViewTVCell)
     func didtapOnCheckOutBtn(cell:DualViewTVCell)
     func didTapOnSearchHotelsBtn(cell:ButtonTVCell)
-    
+    func didTapOnAirlinesSelectBtnAction(cell:AdvancedSearchTVCell)
 }
 
-class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDelegate {
+class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDelegate, AdvancedSearchTVCellDelegate {
+    
+    
     
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var searchFlightTV: UITableView!
-    
+    @IBOutlet weak var viewHeight: NSLayoutConstraint!
     
     var countryNameArray = [String]()
     var key = String()
@@ -78,6 +80,8 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
         searchFlightTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell3")
         searchFlightTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell5")
         searchFlightTV.register(UINib(nibName: "ButtonTVCell", bundle: nil), forCellReuseIdentifier: "cell4")
+        searchFlightTV.register(UINib(nibName: "AdvancedSearchTVCell", bundle: nil), forCellReuseIdentifier: "cell66")
+
         searchFlightTV.separatorStyle = .none
         searchFlightTV.delegate = self
         searchFlightTV.dataSource = self
@@ -137,6 +141,30 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     }
     
     
+    
+    //MARK: - AdvancedSearchTVCell
+    func didTapOnAdvancedSearchBtnAction(cell: AdvancedSearchTVCell) {
+        
+        if cell.showbool == true {
+            viewHeight.constant = 460
+            cell.btnsView.isHidden = false
+            cell.showbool = false
+        }else {
+            viewHeight.constant = 403
+            cell.btnsView.isHidden = true
+            cell.showbool = true
+        }
+        NotificationCenter.default.post(name: NSNotification.Name("AdvancedSearchTVCellreload"), object: nil)
+        
+        searchFlightTV.beginUpdates()
+        searchFlightTV.endUpdates()
+    }
+    
+    func didTapOnAirlinesSelectBtnAction(cell: AdvancedSearchTVCell) {
+        delegate?.didTapOnAirlinesSelectBtnAction(cell: cell)
+    }
+    
+    
 }
 
 
@@ -146,7 +174,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
         if self.key == "hotel" {
             return 5
         }else {
-            return 4
+            return 5
         }
     }
     
@@ -322,6 +350,16 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     
                     c = cell
                 }
+            }else if indexPath.row == 3{
+                
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell66") as? AdvancedSearchTVCell {
+                    cell.selectionStyle = .none
+                    cell.delegate = self
+                    cell.callAPI()
+                    cell.airlineslbl.text = "\(defaults.string(forKey: UserDefaultsKeys.nationality) ?? "ALL")"
+                    c = cell
+                }
+                
             }else {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "cell4") as? ButtonTVCell {
                     cell.selectionStyle = .none

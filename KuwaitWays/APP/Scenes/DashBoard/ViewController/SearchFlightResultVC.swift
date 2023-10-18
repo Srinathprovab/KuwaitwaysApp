@@ -307,25 +307,25 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
     func flightList(response: FlightListModel) {
         
         airlinesA.removeAll()
+        prices.removeAll()
+        noofStopsA.removeAll()
+        fareTypeA.removeAll()
+        connectingFlightsA.removeAll()
+        connectingAirportA.removeAll()
         
         
         if response.status == 1{
             
+            holderView.isHidden = false
             view.backgroundColor = .WhiteColor
             loderBool = false
             searchid = "\(response.data?.search_id ?? 0)"
             bookingsource = response.data?.booking_source ?? ""
             bookingsourcekey = response.data?.booking_source_key ?? ""
             
-            //   TimerManager.shared.totalTime = 20
             TimerManager.shared.stopTimer()
             TimerManager.shared.startTimer(time: 900)
-            
-            
-            holderView.isHidden = false
-            
-            
-            
+           
             
             oneWayFlights = response.data?.j_flight_list ?? [[]]
             oneWayFlights.forEach { i in
@@ -367,7 +367,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             }
             
             
-            
+           
             
             prices = Array(Set(prices))
             noofStopsA = Array(Set(noofStopsA))

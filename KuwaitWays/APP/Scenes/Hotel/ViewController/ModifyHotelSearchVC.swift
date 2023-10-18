@@ -68,7 +68,7 @@ class ModifyHotelSearchVC: BaseTableVC {
     func setupUI() {
         self.view.backgroundColor = .black.withAlphaComponent(0.50)
         nav.backgroundColor = .clear
-        nav.titlelbl.text = "Modify Hotel Search"
+        nav.titlelbl.text = "Modify"
         nav.titlelbl.textColor = .WhiteColor
         nav.backBtn.addTarget(self, action: #selector(backbtnAction(_:)), for: .touchUpInside)
         

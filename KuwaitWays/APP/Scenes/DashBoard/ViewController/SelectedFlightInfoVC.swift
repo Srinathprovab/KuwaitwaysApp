@@ -193,8 +193,8 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         
         setupViews(v: bookNowHolderView, radius: 0, color: .AppJournyTabSelectColor)
         setupViews(v: bookNowView, radius: 6, color: .AppNavBackColor)
-        setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .oswaldRegular(size: 20))
-        setupLabels(lbl: bookNowlbl, text: "BOOK NOW", textcolor: .WhiteColor, font: .oswaldRegular(size: 16))
+        setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansRegular(size: 20))
+        setupLabels(lbl: bookNowlbl, text: "BOOK NOW", textcolor: .WhiteColor, font: .OpenSansRegular(size: 16))
         bookNowBtn.setTitle("", for: .normal)
         
         commonTableView.registerTVCells(["AddItineraryTVCell",

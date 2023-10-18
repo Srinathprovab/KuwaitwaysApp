@@ -181,6 +181,7 @@ struct ApiEndpoints {
     
     static let indexpage = "general/index"
     static let countrylist1 = "flight/country_list"
+    static let general_getAirlineList = "general/getAirlineList"
     static let mobilePreFlightSearch = "mobile_pre_flight_search"
     static let mobilelogin = "auth/mobile_login"
     static let mobileregister = "auth/mobile_register_on_light_box"
@@ -231,6 +232,8 @@ struct UserDefaultsKeys {
     static var mobilecountrycode = "mobilecountrycode"
     static var mobilecountryname = "mobilecountryname"
     static var tabselect = "tabselect"
+    static var nationality = "nationality"
+    static var airlinescode = "airlinescode"
     static var userLoggedIn = "userLoggedIn"
     static var loggedInStatus = "loggedInStatus"
     static var userid = "userid"

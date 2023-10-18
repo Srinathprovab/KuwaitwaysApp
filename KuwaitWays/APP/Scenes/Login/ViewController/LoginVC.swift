@@ -85,7 +85,7 @@ class LoginVC: BaseTableVC, CountryListViewModelDelegate {
         tablerow.append(TableRow(height:80,cellType:.EmptyTVCell))
         tablerow.append(TableRow(cellType:.LogoImgTVCell))
         tablerow.append(TableRow(title:"Login Account",subTitle: "Hello , welcome back to our account !",key: "login",cellType:.LoginTitleTVCell))
-        tablerow.append(TableRow(title:"Email Address*",text:"1", tempText: "Email Adress",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Email Address*",text:"1", tempText: "Email Address",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Password*",key:"pass", text:"2", tempText: "Password",cellType:.TextfieldTVCell))
         
         tablerow.append(TableRow(height:20,cellType:.EmptyTVCell))

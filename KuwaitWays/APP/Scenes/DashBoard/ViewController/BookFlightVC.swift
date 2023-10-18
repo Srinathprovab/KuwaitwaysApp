@@ -52,6 +52,8 @@ class BookFlightVC: BaseTableVC {
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name("calreloadTV"), object: nil)
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name("AdvancedSearchTVCellreload"), object: nil)
     }
     
     
@@ -326,7 +328,7 @@ class BookFlightVC: BaseTableVC {
             payload["depature"] = defaults.string(forKey: UserDefaultsKeys.calDepDate)
             payload["return"] = ""
             payload["carrier"] = ""
-            payload["psscarrier"] = "ALL"
+            payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
             payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy"
             payload["search_flight"] = "Search"
             payload["search_source"] = "search"
@@ -366,7 +368,7 @@ class BookFlightVC: BaseTableVC {
             payload["depature"] = defaults.string(forKey: UserDefaultsKeys.rcalDepDate)
             payload["return"] = defaults.string(forKey: UserDefaultsKeys.rcalRetDate)
             payload["carrier"] = ""
-            payload["psscarrier"] = "ALL"
+            payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
             payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy"
             payload["search_flight"] = "Search"
             payload["search_source"] = "search"
