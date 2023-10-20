@@ -53,9 +53,10 @@ class NationalityVC: BaseTableVC, AirlinesListVModelDelegate {
         
         if let tabselect = defaults.string(forKey: UserDefaultsKeys.tabselect) {
             if tabselect == "Flight" {
+                navBar.titlelbl.text = "Airlines"
                 callAPI()
             }else {
-                
+                navBar.titlelbl.text = "Nationality"
             }
         }
     }
@@ -81,7 +82,7 @@ class NationalityVC: BaseTableVC, AirlinesListVModelDelegate {
         
         
         holderView.backgroundColor = .AppHolderViewColor
-        navBar.titlelbl.text = "Airlines"
+       
         navBar.backBtn.addTarget(self, action: #selector(didTapOnBackButton(_:)), for: .touchUpInside)
         searchTextfieldHolderView.backgroundColor = HexColor("#E6E8E7")
         searchTextfieldHolderView.addCornerRadiusWithShadow(color: .clear, borderColor: .clear, cornerRadius: 6)

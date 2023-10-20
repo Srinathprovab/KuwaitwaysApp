@@ -961,8 +961,11 @@ extension FilterSearchVC {
         
         sortBy = .nothing
         let pricesFloat = prices.compactMap { Float($0) }
-        filterModel.minPriceRange = Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0)
-        filterModel.maxPriceRange = Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0)
+//        filterModel.minPriceRange = Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0)
+//        filterModel.maxPriceRange = Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0)
+        
+        filterModel.minPriceRange = Double(String(format: "%.2f", Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0))) ?? 0.0
+        filterModel.maxPriceRange = Double(String(format: "%.2f", Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0))) ?? 0.0
         if let cell = commonTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SliderTVCell {
             cell.setupUI()
         }
@@ -1172,8 +1175,11 @@ extension FilterSearchVC {
         // Reset all values in the FilterModel
         
         let pricesFloat = prices.compactMap { Float($0) }
-        hotelfiltermodel.minPriceRange = Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0)
-        hotelfiltermodel.maxPriceRange = Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0)
+
+        hotelfiltermodel.minPriceRange = Double(String(format: "%.2f", Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0))) ?? 0.0
+        hotelfiltermodel.maxPriceRange = Double(String(format: "%.2f", Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0))) ?? 0.0
+        
+   
         if let cell = commonTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SliderTVCell {
             cell.setupUI()
         }

@@ -297,10 +297,13 @@ extension HotelSearchResultVC:AppliedFilters {
             let ratingMatches = hotel.star_rating == Int(starRating) || starRating.isEmpty
             let refundableMatch = refundableTypeArray.isEmpty || refundableTypeArray.contains(hotel.refund ?? "")
             
-            let facilityMatch = aminitiesA.isEmpty || {
-                let selectedAmenitiesSet = Set(aminitiesA.map { $0.trimmingCharacters(in: .whitespaces).lowercased() })
-                return selectedAmenitiesSet.isSubset(of: hotel.facility?.compactMap { $0.name?.trimmingCharacters(in: .whitespaces).lowercased() } ?? [])
-            }()
+            let facilityMatch = aminitiesA.isEmpty || aminitiesA.allSatisfy { desiredAmenity in
+                hotel.facility?.contains { facility in
+                    let facilityName = facility.name?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
+                    return facilityName == desiredAmenity.lowercased()
+                } ?? false
+            }
+
            
 
             return ratingMatches && netPrice >= minpricerange && netPrice <= maxpricerange && refundableMatch && facilityMatch

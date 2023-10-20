@@ -504,14 +504,7 @@ extension SelectedFlightInfoVC {
         commonTableView.beginUpdates()
         commonTableView.endUpdates()
     }
-    
-    
-    //    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-    //        if let cell = tableView.cellForRow(at: indexPath) as? FareRulesTVCell {
-    //            cell.hide()
-    //        }
-    //
-    //    }
+
 }
 
 

@@ -70,6 +70,7 @@ class BaggageInfoTVCell: TableViewCell {
         setupLabels(lbl: kglbl2, text: "25 KG", textcolor: .AppLabelColor, font: .LatoRegular(size: 14))
         setupLabels(lbl: sectorlbl, text: "Sector", textcolor: HexColor("#808089"), font: .LatoRegular(size: 14))
         setupLabels(lbl: sectorValuelbl, text: "Kwati-Dubai", textcolor: .AppLabelColor, font: .LatoRegular(size: 14))
+        
         cabinBagImg.image = UIImage(named: "bag")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppBackgroundColor)
         checkInImg.image = UIImage(named: "bag1")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppBackgroundColor)
         sectorImg.image = UIImage(named: "flight")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppBackgroundColor)
