@@ -174,6 +174,7 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func donedatePicker(cell: SaveTravellerDetailsTVCell) {}
     func cancelDatePicker(cell: SaveTravellerDetailsTVCell) {}
     func didTapOnSelectNationalityBtn(cell: SaveTravellerDetailsTVCell) {}
+    func didTapOnSelectNationality(){}
     func didTapOnSelectIssuingCountryBtn(cell: SaveTravellerDetailsTVCell) {}
     func didTapOnTitleBtnAction(cell:SaveTravellerDetailsTVCell) {}
     

@@ -8,7 +8,7 @@
 import UIKit
 
 class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerManagerDelegate {
-   
+    
     
     
     @IBOutlet weak var holderView: UIView!
@@ -69,18 +69,18 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         
         
         if  callapibool == true {
-            DispatchQueue.main.async {[self] in
-                holderView.isHidden = true
-                callAPI()
-            }
+            
+            holderView.isHidden = true
+            callAPI()
+            
         }
         
     }
     
     
-  
     
-
+    
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -135,9 +135,9 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
             sub_total_child = String(response.priceDetails?.sub_total_child ?? "0")
             sub_total_infant = String(response.priceDetails?.sub_total_infant ?? "0")
             
-            DispatchQueue.main.async {[self] in
-                setupUI()
-            }
+            
+            setupUI()
+            
             
         }else {
             gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
@@ -248,6 +248,9 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         NotificationCenter.default.post(name: NSNotification.Name("reloadTimer"), object: nil)
         callapibool = false
         dismiss(animated: true)
+        
+        // searchFlightAgain()
+        
     }
     
     func setupItineraryTVCells() {
@@ -264,9 +267,10 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
     
     
     @IBAction func didTapOnBookNowBtn(_ sender: Any) {
-        guard let vc = ContactInfoVC.newInstance.self else {return}
+        guard let vc = PayNowVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: true)
+        
     }
     
     
@@ -527,9 +531,9 @@ extension SelectedFlightInfoVC {
     
     
     @objc func reloadTimer(){
-        DispatchQueue.main.async {
-            TimerManager.shared.delegate = self
-        }
+        
+        TimerManager.shared.delegate = self
+        
     }
     
     @objc func nointernet(){
@@ -541,9 +545,9 @@ extension SelectedFlightInfoVC {
     }
     
     @objc func reload(){
-        DispatchQueue.main.async {[self] in
-            callAPI()
-        }
+        
+        callAPI()
+        
     }
     
     
@@ -555,7 +559,7 @@ extension SelectedFlightInfoVC {
         self.present(vc, animated: false)
     }
     
-   
+    
     func timerDidFinish() {
         guard let vc = PopupVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
@@ -571,3 +575,110 @@ extension SelectedFlightInfoVC {
     
     
 }
+
+
+extension SelectedFlightInfoVC {
+    
+    
+    func searchFlightAgain() {
+        
+        let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+        if journyType == "oneway" {
+            
+            payload["trip_type"] = defaults.string(forKey: UserDefaultsKeys.journeyType)
+            payload["adult"] = defaults.string(forKey: UserDefaultsKeys.adultCount)
+            payload["child"] = defaults.string(forKey: UserDefaultsKeys.childCount)
+            payload["infant"] = defaults.string(forKey: UserDefaultsKeys.infantsCount)
+            payload["sector_type"] = "international"
+            payload["from"] = defaults.string(forKey: UserDefaultsKeys.fromCity)
+            payload["from_loc_id"] = defaults.string(forKey: UserDefaultsKeys.fromlocid)
+            payload["to"] = defaults.string(forKey: UserDefaultsKeys.toCity)
+            payload["to_loc_id"] = defaults.string(forKey: UserDefaultsKeys.tolocid)
+            payload["depature"] = defaults.string(forKey: UserDefaultsKeys.calDepDate)
+            payload["return"] = ""
+            payload["carrier"] = ""
+            payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
+            payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy"
+            payload["search_flight"] = "Search"
+            payload["search_source"] = "search"
+            payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+            payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
+            
+            
+            if defaults.string(forKey:UserDefaultsKeys.fromCity) == "" {
+                showToast(message: "Please Select From City")
+            }else if defaults.string(forKey:UserDefaultsKeys.toCity) == "" {
+                showToast(message: "Please Select To City")
+            }else if defaults.string(forKey:UserDefaultsKeys.toCity) == defaults.string(forKey:UserDefaultsKeys.fromCity) {
+                showToast(message: "Please Select Different Citys")
+            }else if defaults.string(forKey:UserDefaultsKeys.calDepDate) == "" {
+                showToast(message: "Please Select Departure Date")
+            }else if defaults.string(forKey:UserDefaultsKeys.travellerDetails) == "Add Details" {
+                showToast(message: "Add Traveller")
+            }else if defaults.string(forKey:UserDefaultsKeys.selectClass) == "Add Details" {
+                showToast(message: "Add Class")
+            }else if checkDepartureAndReturnDates1(payload, p1: "depature") == false {
+                showToast(message: "Invalid Date")
+            }else{
+                gotoSearchFlightResultVC(input: payload)
+            }
+        }else if journyType == "circle"{
+            
+            
+            payload["trip_type"] = defaults.string(forKey: UserDefaultsKeys.journeyType)
+            payload["adult"] = defaults.string(forKey: UserDefaultsKeys.radultCount)
+            payload["child"] = defaults.string(forKey: UserDefaultsKeys.rchildCount)
+            payload["infant"] = defaults.string(forKey: UserDefaultsKeys.rinfantsCount)
+            payload["sector_type"] = "international"
+            payload["from"] = defaults.string(forKey: UserDefaultsKeys.rfromCity)
+            payload["from_loc_id"] = defaults.string(forKey: UserDefaultsKeys.rfromlocid)
+            payload["to"] = defaults.string(forKey: UserDefaultsKeys.rtoCity)
+            payload["to_loc_id"] = defaults.string(forKey: UserDefaultsKeys.rtolocid)
+            payload["depature"] = defaults.string(forKey: UserDefaultsKeys.rcalDepDate)
+            payload["return"] = defaults.string(forKey: UserDefaultsKeys.rcalRetDate)
+            payload["carrier"] = ""
+            payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
+            payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy"
+            payload["search_flight"] = "Search"
+            payload["search_source"] = "search"
+            payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+            payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
+            
+            if defaults.string(forKey:UserDefaultsKeys.rfromCity) == "" {
+                showToast(message: "Please Select From City")
+            }else if defaults.string(forKey:UserDefaultsKeys.rtoCity) == "" {
+                showToast(message: "Please Select To City")
+            }else if defaults.string(forKey:UserDefaultsKeys.rtoCity) == defaults.string(forKey:UserDefaultsKeys.rfromCity) {
+                showToast(message: "Please Select Different Citys")
+            }else if defaults.string(forKey:UserDefaultsKeys.rcalDepDate) == "" {
+                showToast(message: "Please Select Departure Date")
+            }else if defaults.string(forKey:UserDefaultsKeys.rcalRetDate) == "" {
+                showToast(message: "Please Select Departure Date")
+            }else if defaults.string(forKey:UserDefaultsKeys.travellerDetails) == "Add Details" {
+                showToast(message: "Add Traveller")
+            }else if defaults.string(forKey:UserDefaultsKeys.selectClass) == "Add Details" {
+                showToast(message: "Add Class")
+            }else if checkDepartureAndReturnDates(payload, p1: "depature", p2: "return") == false {
+                showToast(message: "Invalid Date")
+            }else{
+                gotoSearchFlightResultVC(input: payload)
+            }
+        }else {
+            
+        }
+        
+    }
+    
+    func gotoSearchFlightResultVC(input:[String:Any]) {
+        defaults.set(false, forKey: "flightfilteronce")
+        guard let vc = SearchFlightResultVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        loderBool = true
+        callapibool = true
+        vc.payload = input
+        self.present(vc, animated: false)
+    }
+    
+    
+}
+

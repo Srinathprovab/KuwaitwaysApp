@@ -21,7 +21,7 @@ struct HotelSearchResult : Codable {
     let name : String?
     let xml_currency : String?
     let no_of_nights : Int?
-    let facility : [Facility]?
+    let facility : [HFacility]?
     let country_name : String?
     let phone_number : String?
     let email : String?
@@ -90,7 +90,7 @@ struct HotelSearchResult : Codable {
         name = try values.decodeIfPresent(String.self, forKey: .name)
         xml_currency = try values.decodeIfPresent(String.self, forKey: .xml_currency)
         no_of_nights = try values.decodeIfPresent(Int.self, forKey: .no_of_nights)
-        facility = try values.decodeIfPresent([Facility].self, forKey: .facility)
+        facility = try values.decodeIfPresent([HFacility].self, forKey: .facility)
         country_name = try values.decodeIfPresent(String.self, forKey: .country_name)
         phone_number = try values.decodeIfPresent(String.self, forKey: .phone_number)
         email = try values.decodeIfPresent(String.self, forKey: .email)

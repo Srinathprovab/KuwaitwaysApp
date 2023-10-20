@@ -184,7 +184,7 @@ class BookHotelVC: BaseTableVC {
         }
         
         
-        payload["nationality"] = nationalityCode
+        payload["nationality"] = defaults.string(forKey: UserDefaultsKeys.hnationalitycode) ?? "KW"
         payload["language"] = "english"
         payload["search_source"] = "postman"
         payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
@@ -200,7 +200,7 @@ class BookHotelVC: BaseTableVC {
             showToast(message: "Enter Different Dates")
         }else if defaults.string(forKey: UserDefaultsKeys.roomcount) == "" {
             showToast(message: "Add Rooms For Booking")
-        }else if self.nationalityCode.isEmpty == true {
+        }else if defaults.string(forKey: UserDefaultsKeys.hnationality) == "Nationality" {
             showToast(message: "Please Select Nationality.")
         }else if checkDepartureAndReturnDates(payload, p1: "hotel_checkin", p2: "hotel_checkout") == false {
             showToast(message: "Invalid Date")
@@ -236,4 +236,14 @@ class BookHotelVC: BaseTableVC {
     }
     
     
+    //MARK: - didTapOnSelectNationality
+    override func didTapOnSelectNationality(){
+        gotoNationalityVC()
+    }
+    
+    func gotoNationalityVC(){
+        guard let vc = NationalityVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
 }

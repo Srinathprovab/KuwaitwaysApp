@@ -88,7 +88,6 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate, TimerManagerD
             navHeight.constant = 160
         }
         
-        //  setupLabels(lbl: titlelbl, text: "Your Session Expires In: 14:15", textcolor: .WhiteColor, font: .OpenSansRegular(size: 12))
         
         
         setupViews(v: mapView, radius: 4, color: .AppJournyTabSelectColor)
@@ -100,9 +99,7 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate, TimerManagerD
         mapBtn.addTarget(self, action: #selector(didTapOnMapviewBtn(_:)), for: .touchUpInside)
         filterpBtn.addTarget(self, action: #selector(didTapOnFilterwBtn(_:)), for: .touchUpInside)
         
-//        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-//        commonTableView.refreshControl = refreshControl
-        
+
         commonTableView.registerTVCells(["EmptyTVCell",
                                          "HotelSearchResultTVCell"])
         
@@ -110,18 +107,7 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate, TimerManagerD
         
     }
     
-    @objc func handleRefresh() {
-        // Perform data fetching or reloading here
-        let seconds = 2.0
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
-            // Put your code which should be executed with a delay here
-            setupTVCells(hotelList: hotelSearchResultArray)
-            commonTableView.refreshControl?.endRefreshing()
-        }
-    }
-    
-    
-    
+  
     
     func setupLabels(lbl:UILabel,text:String,textcolor:UIColor,font:UIFont) {
         lbl.text = text
@@ -260,7 +246,7 @@ extension HotelSearchResultVC {
             longitudeArray.append(i.longitude ?? "0.0")
             faretypeArray.append(i.refund ?? "")
             i.facility?.forEach({ j in
-                facilityArray.append(j.v ?? "")
+                facilityArray.append(j.name ?? "")
             })
         }
         prices = Array(Set(prices))
@@ -302,19 +288,27 @@ extension HotelSearchResultVC:AppliedFilters {
         print(" ==== niberhoodA === \n\(niberhoodA)")
         print(" ==== aminitiesA === \n\(aminitiesA)")
         
+ 
         
         
-        let filteredArray = hotelSearchResultArray.filter { i in
-            guard let netPrice = Double(i.price ?? "0.0") else { return false }
-            let ratingMatches = i.star_rating == Int(starRating) || starRating.isEmpty
-            let refundableMatch = refundableTypeArray.isEmpty || refundableTypeArray.contains(i.refund ?? "")
+        let filteredArray = hotelSearchResultArray.filter { hotel in
+            guard let netPrice = Double(hotel.price ?? "0.0") else { return false }
             
+            let ratingMatches = hotel.star_rating == Int(starRating) || starRating.isEmpty
+            let refundableMatch = refundableTypeArray.isEmpty || refundableTypeArray.contains(hotel.refund ?? "")
             
-            
-            return ratingMatches &&
-            netPrice >= minpricerange &&
-            netPrice <= maxpricerange && refundableMatch
+            let facilityMatch = aminitiesA.isEmpty || {
+                let selectedAmenitiesSet = Set(aminitiesA.map { $0.trimmingCharacters(in: .whitespaces).lowercased() })
+                return selectedAmenitiesSet.isSubset(of: hotel.facility?.compactMap { $0.name?.trimmingCharacters(in: .whitespaces).lowercased() } ?? [])
+            }()
+           
+
+            return ratingMatches && netPrice >= minpricerange && netPrice <= maxpricerange && refundableMatch && facilityMatch
         }
+
+        
+        
+        
         
         filtered = filteredArray
         if filtered.count == 0{

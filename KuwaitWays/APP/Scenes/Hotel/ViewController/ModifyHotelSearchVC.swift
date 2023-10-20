@@ -137,33 +137,68 @@ class ModifyHotelSearchVC: BaseTableVC {
     
     override func didTapOnSearchHotelsBtn(cell:ButtonTVCell){
         
+        payload.removeAll()
         payload["city"] = defaults.string(forKey: UserDefaultsKeys.locationcity)
         payload["hotel_destination"] = defaults.string(forKey: UserDefaultsKeys.locationid)
         payload["hotel_checkin"] = defaults.string(forKey: UserDefaultsKeys.checkin)
         payload["hotel_checkout"] = defaults.string(forKey: UserDefaultsKeys.checkout)
-        payload["rooms"] = defaults.string(forKey: UserDefaultsKeys.roomcount)
+        
+        payload["rooms"] = "\(defaults.string(forKey: UserDefaultsKeys.roomcount) ?? "1")"
         payload["adult"] = adtArray
         payload["child"] = chArray
-        payload["childAge_1"] = ["0","0"]
-        payload["nationality"] = nationalityCode
+        
+        for roomIndex in 0..<totalRooms {
+            
+            
+            if let numChildren = Int(chArray[roomIndex]), numChildren > 0 {
+                var childAges: [String] = Array(repeating: "0", count: numChildren)
+                
+                if numChildren > 2 {
+                    childAges.append("0")
+                }
+                
+                payload["childAge_\(roomIndex + 1)"] = childAges
+            }
+        }
         
         
-        if defaults.string(forKey: UserDefaultsKeys.locationcity) == "Add City" || defaults.string(forKey: UserDefaultsKeys.locationcity) == nil {
+        payload["nationality"] = defaults.string(forKey: UserDefaultsKeys.hnationalitycode) ?? "KW"
+        payload["language"] = "english"
+        payload["search_source"] = "postman"
+        payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
+        payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+        
+        if defaults.string(forKey: UserDefaultsKeys.locationcity) == "Add City" || defaults.string(forKey: UserDefaultsKeys.locationcity) == nil{
             showToast(message: "Enter Hotel or City ")
-        }else if defaults.string(forKey: UserDefaultsKeys.checkin) == "Check In" || defaults.string(forKey: UserDefaultsKeys.checkin) == nil{
+        }else if defaults.string(forKey: UserDefaultsKeys.checkin) == "Add Check In Date" || defaults.string(forKey: UserDefaultsKeys.checkin) == nil{
             showToast(message: "Enter Checkin Date")
-        }else if defaults.string(forKey: UserDefaultsKeys.checkout) == "Check Out" || defaults.string(forKey: UserDefaultsKeys.checkout) == nil{
+        }else if defaults.string(forKey: UserDefaultsKeys.checkout) == "Add Check Out Date" || defaults.string(forKey: UserDefaultsKeys.checkout) == nil{
             showToast(message: "Enter Checkout Date")
         }else if defaults.string(forKey: UserDefaultsKeys.checkout) == defaults.string(forKey: UserDefaultsKeys.checkin) {
             showToast(message: "Enter Different Dates")
         }else if defaults.string(forKey: UserDefaultsKeys.roomcount) == "" {
             showToast(message: "Add Rooms For Booking")
-        }else if self.nationalityCode.isEmpty == true {
+        }else if defaults.string(forKey: UserDefaultsKeys.hnationality) == "Nationality" {
             showToast(message: "Please Select Nationality.")
         }else if checkDepartureAndReturnDates(payload, p1: "hotel_checkin", p2: "hotel_checkout") == false {
             showToast(message: "Invalid Date")
         }else {
+            
+            
+            do{
+                
+                let jsonData = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
+                let jsonStringData =  NSString(data: jsonData as Data, encoding: NSUTF8StringEncoding)! as String
+                
+                print(jsonStringData)
+                
+                
+            }catch{
+                print(error.localizedDescription)
+            }
+            
             gotoSearchHotelsResultVC()
+            
         }
     }
     
@@ -177,5 +212,17 @@ class ModifyHotelSearchVC: BaseTableVC {
         present(vc, animated: true)
     }
     
+    
+    
+    //MARK: - didTapOnSelectNationality
+    override func didTapOnSelectNationality(){
+        gotoNationalityVC()
+    }
+    
+    func gotoNationalityVC(){
+        guard let vc = NationalityVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
     
 }

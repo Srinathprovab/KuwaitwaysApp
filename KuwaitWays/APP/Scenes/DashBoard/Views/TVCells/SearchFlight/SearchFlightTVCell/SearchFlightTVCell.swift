@@ -24,6 +24,7 @@ protocol SearchFlightTVCellDelegate {
     func didTapOnAirlinesSelectBtnAction(cell:AdvancedSearchTVCell)
     
     func didTapOnSelectAirlines()
+    func didTapOnSelectNationality()
     
 }
 
@@ -141,7 +142,7 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     }
     
     @objc func didTapOnSelectNationality(cell:HolderViewTVCell){
-        //   cell.dropDown.show()
+        delegate?.didTapOnSelectNationality()
     }
     
     
@@ -229,10 +230,10 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
             }else  if indexPath.row == 3 {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "cell5") as? HolderViewTVCell {
                     cell.selectionStyle = .none
-                    cell.titlelbl.text = "Nationality"
+                    cell.titlelbl.text = defaults.string(forKey: UserDefaultsKeys.hnationality) ?? "Nationality"
                     cell.dropdownimg.isHidden = false
-                    cell.setupDropDown()
-                    cell.dropDown.dataSource = countryNameArray
+//                    cell.setupDropDown()
+//                    cell.dropDown.dataSource = countryNameArray
                     cell.fromBtn.addTarget(self, action: #selector(didTapOnSelectNationality(cell:)), for: .touchUpInside)
                     cell.swipeView.isHidden = true
                     cell.locImg.image = UIImage(named: "na")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)

@@ -39,7 +39,7 @@ class NoInternetConnectionVC: UIViewController {
         wifiImg.image = UIImage(named: "oops")
         setupLabels(lbl: titlelbl, text: titleStr, textcolor: .AppLabelColor, font: .LatoMedium(size: 18))
         setupLabels(lbl: subTitlelbl, text: "Please Search Again", textcolor: .AppLabelColor, font: .LatoLight(size: 14))
-        setupLabels(lbl: btnlbl, text: "Search Again", textcolor: .WhiteColor, font: .LatoSemibold(size: 20))
+        setupLabels(lbl: btnlbl, text: "Search Again", textcolor: .WhiteColor, font: .LatoSemibold(size: 18))
     }
     
     
@@ -56,7 +56,7 @@ class NoInternetConnectionVC: UIViewController {
         
         setupLabels(lbl: titlelbl, text: "No Internet Connection", textcolor: .AppLabelColor, font: .LatoMedium(size: 18))
         setupLabels(lbl: subTitlelbl, text: "Please Check Your Internet Connection", textcolor: .AppLabelColor, font: .LatoLight(size: 14))
-        setupLabels(lbl: btnlbl, text: "Try Again", textcolor: .WhiteColor, font: .LatoSemibold(size: 20))
+        setupLabels(lbl: btnlbl, text: "Try Again", textcolor: .WhiteColor, font: .LatoSemibold(size: 18))
         tryAgainBtn.setTitle("", for: .normal)
         setupViews(v: btnView, radius: 4, color: .AppNavBackColor)
     }

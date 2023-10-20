@@ -316,7 +316,8 @@ struct UserDefaultsKeys {
     static var htravellerDetails = "htraveller_Details"
     static var roomType = "Room_Type"
     static var refundtype = "refundtype"
-    
+    static var hnationality = "hnationality"
+    static var hnationalitycode = "hnationalitycode"
     
     static var select = "select"
     static var checkin = "check_in"

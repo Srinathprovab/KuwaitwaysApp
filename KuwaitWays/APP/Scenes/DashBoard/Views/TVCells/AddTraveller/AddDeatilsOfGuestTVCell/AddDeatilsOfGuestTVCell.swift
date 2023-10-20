@@ -173,7 +173,7 @@ class AddDeatilsOfGuestTVCell: TableViewCell {
         txtField.tag = tag1
         txtField.placeholder = placeholder
         txtField.backgroundColor = .clear
-        txtField.font = UIFont.LatoRegular(size: 16)
+        txtField.font = UIFont.LatoRegular(size: 14)
         txtField.addTarget(self, action: #selector(editingTextField1(textField:)), for: .editingChanged)
         txtField.textColor = .SubTitleColor
     }

@@ -464,4 +464,19 @@ class ModifySearchVC: BaseTableVC {
         
         
     }
+    
+    
+    
+    //MARK: - didTapOnSelectAirlines
+    
+    override func didTapOnSelectAirlines(){
+        gotoNationalityVC()
+    }
+    
+    
+    func gotoNationalityVC(){
+        guard let vc = NationalityVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
 }

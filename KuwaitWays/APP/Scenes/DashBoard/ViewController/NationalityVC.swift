@@ -21,6 +21,7 @@ class NationalityVC: BaseTableVC, AirlinesListVModelDelegate {
     var airlinecodeArray = [String]()
     var airlineNameArray = [String]()
     
+    var hotelFilterd:[Country_list]  = []
     var filtered:[Airline_list] = []
     var airlinelist:[Airline_list] = []
     var vm: AirlinesListVModel?
@@ -49,7 +50,14 @@ class NationalityVC: BaseTableVC, AirlinesListVModelDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
         
-        callAPI()
+        
+        if let tabselect = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if tabselect == "Flight" {
+                callAPI()
+            }else {
+                
+            }
+        }
     }
     
     
@@ -106,20 +114,27 @@ class NationalityVC: BaseTableVC, AirlinesListVModelDelegate {
             filterContentForSearchText(searchText)
         }
         
-        
     }
     
     
     
     func filterContentForSearchText(_ searchText: String) {
-        print("Filterin with:", searchText)
         
-        filtered.removeAll()
-        filtered = self.airlinelist.filter { thing in
-            return "\(thing.name?.lowercased() ?? "")".contains(searchText.lowercased())
+        
+        if let tabselect = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if tabselect == "Flight" {
+                filtered.removeAll()
+                filtered = self.airlinelist.filter { thing in
+                    return "\(thing.name?.lowercased() ?? "")".contains(searchText.lowercased())
+                }
+                loadData(list: filtered)
+            }else {
+                hotelFilterd.removeAll()
+                hotelFilterd = countrylist.filter { thing in
+                    return "\(thing.name?.lowercased() ?? "")".contains(searchText.lowercased())
+                }
+            }
         }
-        
-        loadData(list: filtered)
         
         commonTableView.reloadData()
     }
@@ -165,12 +180,27 @@ extension NationalityVC {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //check search text & original text
         
-        if( isSearchBool == true){
-            return airlineNameArray.count
-        }else{
-            return airlineNameArray.count
+        
+        
+        if let tabselect = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if tabselect == "Flight" {
+                if( isSearchBool == true){
+                    return airlineNameArray.count
+                }else{
+                    return airlineNameArray.count
+                }
+            }else {
+                if( isSearchBool == true){
+                    return hotelFilterd.count
+                }else{
+                    return countrylist.count
+                }
+                
+                
+            }
             
         }
+        return 0
     }
     
     
@@ -179,14 +209,34 @@ extension NationalityVC {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TitleLblTVCell {
             cell.selectionStyle = .none
             
-            if( isSearchBool == true){
-                // let dict = filtered[indexPath.row]
-                cell.titlelbl.text = airlineNameArray[indexPath.row]
-                cell.airlinecode = airlinecodeArray[indexPath.row]
-            }else{
-                //  let dict = airlinelist[indexPath.row]
-                cell.titlelbl.text = airlineNameArray[indexPath.row]
-                cell.airlinecode = airlinecodeArray[indexPath.row]
+            
+            
+            if let tabselect = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+                if tabselect == "Flight" {
+                    
+                    if( isSearchBool == true){
+                        // let dict = filtered[indexPath.row]
+                        cell.titlelbl.text = airlineNameArray[indexPath.row]
+                        cell.airlinecode = airlinecodeArray[indexPath.row]
+                    }else{
+                        //  let dict = airlinelist[indexPath.row]
+                        cell.titlelbl.text = airlineNameArray[indexPath.row]
+                        cell.airlinecode = airlinecodeArray[indexPath.row]
+                    }
+                    
+                }else {
+                    
+                    if( isSearchBool == true){
+                        let dict = hotelFilterd[indexPath.row]
+                        cell.titlelbl.text = dict.name
+                        cell.airlinecode = dict.iso_country_code ?? ""
+                    }else{
+                        let dict = countrylist[indexPath.row]
+                        cell.titlelbl.text = dict.name
+                        cell.airlinecode = dict.iso_country_code ?? ""
+                    }
+                    
+                }
             }
             
             ccell = cell
@@ -201,11 +251,22 @@ extension NationalityVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        defaults.set(airlineNameArray[indexPath.row], forKey: UserDefaultsKeys.nationality)
-        defaults.set(airlinecodeArray[indexPath.row] , forKey: UserDefaultsKeys.airlinescode)
+        if let cell = tableView.cellForRow(at: indexPath) as? TitleLblTVCell {
+            if let tabselect = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+                if tabselect == "Flight" {
+                    defaults.set(airlineNameArray[indexPath.row], forKey: UserDefaultsKeys.nationality)
+                    defaults.set(airlinecodeArray[indexPath.row] , forKey: UserDefaultsKeys.airlinescode)
+                }else {
+                    defaults.set(cell.titlelbl.text ?? "", forKey: UserDefaultsKeys.hnationality)
+                    defaults.set(cell.airlinecode , forKey: UserDefaultsKeys.hnationalitycode)
+                }
+            }
+        }
         
+       
         
         NotificationCenter.default.post(name: NSNotification.Name("calreloadTV"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
         self.dismiss(animated: true)
     }
     

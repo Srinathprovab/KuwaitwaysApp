@@ -90,7 +90,7 @@ extension RoomsTVCell:UITableViewDataSource,UITableViewDelegate {
                 cell.subtitlelbl.text = "\(data.adults ?? 0) Adults"
                 cell.noOfRoomslbl.text = "No Of Rooms: \(data.rooms ?? 0)"
                 cell.kwdlbl.text = data.currency
-                cell.kwdPricelbl.text = data.xml_net
+                cell.kwdPricelbl.text = data.net
                 cell.ratekey = data.rateKey ?? ""
                 
                 

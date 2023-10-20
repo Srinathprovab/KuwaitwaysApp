@@ -95,7 +95,6 @@ class ContactInformationTVCell: TableViewCell {
         
         setupLabels(lbl: titlelbl, text: "Contact Information", textcolor: .AppLabelColor, font: .LatoSemibold(size: 16))
         setupLabels(lbl: subTitlelbl, text: "E-Ticket will be sent to the registered email address", textcolor: .SubTitleColor, font: .LatoRegular(size: 12))
-        //    setupLabels(lbl: countryCodeLbl, text: "+965", textcolor: .SubTitleColor, font: .LatoRegular(size: 16))
         
         countryCodeLbl.isHidden = true
         
@@ -122,6 +121,8 @@ class ContactInformationTVCell: TableViewCell {
         countrycodeTF.addTarget(self, action: #selector(searchTextBegin(textField:)), for: .editingDidBegin)
         
         mobileTF.keyboardType = .numberPad
+        holderView.layer.borderColor = UIColor.AppBorderColor.cgColor
+        holderView.layer.borderWidth = 1
     }
     
     

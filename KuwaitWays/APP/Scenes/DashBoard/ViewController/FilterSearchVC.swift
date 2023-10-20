@@ -106,10 +106,7 @@ class FilterSearchVC: BaseTableVC {
     weak var delegate: AppliedFilters?
     var tablerow = [TableRow]()
     var departurnTimeArray = ["12 am - 6 am","06 am - 12 pm","12 pm - 06 pm","06 pm - 12 am"]
-    var hpricesArray = ["Deal","Name"," Star"]
-    var amenitiesArray = ["Wi-Fi","Breakfast","Parking","Swimming Pool"]
-    var amenitiesArray1 = ["Others(379)","Others(379)"]
-    var paymentTypeArray = ["Refundable","Non Refundable"]
+    
     var filterTapKey = String()
     var minpricerangefilter = Double()
     var maxpricerangefilter = Double()
@@ -123,7 +120,7 @@ class FilterSearchVC: BaseTableVC {
     var connectingFlightsFilterArray = [String]()
     var ConnectingAirportsFilterArray = [String]()
     
-   
+    
     var selectedNeighbourwoodArray = [String]()
     var selectednearBylocationsArray = [String]()
     var selectedamenitiesArray = [String]()
@@ -183,9 +180,9 @@ class FilterSearchVC: BaseTableVC {
                 }
                 
             }else {
-                commonTableView.layer.cornerRadius = 8
-                commonTableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-                commonTableView.clipsToBounds = true
+//                commonTableView.layer.cornerRadius = 8
+//                commonTableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//                commonTableView.clipsToBounds = true
                 buttonsViewHeight.constant = 0
                 setupHotelFilterTVCells()
             }
@@ -202,7 +199,7 @@ class FilterSearchVC: BaseTableVC {
         filterTapKey = "sort"
         sortul.backgroundColor = .AppNavBackColor
         filterul.backgroundColor = .WhiteColor
-
+        
         setupSortTVCells()
     }
     
@@ -228,8 +225,8 @@ class FilterSearchVC: BaseTableVC {
         
         
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
-//        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
-//        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
+        //        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
+        //        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
         
         
         commonTVData = tablerow
@@ -253,7 +250,7 @@ class FilterSearchVC: BaseTableVC {
         tablerow.append(TableRow(title:"Duration",subTitle: "Low to high",buttonTitle: "High to low",tempInfo: sortBy,cellType:.SortByPriceTVCell))
         tablerow.append(TableRow(title:"AIRLINE",subTitle: "A-Z",buttonTitle: "Z-A",tempInfo: sortBy,cellType:.SortByPriceTVCell))
         tablerow.append((TableRow(height:30,cellType: .EmptyTVCell)))
-
+        
         commonTVData = tablerow
         commonTableView.reloadData()
         
@@ -265,7 +262,7 @@ class FilterSearchVC: BaseTableVC {
         buttonsView.isHidden = true
         tablerow.removeAll()
         
-      //  tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
+        //  tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Prices",key: "hotel",cellType:.SliderTVCell))
         tablerow.append(TableRow(title:"Star Rating",cellType:.StarRatingTVCell))
         
@@ -277,8 +274,8 @@ class FilterSearchVC: BaseTableVC {
         
         
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
-//        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
-//        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
+        //        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
+        //        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
         
         
         commonTVData = tablerow
@@ -552,20 +549,20 @@ class FilterSearchVC: BaseTableVC {
                     
                 case "Airlines":
                     airlinesFilterArray.append(cell.titlelbl.text ?? "")
-                   
+                    
                     break
                     
                     
                     
                 case "Connecting Flights":
                     connectingFlightsFilterArray.append(cell.titlelbl.text ?? "")
-                   
+                    
                     break
                     
                     
                 case "Connecting Airports":
                     ConnectingAirportsFilterArray.append(cell.titlelbl.text ?? "")
-                   
+                    
                     break
                     
                     
@@ -586,19 +583,19 @@ class FilterSearchVC: BaseTableVC {
                     
                 case "Neighbourhood":
                     selectedNeighbourwoodArray.append(cell.titlelbl.text ?? "")
-                   
+                    
                     break
                     
                     
                 case "Near By Location's":
                     selectednearBylocationsArray.append(cell.titlelbl.text ?? "")
-                   
+                    
                     break
                     
                     
                 case "Amenities":
                     selectedamenitiesArray.append(cell.titlelbl.text ?? "")
-                   
+                    
                     break
                     
                     
@@ -627,7 +624,7 @@ class FilterSearchVC: BaseTableVC {
                 case "No Of Stops":
                     
                     
-                   
+                    
                     if cell.titlelbl.text == "0 Stop" {
                         if let index = noOfStopsFilterArray.firstIndex(of: "0") {
                             noOfStopsFilterArray.remove(at: index)
@@ -736,9 +733,9 @@ class FilterSearchVC: BaseTableVC {
     
     
     @IBAction func didTapOnApplyButtonAction(_ sender: Any) {
-   
-    
-  //  override func btnAction(cell: ButtonTVCell) {
+        
+        
+        //  override func btnAction(cell: ButtonTVCell) {
         
         let pricesFloat = prices.compactMap { Float($0) }
         
@@ -873,7 +870,6 @@ class FilterSearchVC: BaseTableVC {
                 }
                 
                 
-                
                 delegate?.hotelFilterByApplied(minpricerange:  hotelfiltermodel.minPriceRange ?? 0.0,
                                                maxpricerange:  hotelfiltermodel.maxPriceRange ?? 0.0,
                                                starRating:  hotelfiltermodel.starRating,
@@ -881,8 +877,8 @@ class FilterSearchVC: BaseTableVC {
                                                nearByLocA: hotelfiltermodel.nearByLocA,
                                                niberhoodA: hotelfiltermodel.niberhoodA,
                                                aminitiesA: hotelfiltermodel.aminitiesA)
-            
-        }
+                
+            }
         }
         
         callapibool = false
@@ -1086,7 +1082,7 @@ extension FilterSearchVC {
         
         if !UserDefaults.standard.bool(forKey: "flightfilteronce") {
             resetFilter()
-           defaults.set(true, forKey: "flightfilteronce")
+            defaults.set(true, forKey: "flightfilteronce")
         }
         
         
@@ -1150,7 +1146,7 @@ extension FilterSearchVC {
             maxpricerangefilter = hotelfiltermodel.maxPriceRange ?? Double(prices.compactMap { Float($0) }.max()!)
         }
         
-     
+        
         
         if !hotelfiltermodel.refundableTypes.isEmpty {
             refundablerTypeFilteArray = hotelfiltermodel.refundableTypes

@@ -64,16 +64,23 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate, TimerMana
     
     
     func hotelDetails(response: HotelDetailsModel) {
-        holderView.isHidden = false
-        hd = response
         
-        //        titlelbl.text = "\(response.currency_obj?.to_currency ?? "") \(response.currency_obj?.conversion_rate ?? "")"
-        htoken = response.hotel_details?.token ?? ""
-        htokenkey = response.hotel_details?.tokenKey ?? ""
         
-        DispatchQueue.main.async {
-            self.setupTVCells(hotelDetails: response)
+        if response.status == true {
+            holderView.isHidden = false
+            hd = response
+            
+            //        titlelbl.text = "\(response.currency_obj?.to_currency ?? "") \(response.currency_obj?.conversion_rate ?? "")"
+            htoken = response.hotel_details?.token ?? ""
+            htokenkey = response.hotel_details?.tokenKey ?? ""
+            
+            DispatchQueue.main.async {
+                self.setupTVCells(hotelDetails: response)
+            }
+        }else {
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
         }
+        
     }
     
     
@@ -126,6 +133,8 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate, TimerMana
         isFromVCBool = false
         callapibool = false
         dismiss(animated: true)
+        
+        // searchHotelAgain()
     }
     
     
@@ -168,7 +177,7 @@ class SelectedHotelInfoVC: BaseTableVC, HotelDetailsViewModelDelegate, TimerMana
         if ratekeyArray.isEmpty == true {
             showToast(message: "Please Select Room Type")
         }else {
-            guard let vc = ContactInfoVC.newInstance.self else {return}
+            guard let vc = PayNowVC.newInstance.self else {return}
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: false)
             
@@ -226,34 +235,31 @@ extension SelectedHotelInfoVC {
     
     func addObserver() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(offline), name: Notification.Name("offline"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(nointernet), name: Notification.Name("offline"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name("reload"), object: nil)
         
     }
     
     
+    @objc func nointernet(){
+        gotoNoInternetConnectionVC(key: "nointernet", titleStr: "")
+    }
     
-    @objc func reload(notification: NSNotification){
+    @objc func resultnil(){
+        gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+    }
+    
+    @objc func reload(){
         commonTableView.reloadData()
     }
     
-    //MARK: - resultnil
-    @objc func resultnil(notification: NSNotification){
-        callapibool = true
-        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.key = "noresult"
-        self.present(vc, animated: false)
-    }
     
-    
-    @objc func offline(notificatio:UNNotification) {
-        callapibool = true
+    func gotoNoInternetConnectionVC(key:String,titleStr:String) {
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.key = "offline"
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.key = key
+        vc.titleStr = titleStr
         self.present(vc, animated: false)
     }
     
@@ -265,6 +271,74 @@ extension SelectedHotelInfoVC {
     }
     
     func updateTimer() {
+        
+    }
+    
+}
+
+
+
+extension SelectedHotelInfoVC {
+    
+    
+    
+    //MARK: - searchHotelAgain
+    func searchHotelAgain() {
+        
+        payload.removeAll()
+        payload["city"] = defaults.string(forKey: UserDefaultsKeys.locationcity)
+        payload["hotel_destination"] = defaults.string(forKey: UserDefaultsKeys.locationid)
+        payload["hotel_checkin"] = defaults.string(forKey: UserDefaultsKeys.checkin)
+        payload["hotel_checkout"] = defaults.string(forKey: UserDefaultsKeys.checkout)
+        
+        payload["rooms"] = "\(defaults.string(forKey: UserDefaultsKeys.roomcount) ?? "1")"
+        payload["adult"] = adtArray
+        payload["child"] = chArray
+        
+        for roomIndex in 0..<totalRooms {
+            
+            
+            if let numChildren = Int(chArray[roomIndex]), numChildren > 0 {
+                var childAges: [String] = Array(repeating: "0", count: numChildren)
+                
+                if numChildren > 2 {
+                    childAges.append("0")
+                }
+                
+                payload["childAge_\(roomIndex + 1)"] = childAges
+            }
+        }
+        
+        
+        payload["nationality"] = "IN"
+        payload["language"] = "english"
+        payload["search_source"] = "postman"
+        payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
+        payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+        
+        do{
+            
+            let jsonData = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let jsonStringData =  NSString(data: jsonData as Data, encoding: NSUTF8StringEncoding)! as String
+            
+            print(jsonStringData)
+            
+            
+        }catch{
+            print(error.localizedDescription)
+        }
+        
+        gotoSearchHotelsResultVC()
+    }
+    
+    
+    func gotoSearchHotelsResultVC(){
+        defaults.set(false, forKey: "hoteltfilteronce")
+        guard let vc = HotelSearchResultVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        callapibool = true
+        vc.payload = payload
+        present(vc, animated: false)
         
     }
     
