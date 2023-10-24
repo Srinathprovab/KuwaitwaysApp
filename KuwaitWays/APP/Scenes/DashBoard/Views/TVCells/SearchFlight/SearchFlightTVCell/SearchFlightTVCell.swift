@@ -341,24 +341,6 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     c = cell
                 }
             }else  if indexPath.row == 2 {
-                //                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell3") as? HolderViewTVCell {
-                //                    cell.selectionStyle = .none
-                //                    cell.locImg.image = UIImage(named: "traveler")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
-                //                    cell.dropdownimg.isHidden = false
-                //                    cell.fromBtn.addTarget(self, action: #selector(didTapOnAddTravelerEconomy(cell:)), for: .touchUpInside)
-                //                    cell.tag = 3
-                //                    cell.swipeView.isHidden = true
-                //
-                //
-                //                    if self.key == "roundtrip" {
-                //                        cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? "+ Add Traveller")"
-                //                    }else {
-                //                        cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? "+ Add Traveller")"
-                //                    }
-                //
-                //                    c = cell
-                //                }
-                
                 
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "cell3") as? DualViewTVCell {
                     cell.selectionStyle = .none
@@ -381,13 +363,6 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     
                     c = cell
                 }
-                
-                
-                
-                
-                
-                
-                
                 
             }else {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "cell4") as? ButtonTVCell {

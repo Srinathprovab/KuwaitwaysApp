@@ -10,9 +10,9 @@ import UIKit
 class ModifyHotelSearchVC: BaseTableVC {
     
     
-    @IBOutlet weak var nav: NavBar!
+   
     @IBOutlet weak var holderView: UIView!
-    @IBOutlet weak var navHeight: NSLayoutConstraint!
+    @IBOutlet weak var backBtn: UIButton!
     
     
     var nationalityCode = String()
@@ -66,15 +66,13 @@ class ModifyHotelSearchVC: BaseTableVC {
     }
     
     func setupUI() {
-        self.view.backgroundColor = .black.withAlphaComponent(0.50)
-        nav.backgroundColor = .clear
-        nav.titlelbl.text = "Modify"
-        nav.titlelbl.textColor = .WhiteColor
-        nav.backBtn.addTarget(self, action: #selector(backbtnAction(_:)), for: .touchUpInside)
         
+        self.view.backgroundColor = .black.withAlphaComponent(0.7)
+        self.holderView.backgroundColor = .clear
+        backBtn.addTarget(self, action: #selector(backbtnAction(_:)), for: .touchUpInside)
         
-        
-        commonTableView.backgroundColor = .AppHolderViewColor
+       
+        commonTableView.backgroundColor = .WhiteColor
         commonTableView.layer.cornerRadius = 8
         commonTableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         commonTableView.clipsToBounds = true

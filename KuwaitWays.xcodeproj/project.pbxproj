@@ -127,6 +127,7 @@
 		652C7BA029F6BDD60070935B /* checkOptionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C7B9E29F6BDD60070935B /* checkOptionsTVCell.swift */; };
 		652C7BA129F6BDD60070935B /* checkOptionsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652C7B9F29F6BDD60070935B /* checkOptionsTVCell.xib */; };
 		653D047F2A8CDC38009A534C /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D047E2A8CDC38009A534C /* PopupVC.swift */; };
+		653D66C72AE7931900FC5721 /* newloder.gif in Resources */ = {isa = PBXBuildFile; fileRef = 653D66C62AE7931900FC5721 /* newloder.gif */; };
 		653ED0E12A4B028D00BEEDC2 /* PriceSummaryTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653ED0DF2A4B028D00BEEDC2 /* PriceSummaryTVCell.swift */; };
 		653ED0E22A4B028D00BEEDC2 /* PriceSummaryTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 653ED0E02A4B028D00BEEDC2 /* PriceSummaryTVCell.xib */; };
 		65434C502A408A0800BFCDE8 /* BookingConfirmedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65434C4F2A408A0800BFCDE8 /* BookingConfirmedVC.swift */; };
@@ -546,6 +547,7 @@
 		652C7B9E29F6BDD60070935B /* checkOptionsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = checkOptionsTVCell.swift; sourceTree = "<group>"; };
 		652C7B9F29F6BDD60070935B /* checkOptionsTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = checkOptionsTVCell.xib; sourceTree = "<group>"; };
 		653D047E2A8CDC38009A534C /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
+		653D66C62AE7931900FC5721 /* newloder.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = newloder.gif; sourceTree = "<group>"; };
 		653ED0DF2A4B028D00BEEDC2 /* PriceSummaryTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceSummaryTVCell.swift; sourceTree = "<group>"; };
 		653ED0E02A4B028D00BEEDC2 /* PriceSummaryTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceSummaryTVCell.xib; sourceTree = "<group>"; };
 		65434C4F2A408A0800BFCDE8 /* BookingConfirmedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingConfirmedVC.swift; sourceTree = "<group>"; };
@@ -2422,6 +2424,7 @@
 		BF8C0DBE28C19BD5009C3A6A /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				653D66C62AE7931900FC5721 /* newloder.gif */,
 				65C7B1C02A3B1E14004FE51A /* loderimg.gif */,
 				BF8C0DBF28C19BD5009C3A6A /* Constants.swift */,
 				BF8C0DC028C19BD5009C3A6A /* SessionManager.swift */,
@@ -2762,6 +2765,7 @@
 				BF8C0E5428C19BD5009C3A6A /* HotelDealsCVCell.xib in Resources */,
 				BF8C0E4328C19BD5009C3A6A /* HolderViewTVCell.xib in Resources */,
 				BF8C0E6628C19BD5009C3A6A /* UnderLineTVCell.xib in Resources */,
+				653D66C72AE7931900FC5721 /* newloder.gif in Resources */,
 				BF8C0E0428C19BD5009C3A6A /* RatingWithLabelsTVCell.xib in Resources */,
 				BF8C0E5228C19BD5009C3A6A /* SelectTabCVCell.xib in Resources */,
 				652C7B3529F6458A0070935B /* AboutusTVCell.xib in Resources */,
@@ -3390,7 +3394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 66;
 				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KuwaitWays/Info.plist;
@@ -3431,7 +3435,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 66;
 				DEVELOPMENT_TEAM = 5TLY5PME9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KuwaitWays/Info.plist;

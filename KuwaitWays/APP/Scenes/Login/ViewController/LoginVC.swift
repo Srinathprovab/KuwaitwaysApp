@@ -9,6 +9,7 @@ import UIKit
 import MaterialComponents.MaterialTextControls_OutlinedTextFields
 
 
+import Foundation
 
 
 class LoginVC: BaseTableVC, CountryListViewModelDelegate {
@@ -27,6 +28,7 @@ class LoginVC: BaseTableVC, CountryListViewModelDelegate {
     var pass = String()
     var showPwdBool = true
     var payload = [String:Any]()
+   
     var vm:LoginViewModel?
     var vm1:CountryListViewModel?
     
@@ -231,6 +233,7 @@ extension LoginVC:LoginViewModelDelegate {
             defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
         }else {
             showToast(message: response.data ?? "")
+            userLogedDetails = response
             defaults.set(true, forKey: UserDefaultsKeys.loggedInStatus)
             defaults.set(response.user_id, forKey: UserDefaultsKeys.userid)
             defaults.set("\(response.first_name ?? "") \(response.last_name ?? "")", forKey: UserDefaultsKeys.username)
@@ -241,15 +244,10 @@ extension LoginVC:LoginViewModelDelegate {
             let seconds = 1.0
             if isvcfrom == "ViewController" {
                 loginmenubool = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
-                    // Put your code which should be executed with a delay here
-                    gotodashBoardScreen()
-                }
+                gotodashBoardScreen()
             }else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
-                    // Put your code which should be executed with a delay here
-                    dismiss(animated: true)
-                }
+                callapibool = false
+                dismiss(animated: true)
             }
         }
     }

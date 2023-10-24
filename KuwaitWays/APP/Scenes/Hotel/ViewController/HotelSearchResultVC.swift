@@ -288,7 +288,6 @@ extension HotelSearchResultVC:AppliedFilters {
         print(" ==== niberhoodA === \n\(niberhoodA)")
         print(" ==== aminitiesA === \n\(aminitiesA)")
         
- 
         
         
         let filteredArray = hotelSearchResultArray.filter { hotel in
@@ -296,6 +295,8 @@ extension HotelSearchResultVC:AppliedFilters {
             
             let ratingMatches = hotel.star_rating == Int(starRating) || starRating.isEmpty
             let refundableMatch = refundableTypeArray.isEmpty || refundableTypeArray.contains(hotel.refund ?? "")
+            let nearByLocMatch = nearByLocA.isEmpty || nearByLocA.contains(hotel.location ?? "")
+
             
             let facilityMatch = aminitiesA.isEmpty || aminitiesA.allSatisfy { desiredAmenity in
                 hotel.facility?.contains { facility in
@@ -304,9 +305,10 @@ extension HotelSearchResultVC:AppliedFilters {
                 } ?? false
             }
 
-           
 
-            return ratingMatches && netPrice >= minpricerange && netPrice <= maxpricerange && refundableMatch && facilityMatch
+            return ratingMatches && netPrice >= minpricerange && netPrice <= maxpricerange && refundableMatch && facilityMatch && nearByLocMatch
+            
+            
         }
 
         

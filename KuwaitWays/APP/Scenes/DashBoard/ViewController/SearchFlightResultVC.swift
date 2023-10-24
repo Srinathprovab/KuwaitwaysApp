@@ -143,11 +143,11 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         filterView.addCornerRadiusWithShadow(color: .clear, borderColor: .clear, cornerRadius: 25)
         filterBtn.setTitle("", for: .normal)
         
-       
+        
         setupTV()
     }
     
-
+    
     
     
     func setupTV() {
@@ -325,7 +325,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             
             TimerManager.shared.stopTimer()
             TimerManager.shared.startTimer(time: 900)
-           
+            
             
             oneWayFlights = response.data?.j_flight_list ?? [[]]
             oneWayFlights.forEach { i in
@@ -367,7 +367,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             }
             
             
-           
+            
             
             prices = Array(Set(prices))
             noofStopsA = Array(Set(noofStopsA))
@@ -389,7 +389,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                 nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""
                 nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails)
                 
-               // setupTVCells(jfl: response.data?.j_flight_list ?? [[]])
+                // setupTVCells(jfl: response.data?.j_flight_list ?? [[]])
                 setupRoundTripTVCells(jfl: response.data?.j_flight_list ?? [[]])
                 break
                 
@@ -419,7 +419,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
     }
     
     
- 
+    
     func setupRoundTripTVCells(jfl:[[J_flight_list]]) {
         commonTableView.separatorStyle = .none
         setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
@@ -621,7 +621,7 @@ extension SearchFlightResultVC:AppliedFilters {
             
             setupRoundTripTVCells(jfl: sortedArray)
             
-
+            
         }
         
         
@@ -837,7 +837,7 @@ extension SearchFlightResultVC {
     
     func updateTimer() {
         DispatchQueue.main.async {[self] in
-            var totalTime = TimerManager.shared.totalTime
+            let totalTime = TimerManager.shared.totalTime
             let minutes =  totalTime / 60
             let seconds = totalTime % 60
             let formattedTime = String(format: "%02d:%02d", minutes, seconds)

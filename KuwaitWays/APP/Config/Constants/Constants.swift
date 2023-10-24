@@ -42,7 +42,7 @@ var menubool = Bool()
 var loginmenubool = false
 var mapModelArray: [MapModel] = []
 
-
+var userLogedDetails : LoginModel?
 //MARK: - COREDATE SAVE PASSENGER DETAILS
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let context = appDelegate.persistentContainer.viewContext

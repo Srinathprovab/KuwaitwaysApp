@@ -216,7 +216,7 @@ extension SelectedHotelInfoVC {
         
         
         tablerow.append(TableRow(title:"Facilities",
-                                 moreData: hotelDetails.hotel_details?.facility_search,
+                                 moreData: hotelDetails.hotel_details?.format_ame,
                                  cellType:.FacilitiesTVCell))
         
         tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))

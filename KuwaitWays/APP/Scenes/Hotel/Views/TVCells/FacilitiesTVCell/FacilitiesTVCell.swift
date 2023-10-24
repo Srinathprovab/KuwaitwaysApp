@@ -14,7 +14,7 @@ class FacilitiesTVCell: TableViewCell {
     @IBOutlet weak var facilitiesCV: UICollectionView!
     
     
-    var facilitiesArray = [String]()
+    var facilitiesArray = [Format_ame]()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,7 +29,7 @@ class FacilitiesTVCell: TableViewCell {
     
     override func updateUI() {
         titlelbl.text = cellInfo?.title
-        facilitiesArray = cellInfo?.moreData as! [String]
+        facilitiesArray = cellInfo?.moreData as! [Format_ame]
         if facilitiesArray.count != 0 {
             facilitiesCV.setEmptyMessage("")
         }else {
@@ -76,7 +76,7 @@ extension FacilitiesTVCell:UICollectionViewDelegate,UICollectionViewDataSource {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AmenitiesCVCell {
             if facilitiesArray.count != 0 {
                 facilitiesCV.setEmptyMessage("")
-                cell.titlelbl.text = facilitiesArray[indexPath.row]
+                cell.titlelbl.text = facilitiesArray[indexPath.row].ame
             }else {
                 facilitiesCV.setEmptyMessage("No Data Found")
             }

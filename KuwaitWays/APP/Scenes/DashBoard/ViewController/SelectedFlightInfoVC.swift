@@ -11,6 +11,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
     
     
     
+    
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
     @IBOutlet weak var navHeight: NSLayoutConstraint!
@@ -68,27 +69,22 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         }
         
         
-        if  callapibool == true {
+        if  callapibool == true && TimerManager.shared.totalTime > 0 {
             
             holderView.isHidden = true
             callAPI()
             
+        }else {
+            holderView.isHidden = true
+           
+            DispatchQueue.main.async {[self] in
+                guard let vc = PopupVC.newInstance.self else {return}
+                vc.modalPresentationStyle = .overCurrentContext
+                self.present(vc, animated: false)
+            }
         }
         
     }
-    
-    
-    
-    
-    
-    @objc func offline(notificatio:UNNotification) {
-        callapibool = true
-        guard let vc = NoInternetConnectionVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.key = "offline"
-        self.present(vc, animated: false)
-    }
-    
     
     
     
@@ -103,6 +99,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         }
         payload["access_key"] = accesskey
         payload["search_id"] = searchid
+        
         vm?.CALL_GET_FLIGHT_DETAILS_API(dictParam: payload)
     }
     
@@ -422,6 +419,12 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         commonTableView.reloadData()
     }
     
+    
+    
+    
+    
+
+
 }
 
 
@@ -524,9 +527,7 @@ extension SelectedFlightInfoVC {
     
     
     @objc func reloadTimer(){
-        
-        TimerManager.shared.delegate = self
-        
+       // TimerManager.shared.delegate = self
     }
     
     @objc func nointernet(){
@@ -538,9 +539,7 @@ extension SelectedFlightInfoVC {
     }
     
     @objc func reload(){
-        
         callAPI()
-        
     }
     
     
@@ -671,6 +670,8 @@ extension SelectedFlightInfoVC {
         vc.payload = input
         self.present(vc, animated: false)
     }
+    
+    
     
     
 }

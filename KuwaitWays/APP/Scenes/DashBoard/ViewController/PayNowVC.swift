@@ -69,6 +69,11 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     
     // Initialize an array to store the validation state for each cell
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -76,80 +81,8 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         vm = PreProcessBookingViewModel(self)
         vm1 = HotelMBViewModel(self)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
         addObserver()
-        
-        
-        if let journeyType = defaults.string(forKey: UserDefaultsKeys.tabselect) {
-            if journeyType == "Flight" {
-                
-                holderView.isHidden = true
-                viewFlightlbl.text = "View Flight Details"
-                nav.citylbl.text = defaults.string(forKey: UserDefaultsKeys.journeyCitys) ?? ""
-                nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""
-                
-                
-                if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-                    if journeyType == "oneway" {
-                        nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
-                        
-                        adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1") ?? 0
-                        childCount = Int(defaults.string(forKey: UserDefaultsKeys.childCount) ?? "0") ?? 0
-                        infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
-                        flighttotelCount = (adultsCount + childCount + infantsCount)
-                        
-                        
-                    }else if journeyType == "circle"{
-                        nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? ""
-                        
-                        adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1") ?? 0
-                        childCount = Int(defaults.string(forKey: UserDefaultsKeys.rchildCount) ?? "0") ?? 0
-                        infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.rinfantsCount) ?? "0") ?? 0
-                        flighttotelCount = (adultsCount + childCount + infantsCount)
-                    }else {
-                        nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
-                        
-                        adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1") ?? 0
-                        childCount = Int(defaults.string(forKey: UserDefaultsKeys.mchildCount) ?? "0") ?? 0
-                        infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0") ?? 0
-                        flighttotelCount = (adultsCount + childCount + infantsCount)
-                    }
-                }
-                
-                viewFlightsBtn.addTarget(self, action: #selector(didTapOnViewFlightDetails(_:)), for: .touchUpInside)
-                
-                if callapibool == true {
-                    callAPI()
-                }
-                
-            }else {
-                
-                holderView.isHidden = true
-                viewFlightlbl.text = "View Hotel Details"
-                viewFlightsBtn.addTarget(self, action: #selector(didTapOnViewHotelDetails(_:)), for: .touchUpInside)
-                
-                adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.hoteladultscount) ?? "1") ?? 0
-                childCount = Int(defaults.string(forKey: UserDefaultsKeys.hotelchildcount) ?? "0") ?? 0
-                nav.citylbl.text = "\(defaults.string(forKey: UserDefaultsKeys.locationcity) ?? "")"
-                nav.datelbl.text = "CheckIn - \(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.checkin) ?? "" , f1: "dd-MM-yyyy", f2: "dd MMM")) & CheckOut - \(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.checkout) ?? "", f1: "dd-MM-yyyy", f2: "dd MMM"))"
-                
-                
-                if callapibool == true {
-                    callHotelMobileBookingAPI()
-                }
-                
-            }
-        }
-        
     }
-    
-    
-    
-    
     
     
     func setupUI() {
@@ -489,12 +422,18 @@ extension PayNowVC {
     
     func preProcessBookingDetails(response: PreProcessBookingModel) {
         
-        if response.status == true {
-            tokenkey1 = response.form_params?.token_key ?? ""
-            callMobileBookingAPI(res: response)
-        }else {
-            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
-        }
+        
+        tokenkey1 = response.form_params?.token_key ?? ""
+        callMobileBookingAPI(res: response)
+        
+        //        if response.status == true {
+        //            tokenkey1 = response.form_params?.token_key ?? ""
+        //            callMobileBookingAPI(res: response)
+        //        }else {
+        //
+        //
+        //            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+        //        }
     }
     
     //MARK: - CALL_MOBILE_BOOKING_API
@@ -515,7 +454,7 @@ extension PayNowVC {
     
     func mobileBookingDetails(response: MobileBookingModel) {
         if response.status == 1 {
-            
+            holderView.isHidden = false
             activepaymentoptions = response.active_payment_options?[0] ?? ""
             tmpFlightPreBookingId = response.tmp_flight_pre_booking_id ?? ""
             accesskey = response.access_key_tp ?? ""
@@ -528,9 +467,14 @@ extension PayNowVC {
             DispatchQueue.main.async {[self] in
                 setupTVCells()
             }
-        }else {
-            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
         }
+        
+        //        else {
+        //
+        //
+        //
+        //            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
+        //        }
     }
     
     
@@ -755,7 +699,9 @@ extension PayNowVC {
         //        payload["billing_zipcode"] = ""
         
         // Check additional conditions
-        if email == "" {
+        if TimerManager.shared.totalTime == 0 {
+            timerDidFinish1()
+        }else if email == "" {
             showToast(message: "Enter Email Address")
         }else if email.isValidEmail() == false {
             showToast(message: "Enter Valid Email Addreess")
@@ -784,6 +730,12 @@ extension PayNowVC {
         
     }
     
+    
+    func timerDidFinish1() {
+        guard let vc = PopupVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
     
     
     
@@ -1098,12 +1050,101 @@ extension PayNowVC:HotelMBViewModelDelegate {
 extension PayNowVC {
     
     func addObserver() {
-        countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
+        
+        
+        let logstatus = defaults.bool(forKey: UserDefaultsKeys.loggedInStatus)
+        if logstatus == true  {
+            
+            email = userLogedDetails?.email ?? ""
+            mobile = userLogedDetails?.phone ?? ""
+            countryCode = userLogedDetails?.country_code ?? ""
+            mobilenoMaxLengthBool = true
+        }else {
+            countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
+        }
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(nointernet), name: Notification.Name("offline"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(logindon), name: NSNotification.Name("logindon"), object: nil)
         
+        
+        
+        
+        if let journeyType = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if journeyType == "Flight" {
+                
+                
+                viewFlightlbl.text = "View Flight Details"
+                nav.citylbl.text = defaults.string(forKey: UserDefaultsKeys.journeyCitys) ?? ""
+                nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""
+                
+                
+                if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
+                    if journeyType == "oneway" {
+                        nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
+                        
+                        adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1") ?? 0
+                        childCount = Int(defaults.string(forKey: UserDefaultsKeys.childCount) ?? "0") ?? 0
+                        infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
+                        flighttotelCount = (adultsCount + childCount + infantsCount)
+                        
+                        
+                    }else if journeyType == "circle"{
+                        nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? ""
+                        
+                        adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.radultCount) ?? "1") ?? 0
+                        childCount = Int(defaults.string(forKey: UserDefaultsKeys.rchildCount) ?? "0") ?? 0
+                        infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.rinfantsCount) ?? "0") ?? 0
+                        flighttotelCount = (adultsCount + childCount + infantsCount)
+                    }else {
+                        nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
+                        
+                        adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1") ?? 0
+                        childCount = Int(defaults.string(forKey: UserDefaultsKeys.mchildCount) ?? "0") ?? 0
+                        infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0") ?? 0
+                        flighttotelCount = (adultsCount + childCount + infantsCount)
+                    }
+                }
+                
+                viewFlightsBtn.addTarget(self, action: #selector(didTapOnViewFlightDetails(_:)), for: .touchUpInside)
+                
+                if callapibool == true && TimerManager.shared.totalTime > 0{
+                    holderView.isHidden = true
+                    callAPI()
+                }else {
+                    timerDidFinish1()
+                }
+                
+            }else {
+                
+                
+                viewFlightlbl.text = "View Hotel Details"
+                viewFlightsBtn.addTarget(self, action: #selector(didTapOnViewHotelDetails(_:)), for: .touchUpInside)
+                
+                adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.hoteladultscount) ?? "1") ?? 0
+                childCount = Int(defaults.string(forKey: UserDefaultsKeys.hotelchildcount) ?? "0") ?? 0
+                nav.citylbl.text = "\(defaults.string(forKey: UserDefaultsKeys.locationcity) ?? "")"
+                nav.datelbl.text = "CheckIn - \(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.checkin) ?? "" , f1: "dd-MM-yyyy", f2: "dd MMM")) & CheckOut - \(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.checkout) ?? "", f1: "dd-MM-yyyy", f2: "dd MMM"))"
+                
+                
+                if callapibool == true && TimerManager.shared.totalTime > 0{
+                    holderView.isHidden = true
+                    callHotelMobileBookingAPI()
+                }else {
+                    timerDidFinish1()
+                }
+                
+            }
+        }
     }
+    
+    
+    @objc func logindon(){
+        setupTVCells()
+    }
+    
     
     @objc func nointernet(){
         gotoNoInternetConnectionVC(key: "nointernet", titleStr: "")
@@ -1114,9 +1155,8 @@ extension PayNowVC {
     }
     
     @objc func reload(){
-        DispatchQueue.main.async {[self] in
-            callAPI()
-        }
+        //callAPI()
+        commonTableView.reloadData()
     }
     
     

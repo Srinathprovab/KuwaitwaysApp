@@ -227,8 +227,8 @@ class RoomsCountTVCell: UITableViewCell {
         room1ChildageView2.backgroundColor = .WhiteColor
         room1ChildageView2.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 3)
         
-        setuplabels(lbl: room1Child1Titlelbl, text: "Child 1", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
-        setuplabels(lbl: room1Child2Titlelbl, text: "Child 2", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
+        setuplabels(lbl: room1Child1Titlelbl, text: "Child 1(Age)", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
+        setuplabels(lbl: room1Child2Titlelbl, text: "Child 2(Age", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
         setuplabels(lbl: room1childagevalue1lbl, text: "0", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .center)
         setuplabels(lbl: room1childagevalue2lbl, text: "0", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .center)
         room1childageTapBtn1.setTitle("", for: .normal)
@@ -248,8 +248,8 @@ class RoomsCountTVCell: UITableViewCell {
         room2ChildageView2.backgroundColor = .WhiteColor
         room2ChildageView2.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 3)
         
-        setuplabels(lbl: room2Child1Titlelbl, text: "Child 1", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
-        setuplabels(lbl: room2Child2Titlelbl, text: "Child 2", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
+        setuplabels(lbl: room2Child1Titlelbl, text: "Child 1(Age)", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
+        setuplabels(lbl: room2Child2Titlelbl, text: "Child 2(Age)", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
         setuplabels(lbl: room2childagevalue1lbl, text: "0", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .center)
         setuplabels(lbl: room2childagevalue2lbl, text: "0", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .center)
         room2childageTapBtn1.setTitle("", for: .normal)
@@ -268,8 +268,8 @@ class RoomsCountTVCell: UITableViewCell {
         room3ChildageView2.backgroundColor = .WhiteColor
         room3ChildageView2.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 3)
         
-        setuplabels(lbl: room3Child1Titlelbl, text: "Child 1", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
-        setuplabels(lbl: room3Child2Titlelbl, text: "Child 2", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
+        setuplabels(lbl: room3Child1Titlelbl, text: "Child 1(Age)", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
+        setuplabels(lbl: room3Child2Titlelbl, text: "Child 2(Age)", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
         setuplabels(lbl: room3childagevalue1lbl, text: "0", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .center)
         setuplabels(lbl: room3childagevalue2lbl, text: "0", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .center)
         room3childageTapBtn1.setTitle("", for: .normal)
@@ -280,33 +280,10 @@ class RoomsCountTVCell: UITableViewCell {
         setupRoom3ChildageTapDropDown2()
         
         
-        //Room4
-        //        room4Height.constant = 220
-        //        r4childage1View.isHidden = true
-        //        room4ChildageView1.backgroundColor = .WhiteColor
-        //        room4ChildageView1.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 3)
-        //        r4childage2View.isHidden = true
-        //        room4ChildageView2.backgroundColor = .WhiteColor
-        //        room4ChildageView2.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 3)
-        //
-        //        setuplabels(lbl: room4Child1Titlelbl, text: "Child 1", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
-        //        setuplabels(lbl: room4Child2Titlelbl, text: "Child 2", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .center)
-        //        setuplabels(lbl: room4childagevalue1lbl, text: "0", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .center)
-        //        setuplabels(lbl: room4childagevalue2lbl, text: "0", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .center)
-        //        room4childageTapBtn1.setTitle("", for: .normal)
-        //        room4childageTapBtn1.addTarget(self, action: #selector(didTapOnRoom4ChildAgeBtn1Action(_:)), for: .touchUpInside)
-        //        room4childageTapBtn2.setTitle("", for: .normal)
-        //        room4childageTapBtn2.addTarget(self, action: #selector(didTapOnRoom4ChildAgeBtn2Action(_:)), for: .touchUpInside)
-        //        setupRoom4ChildageTapDropDown1()
-        //        setupRoom4ChildageTapDropDown2()
-        
-        
-        
-        
         setupUI1()
         setupUI2()
         setupUI3()
-        //   setupUI4()
+       
     }
     
     
@@ -323,7 +300,7 @@ class RoomsCountTVCell: UITableViewCell {
     
     func setupRoom1ChildageTapDropDown1() {
         
-        room1ChildageTapDropDown1.dataSource = ["1","2","3","4","5","6","7","8","9"]
+        room1ChildageTapDropDown1.dataSource = ["1","2","3","4","5","6","7","8","9","10","11","12"]
         room1ChildageTapDropDown1.direction = .any
         room1ChildageTapDropDown1.backgroundColor = .WhiteColor
         room1ChildageTapDropDown1.anchorView = self.childage1View
@@ -336,7 +313,7 @@ class RoomsCountTVCell: UITableViewCell {
     
     func setupRoom1ChildageTapDropDown2() {
         
-        room1ChildageTapDropDown2.dataSource = ["1","2","3","4","5","6","7","8","9"]
+        room1ChildageTapDropDown2.dataSource = ["1","2","3","4","5","6","7","8","9","10","11","12"]
         room1ChildageTapDropDown2.direction = .any
         room1ChildageTapDropDown2.backgroundColor = .WhiteColor
         room1ChildageTapDropDown2.anchorView = self.childage2View
@@ -359,7 +336,7 @@ class RoomsCountTVCell: UITableViewCell {
     
     func setupRoom2ChildageTapDropDown1() {
         
-        room2ChildageTapDropDown1.dataSource = ["1","2","3","4","5","6","7","8","9"]
+        room2ChildageTapDropDown1.dataSource = ["1","2","3","4","5","6","7","8","9","10","11","12"]
         room2ChildageTapDropDown1.direction = .any
         room2ChildageTapDropDown1.backgroundColor = .WhiteColor
         room2ChildageTapDropDown1.anchorView = self.r2childage1View
@@ -372,7 +349,7 @@ class RoomsCountTVCell: UITableViewCell {
     
     func setupRoom2ChildageTapDropDown2() {
         
-        room2ChildageTapDropDown2.dataSource = ["1","2","3","4","5","6","7","8","9"]
+        room2ChildageTapDropDown2.dataSource = ["1","2","3","4","5","6","7","8","9","10","11","12"]
         room2ChildageTapDropDown2.direction = .any
         room2ChildageTapDropDown2.backgroundColor = .WhiteColor
         room2ChildageTapDropDown2.anchorView = self.r2childage2View
@@ -396,7 +373,7 @@ class RoomsCountTVCell: UITableViewCell {
     
     func setupRoom3ChildageTapDropDown1() {
         
-        room3ChildageTapDropDown1.dataSource = ["1","2","3","4","5","6","7","8","9"]
+        room3ChildageTapDropDown1.dataSource = ["1","2","3","4","5","6","7","8","9","10","11","12"]
         room3ChildageTapDropDown1.direction = .any
         room3ChildageTapDropDown1.backgroundColor = .WhiteColor
         room3ChildageTapDropDown1.anchorView = self.r3childage1View
@@ -409,7 +386,7 @@ class RoomsCountTVCell: UITableViewCell {
     
     func setupRoom3ChildageTapDropDown2() {
         
-        room3ChildageTapDropDown2.dataSource = ["1","2","3","4","5","6","7","8","9"]
+        room3ChildageTapDropDown2.dataSource = ["1","2","3","4","5","6","7","8","9","10","11","12"]
         room3ChildageTapDropDown2.direction = .any
         room3ChildageTapDropDown2.backgroundColor = .WhiteColor
         room3ChildageTapDropDown2.anchorView = self.r3childage2View
@@ -420,42 +397,6 @@ class RoomsCountTVCell: UITableViewCell {
         }
     }
     
-    
-    
-    //Room4
-    //    @objc func didTapOnRoom4ChildAgeBtn1Action(_ sender:UIButton) {
-    //        room4ChildageTapDropDown1.show()
-    //    }
-    
-    //    @objc func didTapOnRoom4ChildAgeBtn2Action(_ sender:UIButton) {
-    //        room4ChildageTapDropDown2.show()
-    //    }
-    
-    //    func setupRoom4ChildageTapDropDown1() {
-    //
-    //        room4ChildageTapDropDown1.dataSource = ["1","2","3","4","5","6","7","8","9"]
-    //        room4ChildageTapDropDown1.direction = .any
-    //        room4ChildageTapDropDown1.backgroundColor = .WhiteColor
-    //        room4ChildageTapDropDown1.anchorView = self.r4childage1View
-    //        room4ChildageTapDropDown1.bottomOffset = CGPoint(x: 0, y: r4childage1View.frame.size.height + 10)
-    //        room4ChildageTapDropDown1.selectionAction = { [weak self] (index: Int, item: String) in
-    //            self?.room4childagevalue1lbl.text = item
-    //            self?.room4childagevalue1lbl.textColor = .AppLabelColor
-    //        }
-    //    }
-    
-    //    func setupRoom4ChildageTapDropDown2() {
-    //
-    //        room4ChildageTapDropDown2.dataSource = ["1","2","3","4","5","6","7","8","9"]
-    //        room4ChildageTapDropDown2.direction = .any
-    //        room4ChildageTapDropDown2.backgroundColor = .WhiteColor
-    //        room4ChildageTapDropDown2.anchorView = self.r4childage2View
-    //        room4ChildageTapDropDown2.bottomOffset = CGPoint(x: 0, y: r4childage2View.frame.size.height + 10)
-    //        room4ChildageTapDropDown2.selectionAction = { [weak self] (index: Int, item: String) in
-    //            self?.room4childagevalue2lbl.text = item
-    //            self?.room4childagevalue2lbl.textColor = .AppLabelColor
-    //        }
-    //    }
     
     
     
@@ -528,30 +469,7 @@ class RoomsCountTVCell: UITableViewCell {
         
     }
     
-    
-    //    func setupUI4() {
-    //
-    //        setuplabels(lbl: titlelbl4, text: "Room 4", textcolor: .SubTitleColor, font: .LatoRegular(size: 16), align: .left)
-    //        setuplabels(lbl: adultslbl4, text: "Adults", textcolor: .AppLabelColor, font: .LatoRegular(size: 18), align: .left)
-    //        setuplabels(lbl: adultsSubtitlelbl4, text: "+12 yrs", textcolor: .SubTitleColor, font: .LatoRegular(size: 14), align: .left)
-    //        setuplabels(lbl: adultsCountlbl4, text: "1", textcolor: HexColor("#27272A"), font: .LatoRegular(size: 18), align: .center)
-    //        aIncrementBtn1.setTitle("", for: .normal)
-    //        aDecrementBtn1.setTitle("", for: .normal)
-    //
-    //        setuplabels(lbl: childrenlbl4, text: "Children", textcolor: .AppLabelColor, font: .LatoRegular(size: 18), align: .left)
-    //        setuplabels(lbl: childrenSubtitlelbl4, text: "+2-12 yrs", textcolor: .SubTitleColor, font: .LatoRegular(size: 13), align: .left)
-    //        setuplabels(lbl: childrenCountlbl4, text: "0", textcolor: .AppLabelColor, font: .LatoRegular(size: 18), align: .center)
-    //        cIncrementBtn1.setTitle("", for: .normal)
-    //        cDecrementBtn1.setTitle("", for: .normal)
-    //
-    ////        aIncrementBtn4.addTarget(self, action: #selector(adultsIncrementButtonAction4(_:)), for: .touchUpInside)
-    ////        aDecrementBtn4.addTarget(self, action: #selector(adultsDecrementBtnAction4(_:)), for: .touchUpInside)
-    ////        cIncrementBtn4.addTarget(self, action: #selector(childrenIncrementButtonAction4(_:)), for: .touchUpInside)
-    ////        cDecrementBtn4.addTarget(self, action: #selector(childrenDecrementBtnAction4(_:)), for: .touchUpInside)
-    //
-    //    }
-    
-    
+  
     @objc func didTapOnCloseRoom(_ sender:UIButton) {
         
         roomCount -= 1
@@ -561,22 +479,18 @@ class RoomsCountTVCell: UITableViewCell {
             roomView1.isHidden = false
             roomView2.isHidden = true
             roomView3.isHidden = true
-            //       roomView4.isHidden = true
             
             room2CloseView.isHidden = true
             room3CloseView.isHidden = true
-            //     room4CloseView.isHidden = true
             break
             
         case 3:
             roomView1.isHidden = false
             roomView2.isHidden = false
             roomView3.isHidden = true
-            //      roomView4.isHidden = true
             
             room2CloseView.isHidden = false
             room3CloseView.isHidden = true
-            //      room4CloseView.isHidden = true
             
             break
             
@@ -584,11 +498,9 @@ class RoomsCountTVCell: UITableViewCell {
             roomView1.isHidden = false
             roomView2.isHidden = false
             roomView3.isHidden = false
-            //       roomView4.isHidden = true
             
             room2CloseView.isHidden = true
             room3CloseView.isHidden = false
-            //      room4CloseView.isHidden = true
             
             break
         default:
@@ -615,11 +527,9 @@ class RoomsCountTVCell: UITableViewCell {
                 self.roomView1.isHidden = false
                 self.roomView2.isHidden = false
                 self.roomView3.isHidden = true
-                //      self.roomView4.isHidden = true
                 
                 room2CloseView.isHidden = false
                 room3CloseView.isHidden = true
-                //        room4CloseView.isHidden = true
                 
                 adultcount2 = 1
                 adultsCountlbl2.text = "1"
@@ -638,11 +548,9 @@ class RoomsCountTVCell: UITableViewCell {
                 self.roomView1.isHidden = false
                 self.roomView2.isHidden = false
                 self.roomView3.isHidden = false
-                //    self.roomView4.isHidden = true
                 
                 room2CloseView.isHidden = true
                 room3CloseView.isHidden = false
-                //   room4CloseView.isHidden = true
                 
                 adultcount3 = 1
                 childCount3 = 0
@@ -652,30 +560,10 @@ class RoomsCountTVCell: UITableViewCell {
                 r3childage1View.isHidden = true
                 r3childage2View.isHidden = true
                 self.addRoomBtnView.isHidden = true
-                //                r4childage1View.isHidden = true
-                //                r4childage2View.isHidden = true
+               
                 break
                 
-                //            case 4:
-                //                self.roomView1.isHidden = false
-                //                self.roomView2.isHidden = false
-                //                self.roomView3.isHidden = false
-                //                self.roomView4.isHidden = false
-                //                self.addRoomBtnView.isHidden = true
-                
-                room2CloseView.isHidden = true
-                room3CloseView.isHidden = true
-                //               room4CloseView.isHidden = false
-                
-                //                adultcount4 = 1
-                //                childCount4 = 0
-                //               adultsCountlbl4.text = "1"
-                //               childrenCountlbl4.text = "0"
-                
-                //                r4childage1View.isHidden = true
-                //                r4childage2View.isHidden = true
-                break
-                
+               
                 
             default:
                 break
@@ -743,26 +631,5 @@ class RoomsCountTVCell: UITableViewCell {
         delegate?.childrenDecrementBtnAction3(cell: self)
     }
     
-    
-    //    //====room 4
-    //
-    //    @objc func adultsIncrementButtonAction4(_ sender:UIButton){
-    //        delegate?.adultsIncrementButtonAction4(cell: self)
-    //    }
-    //
-    //    @objc func adultsDecrementBtnAction4(_ sender:UIButton){
-    //        delegate?.adultsDecrementBtnAction4(cell: self)
-    //    }
-    //
-    //    @objc func childrenIncrementButtonAction4(_ sender:UIButton){
-    //        delegate?.childrenIncrementButtonAction4(cell: self)
-    //    }
-    //
-    //    @objc func childrenDecrementBtnAction4(_ sender:UIButton){
-    //        delegate?.childrenDecrementBtnAction4(cell: self)
-    //    }
-    
-    
-    
-    
+   
 }

@@ -180,11 +180,19 @@ class FilterSearchVC: BaseTableVC {
                 }
                 
             }else {
-//                commonTableView.layer.cornerRadius = 8
-//                commonTableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//                commonTableView.clipsToBounds = true
+                buttonsView.layer.cornerRadius = 8
+                buttonsView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+                buttonsView.clipsToBounds = true
+                
+                buttonsView.isHidden = true
                 buttonsViewHeight.constant = 0
-                setupHotelFilterTVCells()
+               
+                
+                if filterTapKey == "filter" {
+                    setupHotelFilterTVCells()
+                }else {
+                    setupHotelSortTVCells()
+                }
             }
         }
         
@@ -200,14 +208,32 @@ class FilterSearchVC: BaseTableVC {
         sortul.backgroundColor = .AppNavBackColor
         filterul.backgroundColor = .WhiteColor
         
-        setupSortTVCells()
+      
+        
+        if let tabSelected = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if tabSelected == "Flight" {
+                setupSortTVCells()
+            }else {
+                setupHotelSortTVCells()
+            }
+        }
+        
+        
     }
     
     @objc func didTapOnFilterBtnAction(_ sender:UIButton) {
         filterTapKey = "filter"
         sortul.backgroundColor = .WhiteColor
         filterul.backgroundColor = .AppNavBackColor
-        setupFilterTVCells()
+       
+        
+        if let tabSelected = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if tabSelected == "Flight" {
+                setupFilterTVCells()
+            }else {
+                setupHotelFilterTVCells()
+            }
+        }
     }
     
     func setupFilterTVCells() {
@@ -259,7 +285,7 @@ class FilterSearchVC: BaseTableVC {
     
     
     func setupHotelFilterTVCells() {
-        buttonsView.isHidden = true
+        
         tablerow.removeAll()
         
         //  tablerow.append(TableRow(height:10,cellType:.EmptyTVCell))
@@ -277,6 +303,29 @@ class FilterSearchVC: BaseTableVC {
         //        tablerow.append(TableRow(title:"Apply",key: "hotel",cellType:.ButtonTVCell))
         //        tablerow.append(TableRow(height:50,cellType:.EmptyTVCell))
         
+        
+        commonTVData = tablerow
+        commonTableView.reloadData()
+        
+    }
+    
+    
+    func setupHotelSortTVCells() {
+        tablerow.removeAll()
+        
+        tablerow.append(TableRow(title:"Price",
+                                 subTitle: "Low to high",
+                                 buttonTitle: "High to low",
+                                 tempInfo: sortBy,
+                                 cellType:.SortByPriceTVCell))
+       
+        tablerow.append(TableRow(title:"Hotel",
+                                 subTitle: "A-Z",
+                                 buttonTitle: "Z-A",
+                                 tempInfo: sortBy,
+                                 cellType:.SortByPriceTVCell))
+        
+        tablerow.append((TableRow(height:30,cellType: .EmptyTVCell)))
         
         commonTVData = tablerow
         commonTableView.reloadData()
@@ -961,8 +1010,8 @@ extension FilterSearchVC {
         
         sortBy = .nothing
         let pricesFloat = prices.compactMap { Float($0) }
-//        filterModel.minPriceRange = Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0)
-//        filterModel.maxPriceRange = Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0)
+        //        filterModel.minPriceRange = Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0)
+        //        filterModel.maxPriceRange = Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0)
         
         filterModel.minPriceRange = Double(String(format: "%.2f", Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0))) ?? 0.0
         filterModel.maxPriceRange = Double(String(format: "%.2f", Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0))) ?? 0.0
@@ -1175,11 +1224,11 @@ extension FilterSearchVC {
         // Reset all values in the FilterModel
         
         let pricesFloat = prices.compactMap { Float($0) }
-
+        
         hotelfiltermodel.minPriceRange = Double(String(format: "%.2f", Double((pricesFloat.min() ?? prices.compactMap { Float($0) }.min()) ?? 0.0))) ?? 0.0
         hotelfiltermodel.maxPriceRange = Double(String(format: "%.2f", Double((pricesFloat.max() ?? prices.compactMap { Float($0) }.max()) ?? 0.0))) ?? 0.0
         
-   
+        
         if let cell = commonTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SliderTVCell {
             cell.setupUI()
         }

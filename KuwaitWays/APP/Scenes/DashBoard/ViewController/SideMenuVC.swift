@@ -250,6 +250,9 @@ extension SideMenuVC:LogoutViewmodelDelegate {
         showToast(message: response.data ?? "")
         defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
         defaults.set("0", forKey: UserDefaultsKeys.userid)
+        defaults.set("", forKey: UserDefaultsKeys.userimg)
+        defaults.set("", forKey: UserDefaultsKeys.username)
+        
         loginmenubool = false
         
         DispatchQueue.main.async {[self] in
