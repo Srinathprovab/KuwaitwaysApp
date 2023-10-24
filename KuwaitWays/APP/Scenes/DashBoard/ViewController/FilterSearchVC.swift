@@ -49,6 +49,8 @@ enum SortParameter {
     case starHeigh
     case airlineaz
     case airlineza
+    case hotelaz
+    case hotelza
     case nothing
 }
 
@@ -184,8 +186,9 @@ class FilterSearchVC: BaseTableVC {
                 buttonsView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
                 buttonsView.clipsToBounds = true
                 
-                buttonsView.isHidden = true
-                buttonsViewHeight.constant = 0
+//                buttonsView.isHidden = true
+//                buttonsViewHeight.constant = 0
+               
                
                 
                 if filterTapKey == "filter" {
@@ -348,184 +351,243 @@ class FilterSearchVC: BaseTableVC {
     
     override func didTapOnLowToHeighBtnAction(cell: SortByPriceTVCell) {
         
-        if cell.titlelbl.text == "PRICE" {
-            sortBy = .PriceLow
-            
-            if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell2)
+        
+        if let tabSelected = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if tabSelected == "Flight" {
+                
+                if cell.titlelbl.text == "PRICE" {
+                    sortBy = .PriceLow
+                    
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                    if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell3)
+                    }
+                    if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell4)
+                    }
+                    
+                    if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell5)
+                    }
+                }else if cell.titlelbl.text == "Departure Time" {
+                    sortBy = .DepartureLow
+                    
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    
+                    if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell3)
+                    }
+                    if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell4)
+                    }
+                    
+                    if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell5)
+                    }
+                }else if cell.titlelbl.text == "Arrival Time" {
+                    sortBy = .ArrivalLow
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                    
+                    if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell4)
+                    }
+                    
+                    if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell5)
+                    }
+                }else if cell.titlelbl.text == "Duration" {
+                    sortBy = .DurationLow
+                    
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                    if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell3)
+                    }
+                    
+                    if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell5)
+                    }
+                    
+                }else {
+                    sortBy = .airlineaz
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                    if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell3)
+                    }
+                    if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell4)
+                    }
+                    
+                }
+                
+            }else {
+                
+                
+                if cell.titlelbl.text == "Price" {
+                    sortBy = .PriceLow
+                    
+                   
+                    
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                }else if cell.titlelbl.text == "Hotel" {
+                    sortBy = .hotelaz
+                    
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    
+                   
+                    
+                    
+                }
+                
             }
-            
-            if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell3)
-            }
-            if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell4)
-            }
-            
-            if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell5)
-            }
-        }else if cell.titlelbl.text == "Departure Time" {
-            sortBy = .DepartureLow
-            
-            if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell1)
-            }
-            
-            if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell3)
-            }
-            if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell4)
-            }
-            
-            if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell5)
-            }
-        }else if cell.titlelbl.text == "Arrival Time" {
-            sortBy = .ArrivalLow
-            if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell1)
-            }
-            if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell2)
-            }
-            
-            
-            if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell4)
-            }
-            
-            if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell5)
-            }
-        }else if cell.titlelbl.text == "Duration" {
-            sortBy = .DurationLow
-            
-            if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell1)
-            }
-            if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell2)
-            }
-            
-            if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell3)
-            }
-            
-            if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell5)
-            }
-            
-        }else {
-            sortBy = .airlineaz
-            if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell1)
-            }
-            if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell2)
-            }
-            
-            if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell3)
-            }
-            if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell4)
-            }
-            
         }
-        
-        
     }
     
     override func didTapOnHeighToLowBtnAction(cell: SortByPriceTVCell) {
         
-        if cell.titlelbl.text == "PRICE" {
-            sortBy = .PriceHigh
-            
-            
-            if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell2)
+        if let tabSelected = defaults.string(forKey: UserDefaultsKeys.tabselect) {
+            if tabSelected == "Flight" {
+                
+                if cell.titlelbl.text == "PRICE" {
+                    sortBy = .PriceHigh
+                    
+                    
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                    if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell3)
+                    }
+                    if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell4)
+                    }
+                    
+                    if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell5)
+                    }
+                }else if cell.titlelbl.text == "Departure Time" {
+                    sortBy = .DepartureHigh
+                    
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    
+                    if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell3)
+                    }
+                    if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell4)
+                    }
+                    
+                    if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell5)
+                    }
+                }else if cell.titlelbl.text == "Arrival Time" {
+                    sortBy = .ArrivalHigh
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                    
+                    if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell4)
+                    }
+                    
+                    if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell5)
+                    }
+                }else if cell.titlelbl.text == "Duration" {
+                    sortBy = .DurationHigh
+                    
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                    if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell3)
+                    }
+                    
+                    if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell5)
+                    }
+                    
+                }else {
+                    sortBy = .airlineza
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                    if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell3)
+                    }
+                    if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell4)
+                    }
+                    
+                }
+                
+            }else{
+                
+                
+                if cell.titlelbl.text == "Price" {
+                    sortBy = .PriceHigh
+                    
+                   
+                    
+                    if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell2)
+                    }
+                    
+                }else if cell.titlelbl.text == "Hotel" {
+                    sortBy = .hotelza
+                    
+                    if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
+                        resetSortBy(cell: cell1)
+                    }
+                    
+                   
+                    
+                    
+                }
+                
             }
-            
-            if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell3)
-            }
-            if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell4)
-            }
-            
-            if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell5)
-            }
-        }else if cell.titlelbl.text == "Departure Time" {
-            sortBy = .DepartureHigh
-            
-            if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell1)
-            }
-            
-            if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell3)
-            }
-            if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell4)
-            }
-            
-            if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell5)
-            }
-        }else if cell.titlelbl.text == "Arrival Time" {
-            sortBy = .ArrivalHigh
-            if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell1)
-            }
-            if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell2)
-            }
-            
-            
-            if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell4)
-            }
-            
-            if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell5)
-            }
-        }else if cell.titlelbl.text == "Duration" {
-            sortBy = .DurationHigh
-            
-            if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell1)
-            }
-            if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell2)
-            }
-            
-            if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell3)
-            }
-            
-            if let cell5 = commonTableView.cellForRow(at: IndexPath(item: 4, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell5)
-            }
-            
-        }else {
-            sortBy = .airlineza
-            if let cell1 = commonTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell1)
-            }
-            if let cell2 = commonTableView.cellForRow(at: IndexPath(item: 1, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell2)
-            }
-            
-            if let cell3 = commonTableView.cellForRow(at: IndexPath(item: 2, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell3)
-            }
-            if let cell4 = commonTableView.cellForRow(at: IndexPath(item: 3, section: 0)) as? SortByPriceTVCell {
-                resetSortBy(cell: cell4)
-            }
-            
         }
         
         
@@ -872,60 +934,68 @@ class FilterSearchVC: BaseTableVC {
             }else {
                 
                 
-                
-                if minpricerangefilter != 0.0 {
-                    hotelfiltermodel.minPriceRange = minpricerangefilter
+                if filterTapKey == "sort" {
+                    
+                    delegate?.filtersSortByApplied(sortBy: sortBy)
+                    
                 }else {
-                    hotelfiltermodel.minPriceRange = Double(pricesFloat.min() ?? 0.0)
+                    
+                    if minpricerangefilter != 0.0 {
+                        hotelfiltermodel.minPriceRange = minpricerangefilter
+                    }else {
+                        hotelfiltermodel.minPriceRange = Double(pricesFloat.min() ?? 0.0)
+                    }
+                    
+                    if maxpricerangefilter != 0.0 {
+                        hotelfiltermodel.maxPriceRange = maxpricerangefilter
+                    }else {
+                        hotelfiltermodel.maxPriceRange = Double(pricesFloat.max() ?? 0.0)
+                    }
+                    
+                    
+                    if !starRatingFilter.isEmpty {
+                        hotelfiltermodel.starRating = starRatingFilter
+                    }else {
+                        hotelfiltermodel.starRating = ""
+                    }
+                    
+                    
+                    if !refundablerTypeFilteArray.isEmpty {
+                        hotelfiltermodel.refundableTypes = refundablerTypeFilteArray
+                    }else {
+                        hotelfiltermodel.refundableTypes.removeAll()
+                    }
+                    
+                    if !selectednearBylocationsArray.isEmpty {
+                        hotelfiltermodel.nearByLocA = selectednearBylocationsArray
+                    }else {
+                        hotelfiltermodel.nearByLocA.removeAll()
+                    }
+                    
+                    
+                    if !selectedNeighbourwoodArray.isEmpty {
+                        hotelfiltermodel.niberhoodA = selectedNeighbourwoodArray
+                    }else {
+                        hotelfiltermodel.niberhoodA.removeAll()
+                    }
+                    
+                    if !selectedamenitiesArray.isEmpty {
+                        hotelfiltermodel.aminitiesA = selectedamenitiesArray
+                    }else {
+                        hotelfiltermodel.aminitiesA.removeAll()
+                    }
+                    
+                    
+                    delegate?.hotelFilterByApplied(minpricerange:  hotelfiltermodel.minPriceRange ?? 0.0,
+                                                   maxpricerange:  hotelfiltermodel.maxPriceRange ?? 0.0,
+                                                   starRating:  hotelfiltermodel.starRating,
+                                                   refundableTypeArray: hotelfiltermodel.refundableTypes,
+                                                   nearByLocA: hotelfiltermodel.nearByLocA,
+                                                   niberhoodA: hotelfiltermodel.niberhoodA,
+                                                   aminitiesA: hotelfiltermodel.aminitiesA)
+                    
+                    
                 }
-                
-                if maxpricerangefilter != 0.0 {
-                    hotelfiltermodel.maxPriceRange = maxpricerangefilter
-                }else {
-                    hotelfiltermodel.maxPriceRange = Double(pricesFloat.max() ?? 0.0)
-                }
-                
-                
-                if !starRatingFilter.isEmpty {
-                    hotelfiltermodel.starRating = starRatingFilter
-                }else {
-                    hotelfiltermodel.starRating = ""
-                }
-                
-                
-                if !refundablerTypeFilteArray.isEmpty {
-                    hotelfiltermodel.refundableTypes = refundablerTypeFilteArray
-                }else {
-                    hotelfiltermodel.refundableTypes.removeAll()
-                }
-                
-                if !selectednearBylocationsArray.isEmpty {
-                    hotelfiltermodel.nearByLocA = selectednearBylocationsArray
-                }else {
-                    hotelfiltermodel.nearByLocA.removeAll()
-                }
-                
-                
-                if !selectedNeighbourwoodArray.isEmpty {
-                    hotelfiltermodel.niberhoodA = selectedNeighbourwoodArray
-                }else {
-                    hotelfiltermodel.niberhoodA.removeAll()
-                }
-                
-                if !selectedamenitiesArray.isEmpty {
-                    hotelfiltermodel.aminitiesA = selectedamenitiesArray
-                }else {
-                    hotelfiltermodel.aminitiesA.removeAll()
-                }
-                
-                
-                delegate?.hotelFilterByApplied(minpricerange:  hotelfiltermodel.minPriceRange ?? 0.0,
-                                               maxpricerange:  hotelfiltermodel.maxPriceRange ?? 0.0,
-                                               starRating:  hotelfiltermodel.starRating,
-                                               refundableTypeArray: hotelfiltermodel.refundableTypes,
-                                               nearByLocA: hotelfiltermodel.nearByLocA,
-                                               niberhoodA: hotelfiltermodel.niberhoodA,
-                                               aminitiesA: hotelfiltermodel.aminitiesA)
                 
             }
         }
@@ -955,10 +1025,19 @@ class FilterSearchVC: BaseTableVC {
                 }
             }else {
                 
-                
-                DispatchQueue.main.async {[self] in
-                    resetHotelFilter()
+                if filterTapKey == "filter" {
+                    DispatchQueue.main.async {[self] in
+                        resetHotelFilter()
+                    }
+                }else {
+                   
+                        sortBy = .nothing
+                        // Reload the table view to reflect the changes
+                        commonTableView.reloadData()
+                    
                 }
+                
+                
             }
         }
     }

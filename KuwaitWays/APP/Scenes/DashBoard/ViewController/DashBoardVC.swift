@@ -93,14 +93,9 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         if callapibool == true {
             callAPI()
         }
-        
-        
-        
-        
+    
     }
     
-   
-  
     
     override func viewDidLoad() {
         super.viewDidLoad()

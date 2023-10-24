@@ -219,7 +219,7 @@ class CreateAccountTVCell: TableViewCell {
     
     
     @objc func searchTextBegin(textField: MDCOutlinedTextField) {
-        textField.text = ""
+        textField.text = "a"
         loadCountryNamesAndCode()
         dropDown.show()
     }

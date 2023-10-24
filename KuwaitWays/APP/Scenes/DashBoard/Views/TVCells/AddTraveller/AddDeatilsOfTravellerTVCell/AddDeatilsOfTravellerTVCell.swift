@@ -600,7 +600,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     @objc func searchTextBegin(textField: UITextField) {
         
-        textField.text = ""
+        textField.text = "a"
         filterdcountrylist.removeAll()
         filterdcountrylist = countrylist
         loadCountryNamesAndCode()

@@ -148,6 +148,7 @@ class HotelSearchResultVC: BaseTableVC,HotelListViewModelDelegate, TimerManagerD
         guard let vc = FilterSearchVC.newInstance.self else {return}
         vc.modalPresentationStyle = .overCurrentContext
         vc.delegate = self
+        vc.filterTapKey = "sort"
         self.present(vc, animated: false)
     }
     
@@ -330,6 +331,56 @@ extension HotelSearchResultVC:AppliedFilters {
     
     
     func filtersSortByApplied(sortBy: SortParameter) {
+        
+        
+        
+        
+        switch sortBy {
+        case .PriceLow:
+            
+            let sortedByPriceLowToHigh = hotelSearchResultArray.sorted { hotel1, hotel2 in
+                return (Double(hotel1.price ?? "") ?? 0.0) < (Double(hotel2.price ?? "") ?? 0.0)
+            }
+          
+            setupTVCells(hotelList: sortedByPriceLowToHigh)
+            break
+            
+        case .PriceHigh:
+            
+            let sortedByPriceLowToHigh = hotelSearchResultArray.sorted { hotel1, hotel2 in
+                return (Double(hotel1.price ?? "") ?? 0.0) > (Double(hotel2.price ?? "") ?? 0.0)
+            }
+            setupTVCells(hotelList: sortedByPriceLowToHigh)
+            break
+            
+            
+            
+        case .hotelaz:
+            // Sort hotel names alphabetically
+            let sortedByNameAZ = hotelSearchResultArray.sorted { $0.name?.localizedCaseInsensitiveCompare($1.name ?? "") == .orderedAscending }
+            setupTVCells(hotelList: sortedByNameAZ)
+            break
+            
+        case .hotelza:
+            // Sort hotel names alphabetically
+            let sortedByNameAZ = hotelSearchResultArray.sorted { $0.name?.localizedCaseInsensitiveCompare($1.name ?? "") == .orderedDescending }
+            setupTVCells(hotelList: sortedByNameAZ)
+            break
+            
+            
+            
+            
+        case .nothing:
+            setupTVCells(hotelList: hotelSearchResultArray)
+            break
+            
+        default:
+            break
+        }
+        
+        DispatchQueue.main.async {[self] in
+            // commonTableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        }
         
     }
     

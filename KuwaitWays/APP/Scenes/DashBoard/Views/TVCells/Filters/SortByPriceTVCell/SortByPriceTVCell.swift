@@ -44,8 +44,14 @@ class SortByPriceTVCell: TableViewCell {
         titlelbl.text = cellInfo?.title
         lowlbl.text = cellInfo?.subTitle
         heighlbl.text = cellInfo?.buttonTitle
+        setupSotyBy()
         
-       
+    }
+    
+    
+    
+    
+    func setupSotyBy() {
         
         switch sortBy {
             
@@ -54,11 +60,19 @@ class SortByPriceTVCell: TableViewCell {
             if titlelbl.text == "PRICE" {
                 lowtoheigh()
             }
+            
+            if titlelbl.text == "Price" {
+                lowtoheigh()
+            }
             break
             
         case .PriceHigh:
             
             if titlelbl.text == "PRICE" {
+                heightolow()
+            }
+            
+            if titlelbl.text == "Price" {
                 heightolow()
             }
             break
@@ -125,6 +139,21 @@ class SortByPriceTVCell: TableViewCell {
             break
             
             
+            //Airlines Names Sort
+        case .hotelaz:
+            if titlelbl.text == "Hotel" {
+                lowtoheigh()
+            }
+            break
+            
+        case .hotelza:
+            
+            if titlelbl.text == "Hotel" {
+                heightolow()
+            }
+            break
+            
+            
         case .nothing:
             starting()
             break
@@ -134,7 +163,6 @@ class SortByPriceTVCell: TableViewCell {
             starting()
             break
         }
-        
     }
     
     
