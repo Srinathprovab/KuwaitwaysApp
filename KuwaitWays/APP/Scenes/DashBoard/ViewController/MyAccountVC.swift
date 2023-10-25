@@ -162,12 +162,14 @@ class MyAccountVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         tablerow.append(TableRow(title:"Frist Name*",subTitle: first_name,text:"1",key1: "noedit", tempText: "Frist Name",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Last Name*",subTitle: last_name,text:"2",key1: "noedit", tempText: "Last Name",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Date Of Birth*",subTitle: date_of_birth,key: "dob",text:"3",key1: "noedit",tempText: "dob",cellType:.TextfieldTVCell))
-        //        tablerow.append(TableRow(title:"Address*",subTitle:address,text:"5",key1: "noedit", tempText: "address",cellType:.TextfieldTVCell))
-        //        tablerow.append(TableRow(title:"Address2*",subTitle: address2,text:"6",key1: "noedit", tempText: "address",cellType:.TextfieldTVCell))
+       
         tablerow.append(TableRow(title:"Mobile Number*",subTitle: phone,key: "mobile",text:"4",key1: "noedit", tempText: "Mobile",cellType:.TextfieldTVCell))
         
         tablerow.append(TableRow(title:"Email*",subTitle: email_id,key: "email",text:"55",key1: "noedit", tempText: "Mobile",cellType:.TextfieldTVCell))
         
+        
+        //        tablerow.append(TableRow(title:"Address*",subTitle:address,text:"5",key1: "noedit", tempText: "address",cellType:.TextfieldTVCell))
+        //        tablerow.append(TableRow(title:"Address2*",subTitle: address2,text:"6",key1: "noedit", tempText: "address",cellType:.TextfieldTVCell))
         
         //        tablerow.append(TableRow(title:"Gender*",subTitle: gender,key:"gender",text:"7",key1: "noedit", tempText: "gender",cellType:.TextfieldTVCell))
         //        tablerow.append(TableRow(title:"Country Name*",subTitle: country_name,text:"8",key1: "noedit", tempText: "cname",cellType:.TextfieldTVCell))

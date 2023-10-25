@@ -69,19 +69,11 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         }
         
         
-        if  callapibool == true && TimerManager.shared.totalTime > 0 {
+        if  callapibool == true {
             
             holderView.isHidden = true
             callAPI()
             
-        }else {
-            holderView.isHidden = true
-           
-            DispatchQueue.main.async {[self] in
-                guard let vc = PopupVC.newInstance.self else {return}
-                vc.modalPresentationStyle = .overCurrentContext
-                self.present(vc, animated: false)
-            }
         }
         
     }

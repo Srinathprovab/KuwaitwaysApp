@@ -58,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func presentBookFlightVC() {
         // Assuming BookFlightVC is a UIViewController subclass
         if let vc = PopupVC.newInstance.self {
-            vc.modalPresentationStyle = .fullScreen
+            vc.modalPresentationStyle = .overCurrentContext
             // You can set up any necessary data for the view controller here
             // For example: vc.data = ...
             if let rootViewController = window?.rootViewController {

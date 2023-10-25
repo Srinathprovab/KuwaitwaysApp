@@ -255,11 +255,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         commonTableView.reloadData()
     }
     
-    
-    
-    
-    
-    
+
     
     //MARK: - didTapOnViewFlightDetails
     @objc func didTapOnViewFlightDetails(_ sender:UIButton) {
@@ -291,7 +287,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     override func didTapOnRefundBtn(cell: PriceSummaryTVCell) {
         commonTableView.reloadData()
     }
-    
     
     
     override func didTapOnSelectAdultTraveller(Cell: AddAdultsOrGuestTVCell) {
@@ -417,23 +412,15 @@ extension PayNowVC {
         payload["booking_source"] = bookingsourcekey
         payload["access_key"] = accesskey
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid)
+        
         vm?.CALL_PRE_PROCESS_BOOKING_API(dictParam: payload)
     }
     
     func preProcessBookingDetails(response: PreProcessBookingModel) {
         
-        
         tokenkey1 = response.form_params?.token_key ?? ""
         callMobileBookingAPI(res: response)
-        
-        //        if response.status == true {
-        //            tokenkey1 = response.form_params?.token_key ?? ""
-        //            callMobileBookingAPI(res: response)
-        //        }else {
-        //
-        //
-        //            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
-        //        }
+    
     }
     
     //MARK: - CALL_MOBILE_BOOKING_API
@@ -454,6 +441,7 @@ extension PayNowVC {
     
     func mobileBookingDetails(response: MobileBookingModel) {
         if response.status == 1 {
+            
             holderView.isHidden = false
             activepaymentoptions = response.active_payment_options?[0] ?? ""
             tmpFlightPreBookingId = response.tmp_flight_pre_booking_id ?? ""
@@ -468,13 +456,7 @@ extension PayNowVC {
                 setupTVCells()
             }
         }
-        
-        //        else {
-        //
-        //
-        //
-        //            gotoNoInternetConnectionVC(key: "noresult", titleStr: "NO AVAILABILITY FOR THIS REQUEST")
-        //        }
+    
     }
     
     
@@ -699,9 +681,7 @@ extension PayNowVC {
         //        payload["billing_zipcode"] = ""
         
         // Check additional conditions
-        if TimerManager.shared.totalTime == 0 {
-            timerDidFinish1()
-        }else if email == "" {
+         if email == "" {
             showToast(message: "Enter Email Address")
         }else if email.isValidEmail() == false {
             showToast(message: "Enter Valid Email Addreess")
@@ -731,11 +711,7 @@ extension PayNowVC {
     }
     
     
-    func timerDidFinish1() {
-        guard let vc = PopupVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: false)
-    }
+   
     
     
     
@@ -1110,11 +1086,9 @@ extension PayNowVC {
                 
                 viewFlightsBtn.addTarget(self, action: #selector(didTapOnViewFlightDetails(_:)), for: .touchUpInside)
                 
-                if callapibool == true && TimerManager.shared.totalTime > 0{
+                if callapibool == true {
                     holderView.isHidden = true
                     callAPI()
-                }else {
-                    timerDidFinish1()
                 }
                 
             }else {
@@ -1129,11 +1103,9 @@ extension PayNowVC {
                 nav.datelbl.text = "CheckIn - \(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.checkin) ?? "" , f1: "dd-MM-yyyy", f2: "dd MMM")) & CheckOut - \(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.checkout) ?? "", f1: "dd-MM-yyyy", f2: "dd MMM"))"
                 
                 
-                if callapibool == true && TimerManager.shared.totalTime > 0{
+                if callapibool == true {
                     holderView.isHidden = true
                     callHotelMobileBookingAPI()
-                }else {
-                    timerDidFinish1()
                 }
                 
             }

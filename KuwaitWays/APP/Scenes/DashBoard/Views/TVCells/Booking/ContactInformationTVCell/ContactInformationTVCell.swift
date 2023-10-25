@@ -88,9 +88,6 @@ class ContactInformationTVCell: TableViewCell {
             emailTF.text = userLogedDetails?.email ?? ""
             mobileTF.text = userLogedDetails?.phone ?? ""
             countrycodeTF.text = userLogedDetails?.country_code ?? ""
-            
-            
-            
         }
     
     

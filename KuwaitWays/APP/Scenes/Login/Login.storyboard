@@ -9,6 +9,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Medium.ttf">
+            <string>OpenSans-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--LoginVC-->
         <scene sceneID="hF2-8p-dRS">
@@ -181,7 +186,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-WP-u8x">
-                                        <rect key="frame" x="0.0" y="283" width="414" height="613"/>
+                                        <rect key="frame" x="0.0" y="281.5" width="414" height="614.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amW-RH-xws" customClass="NavBar" customModule="KuwaitWays" customModuleProvider="target">
@@ -208,30 +213,45 @@
                                             <constraint firstItem="ClD-Qb-aID" firstAttribute="top" secondItem="pa1-z9-vhQ" secondAttribute="top" id="ymq-1a-Ycv"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akQ-mH-lLk">
-                                        <rect key="frame" x="149" y="242" width="116" height="20"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9So-9A-6Jq">
+                                        <rect key="frame" x="147" y="246" width="120" height="19.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8AA-QQ-pmj">
+                                                <rect key="frame" x="8" y="0.0" width="104" height="19.5"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Medium" family="Open Sans" pointSize="14"/>
+                                                <color key="textColor" name="AccentColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hG5-EC-2gI">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="19.5"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="didTapOnChangePicBtn:" destination="J6c-0h-s7Q" eventType="touchUpInside" id="hT8-Jq-Sw5"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Eh-MJ-kwz">
+                                                <rect key="frame" x="8" y="18.5" width="104" height="1"/>
+                                                <color key="backgroundColor" name="AccentColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="JB6-Rw-iUo"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="eew-Yj-y5X"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="change picture">
-                                                    <attributes>
-                                                        <font key="NSFont" size="14" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="didTapOnChangePicBtn:" destination="J6c-0h-s7Q" eventType="touchUpInside" id="MGW-b5-XfX"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHk-NL-NrZ">
-                                        <rect key="frame" x="149" y="262" width="116" height="1"/>
-                                        <color key="backgroundColor" name="AppBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Py9-ff-MLt"/>
+                                            <constraint firstAttribute="bottom" secondItem="7Eh-MJ-kwz" secondAttribute="bottom" id="0fV-a3-T2s"/>
+                                            <constraint firstItem="hG5-EC-2gI" firstAttribute="leading" secondItem="9So-9A-6Jq" secondAttribute="leading" id="DxQ-aJ-svk"/>
+                                            <constraint firstItem="7Eh-MJ-kwz" firstAttribute="leading" secondItem="8AA-QQ-pmj" secondAttribute="leading" id="JLh-Ap-Yjl"/>
+                                            <constraint firstItem="8AA-QQ-pmj" firstAttribute="centerX" secondItem="9So-9A-6Jq" secondAttribute="centerX" id="Lmd-v6-cog"/>
+                                            <constraint firstItem="hG5-EC-2gI" firstAttribute="top" secondItem="9So-9A-6Jq" secondAttribute="top" id="bv6-zR-LM6"/>
+                                            <constraint firstAttribute="trailing" secondItem="hG5-EC-2gI" secondAttribute="trailing" id="eoG-Ue-Qnw"/>
+                                            <constraint firstAttribute="bottom" secondItem="hG5-EC-2gI" secondAttribute="bottom" id="fQZ-bN-0NP"/>
+                                            <constraint firstItem="8AA-QQ-pmj" firstAttribute="bottom" secondItem="7Eh-MJ-kwz" secondAttribute="bottom" id="gTx-QG-fQK"/>
+                                            <constraint firstItem="7Eh-MJ-kwz" firstAttribute="trailing" secondItem="8AA-QQ-pmj" secondAttribute="trailing" id="nP2-QJ-XTN"/>
+                                            <constraint firstItem="8AA-QQ-pmj" firstAttribute="leading" secondItem="9So-9A-6Jq" secondAttribute="leadingMargin" id="sd9-9b-vla"/>
+                                            <constraint firstItem="8AA-QQ-pmj" firstAttribute="centerY" secondItem="9So-9A-6Jq" secondAttribute="centerY" id="t3r-py-jrC"/>
+                                            <constraint firstAttribute="width" constant="120" id="yiV-nh-zYV"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -240,15 +260,12 @@
                                     <constraint firstItem="amW-RH-xws" firstAttribute="leading" secondItem="NRN-q9-ZUZ" secondAttribute="leading" id="0kr-zc-4Qg"/>
                                     <constraint firstItem="pa1-z9-vhQ" firstAttribute="centerX" secondItem="NRN-q9-ZUZ" secondAttribute="centerX" id="1bK-Wp-RfC"/>
                                     <constraint firstItem="pa1-z9-vhQ" firstAttribute="top" secondItem="amW-RH-xws" secondAttribute="bottom" constant="-50" id="1jx-06-1h4"/>
-                                    <constraint firstItem="UHk-NL-NrZ" firstAttribute="leading" secondItem="akQ-mH-lLk" secondAttribute="leading" id="31l-73-hBY"/>
-                                    <constraint firstItem="gaC-WP-u8x" firstAttribute="top" secondItem="UHk-NL-NrZ" secondAttribute="bottom" constant="20" id="9lR-8y-orm"/>
+                                    <constraint firstItem="gaC-WP-u8x" firstAttribute="top" secondItem="9So-9A-6Jq" secondAttribute="bottom" constant="16" id="2q2-IO-aWh"/>
                                     <constraint firstAttribute="bottom" secondItem="gaC-WP-u8x" secondAttribute="bottom" id="Lzw-E6-KsR"/>
                                     <constraint firstItem="gaC-WP-u8x" firstAttribute="leading" secondItem="NRN-q9-ZUZ" secondAttribute="leading" id="PtB-tD-L95"/>
-                                    <constraint firstItem="akQ-mH-lLk" firstAttribute="centerX" secondItem="pa1-z9-vhQ" secondAttribute="centerX" id="Tu8-jK-J2C"/>
                                     <constraint firstAttribute="trailing" secondItem="gaC-WP-u8x" secondAttribute="trailing" id="VAi-Di-tYJ"/>
-                                    <constraint firstItem="UHk-NL-NrZ" firstAttribute="top" secondItem="akQ-mH-lLk" secondAttribute="bottom" id="m43-CT-pc7"/>
-                                    <constraint firstItem="akQ-mH-lLk" firstAttribute="top" secondItem="pa1-z9-vhQ" secondAttribute="bottom" constant="12" id="pyL-7j-s8t"/>
-                                    <constraint firstItem="UHk-NL-NrZ" firstAttribute="trailing" secondItem="akQ-mH-lLk" secondAttribute="trailing" id="sGv-mM-lhd"/>
+                                    <constraint firstItem="9So-9A-6Jq" firstAttribute="centerX" secondItem="ClD-Qb-aID" secondAttribute="centerX" id="d9h-np-HyW"/>
+                                    <constraint firstItem="9So-9A-6Jq" firstAttribute="top" secondItem="pa1-z9-vhQ" secondAttribute="bottom" constant="16" id="lJG-D7-XIu"/>
                                     <constraint firstItem="amW-RH-xws" firstAttribute="top" secondItem="NRN-q9-ZUZ" secondAttribute="top" id="xuE-gA-hKN"/>
                                     <constraint firstAttribute="trailing" secondItem="amW-RH-xws" secondAttribute="trailing" id="zfG-pa-fU1"/>
                                 </constraints>
@@ -264,7 +281,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="changePicBtn" destination="akQ-mH-lLk" id="57H-7S-q4q"/>
+                        <outlet property="changePicBtn" destination="hG5-EC-2gI" id="u8J-K9-oSu"/>
                         <outlet property="commonTableView" destination="gaC-WP-u8x" id="UEJ-IE-Kh9"/>
                         <outlet property="nav" destination="amW-RH-xws" id="hio-Dc-PP2"/>
                         <outlet property="profilePic" destination="ClD-Qb-aID" id="bmT-Os-ehB"/>
@@ -273,14 +290,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rdL-Fj-go3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1619" y="80"/>
+            <point key="canvasLocation" x="1618.840579710145" y="79.6875"/>
         </scene>
     </scenes>
     <resources>
         <image name="bird" width="3579" height="2389"/>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
-        <namedColor name="AppBackgroundColor">
-            <color red="0.067000001668930054" green="0.19599999487400055" blue="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

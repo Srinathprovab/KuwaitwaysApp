@@ -114,12 +114,7 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         profilePicView.layer.borderWidth = 4
         profilePicView.layer.borderColor = UIColor.WhiteColor.cgColor
         
-//        profilePic.layer.cornerRadius = 45
-//        profilePic.clipsToBounds = true
-        changePicBtn.setTitleColor(.AppBackgroundColor, for: .normal)
-        changePicBtn.setTitle("Change Picture", for: .normal)
-        changePicBtn.titleLabel?.font = UIFont.OpenSansMedium(size: 16)
-        
+
         commonTableView.registerTVCells(["EmptyTVCell","LogoImgTVCell","LabelTVCell","TextfieldTVCell","RadioButtonTVCell","ButtonTVCell"])
         appendLoginTvcells()
     }
@@ -132,16 +127,18 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         tablerow.append(TableRow(title:"Frist Name*",subTitle: first_name,text:"1", tempText: "Frist Name",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Last Name*",subTitle: last_name,text:"2", tempText: "Last Name",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Date Of Birth*",subTitle: date_of_birth,key: "dob",text:"3",tempText: "dob",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Mobile Number*",subTitle: phone,key: "mobile",text:"4", tempText: "Mobile",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Mobile Number*",subTitle: phone,text:"4",buttonTitle: country_code,key1: "mobile1", tempText: "Mobile",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Email*",subTitle: email_id,key: "email",text:"55",key1: "noedit", tempText: "Mobile",cellType:.TextfieldTVCell))
         
-        tablerow.append(TableRow(title:"Address",subTitle:address,text:"5", tempText: "address",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Address2",subTitle: address2,text:"6", tempText: "address",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Gender",subTitle: gender,key:"gender",text:"7", tempText: "gender",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Country Name",subTitle: country_name,text:"8", tempText: "cname",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"State Name",subTitle: state_name,text:"9", tempText: "sname",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"City Name",subTitle: city_name,key: "", text:"10", tempText: "cityname",cellType:.TextfieldTVCell))
-        tablerow.append(TableRow(title:"Pin Code",subTitle: pin_code,text:"11", tempText: "pincode",cellType:.TextfieldTVCell))
+//        tablerow.append(TableRow(title:"Address",subTitle:address,text:"5", tempText: "address",cellType:.TextfieldTVCell))
+//        tablerow.append(TableRow(title:"Address2",subTitle: address2,text:"6", tempText: "address",cellType:.TextfieldTVCell))
+//        tablerow.append(TableRow(title:"Gender",subTitle: gender,text:"7",key1:"gender", tempText: "gender",cellType:.TextfieldTVCell))
+        
+        
+//        tablerow.append(TableRow(title:"Country Name",subTitle: country_name,text:"8", tempText: "cname",cellType:.TextfieldTVCell))
+//        tablerow.append(TableRow(title:"State Name",subTitle: state_name,text:"9", tempText: "sname",cellType:.TextfieldTVCell))
+//        tablerow.append(TableRow(title:"City Name",subTitle: city_name,key: "", text:"10", tempText: "cityname",cellType:.TextfieldTVCell))
+//        tablerow.append(TableRow(title:"Pin Code",subTitle: pin_code,text:"11", tempText: "pincode",cellType:.TextfieldTVCell))
         
         
         
@@ -199,6 +196,11 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         }
     }
     
+    
+    
+    override func didTapOnCountryCodeBtnAction(cell:TextfieldTVCell){
+        country_code = cell.countrycodeTF.text ?? ""
+    }
     
     
     override func donedatePicker(cell:TextfieldTVCell){

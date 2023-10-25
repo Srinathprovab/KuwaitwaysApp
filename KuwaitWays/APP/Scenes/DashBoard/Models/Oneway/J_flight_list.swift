@@ -42,7 +42,7 @@ struct J_flight_list : Codable {
     //    let farerulesref_Provider : [String]?
     //    let farerulesref_content : [String]?
     let flight_details : Flight_details?
-    //    let price : Price?
+    let price : Price?
     //    let fare : [Fare]?
     let access_key : String?
     
@@ -88,7 +88,7 @@ struct J_flight_list : Codable {
         //        case farerulesref_Provider = "Farerulesref_Provider"
         //        case farerulesref_content = "Farerulesref_content"
         case flight_details = "flight_details"
-        //        case price = "price"
+        case price = "price"
         //        case fare = "fare"
         case access_key = "access_key"
     }
@@ -135,7 +135,7 @@ struct J_flight_list : Codable {
         //        farerulesref_Provider = try values.decodeIfPresent([String].self, forKey: .farerulesref_Provider)
         //        farerulesref_content = try values.decodeIfPresent([String].self, forKey: .farerulesref_content)
         flight_details = try values.decodeIfPresent(Flight_details.self, forKey: .flight_details)
-        //        price = try values.decodeIfPresent(Price.self, forKey: .price)
+        price = try values.decodeIfPresent(Price.self, forKey: .price)
         //        fare = try values.decodeIfPresent([Fare].self, forKey: .fare)
         access_key = try values.decodeIfPresent(String.self, forKey: .access_key)
     }

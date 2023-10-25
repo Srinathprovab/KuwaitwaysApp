@@ -330,7 +330,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             oneWayFlights = response.data?.j_flight_list ?? [[]]
             oneWayFlights.forEach { i in
                 i.forEach { j in
-                    prices.append(j.totalPrice ?? "")
+                    prices.append("\(j.price?.api_total_display_fare ?? 0.0)")
                     fareTypeA.append(j.fareType ?? "")
                     j.flight_details?.summary?.forEach({ k in
                         
@@ -430,7 +430,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         jfl.forEach { i in
             i.forEach { j in
                 tablerow.append(TableRow(title:j.access_key,
-                                         kwdprice:"\(j.sITECurrencyType ?? ""):\(j.totalPrice_API ?? "")",
+                                         kwdprice:"\(j.price?.api_currency ?? ""):\(String(format: "%.2f", j.price?.api_total_display_fare ?? 0.0))",
                                          refundable:j.fareType,
                                          key: "circle",
                                          moreData: j.flight_details?.summary,

@@ -41,7 +41,7 @@ class TextfieldTVCell: TableViewCell {
     let datePicker = UIDatePicker()
     let dropDown = DropDown()
     let genderdropDown = DropDown()
-    var maxLength = 10
+    var maxLength = 8
     var key = String()
     var delegate:TextfieldTVCellDelegate?
     
@@ -136,10 +136,7 @@ class TextfieldTVCell: TableViewCell {
             break
             
             
-        case "gender":
-            genderdropDown.dataSource = ["Male","Female","Others"]
-            setupGenderDropDown()
-            break
+       
             
         case "mobile1":
             txtfildHolderView.isUserInteractionEnabled = true
@@ -153,9 +150,30 @@ class TextfieldTVCell: TableViewCell {
         }
         
         
-        if cellInfo?.key1 == "noedit" {
+        if cellInfo?.key1 == "mobile1" {
+            
+           
+            txtField.isUserInteractionEnabled = true
+            txtField.alpha = 1
+            countrycodeTF.isUserInteractionEnabled = true
+            countrycodeTF.alpha = 1
+            countrycodeTF.text = cellInfo?.buttonTitle ?? ""
+            
+            countryCodeBtnView.isHidden = false
+            txtfildHolderView.isUserInteractionEnabled = true
+            
+            countrycodeTF.keyboardType = .emailAddress
+            self.txtField.keyboardType = .numberPad
+            
+            
+        }else if cellInfo?.key1 == "noedit" {
             txtField.isUserInteractionEnabled = false
             txtField.alpha = 0.6
+            countrycodeTF.isUserInteractionEnabled = false
+            countrycodeTF.alpha = 0.6
+        }else if cellInfo?.key1 == "gender" {
+            genderdropDown.dataSource = ["Male","Female","Others"]
+            setupGenderDropDown()
         }else {
             txtField.isUserInteractionEnabled = true
             txtField.alpha = 1
@@ -213,6 +231,8 @@ class TextfieldTVCell: TableViewCell {
     
     
     @objc func editingText(textField:UITextField) {
+        
+        
         txtField.setOutlineColor(.black, for: .editing)
         txtField.setOutlineColor(.black, for: .normal)
         

@@ -116,6 +116,7 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
     
     override func didTapOnCountryCodeBtnAction(cell: CreateAccountTVCell) {
         countryCode = cell.countryCodeTF.text ?? ""
+        
     }
     
     func setcolor(tf:MDCOutlinedTextField,color:UIColor) {
@@ -175,7 +176,7 @@ class CreateAccountVC: BaseTableVC, RegisterUserViewModelDelegate {
                 
             }
             
-          //  commonTableView.reloadData()
+         
         }
         
     }
