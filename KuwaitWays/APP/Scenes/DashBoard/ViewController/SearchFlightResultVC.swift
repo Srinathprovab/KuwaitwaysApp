@@ -389,7 +389,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                 nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""
                 nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails)
                 
-                // setupTVCells(jfl: response.data?.j_flight_list ?? [[]])
+               
                 setupRoundTripTVCells(jfl: response.data?.j_flight_list ?? [[]])
                 break
                 
@@ -769,10 +769,7 @@ extension SearchFlightResultVC:AppliedFilters {
             break
         }
         
-        DispatchQueue.main.async {[self] in
-            // commonTableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-        }
-        
+       
     }
     
     

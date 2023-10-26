@@ -253,6 +253,10 @@ extension SideMenuVC:LogoutViewmodelDelegate {
         defaults.set("", forKey: UserDefaultsKeys.userimg)
         defaults.set("", forKey: UserDefaultsKeys.username)
         
+        defaults.set("", forKey: UserDefaultsKeys.useremail)
+        defaults.set("", forKey: UserDefaultsKeys.usermobilecode)
+        defaults.set("", forKey: UserDefaultsKeys.usermobile)
+        
         loginmenubool = false
         
         DispatchQueue.main.async {[self] in

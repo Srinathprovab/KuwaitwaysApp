@@ -81,6 +81,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         vm = PreProcessBookingViewModel(self)
         vm1 = HotelMBViewModel(self)
         
+        
         addObserver()
     }
     
@@ -750,7 +751,6 @@ extension PayNowVC {
     }
     
     
-    
     func sendtoPaymentDetails(response: sendToPaymentModel) {
         
         DispatchQueue.main.async {[self] in
@@ -766,6 +766,8 @@ extension PayNowVC {
             gotoLoadWebViewVC(url: response.form_url ?? "")
         }else {
             showToast(message: response.msg ?? "")
+            gotoNoInternetConnectionVC(key: "noseat", titleStr: "NO SEATS AVAILABILITY FOR THIS REQUEST")
+
         }
         
     }
@@ -1031,9 +1033,10 @@ extension PayNowVC {
         let logstatus = defaults.bool(forKey: UserDefaultsKeys.loggedInStatus)
         if logstatus == true  {
             
-            email = userLogedDetails?.email ?? ""
-            mobile = userLogedDetails?.phone ?? ""
-            countryCode = userLogedDetails?.country_code ?? ""
+            email = defaults.string(forKey: UserDefaultsKeys.useremail) ?? ""
+            mobile = defaults.string(forKey: UserDefaultsKeys.usermobile) ?? ""
+            countryCode = defaults.string(forKey: UserDefaultsKeys.usermobilecode) ?? ""
+          
             mobilenoMaxLengthBool = true
         }else {
             countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""

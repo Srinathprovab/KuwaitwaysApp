@@ -85,9 +85,9 @@ class ContactInformationTVCell: TableViewCell {
         
         let logstatus = defaults.bool(forKey: UserDefaultsKeys.loggedInStatus)
         if logstatus == true  {
-            emailTF.text = userLogedDetails?.email ?? ""
-            mobileTF.text = userLogedDetails?.phone ?? ""
-            countrycodeTF.text = userLogedDetails?.country_code ?? ""
+            emailTF.text = defaults.string(forKey: UserDefaultsKeys.useremail) ?? ""
+            mobileTF.text = defaults.string(forKey: UserDefaultsKeys.usermobile) ?? ""
+            countrycodeTF.text = defaults.string(forKey: UserDefaultsKeys.usermobilecode) ?? ""
         }
     
     
