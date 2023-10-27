@@ -302,7 +302,7 @@ class BookFlightVC: BaseTableVC {
             payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
             payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy"
             payload["search_flight"] = "Search"
-            payload["search_source"] = "search"
+            payload["search_source"] = "Mobile(I)"
             payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
             payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
             
@@ -342,7 +342,7 @@ class BookFlightVC: BaseTableVC {
             payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
             payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy"
             payload["search_flight"] = "Search"
-            payload["search_source"] = "search"
+            payload["search_source"] = "Mobile(I)"
             payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
             payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
             

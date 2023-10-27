@@ -212,16 +212,15 @@ class FilterSearchVC: BaseTableVC {
         filterul.backgroundColor = .WhiteColor
         
       
-        
         if let tabSelected = defaults.string(forKey: UserDefaultsKeys.tabselect) {
             if tabSelected == "Flight" {
+                sortBy = .nothing
+                NotificationCenter.default.post(name: NSNotification.Name("sorttap"), object: nil)
                 setupSortTVCells()
             }else {
                 setupHotelSortTVCells()
             }
         }
-        
-        
     }
     
     @objc func didTapOnFilterBtnAction(_ sender:UIButton) {

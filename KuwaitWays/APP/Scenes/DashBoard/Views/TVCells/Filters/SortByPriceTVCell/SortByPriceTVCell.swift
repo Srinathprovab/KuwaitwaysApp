@@ -46,7 +46,15 @@ class SortByPriceTVCell: TableViewCell {
         heighlbl.text = cellInfo?.buttonTitle
         setupSotyBy()
         
+       // NotificationCenter.default.addObserver(self, selector: #selector(sorttap), name: Notification.Name("sorttap"), object: nil)
+
     }
+    
+    
+    @objc func sorttap(){
+        setupSotyBy()
+    }
+    
     
     
     

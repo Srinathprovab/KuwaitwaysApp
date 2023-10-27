@@ -7,7 +7,9 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, TimerManagerDelegate {
+    
+    
     
     var window: UIWindow?
     
@@ -26,11 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
     
-//    func sceneDidBecomeActive(_ scene: UIScene) {
-//        // Called when the scene has moved from an inactive state to an active state.
-//        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-//
-//    }
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        // Called when the scene has moved from an inactive state to an active state.
+        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        
+    }
     
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
@@ -40,23 +42,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        
+        if TimerManager.shared.totalTime == 0 {
+            presentPopupVC()
+        }
     }
+    
     
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        
+        TimerManager.shared.delegate = self
     }
     
- 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        if TimerManager.shared.totalTime == 0 {
-            presentBookFlightVC()
-        }
+    func timerDidFinish() {
+        
     }
-
-    func presentBookFlightVC() {
-        // Assuming BookFlightVC is a UIViewController subclass
+    
+    func updateTimer() {
+        
+    }
+    
+    func presentPopupVC() {
+        // Assuming PopupVC is a UIViewController subclass
         if let vc = PopupVC.newInstance.self {
             vc.modalPresentationStyle = .overCurrentContext
             // You can set up any necessary data for the view controller here
@@ -66,7 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
     }
-
+    
     
 }
 

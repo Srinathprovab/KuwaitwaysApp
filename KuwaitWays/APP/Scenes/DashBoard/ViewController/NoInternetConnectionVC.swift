@@ -38,8 +38,10 @@ class NoInternetConnectionVC: UIViewController {
     func noresultSetup(){
         wifiImg.image = UIImage(named: "oops")
         setupLabels(lbl: titlelbl, text: titleStr, textcolor: .AppLabelColor, font: .LatoMedium(size: 18))
-        setupLabels(lbl: subTitlelbl, text: "Please Search Again", textcolor: .AppLabelColor, font: .LatoLight(size: 14))
+        setupLabels(lbl: subTitlelbl, text: "Please Search Again!", textcolor: .AppLabelColor, font: .LatoLight(size: 14))
         setupLabels(lbl: btnlbl, text: "Search Again", textcolor: .WhiteColor, font: .LatoSemibold(size: 18))
+        titlelbl.numberOfLines = 0
+        
     }
     
     
@@ -93,7 +95,8 @@ class NoInternetConnectionVC: UIViewController {
             
         }else if key == "noseat" {
             if let tabselect = defaults.string(forKey: UserDefaultsKeys.tabselect),tabselect == "Flight" {
-                searchFlightAgain()
+                // searchFlightAgain()
+                gotoBookFlightVC()
             }else {
                 
             }
@@ -108,6 +111,13 @@ class NoInternetConnectionVC: UIViewController {
 
 
 extension NoInternetConnectionVC {
+    
+    
+    func gotoBookFlightVC() {
+        guard let vc = BookFlightVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
+    }
     
     
     func searchFlightAgain() {

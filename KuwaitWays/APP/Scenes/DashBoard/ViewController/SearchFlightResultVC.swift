@@ -429,6 +429,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         
         jfl.forEach { i in
             i.forEach { j in
+                print(j.access_key)
                 tablerow.append(TableRow(title:j.access_key,
                                          kwdprice:"\(j.price?.api_currency ?? ""):\(String(format: "%.2f", j.price?.api_total_display_fare ?? 0.0))",
                                          refundable:j.fareType,

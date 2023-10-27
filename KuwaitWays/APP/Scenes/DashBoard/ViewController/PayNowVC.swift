@@ -456,8 +456,13 @@ extension PayNowVC {
             DispatchQueue.main.async {[self] in
                 setupTVCells()
             }
+        }else {
+            
+            gotoNoInternetConnectionVC(key: "noresult", titleStr: "Due to Technical issue Booking Process has been aborted. Sorry for inconvenience.")
+
         }
     
+      
     }
     
     
@@ -648,7 +653,6 @@ extension PayNowVC {
         payload["mealsAmount"] = "0"
         payload["baggageAmount"] = "0"
         
-        
         payload["passenger_type"] = passengertypeArrayString
         payload["lead_passenger"] = laedpassengerString
         payload["gender"] = genderString
@@ -696,7 +700,7 @@ extension PayNowVC {
             showToast(message: "Enter Valid Mobile No")
         }
         
-        else if !callpaymentbool {
+        else if callpaymentbool == false {
             showToast(message: "Add Details")
         } else if !fnameCharBool {
             showToast(message: "First name should have more than 3 characters")
@@ -710,10 +714,6 @@ extension PayNowVC {
         
         
     }
-    
-    
-   
-    
     
     
     func processPassengerDetails(response: ProcessPassangerDetailModel) {
@@ -766,7 +766,7 @@ extension PayNowVC {
             gotoLoadWebViewVC(url: response.form_url ?? "")
         }else {
             showToast(message: response.msg ?? "")
-            gotoNoInternetConnectionVC(key: "noseat", titleStr: "NO SEATS AVAILABILITY FOR THIS REQUEST")
+            gotoNoInternetConnectionVC(key: "noseat", titleStr: "Booking Failed Please Contact Kuwatways Customer Service")
 
         }
         
@@ -999,6 +999,8 @@ extension PayNowVC:HotelMBViewModelDelegate {
         }else
         
         if callpaymenthotelbool == false{
+            
+            
             showToast(message: "Add Details")
         }else if fnameCharBool == false{
             showToast(message: "More Than 3 Char")
@@ -1017,9 +1019,7 @@ extension PayNowVC:HotelMBViewModelDelegate {
         secureapidonebool = true
         gotoLoadWebViewVC(url: response.form_url ?? "")
     }
-    
-    
-    
+
 }
 
 
