@@ -608,7 +608,7 @@ extension PayNowVC {
         let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
         let laedpassengerArray = travelerArray.compactMap({$0.laedpassenger})
         let middlenameArray = travelerArray.compactMap({$0.middlename})
-        let passengertypeArray = travelerArray.compactMap({$0.passengertype})
+       // let passengertypeArray = travelerArray.compactMap({$0.passengertype})
         let genderArray = travelerArray.compactMap({$0.gender})
         let firstnameArray = travelerArray.compactMap({$0.firstName})
         let lastNameArray = travelerArray.compactMap({$0.lastName})
@@ -709,6 +709,7 @@ extension PayNowVC {
         } else if checkTermsAndCondationStatus == false {
             showToast(message: "Please Accept T&C and Privacy Policy")
         } else {
+            
             vm?.CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: payload)
         }
         
