@@ -335,7 +335,6 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                     j.flight_details?.summary?.forEach({ k in
                         
                         airlinesA.append(k.operator_name ?? "")
-                        connectingFlightsA.append("\(k.operator_name ?? "") (\(k.operator_code ?? ""))")
                         
                         
                         switch k.no_of_stops {
@@ -360,7 +359,9 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                     
                     j.flight_details?.details?.forEach({ i in
                         i.forEach { j in
-                            connectingAirportA.append("\( j.destination?.airport_name ?? "") (\(j.destination?.loc ?? ""))")
+                            
+                            connectingFlightsA.append("\(j.operator_name ?? "") (\(j.operator_code ?? ""))")
+                            connectingAirportA.append("\( j.destination?.city ?? "") (\(j.destination?.loc ?? ""))")
                         }
                     })
                 }
@@ -389,7 +390,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                 nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""
                 nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails)
                 
-               
+                
                 setupRoundTripTVCells(jfl: response.data?.j_flight_list ?? [[]])
                 break
                 
@@ -549,6 +550,10 @@ extension SearchFlightResultVC:AppliedFilters {
             
             let sortedArray = oneWayFlights.filter { flightList in
                 
+                guard let details = flightList.first?.flight_details?.details else { return false }
+                //                guard let sum = flightList.first?.flight_details?.summary else { return false }
+                //                guard let totaldisplayfare = flightList.first?.price?.api_total_display_fare else { return false }
+                
                 
                 // Calculate the total price for each flight in the flight list
                 let totalPrice = flightList.reduce(0.0) { result, flight in
@@ -564,9 +569,27 @@ extension SearchFlightResultVC:AppliedFilters {
                 // Check if the flight list has at least one flight with the specified cancellation type
                 let refundableMatch = cancellationTypeFA.isEmpty || flightList.contains(where: { $0.fareType == cancellationTypeFA.first })
                 
-                // Check if the flight list has at least one flight with the specified connecting flights
-                let connectingFlightsMatch = connectingFlightsFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { connectingFlightsFA.contains("\($0.operator_name ?? "") (\($0.operator_code ?? ""))") }) ?? false })
                 
+                
+                let connectingFlightsMatch = flightList.contains { flight in
+                    if connectingFlightsFA.isEmpty {
+                        return true // Return true for all flights if 'connectingAirportsFA' is empty
+                    }
+                    
+                    
+                    for summaryArray in details {
+                        if summaryArray.contains(where: { flightDetail in
+                            let operatorname = flightDetail.operator_name ?? ""
+                            let loc = flightDetail.operator_code ?? ""
+                            return connectingFlightsFA.contains("\(operatorname) (\(loc))")
+                        }) {
+                            return true // Return true for this flight if it contains a matching airport
+                        }
+                    }
+                    
+                    
+                    return false // Return false if no matching airport is found in this flight
+                }
                 
                 
                 
@@ -576,17 +599,17 @@ extension SearchFlightResultVC:AppliedFilters {
                     }
                     
                     // Check if 'details' is available and contains the specified airports
-                    if let details = flight.flight_details?.details {
-                        for summaryArray in details {
-                            if summaryArray.contains(where: { flightDetail in
-                                let airportName = flightDetail.destination?.airport_name ?? ""
-                                let airportloc = flightDetail.destination?.loc ?? ""
-                                return connectingAirportsFA.contains("\(airportName) (\(airportloc))")
-                            }) {
-                                return true // Return true for this flight if it contains a matching airport
-                            }
+                    
+                    for summaryArray in details {
+                        if summaryArray.contains(where: { flightDetail in
+                            let airportName = flightDetail.destination?.city ?? ""
+                            let airportloc = flightDetail.destination?.loc ?? ""
+                            return connectingAirportsFA.contains("\(airportName) (\(airportloc))")
+                        }) {
+                            return true // Return true for this flight if it contains a matching airport
                         }
                     }
+                    
                     
                     return false // Return false if no matching airport is found in this flight
                 }
@@ -770,7 +793,7 @@ extension SearchFlightResultVC:AppliedFilters {
             break
         }
         
-       
+        
     }
     
     
