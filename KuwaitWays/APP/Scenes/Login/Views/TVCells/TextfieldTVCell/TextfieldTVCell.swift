@@ -20,7 +20,7 @@ protocol TextfieldTVCellDelegate {
     func cancelDatePicker(cell:TextfieldTVCell)
     
     func didTapOnCountryCodeBtnAction(cell:TextfieldTVCell)
-    
+    func didTapOnGenderBtnAction(cell:TextfieldTVCell)
     
 }
 class TextfieldTVCell: TableViewCell {
@@ -37,7 +37,10 @@ class TextfieldTVCell: TableViewCell {
     @IBOutlet weak var countryCodeBtn: UIButton!
     @IBOutlet weak var countryCodeBtnView: UIView!
     @IBOutlet weak var txtfildHolderView: UIStackView!
+    @IBOutlet weak var btn: UIButton!
     
+    
+    var gender = String()
     let datePicker = UIDatePicker()
     let dropDown = DropDown()
     let genderdropDown = DropDown()
@@ -80,6 +83,7 @@ class TextfieldTVCell: TableViewCell {
         genderdropDown.hide()
         datePicker.isHidden = true
         showPassView.isHidden = true
+        btn.isHidden = true
     }
     
     
@@ -87,6 +91,9 @@ class TextfieldTVCell: TableViewCell {
         
         btnHeight.constant = 0
         loadCountryNamesAndCode()
+        txtField.inputView = nil
+        btn.isHidden = true
+        
         
         setupTextField(txtField1: txtField, tagno: Int(cellInfo?.text ?? "") ?? 0, placeholder: cellInfo?.tempText ?? "",title: cellInfo?.title ?? "",subTitle: cellInfo?.subTitle ?? "")
         setupTextField(txtField1: countrycodeTF, tagno: Int(cellInfo?.text ?? "") ?? 0, placeholder: cellInfo?.tempText ?? "",title: "Code",subTitle: defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? "")
@@ -182,6 +189,8 @@ class TextfieldTVCell: TableViewCell {
         
         if txtField.tag == 3 {
             showDatePicker()
+        }else if txtField.tag == 7{
+            btn.isHidden = false
         }
     }
     
@@ -264,7 +273,10 @@ class TextfieldTVCell: TableViewCell {
         genderdropDown.anchorView = self.txtField
         genderdropDown.bottomOffset = CGPoint(x: 0, y: txtField.frame.size.height + 10)
         genderdropDown.selectionAction = { [weak self] (index: Int, item: String) in
-            print(item)
+            self?.txtField.text = item
+            self?.gender = item
+            
+            self?.delegate?.didTapOnGenderBtnAction(cell: self!)
         }
         
     }
@@ -383,6 +395,9 @@ class TextfieldTVCell: TableViewCell {
         
     }
     
+    @IBAction func didTapOnGenderBtnAction(_ sender: Any) {
+        genderdropDown.show()
+    }
     
     @objc func didTapOnCountryCodeBtnAction(_ sender:UIButton) {
         dropDown.show()

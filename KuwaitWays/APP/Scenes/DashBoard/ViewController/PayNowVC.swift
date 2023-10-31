@@ -1030,7 +1030,7 @@ extension PayNowVC {
     
     func addObserver() {
         
-        
+        checkTermsAndCondationStatus = false
         let logstatus = defaults.bool(forKey: UserDefaultsKeys.loggedInStatus)
         if logstatus == true  {
             

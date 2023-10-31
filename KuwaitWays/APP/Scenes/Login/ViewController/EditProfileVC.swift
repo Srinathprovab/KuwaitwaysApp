@@ -130,15 +130,15 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         tablerow.append(TableRow(title:"Mobile Number*",subTitle: phone,text:"4",buttonTitle: country_code,key1: "mobile1", tempText: "Mobile",cellType:.TextfieldTVCell))
         tablerow.append(TableRow(title:"Email*",subTitle: email_id,key: "email",text:"55",key1: "noedit", tempText: "Mobile",cellType:.TextfieldTVCell))
         
-//        tablerow.append(TableRow(title:"Address",subTitle:address,text:"5", tempText: "address",cellType:.TextfieldTVCell))
-//        tablerow.append(TableRow(title:"Address2",subTitle: address2,text:"6", tempText: "address",cellType:.TextfieldTVCell))
-//        tablerow.append(TableRow(title:"Gender",subTitle: gender,text:"7",key1:"gender", tempText: "gender",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Address",subTitle:address,text:"5", tempText: "address",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Address2",subTitle: address2,text:"6", tempText: "address",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Gender",subTitle: gender,text:"7",key1:"gender", tempText: "gender",cellType:.TextfieldTVCell))
         
         
-//        tablerow.append(TableRow(title:"Country Name",subTitle: country_name,text:"8", tempText: "cname",cellType:.TextfieldTVCell))
-//        tablerow.append(TableRow(title:"State Name",subTitle: state_name,text:"9", tempText: "sname",cellType:.TextfieldTVCell))
-//        tablerow.append(TableRow(title:"City Name",subTitle: city_name,key: "", text:"10", tempText: "cityname",cellType:.TextfieldTVCell))
-//        tablerow.append(TableRow(title:"Pin Code",subTitle: pin_code,text:"11", tempText: "pincode",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Country Name",subTitle: country_name,text:"8", tempText: "cname",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"State Name",subTitle: state_name,text:"9", tempText: "sname",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"City Name",subTitle: city_name,key: "", text:"10", tempText: "cityname",cellType:.TextfieldTVCell))
+        tablerow.append(TableRow(title:"Pin Code",subTitle: pin_code,text:"11", tempText: "pincode",cellType:.TextfieldTVCell))
         
         
         
@@ -282,6 +282,9 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
     }
     
     
+    override func didTapOnGenderBtnAction(cell:TextfieldTVCell){
+        self.gender = cell.gender
+    }
     
     
     func callUpdateProfileAPI() {
@@ -324,6 +327,8 @@ class EditProfileVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         
         
     }
+    
+    
     
     
     

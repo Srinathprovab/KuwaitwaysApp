@@ -193,7 +193,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 titledropDown.dataSource = ["Master","Miss"]
                 titleTF.placeholder = "Master"
             }
-          
+            
         }
         
         
@@ -205,7 +205,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             expandViewBool = false
         }
         
-         
+        
     }
     
     
@@ -376,7 +376,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         flyerdropDown.selectionAction = { [weak self] (index: Int, item: String) in
             
             self?.flyerProgramTF.text = item
-           // self?.delegate?.didTapOnFlyerProgramBtnAction(cell: self!)
+            // self?.delegate?.didTapOnFlyerProgramBtnAction(cell: self!)
         }
         
     }
@@ -398,7 +398,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             
             // Update the gender property of the Traveler object at the specified index
             travelerArray[self?.indexposition ?? 0].passportIssuingCountry = self?.originArray[index] ?? ""
-          //  travelerArray[self?.indexposition ?? 0].passportIssuingCountry = self?.countryNames[index] ?? ""
+            //  travelerArray[self?.indexposition ?? 0].passportIssuingCountry = self?.countryNames[index] ?? ""
             
             self?.issuecountryView.layer.borderColor = UIColor.AppBorderColor.cgColor
             self?.passportExpireDateTF.becomeFirstResponder()
@@ -420,12 +420,15 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         var components = DateComponents()
         
         
+        components.year = -12 // Allow selecting a date at least 12 years in the past
+        let twelveYearsAgo = calendar.date(byAdding: components, to: Date())
+        
         switch ageCategory {
         case .adult:
             
-            components.year = -12 // Allow selecting a date at least 12 years in the past
-            dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
-            
+            //  components.year = -12
+            //  dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
+            dobDatePicker.maximumDate = twelveYearsAgo
             
         case .child:
             components.year = -12
@@ -526,7 +529,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 }else {
                     ageCategory = AgeCategory.infant
                 }
-               showdobDatePicker()
+                showdobDatePicker()
             }
         }
         
