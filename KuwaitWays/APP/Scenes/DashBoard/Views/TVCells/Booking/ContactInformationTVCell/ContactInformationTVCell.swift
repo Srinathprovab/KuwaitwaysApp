@@ -260,7 +260,7 @@ extension ContactInformationTVCell {
         //For mobile numer validation
         if textField == mobileTF {
             
-            maxLength = self.billingCountryName.getMobileNumberMaxLength() ?? 8
+           
             
             let currentString: NSString = textField.text! as NSString
             let newString: NSString =  currentString.replacingCharacters(in: range, with: string) as NSString

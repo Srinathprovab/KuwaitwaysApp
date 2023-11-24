@@ -95,7 +95,6 @@ class FilterSearchVC: BaseTableVC {
     @IBOutlet weak var filterul: UIView!
     @IBOutlet weak var filterbtn: UIButton!
     @IBOutlet weak var buttonsViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var applyBtnView: UIView!
     
     static var newInstance: FilterSearchVC? {

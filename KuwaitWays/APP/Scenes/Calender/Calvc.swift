@@ -293,7 +293,8 @@ class Calvc: UIViewController {
                     defaults.set(calstartDate, forKey: UserDefaultsKeys.checkin)
                     defaults.set(calendDate, forKey: UserDefaultsKeys.checkout)
                     
-                    gotoSearchHotelsVC()
+                    NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
+                    dismiss(animated: false)
                 }
                 
             }
