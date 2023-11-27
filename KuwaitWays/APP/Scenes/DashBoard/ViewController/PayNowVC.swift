@@ -66,6 +66,9 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var positionsCount = 0
     var callpaymentbool = Bool()
     var roompaxesdetails = [Room_paxes_details]()
+    var passportExpiryBool = true
+    var passportExpiryBoolString = String()
+    
     
     // Initialize an array to store the validation state for each cell
     
@@ -215,7 +218,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         
         
         
-        
         passengertypeArray.removeAll()
         tablerow.append(TableRow(height:20, bgColor:.AppHolderViewColor,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Passenger Details",cellType:.TotalNoofTravellerTVCell))
@@ -243,7 +245,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
                 tablerow.append(TableRow(title:"Infant \(i)",key:"infant",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
             }
         }
-        
         
         tablerow.append(TableRow(cellType:.ContactInformationTVCell))
         tablerow.append(TableRow(cellType:.PromocodeTVCell))
@@ -533,8 +534,8 @@ extension PayNowVC {
         // Create an array to store validation results for each cell
         var validationResults: [Bool] = []
         
-        let positionsCount = commonTableView.numberOfRows(inSection: 0)
-        for position in 0..<positionsCount {
+        let positionsCount1 = commonTableView.numberOfRows(inSection: 0)
+        for position in 0..<positionsCount1 {
             
             
             if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfTravellerTVCell {
@@ -706,6 +707,8 @@ extension PayNowVC {
             showToast(message: "First name should have more than 3 characters")
         } else if !lnameCharBool {
             showToast(message: "Last name should have more than 3 characters")
+        }else if passportExpiryBool == false {
+            showToast(message: passportExpiryBoolString)
         } else if checkTermsAndCondationStatus == false {
             showToast(message: "Please Accept T&C and Privacy Policy")
         } else {
@@ -918,8 +921,8 @@ extension PayNowVC:HotelMBViewModelDelegate {
         
         
         
-        let positionsCount = commonTableView.numberOfRows(inSection: 0)
-        for position in 0..<positionsCount {
+        let positionsCount1 = commonTableView.numberOfRows(inSection: 0)
+        for position in 0..<positionsCount1 {
             // Fetch the cell for the given position
             if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfGuestTVCell {
                 
@@ -1051,7 +1054,7 @@ extension PayNowVC {
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reloadTV"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(resultnil), name: NSNotification.Name("resultnil"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(logindon), name: NSNotification.Name("logindon"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(passportexpiry), name: NSNotification.Name("passportexpiry"), object: nil)
         
         
         
@@ -1117,6 +1120,13 @@ extension PayNowVC {
                 
             }
         }
+    }
+    
+    
+    @objc func passportexpiry(notify:NSNotification) {
+        self.passportExpiryBool = false
+        self.passportExpiryBoolString = (notify.object as? String) ?? ""
+        showToast(message: self.passportExpiryBoolString)
     }
     
     

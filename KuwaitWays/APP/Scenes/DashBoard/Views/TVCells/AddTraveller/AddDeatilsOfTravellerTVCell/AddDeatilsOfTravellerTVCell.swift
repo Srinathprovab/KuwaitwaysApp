@@ -372,7 +372,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         flyerdropDown.selectionAction = { [weak self] (index: Int, item: String) in
             
             self?.flyerProgramTF.text = item
-          //  self?.delegate?.didTapOnFlyerProgramBtnAction(cell: self!)
+            //  self?.delegate?.didTapOnFlyerProgramBtnAction(cell: self!)
         }
         
     }
@@ -404,7 +404,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
     }
     
-
+    
     
     func showdobDatePicker() {
         // Format Date
@@ -420,14 +420,14 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         let twelveYearsAgo = calendar.date(byAdding: components, to: Date())
         
         
-      
+        
         
         switch ageCategory {
         case .adult:
             
             //  components.year = -12
             //  dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
-          
+            
             DispatchQueue.main.async {
                 self.dobDatePicker.maximumDate = twelveYearsAgo
             }
@@ -458,25 +458,25 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     
     
-//    func showexpirDatePicker(){
-//        //Formate Date
-//        passportDatePicker.datePickerMode = .date
-//        passportDatePicker.minimumDate = Date()
-//        passportDatePicker.preferredDatePickerStyle = .wheels
-//
-//        //ToolBar
-//        let toolbar = UIToolbar();
-//        toolbar.sizeToFit()
-//        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
-//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-//        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
-//
-//        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
-//
-//        passportExpireDateTF.inputAccessoryView = toolbar
-//        passportExpireDateTF.inputView = passportDatePicker
-//
-//    }
+    //    func showexpirDatePicker(){
+    //        //Formate Date
+    //        passportDatePicker.datePickerMode = .date
+    //        passportDatePicker.minimumDate = Date()
+    //        passportDatePicker.preferredDatePickerStyle = .wheels
+    //
+    //        //ToolBar
+    //        let toolbar = UIToolbar();
+    //        toolbar.sizeToFit()
+    //        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
+    //        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+    //        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
+    //
+    //        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+    //
+    //        passportExpireDateTF.inputAccessoryView = toolbar
+    //        passportExpireDateTF.inputView = passportDatePicker
+    //
+    //    }
     
     
     
@@ -500,7 +500,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         passportExpireDateTF.inputAccessoryView = toolbar
         passportExpireDateTF.inputView = passportDatePicker
     }
-
+    
     
     @objc func donedatePicker(){
         let formatter = DateFormatter()
@@ -520,40 +520,41 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             
         } else if passportExpireDateTF.isFirstResponder {
             passportExpireDateTF.text = formatter.string(from: passportDatePicker.date)
-
+            
             if travelerArray.count <= indexposition {
                 travelerArray += Array(repeating: Traveler(), count: indexposition - travelerArray.count + 1)
             }
-
+            
             // Update the gender property of the Traveler object at the specified index
             travelerArray[indexposition].passportExpireDate = passportExpireDateTF.text
             self.passportexpireView.layer.borderColor = UIColor.AppBorderColor.cgColor
             self.passportExpireDateTF.resignFirstResponder()
             
-            if let selectedDate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""),
-                let passportExpireDate = formatter.date(from: passportExpireDateTF.text ?? "") {
+            if let travelDate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""),
+               let passportExpireDate = formatter.date(from: passportExpireDateTF.text ?? "") {
                 
                 // Check if the travel date is before the current date
-                if selectedDate > passportExpireDate {
-                    print("Please select a travel date in the future.")
+                if travelDate > passportExpireDate {
+                    let errorMessage = "Passport Expiry date must be after \(formatter.string(from: Calendar.current.date(byAdding: .month, value: 3, to: passportExpireDate)!))"
+                    print(errorMessage)
+                    NotificationCenter.default.post(name: NSNotification.Name("passportexpiry"), object: errorMessage)
                     return
                 }
-
-                // Check if the travel date is at least 6 months after the passport expiration date
-                if let sixMonthsLater = Calendar.current.date(byAdding: .month, value: 6, to: passportExpireDate),
-                    selectedDate < sixMonthsLater {
-                    
-                    print("Travel date must be at least 6 months after the passport expiration date.")
-                    return
-                }
-
+                
+                //                // Check if the difference between travel date and passport expiration date is at least 3 months
+                //                if let passportExpireDate1 = formatter.date(from: passportExpireDateTF.text ?? ""),
+                //                   let threeMonthsAfterPassportExpireDate = Calendar.current.date(byAdding: .month, value: 3, to: passportExpireDate1),
+                //                   travelDate < threeMonthsAfterPassportExpireDate {
+                //
+                //                    print("Travel date must be at least 3 months after the passport expiration date.")
+                //                    return
+                //                }
+                
+                
                 // Valid selection, you can proceed with further actions
-                passportExpireDateTF.text = formatter.string(from: selectedDate)
+                passportExpireDateTF.text = formatter.string(from: travelDate)
                 self.passportExpireDateTF.resignFirstResponder()
             }
-
-
-            
             
         }
         
