@@ -85,7 +85,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     var natinalityCode = String()
     var countryCode = String()
     var isssuingCountryCode = String()
-    var maxLength = 50
+    var maxLength = 100
     var nationalityName = String()
     var passIssuingCountryName = String()
     var expandViewBool = true
@@ -407,6 +407,10 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     
     func showdobDatePicker() {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        
         // Format Date
         dobDatePicker.datePickerMode = .date
         dobDatePicker.maximumDate = Date()
@@ -416,8 +420,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         let calendar = Calendar.current
         var components = DateComponents()
         
-        components.year = -12 // Allow selecting a date at least 12 years in the past
-        let twelveYearsAgo = calendar.date(byAdding: components, to: Date())
         
         
         
@@ -425,20 +427,99 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         switch ageCategory {
         case .adult:
             
-            //  components.year = -12
-            //  dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
             
-            DispatchQueue.main.async {
-                self.dobDatePicker.maximumDate = twelveYearsAgo
+            let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+            if journyType == "oneway" {
+                if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
+                    components.year = -12 // Allow selecting a date at least 12 years in the past
+                    let twelveYearsLater = calendar.date(byAdding: components, to: newdate)
+                    
+                    
+                    if self.dobDatePicker.maximumDate == Date() {
+                        DispatchQueue.main.async {
+                            self.dobDatePicker.maximumDate = twelveYearsLater
+                        }
+                        
+                    }else {
+                        DispatchQueue.main.async {
+                            self.dobDatePicker.maximumDate = twelveYearsLater
+                        }
+                        
+                    }
+                }
+                
+            }else {
+                if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "") {
+                    components.year = -12 // Allow selecting a date at least 12 years in the past
+                    let twelveYearsLater = calendar.date(byAdding: components, to: newdate)
+                    
+                    if self.dobDatePicker.maximumDate == Date() {
+                        DispatchQueue.main.async {
+                            self.dobDatePicker.maximumDate = twelveYearsLater
+                        }
+                        
+                    }else {
+                        DispatchQueue.main.async {
+                            self.dobDatePicker.maximumDate = twelveYearsLater
+                        }
+                        
+                    }
+                    
+                }
             }
+            
+            
+            
         case .child:
-            components.year = -2 // Allow selecting a date at least 2 years in the past
-            dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
-            components.year = -11 // Allow selecting a date at most 11 years in the past
-            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            //            components.year = -2 // Allow selecting a date at least 2 years in the past
+            //            dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
+            //            components.year = -11 // Allow selecting a date at most 11 years in the past
+            //            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            
+            
+            let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+            if journyType == "oneway" {
+                if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
+                    components.year = -2 // Allow selecting a date at least 2 years in the past
+                    dobDatePicker.maximumDate = calendar.date(byAdding: components, to: newdate)
+                    components.year = -12 // Allow selecting a date at most 11 years in the past
+                    dobDatePicker.minimumDate = calendar.date(byAdding: components, to: newdate)
+                    
+                }
+            }else {
+                if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "") {
+                    components.year = -2 // Allow selecting a date at least 2 years in the past
+                    dobDatePicker.maximumDate = calendar.date(byAdding: components, to: newdate)
+                    components.year = -12 // Allow selecting a date at most 11 years in the past
+                    dobDatePicker.minimumDate = calendar.date(byAdding: components, to: newdate)
+                    
+                }
+            }
+            
+            
+
+            
         case .infant:
-            components.year = -2
-            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            //            components.year = -2
+            //            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            
+            
+            
+            
+            let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+            if journyType == "oneway" {
+                if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
+                    components.year = -2
+                    dobDatePicker.minimumDate = calendar.date(byAdding: components, to: newdate)
+                    
+                }
+            }else {
+                if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "") {
+                    components.year = -2
+                    dobDatePicker.minimumDate = calendar.date(byAdding: components, to: newdate)
+                    
+                }
+            }
             
         }
         
@@ -533,13 +614,13 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             if let travelDate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""),
                let passportExpireDate = formatter.date(from: passportExpireDateTF.text ?? "") {
                 
-                // Check if the travel date is before the current date
-                if travelDate > passportExpireDate {
-                    let errorMessage = "Passport Expiry date must be after \(formatter.string(from: Calendar.current.date(byAdding: .month, value: 3, to: passportExpireDate)!))"
-                    print(errorMessage)
-                    NotificationCenter.default.post(name: NSNotification.Name("passportexpiry"), object: errorMessage)
-                    return
-                }
+                //                // Check if the travel date is before the current date
+                //                if travelDate > passportExpireDate {
+                //                    let errorMessage = "Passport Expiry date must be after \(formatter.string(from: Calendar.current.date(byAdding: .month, value: 3, to: passportExpireDate)!))"
+                //                    print(errorMessage)
+                //                    NotificationCenter.default.post(name: NSNotification.Name("passportexpiry"), object: errorMessage)
+                //                    return
+                //                }
                 
                 //                // Check if the difference between travel date and passport expiration date is at least 3 months
                 //                if let passportExpireDate1 = formatter.date(from: passportExpireDateTF.text ?? ""),
@@ -619,8 +700,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             default:
                 break
             }
-            
-            
             
         }
         

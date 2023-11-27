@@ -245,11 +245,6 @@ func filterContentForSearchText(_ searchText: String) {
     dropDown.show()
     
 }
-
-
-
-
-
 }
 
 
@@ -267,7 +262,7 @@ extension ContactInformationTVCell {
             let characterSet = CharacterSet(charactersIn: string)
             return allowedCharacters.isSuperset(of: characterSet) && newString.length <= maxLength
         }else {
-             maxLength = 30
+             maxLength = 100
             let currentString: NSString = textField.text! as NSString
             let newString: NSString =  currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
