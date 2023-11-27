@@ -59,7 +59,7 @@ class BookedTravelDetailsTVCell: TableViewCell {
         ulView.backgroundColor = HexColor("#E6E8E7")
         setupLabels(lbl: travellerNamelbl, text: "Traveller Name", textcolor: HexColor("#5B5B5B"), font: .OpenSansRegular(size: 14))
         setupLabels(lbl: typelbl, text: "Type", textcolor: HexColor("#5B5B5B"), font: .OpenSansRegular(size: 14))
-        setupLabels(lbl: seatlbl, text: "Seat", textcolor: HexColor("#5B5B5B"), font: .OpenSansRegular(size: 14))
+        setupLabels(lbl: seatlbl, text: "Passport No", textcolor: HexColor("#5B5B5B"), font: .OpenSansRegular(size: 14))
         
     }
     
@@ -99,7 +99,7 @@ extension BookedTravelDetailsTVCell:UITableViewDelegate,UITableViewDataSource {
             cell.selectionStyle = .none
             cell.travellerNamelbl.text = "\(vouchercustomerdetails[indexPath.row].first_name ?? "") \(vouchercustomerdetails[indexPath.row].last_name ?? "")"
             cell.typelbl.text = "\(vouchercustomerdetails[indexPath.row].passenger_type ?? "")"
-            cell.seatlbl.text = "\(vouchercustomerdetails[indexPath.row].ticket_no ?? "0000")"
+            cell.seatlbl.text = "\(vouchercustomerdetails[indexPath.row].passport_number ?? "0000")"
             c = cell
         }
         return c

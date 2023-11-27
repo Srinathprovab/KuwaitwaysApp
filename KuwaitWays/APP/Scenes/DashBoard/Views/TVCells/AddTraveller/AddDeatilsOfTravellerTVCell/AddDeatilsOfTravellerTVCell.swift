@@ -73,7 +73,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     @IBOutlet weak var flyerPgmBtnView: UIView!
     
     
-    var mrplaceholder = String()
     let dobDatePicker = UIDatePicker()
     let passportDatePicker = UIDatePicker()
     let dropDown = DropDown()
@@ -115,6 +114,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     override func prepareForReuse() {
         collapsView()
+        showdobDatePicker()
     }
     
     
@@ -141,8 +141,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     override func updateUI() {
         
         titlelbl.text = cellInfo?.title
-        mrplaceholder = cellInfo?.headerText ?? ""
-        
         
         guard let characterLimit = cellInfo?.characterLimit else {
             return
@@ -171,7 +169,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].middlename = ""
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 titledropDown.dataSource = ["Mr","Ms","Mrs"]
-                titleTF.placeholder = "Mr"
+                
             } else if cellInfo.key == "child" {
                 if travelerArray.count <= self.indexposition {
                     travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
@@ -181,7 +179,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].middlename = ""
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 titledropDown.dataSource = ["Master","Miss"]
-                titleTF.placeholder = "Master"
+                
             } else {
                 if travelerArray.count <= self.indexposition {
                     travelerArray += Array(repeating: Traveler(), count: (self.indexposition ) - travelerArray.count + 1)
@@ -191,27 +189,23 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
                 travelerArray[self.indexposition ].middlename = ""
                 travelerArray[self.indexposition ].laedpassenger = "0"
                 titledropDown.dataSource = ["Master","Miss"]
-                titleTF.placeholder = "Master"
+                
             }
-            
+            showdobDatePicker()
         }
         
         
         if cellInfo?.title == "Adult 1" {
-            
             setAttributedText(str1: "Adult 1", str2: "  Lead Passanger")
             travelerArray[self.indexposition ].laedpassenger = "1"
             expandView()
             expandViewBool = false
         }
-        
-        
     }
     
     
     func setupUI() {
         
-        showdobDatePicker()
         setuplabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .LatoRegular(size: 14), align: .left)
         dropdownimg.image = UIImage(named: "down")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppLabelColor)
         
@@ -224,8 +218,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         collapsView()
         
         
-        setupTextField(txtField: titleTF, tag1: 11, label: "Title*", placeholder: mrplaceholder)
-        
+        setupTextField(txtField: titleTF, tag1: 11, label: "Title*", placeholder: "Mr")
         setupTextField(txtField: fnameTF, tag1: 1, label: "First Name*", placeholder: "First Name")
         setupTextField(txtField: lnameTF, tag1: 2, label: "Last Name*", placeholder: "Last Name")
         setupTextField(txtField: dobTF, tag1: 3, label: "Date of Birth*", placeholder: "DOB")
@@ -312,6 +305,9 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     }
     
     
+    
+    
+    
     func setupTitleDropDown() {
         
         titledropDown.direction = .bottom
@@ -376,7 +372,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         flyerdropDown.selectionAction = { [weak self] (index: Int, item: String) in
             
             self?.flyerProgramTF.text = item
-            // self?.delegate?.didTapOnFlyerProgramBtnAction(cell: self!)
+          //  self?.delegate?.didTapOnFlyerProgramBtnAction(cell: self!)
         }
         
     }
@@ -398,7 +394,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             
             // Update the gender property of the Traveler object at the specified index
             travelerArray[self?.indexposition ?? 0].passportIssuingCountry = self?.originArray[index] ?? ""
-            //  travelerArray[self?.indexposition ?? 0].passportIssuingCountry = self?.countryNames[index] ?? ""
+            //  travelerArray[self?.indexposition ?? 0].passportIssuingCountryName = self?.countryNames[index] ?? ""
             
             self?.issuecountryView.layer.borderColor = UIColor.AppBorderColor.cgColor
             self?.passportExpireDateTF.becomeFirstResponder()
@@ -408,9 +404,10 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         
     }
     
+
     
     func showdobDatePicker() {
-        // Formate Date
+        // Format Date
         dobDatePicker.datePickerMode = .date
         dobDatePicker.maximumDate = Date()
         dobDatePicker.preferredDatePickerStyle = .wheels
@@ -419,27 +416,30 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         let calendar = Calendar.current
         var components = DateComponents()
         
-        
         components.year = -12 // Allow selecting a date at least 12 years in the past
         let twelveYearsAgo = calendar.date(byAdding: components, to: Date())
+        
+        
+      
         
         switch ageCategory {
         case .adult:
             
             //  components.year = -12
             //  dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
-            dobDatePicker.maximumDate = twelveYearsAgo
-            
+          
+            DispatchQueue.main.async {
+                self.dobDatePicker.maximumDate = twelveYearsAgo
+            }
         case .child:
-            components.year = -12
-            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
-            
-            components.year = -2 // Allow selecting a date up to 2 years in the past
+            components.year = -2 // Allow selecting a date at least 2 years in the past
             dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
-            
+            components.year = -11 // Allow selecting a date at most 11 years in the past
+            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
         case .infant:
             components.year = -2
             dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
+            
         }
         
         // ToolBar
@@ -458,28 +458,49 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     
     
+//    func showexpirDatePicker(){
+//        //Formate Date
+//        passportDatePicker.datePickerMode = .date
+//        passportDatePicker.minimumDate = Date()
+//        passportDatePicker.preferredDatePickerStyle = .wheels
+//
+//        //ToolBar
+//        let toolbar = UIToolbar();
+//        toolbar.sizeToFit()
+//        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
+//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+//        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
+//
+//        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+//
+//        passportExpireDateTF.inputAccessoryView = toolbar
+//        passportExpireDateTF.inputView = passportDatePicker
+//
+//    }
     
-    func showexpirDatePicker(){
-        //Formate Date
+    
+    
+    
+    func showexpirDatePicker() {
+        // Formate Date
         passportDatePicker.datePickerMode = .date
         passportDatePicker.minimumDate = Date()
         passportDatePicker.preferredDatePickerStyle = .wheels
         
-        //ToolBar
-        let toolbar = UIToolbar();
+        // ToolBar
+        let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
         
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
+        
+        toolbar.setItems([doneButton, spaceButton, cancelButton], animated: false)
         
         passportExpireDateTF.inputAccessoryView = toolbar
         passportExpireDateTF.inputView = passportDatePicker
-        
     }
-    
-    
+
     
     @objc func donedatePicker(){
         let formatter = DateFormatter()
@@ -499,15 +520,41 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             
         } else if passportExpireDateTF.isFirstResponder {
             passportExpireDateTF.text = formatter.string(from: passportDatePicker.date)
-            
+
             if travelerArray.count <= indexposition {
                 travelerArray += Array(repeating: Traveler(), count: indexposition - travelerArray.count + 1)
             }
-            
+
             // Update the gender property of the Traveler object at the specified index
             travelerArray[indexposition].passportExpireDate = passportExpireDateTF.text
             self.passportexpireView.layer.borderColor = UIColor.AppBorderColor.cgColor
             self.passportExpireDateTF.resignFirstResponder()
+            
+            if let selectedDate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""),
+                let passportExpireDate = formatter.date(from: passportExpireDateTF.text ?? "") {
+                
+                // Check if the travel date is before the current date
+                if selectedDate > passportExpireDate {
+                    print("Please select a travel date in the future.")
+                    return
+                }
+
+                // Check if the travel date is at least 6 months after the passport expiration date
+                if let sixMonthsLater = Calendar.current.date(byAdding: .month, value: 6, to: passportExpireDate),
+                    selectedDate < sixMonthsLater {
+                    
+                    print("Travel date must be at least 6 months after the passport expiration date.")
+                    return
+                }
+
+                // Valid selection, you can proceed with further actions
+                passportExpireDateTF.text = formatter.string(from: selectedDate)
+                self.passportExpireDateTF.resignFirstResponder()
+            }
+
+
+            
+            
         }
         
         delegate?.donedatePicker(cell: self)
@@ -524,9 +571,9 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             if let cellInfo = cellInfo {
                 if cellInfo.key == "adult" {
                     ageCategory = AgeCategory.adult
-                }else if cellInfo.key == "child" {
+                } else if cellInfo.key == "child" {
                     ageCategory = AgeCategory.child
-                }else {
+                } else {
                     ageCategory = AgeCategory.infant
                 }
                 showdobDatePicker()
@@ -537,8 +584,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             // loadCountryNamesAndCode()
         }
     }
-    
-    
     
     
     
@@ -555,9 +600,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             case fnameTF:
                 fnameView.layer.borderColor = UIColor.AppBorderColor.cgColor
                 travelerArray[indexposition].firstName = text
-                
-                
-                
                 break
                 
             case lnameTF:
@@ -602,8 +644,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     
     
     @objc func searchTextBegin(textField: UITextField) {
-        
-        textField.text = "a"
+        textField.text = ""
         filterdcountrylist.removeAll()
         filterdcountrylist = countrylist
         loadCountryNamesAndCode()
@@ -646,8 +687,6 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         }
         
     }
-    
-    
     
     
     
@@ -713,4 +752,6 @@ extension AddDeatilsOfTravellerTVCell {
         
     }
 }
+
+
 

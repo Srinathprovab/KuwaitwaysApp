@@ -16,7 +16,7 @@ struct Customer_details : Codable {
     //	let date_of_birth : String?
     //	let gender : String?
     //	let passenger_nationality : String?
-    //	let passport_number : String?
+    let passport_number : String?
     //	let passport_issuing_country : String?
     //	let passport_expiry_date : String?
     //	let ff_no : String?
@@ -43,7 +43,7 @@ struct Customer_details : Codable {
         //		case date_of_birth = "date_of_birth"
         //		case gender = "gender"
         //		case passenger_nationality = "passenger_nationality"
-        //		case passport_number = "passport_number"
+        case passport_number = "passport_number"
         //		case passport_issuing_country = "passport_issuing_country"
         //		case passport_expiry_date = "passport_expiry_date"
         //		case ff_no = "ff_no"
@@ -71,7 +71,7 @@ struct Customer_details : Codable {
         //		date_of_birth = try values.decodeIfPresent(String.self, forKey: .date_of_birth)
         //		gender = try values.decodeIfPresent(String.self, forKey: .gender)
         //		passenger_nationality = try values.decodeIfPresent(String.self, forKey: .passenger_nationality)
-        //		passport_number = try values.decodeIfPresent(String.self, forKey: .passport_number)
+        passport_number = try values.decodeIfPresent(String.self, forKey: .passport_number)
         //		passport_issuing_country = try values.decodeIfPresent(String.self, forKey: .passport_issuing_country)
         //		passport_expiry_date = try values.decodeIfPresent(String.self, forKey: .passport_expiry_date)
         //		ff_no = try values.decodeIfPresent(String.self, forKey: .ff_no)

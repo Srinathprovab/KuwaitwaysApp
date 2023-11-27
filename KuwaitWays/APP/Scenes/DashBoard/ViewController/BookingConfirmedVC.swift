@@ -256,7 +256,7 @@ extension BookingConfirmedVC {
         BASE_URL = BASE_URL1
         
         hotelVoucherData = response.data
-//        fdetails = response.flight_details?.summary ?? []
+        //        fdetails = response.flight_details?.summary ?? []
         kwdPrice = "\(response.data?.booking_details?[0].currency ?? ""):\(response.data?.booking_details?[0].grand_total ?? 0.0)"
         
         

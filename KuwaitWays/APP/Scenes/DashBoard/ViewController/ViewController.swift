@@ -125,8 +125,8 @@ class ViewController: UIViewController {
                 self.gotodashBoardScreen()
                 
                 
-//                                defaults.set("Flight", forKey: UserDefaultsKeys.tabselect)
-//                                self.gotoBookingConfirmedVC(url: "https://kuwaitways.com/mobile_webservices/index.php/voucher/flight/KWA-F-TP-0425-4745/PTBSID0000000016/show_voucher")
+                //                                defaults.set("Flight", forKey: UserDefaultsKeys.tabselect)
+                //                                self.gotoBookingConfirmedVC(url: "https://kuwaitways.com/mobile_webservices/index.php/voucher/flight/KWA-F-TP-1127-2303/PTBSID0000000016/show_voucher")
             })
         }
         
@@ -172,30 +172,30 @@ protocol TimerManagerDelegate: AnyObject {
 class TimerManager {
     static let shared = TimerManager() // Singleton instance
     weak var delegate: TimerManagerDelegate?
-
+    
     var timerDidFinish = false
     var timer: Timer?
     var totalTime = 1
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-
+    
     private init() {}
-
-
+    
+    
     func startTimer(time:Int) {
         endBackgroundTask() // End any existing background task (if any)
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
         }
-
+        
         // Reset the totalTime to its initial value (e.g., 60 seconds)
         totalTime = time
-
+        
         // Schedule the timer in the common run loop mode
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: .common)
     }
-
-
+    
+    
     @objc func updateTimer() {
         if totalTime != 0 {
             totalTime -= 1
@@ -206,22 +206,22 @@ class TimerManager {
             endBackgroundTask()
         }
     }
-
+    
     @objc func sessionStop() {
         if let timer = timer {
             timer.invalidate()
             self.timer = nil
         }
     }
-
+    
     func stopTimer() {
         if let timer = timer {
             timer.invalidate()
             self.timer = nil
         }
     }
-
-
+    
+    
     private func endBackgroundTask() {
         guard backgroundTask != .invalid else { return }
         UIApplication.shared.endBackgroundTask(backgroundTask)

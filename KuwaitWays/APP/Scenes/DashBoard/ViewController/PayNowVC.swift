@@ -214,7 +214,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         }
         
         
-        tablerow.append(TableRow(cellType:.ContactInformationTVCell))
+        
         
         passengertypeArray.removeAll()
         tablerow.append(TableRow(height:20, bgColor:.AppHolderViewColor,cellType:.EmptyTVCell))
@@ -222,7 +222,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         for i in 1...adultsCount {
             positionsCount += 1
             passengertypeArray.append("Adult")
-            let travellerCell = TableRow(title: "Adult \(i)", key: "adult", headerText: "Mr",characterLimit: positionsCount, cellType: .AddDeatilsOfTravellerTVCell)
+            let travellerCell = TableRow(title: "Adult \(i)", key: "adult", characterLimit: positionsCount, cellType: .AddDeatilsOfTravellerTVCell)
             tablerow.append(travellerCell)
             
         }
@@ -232,7 +232,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             for i in 1...childCount {
                 positionsCount += 1
                 passengertypeArray.append("Child")
-                tablerow.append(TableRow(title:"Child \(i)",key:"child",headerText: "Master",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
+                tablerow.append(TableRow(title:"Child \(i)",key:"child",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
             }
         }
         
@@ -240,12 +240,12 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             for i in 1...infantsCount {
                 positionsCount += 1
                 passengertypeArray.append("Infant")
-                tablerow.append(TableRow(title:"Infant \(i)",key:"infant",headerText: "Master",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
+                tablerow.append(TableRow(title:"Infant \(i)",key:"infant",characterLimit: positionsCount,cellType:.AddDeatilsOfTravellerTVCell))
             }
         }
         
         
-        //   tablerow.append(TableRow(cellType:.BillingAddressTVCell))
+        tablerow.append(TableRow(cellType:.ContactInformationTVCell))
         tablerow.append(TableRow(cellType:.PromocodeTVCell))
         tablerow.append(TableRow(cellType:.PriceSummaryTVCell))
         tablerow.append(TableRow(title:"I Accept T&C and Privacy Policy",cellType:.AcceptTermsAndConditionTVCell))
@@ -256,7 +256,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         commonTableView.reloadData()
     }
     
-
+    
     
     //MARK: - didTapOnViewFlightDetails
     @objc func didTapOnViewFlightDetails(_ sender:UIButton) {
@@ -421,7 +421,7 @@ extension PayNowVC {
         
         tokenkey1 = response.form_params?.token_key ?? ""
         callMobileBookingAPI(res: response)
-    
+        
     }
     
     //MARK: - CALL_MOBILE_BOOKING_API
@@ -459,10 +459,10 @@ extension PayNowVC {
         }else {
             
             gotoNoInternetConnectionVC(key: "noresult", titleStr: "Due to Technical issue Booking Process has been aborted. Sorry for inconvenience.")
-
+            
         }
-    
-      
+        
+        
     }
     
     
@@ -608,7 +608,7 @@ extension PayNowVC {
         let mrtitleArray = travelerArray.compactMap({$0.mrtitle})
         let laedpassengerArray = travelerArray.compactMap({$0.laedpassenger})
         let middlenameArray = travelerArray.compactMap({$0.middlename})
-       // let passengertypeArray = travelerArray.compactMap({$0.passengertype})
+        // let passengertypeArray = travelerArray.compactMap({$0.passengertype})
         let genderArray = travelerArray.compactMap({$0.gender})
         let firstnameArray = travelerArray.compactMap({$0.firstName})
         let lastNameArray = travelerArray.compactMap({$0.lastName})
@@ -686,7 +686,7 @@ extension PayNowVC {
         //        payload["billing_zipcode"] = ""
         
         // Check additional conditions
-         if email == "" {
+        if email == "" {
             showToast(message: "Enter Email Address")
         }else if email.isValidEmail() == false {
             showToast(message: "Enter Valid Email Addreess")
@@ -771,7 +771,7 @@ extension PayNowVC {
         }else {
             showToast(message: response.msg ?? "")
             gotoNoInternetConnectionVC(key: "noseat", titleStr: "Booking Failed Please Contact Kuwatways Customer Service")
-
+            
         }
         
     }
@@ -1023,7 +1023,7 @@ extension PayNowVC:HotelMBViewModelDelegate {
         secureapidonebool = true
         gotoLoadWebViewVC(url: response.form_url ?? "")
     }
-
+    
 }
 
 
@@ -1040,7 +1040,7 @@ extension PayNowVC {
             email = defaults.string(forKey: UserDefaultsKeys.useremail) ?? ""
             mobile = defaults.string(forKey: UserDefaultsKeys.usermobile) ?? ""
             countryCode = defaults.string(forKey: UserDefaultsKeys.usermobilecode) ?? ""
-          
+            
             mobilenoMaxLengthBool = true
         }else {
             countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
