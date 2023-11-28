@@ -99,7 +99,7 @@ class BaseVC: BaseTableVC {
 }
 extension BaseVC {
     @objc func leftBarBtnAction() {
-        print("button clicked")
+       
     }
     
     @objc func rightBarBtnAction() { }

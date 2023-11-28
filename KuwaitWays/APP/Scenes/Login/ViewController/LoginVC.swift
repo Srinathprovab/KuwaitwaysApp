@@ -238,6 +238,7 @@ extension LoginVC:LoginViewModelDelegate {
             defaults.set(response.user_id, forKey: UserDefaultsKeys.userid)
             defaults.set("\(response.first_name ?? "") \(response.last_name ?? "")", forKey: UserDefaultsKeys.username)
             defaults.set(response.image, forKey: UserDefaultsKeys.userimg)
+            
             defaults.set(response.email, forKey: UserDefaultsKeys.useremail)
             defaults.set(response.country_code, forKey: UserDefaultsKeys.usermobilecode)
             defaults.set(response.phone, forKey: UserDefaultsKeys.usermobile)

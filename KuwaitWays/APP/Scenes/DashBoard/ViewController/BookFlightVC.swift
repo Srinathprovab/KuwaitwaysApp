@@ -135,13 +135,14 @@ class BookFlightVC: BaseTableVC {
     
     func appendTvcells(str:String) {
         tablerow.removeAll()
-        
+        commonTableView.isScrollEnabled = false
         tablerow.append(TableRow(key:str,cellType:.SearchFlightTVCell))
         //   tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(title:"Best Deals Flights",key: "deals",cellType:.LabelTVCell))
-        tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(key1:"flight",cellType:.HotelDealsTVCell))
-        tablerow.append(TableRow(height:30,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
+        //        tablerow.append(TableRow(title:"Best Deals Flights",key: "deals",cellType:.LabelTVCell))
+        //        tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
+        //        tablerow.append(TableRow(key1:"flight",cellType:.HotelDealsTVCell))
+        //        tablerow.append(TableRow(height:30,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
+        
         
         commonTVData = tablerow
         commonTableView.reloadData()
@@ -154,10 +155,10 @@ class BookFlightVC: BaseTableVC {
         
         tablerow.append(TableRow(cellType:.AddCityTVCell))
         tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(title:"Flight ",subTitle: "Popular International Flights From Kuwait",key: "deals",cellType:.LabelTVCell))
-        tablerow.append(TableRow(height:18,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
-        tablerow.append(TableRow(key1:"flight",cellType:.HotelDealsTVCell))
-        tablerow.append(TableRow(height:30,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
+        //        tablerow.append(TableRow(title:"Flight ",subTitle: "Popular International Flights From Kuwait",key: "deals",cellType:.LabelTVCell))
+        //        tablerow.append(TableRow(height:18,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
+        //        tablerow.append(TableRow(key1:"flight",cellType:.HotelDealsTVCell))
+        //        tablerow.append(TableRow(height:30,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         
         commonTVData = tablerow
         commonTableView.reloadData()
@@ -537,7 +538,7 @@ class BookFlightVC: BaseTableVC {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd-MM-yyyy"
             defaults.set(formatter.string(from: cell.depDatePicker.date), forKey: UserDefaultsKeys.calDepDate)
-           
+            
         }else {
             
             let formatter = DateFormatter()

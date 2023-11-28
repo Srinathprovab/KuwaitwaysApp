@@ -218,13 +218,13 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         collapsView()
         
         
-        setupTextField(txtField: titleTF, tag1: 11, label: "Title*", placeholder: "Mr")
-        setupTextField(txtField: fnameTF, tag1: 1, label: "First Name*", placeholder: "First Name")
-        setupTextField(txtField: lnameTF, tag1: 2, label: "Last Name*", placeholder: "Last Name")
-        setupTextField(txtField: dobTF, tag1: 3, label: "Date of Birth*", placeholder: "DOB")
-        setupTextField(txtField: passportnoTF, tag1: 5, label: "Passport NO*", placeholder: "Passport NO")
-        setupTextField(txtField: passportIssuingCountryTF, tag1: 6, label: "Passport Issuing Country*", placeholder: "Issuing Country")
-        setupTextField(txtField: passportExpireDateTF, tag1: 7, label: "Passport Exprity Date*", placeholder: "Exprity Date")
+        setupTextField(txtField: titleTF, tag1: 11, label: "Title*", placeholder: "Mr*")
+        setupTextField(txtField: fnameTF, tag1: 1, label: "First Name*", placeholder: "First Name*")
+        setupTextField(txtField: lnameTF, tag1: 2, label: "Last Name*", placeholder: "Last Name*")
+        setupTextField(txtField: dobTF, tag1: 3, label: "Date of Birth*", placeholder: "DOB*")
+        setupTextField(txtField: passportnoTF, tag1: 5, label: "Passport Number*", placeholder: "Passport Number*")
+        setupTextField(txtField: passportIssuingCountryTF, tag1: 6, label: "Passport Issuing Country*", placeholder: "Issuing Country*")
+        setupTextField(txtField: passportExpireDateTF, tag1: 7, label: "Passport Expiry Date*", placeholder: "Expiry Date*")
         setupTextField(txtField: flyerProgramTF, tag1: 8, label: "Flyer Program ", placeholder: "Flyer Program")
         setupTextField(txtField: flyerNoTF, tag1: 9, label: "Flyer Number ", placeholder: "Flyer Number")
         
@@ -419,6 +419,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         // Set date restrictions based on age category
         let calendar = Calendar.current
         var components = DateComponents()
+        var components1 = DateComponents()
         
         
         
@@ -471,28 +472,33 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             
             
         case .child:
-            //            components.year = -2 // Allow selecting a date at least 2 years in the past
-            //            dobDatePicker.maximumDate = calendar.date(byAdding: components, to: Date())
-            //            components.year = -11 // Allow selecting a date at most 11 years in the past
-            //            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
-            
             
             let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
             if journyType == "oneway" {
+                
                 if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
+                    
                     components.year = -2 // Allow selecting a date at least 2 years in the past
                     dobDatePicker.maximumDate = calendar.date(byAdding: components, to: newdate)
-                    components.year = -12 // Allow selecting a date at most 11 years in the past
-                    dobDatePicker.minimumDate = calendar.date(byAdding: components, to: newdate)
                     
+                    
+                    components1.day = +1
+                    components1.year = -12 // Allow selecting a date at most 11 years in the past
+                    dobDatePicker.minimumDate = calendar.date(byAdding: components1, to: newdate)
                 }
+
+                
+                
             }else {
                 if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "") {
+                    
                     components.year = -2 // Allow selecting a date at least 2 years in the past
                     dobDatePicker.maximumDate = calendar.date(byAdding: components, to: newdate)
-                    components.year = -12 // Allow selecting a date at most 11 years in the past
-                    dobDatePicker.minimumDate = calendar.date(byAdding: components, to: newdate)
                     
+                    
+                    components1.day = +1
+                    components1.year = -12 // Allow selecting a date at most 11 years in the past
+                    dobDatePicker.minimumDate = calendar.date(byAdding: components1, to: newdate)
                 }
             }
             
@@ -500,24 +506,27 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             
             
         case .infant:
-            //            components.year = -2
-            //            dobDatePicker.minimumDate = calendar.date(byAdding: components, to: Date())
-            
-            
             
             
             let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
             if journyType == "oneway" {
+                
                 if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
-                    components.year = -2
-                    dobDatePicker.minimumDate = calendar.date(byAdding: components, to: newdate)
                     
+                    components1.day = +1
+                    components1.year = -2 // Allow selecting a date at most 11 years in the past
+                    dobDatePicker.minimumDate = calendar.date(byAdding: components1, to: newdate)
                 }
+
+                
+                
             }else {
                 if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "") {
-                    components.year = -2
-                    dobDatePicker.minimumDate = calendar.date(byAdding: components, to: newdate)
                     
+                   
+                    components1.day = +1
+                    components1.year = -2 // Allow selecting a date at most 11 years in the past
+                    dobDatePicker.minimumDate = calendar.date(byAdding: components1, to: newdate)
                 }
             }
             
@@ -538,29 +547,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
     }
     
     
-    
-    //    func showexpirDatePicker(){
-    //        //Formate Date
-    //        passportDatePicker.datePickerMode = .date
-    //        passportDatePicker.minimumDate = Date()
-    //        passportDatePicker.preferredDatePickerStyle = .wheels
-    //
-    //        //ToolBar
-    //        let toolbar = UIToolbar();
-    //        toolbar.sizeToFit()
-    //        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
-    //        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-    //        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
-    //
-    //        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
-    //
-    //        passportExpireDateTF.inputAccessoryView = toolbar
-    //        passportExpireDateTF.inputView = passportDatePicker
-    //
-    //    }
-    
-    
-    
+  
     
     func showexpirDatePicker() {
         // Formate Date

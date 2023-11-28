@@ -32,7 +32,7 @@ class AddItineraryTVCell: TableViewCell {
     override func updateUI() {
         
         fd = cellInfo?.moreData as! [FlightDetails]
-        updateHeight(height: 170)
+        updateHeight(height: 149)
     }
     
     func updateHeight(height:Int){
@@ -47,7 +47,7 @@ class AddItineraryTVCell: TableViewCell {
         holderView.backgroundColor = .WhiteColor
         holderView.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 6)
         
-        addDetailsTv.register(UINib(nibName: "ItineraryTVCell", bundle: nil), forCellReuseIdentifier: "cell")
+        addDetailsTv.register(UINib(nibName: "NewItineraryTVCell", bundle: nil), forCellReuseIdentifier: "cell")
         addDetailsTv.delegate = self
         addDetailsTv.dataSource = self
         addDetailsTv.tableFooterView = UIView()
@@ -66,7 +66,7 @@ extension AddItineraryTVCell:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var c = UITableViewCell()
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ItineraryTVCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? NewItineraryTVCell {
             cell.selectionStyle = .none
             
             let data = fd[indexPath.row]
@@ -105,10 +105,9 @@ extension AddItineraryTVCell:UITableViewDelegate,UITableViewDataSource {
                 break
             }
             
-            //cell.layoverHeight.constant = 25
+           
             if tableView.isLast(for: indexPath) == true {
                 cell.layoverView.isHidden = true
-                cell.layoverHeight.constant = 0
             }
             
             c = cell
