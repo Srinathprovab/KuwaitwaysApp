@@ -26,6 +26,11 @@ protocol SearchFlightTVCellDelegate {
     func didTapOnSelectAirlines()
     func didTapOnSelectNationality()
     
+    
+    func donedatePicker(cell:SearchFlightTVCell)
+    func cancelDatePicker(cell:SearchFlightTVCell)
+    
+    
 }
 
 class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDelegate, AdvancedSearchTVCellDelegate {
@@ -37,6 +42,11 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     @IBOutlet weak var searchFlightTV: UITableView!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     
+    
+    
+    let depDatePicker = UIDatePicker()
+    let retdepDatePicker = UIDatePicker()
+    let retDatePicker = UIDatePicker()
     var countryNameArray = [String]()
     var key = String()
     var delegate:SearchFlightTVCellDelegate?
@@ -62,6 +72,8 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("reload"), object: nil)
         searchFlightTV.reloadData()
+        
+        
     }
     
     @objc func reload(){
@@ -175,6 +187,9 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     }
     
     
+    
+    
+    
 }
 
 
@@ -232,8 +247,8 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.selectionStyle = .none
                     cell.titlelbl.text = defaults.string(forKey: UserDefaultsKeys.hnationality) ?? "Nationality"
                     cell.dropdownimg.isHidden = false
-//                    cell.setupDropDown()
-//                    cell.dropDown.dataSource = countryNameArray
+                    //                    cell.setupDropDown()
+                    //                    cell.dropDown.dataSource = countryNameArray
                     cell.fromBtn.addTarget(self, action: #selector(didTapOnSelectNationality(cell:)), for: .touchUpInside)
                     cell.swipeView.isHidden = true
                     cell.locImg.image = UIImage(named: "na")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
@@ -322,6 +337,11 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                                 cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? ""
                             }
                         }
+                        
+                        cell.depTF.isHidden = false
+                        cell.retTF.isHidden = false
+                        showreturndepDatePicker(cell: cell)
+                        showretDatePicker(cell: cell)
                     }else {
                         //                        cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "Select Date"
                         //                        cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "Select Date"
@@ -336,6 +356,10 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                                 
                             }
                         }
+                        
+                        
+                        cell.depTF.isHidden = false
+                        showdepDatePicker(cell: cell)
                     }
                     
                     c = cell
@@ -354,6 +378,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                         cell.deplbl.text = "\(defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? "+ Add Traveller")"
                     }else {
                         cell.deplbl.text = "\(defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? "+ Add Traveller")"
+                        
                     }
                     
                     cell.returnlbl.text = "\(defaults.string(forKey: UserDefaultsKeys.nationality) ?? "ALL")"
@@ -402,5 +427,86 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
     }
     
     
+    
+}
+
+
+
+extension SearchFlightTVCell {
+    
+    
+    //MARK: - showdepDatePicker
+    func showdepDatePicker(cell:DualViewTVCell){
+        //Formate Date
+        depDatePicker.datePickerMode = .date
+        depDatePicker.minimumDate = Date()
+        depDatePicker.preferredDatePickerStyle = .wheels
+        
+        //ToolBar
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
+        
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        
+        cell.depTF.inputAccessoryView = toolbar
+        cell.depTF.inputView = depDatePicker
+        
+    }
+    
+    
+    func showreturndepDatePicker(cell:DualViewTVCell){
+        //Formate Date
+        retdepDatePicker.datePickerMode = .date
+        retdepDatePicker.minimumDate = Date()
+        retdepDatePicker.preferredDatePickerStyle = .wheels
+        
+        //ToolBar
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
+        
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        
+        cell.depTF.inputAccessoryView = toolbar
+        cell.depTF.inputView = retdepDatePicker
+        
+    }
+    
+    
+    func showretDatePicker(cell:DualViewTVCell){
+        //Formate Date
+        retDatePicker.datePickerMode = .date
+        retDatePicker.minimumDate = Date()
+        retDatePicker.preferredDatePickerStyle = .wheels
+        
+        //ToolBar
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
+        
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        
+        cell.retTF.inputAccessoryView = toolbar
+        cell.retTF.inputView = retDatePicker
+        
+        
+    }
+    
+    
+    @objc func donedatePicker(){
+        delegate?.donedatePicker(cell:self)
+    }
+    
+    
+    @objc func cancelDatePicker(){
+        delegate?.cancelDatePicker(cell:self)
+    }
     
 }

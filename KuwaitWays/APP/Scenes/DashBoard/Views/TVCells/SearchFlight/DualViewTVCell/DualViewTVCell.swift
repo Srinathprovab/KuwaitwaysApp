@@ -23,6 +23,8 @@ class DualViewTVCell: UITableViewCell {
     @IBOutlet weak var cal2img: UIImageView!
     @IBOutlet weak var returnlbl: UILabel!
     @IBOutlet weak var returnBtn: UIButton!
+    @IBOutlet weak var depTF: UITextField!
+    @IBOutlet weak var retTF: UITextField!
     
     var delegate:DualViewTVCellDelegate?
     var key = String()

@@ -213,6 +213,8 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func didTapOnAdvancedSearchBtnAction(cell: AdvancedSearchTVCell) {}
     func didTapOnSelectAirlines(){}
     func didTapOnGenderBtnAction(cell:TextfieldTVCell){}
+    func donedatePicker(cell:SearchFlightTVCell){}
+    func cancelDatePicker(cell:SearchFlightTVCell){}
     
     
 }
