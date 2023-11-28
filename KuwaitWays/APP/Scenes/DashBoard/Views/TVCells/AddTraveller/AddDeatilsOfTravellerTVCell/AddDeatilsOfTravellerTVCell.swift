@@ -497,7 +497,7 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
             }
             
             
-
+            
             
         case .infant:
             //            components.year = -2

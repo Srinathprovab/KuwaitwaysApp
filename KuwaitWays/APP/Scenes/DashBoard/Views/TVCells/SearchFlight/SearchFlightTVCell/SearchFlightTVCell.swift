@@ -229,6 +229,12 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.returnBtn.addTarget(self, action: #selector(didtapOnCheckOutBtn(cell:)), for: .touchUpInside)
                     
                     cell.showReturnView()
+                    
+//                    cell.depTF.isHidden = false
+//                    cell.retTF.isHidden = false
+                    showreturndepDatePicker(cell: cell)
+                    showretDatePicker(cell: cell)
+                    
                     c = cell
                 }
             }else  if indexPath.row == 2 {
@@ -247,8 +253,6 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.selectionStyle = .none
                     cell.titlelbl.text = defaults.string(forKey: UserDefaultsKeys.hnationality) ?? "Nationality"
                     cell.dropdownimg.isHidden = false
-                    //                    cell.setupDropDown()
-                    //                    cell.dropDown.dataSource = countryNameArray
                     cell.fromBtn.addTarget(self, action: #selector(didTapOnSelectNationality(cell:)), for: .touchUpInside)
                     cell.swipeView.isHidden = true
                     cell.locImg.image = UIImage(named: "na")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
@@ -442,6 +446,16 @@ extension SearchFlightTVCell {
         depDatePicker.minimumDate = Date()
         depDatePicker.preferredDatePickerStyle = .wheels
         
+        let formter = DateFormatter()
+        formter.dateFormat = "dd-MM-yyyy"
+        
+        
+        if let calDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
+            depDatePicker.date = calDepDate
+        }
+        
+        
+        
         //ToolBar
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
@@ -457,11 +471,41 @@ extension SearchFlightTVCell {
     }
     
     
+    
+    //MARK: - showreturndepDatePicker
     func showreturndepDatePicker(cell:DualViewTVCell){
         //Formate Date
         retdepDatePicker.datePickerMode = .date
         retdepDatePicker.minimumDate = Date()
         retdepDatePicker.preferredDatePickerStyle = .wheels
+        
+        let formter = DateFormatter()
+        formter.dateFormat = "dd-MM-yyyy"
+       
+        
+        
+        if key == "hotel" {
+            
+            if let checkoutDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.checkout) ?? "")  {
+                retdepDatePicker.date = checkoutDate
+                
+                
+                if defaults.string(forKey: UserDefaultsKeys.checkout) == nil {
+                    retDatePicker.date = checkoutDate
+                }
+            }
+            
+        }else {
+            if let rcalDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalDepDate) ?? "")  {
+                retdepDatePicker.date = rcalDepDate
+                
+                
+                if defaults.string(forKey: UserDefaultsKeys.rcalRetDate) == nil {
+                    retDatePicker.date = rcalDepDate
+                }
+            }
+        }
+        
         
         //ToolBar
         let toolbar = UIToolbar();
@@ -478,11 +522,28 @@ extension SearchFlightTVCell {
     }
     
     
+    
+    //MARK: - showretDatePicker
     func showretDatePicker(cell:DualViewTVCell){
         //Formate Date
         retDatePicker.datePickerMode = .date
         retDatePicker.minimumDate = Date()
         retDatePicker.preferredDatePickerStyle = .wheels
+        
+        
+        let formter = DateFormatter()
+        formter.dateFormat = "dd-MM-yyyy"
+       
+        
+        if key == "hotel" {
+            if let checkoutDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.checkout) ?? "") {
+                retDatePicker.date = checkoutDate
+            }
+        }else {
+            if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "") {
+                retDatePicker.date = rcalRetDate
+            }
+        }
         
         //ToolBar
         let toolbar = UIToolbar();

@@ -479,4 +479,31 @@ class ModifySearchVC: BaseTableVC {
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
+    
+    
+    
+    override func donedatePicker(cell:SearchFlightTVCell){
+        
+        
+        let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+        if journyType == "oneway" {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MM-yyyy"
+            defaults.set(formatter.string(from: cell.depDatePicker.date), forKey: UserDefaultsKeys.calDepDate)
+           
+        }else {
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MM-yyyy"
+            defaults.set(formatter.string(from: cell.retdepDatePicker.date), forKey: UserDefaultsKeys.rcalDepDate)
+            defaults.set(formatter.string(from: cell.retDatePicker.date), forKey: UserDefaultsKeys.rcalRetDate)
+        }
+        
+        commonTableView.reloadData()
+        self.view.endEditing(true)
+    }
+    
+    override func cancelDatePicker(cell:SearchFlightTVCell){
+        self.view.endEditing(true)
+    }
 }

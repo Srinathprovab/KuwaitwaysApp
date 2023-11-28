@@ -246,4 +246,23 @@ class BookHotelVC: BaseTableVC {
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
+    
+    
+    
+    //MARK: - donedatePicker
+    override func donedatePicker(cell:SearchFlightTVCell){
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        defaults.set(formatter.string(from: cell.retdepDatePicker.date), forKey: UserDefaultsKeys.checkin)
+        defaults.set(formatter.string(from: cell.retDatePicker.date), forKey: UserDefaultsKeys.checkout)
+        
+        
+        commonTableView.reloadData()
+        self.view.endEditing(true)
+    }
+    
+    override func cancelDatePicker(cell:SearchFlightTVCell){
+        self.view.endEditing(true)
+    }
 }
