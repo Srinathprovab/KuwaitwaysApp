@@ -66,7 +66,6 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var positionsCount = 0
     var callpaymentbool = Bool()
     var roompaxesdetails = [Room_paxes_details]()
-    var passportExpiryBool = true
     var passportExpiryBoolString = String()
     
     var payemail = String()
@@ -376,14 +375,14 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     override func didTapOnCountryCodeBtn(cell: ContactInformationTVCell) {
         billingCountryCode = cell.billingCountryCode
         billingCountryName = cell.billingCountryName
-        countryCode = cell.countryCodeLbl.text ?? ""
+        paycountryCode = cell.countryCodeLbl.text ?? ""
     }
     
     
     override func didTapOnDropDownBtn(cell: ContactInformationTVCell) {
         billingCountryCode = cell.billingCountryCode
         billingCountryName = cell.billingCountryName
-        countryCode = cell.countryCodeLbl.text ?? ""
+        paycountryCode = cell.countryCodeLbl.text ?? ""
     }
     
     
@@ -392,11 +391,11 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         
         switch tf.tag {
         case 111:
-            email = tf.text ?? ""
+            payemail = tf.text ?? ""
             break
             
         case 222:
-            mobile = tf.text ?? ""
+            paymobile = tf.text ?? ""
             break
             
         default:
@@ -671,9 +670,9 @@ extension PayNowVC {
         payload["ff_no"] = "\([[""]])"
         payload["payment_method"] =  "PNHB1"
         
-        payload["billing_email"] = email
-        payload["passenger_contact"] = mobile
-        payload["country_mobile_code"] = countryCode
+        payload["billing_email"] = payemail
+        payload["passenger_contact"] = paymobile
+        payload["country_mobile_code"] = paycountryCode
         payload["insurance"] = "1"
         payload["tc"] = "on"
         payload["booking_step"] = "book"
@@ -688,7 +687,15 @@ extension PayNowVC {
         //        payload["billing_zipcode"] = ""
         
         // Check additional conditions
-        if payemail == "" {
+         if callpaymentbool == false {
+            showToast(message: "Add Details")
+        }else if passportExpireDateBool == false {
+            showToast(message: "Invalid expiry. Passport expires within the next 3 months.")
+        }else if !fnameCharBool {
+            showToast(message: "First name should have more than 3 characters")
+        }else if !lnameCharBool {
+            showToast(message: "Last name should have more than 3 characters")
+        }else if payemail == "" {
             showToast(message: "Enter Email Address")
         }else if payemail.isValidEmail() == false {
             showToast(message: "Enter Valid Email Addreess")
@@ -698,19 +705,9 @@ extension PayNowVC {
             showToast(message: "Enter Country Code")
         }else if mobilenoMaxLengthBool == false {
             showToast(message: "Enter Valid Mobile No")
-        }
-        
-        else if callpaymentbool == false {
-            showToast(message: "Add Details")
-        } else if !fnameCharBool {
-            showToast(message: "First name should have more than 3 characters")
-        } else if !lnameCharBool {
-            showToast(message: "Last name should have more than 3 characters")
-        }else if passportExpiryBool == false {
-            showToast(message: passportExpiryBoolString)
-        } else if checkTermsAndCondationStatus == false {
+        }else if checkTermsAndCondationStatus == false {
             showToast(message: "Please Accept T&C and Privacy Policy")
-        } else {
+        }else {
             
             vm?.CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: payload)
         }
@@ -1023,6 +1020,8 @@ extension PayNowVC:HotelMBViewModelDelegate {
     func hotelMobilePreBookingDetails(response: HMPreBookingModel) {
         BASE_URL = ""
         secureapidonebool = true
+        
+        
         gotoLoadWebViewVC(url: response.form_url ?? "")
     }
     
@@ -1224,7 +1223,7 @@ extension PayNowVC {
             
             mobilenoMaxLengthBool = true
         }else {
-            countryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
+            paycountryCode = defaults.string(forKey: UserDefaultsKeys.mobilecountrycode) ?? ""
         }
         
         
@@ -1234,6 +1233,7 @@ extension PayNowVC {
         NotificationCenter.default.addObserver(self, selector: #selector(logindon), name: NSNotification.Name("logindon"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(passportexpiry), name: NSNotification.Name("passportexpiry"), object: nil)
         
+
         
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.tabselect) {
@@ -1301,8 +1301,10 @@ extension PayNowVC {
     }
     
     
+ 
+    
     @objc func passportexpiry(notify:NSNotification) {
-        self.passportExpiryBool = false
+        passportExpireDateBool = false
         self.passportExpiryBoolString = (notify.object as? String) ?? ""
         showToast(message: self.passportExpiryBoolString)
     }

@@ -124,6 +124,8 @@ var callapibool = Bool()
 var fdetails = [Summary]()
 var vouchercustomerdetails = [Customer_details]()
 
+var passportExpireDateBool = false
+
 //MARK: - Travellers Details
 
 var checkOptionCountArray = [String]()

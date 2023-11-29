@@ -91,7 +91,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
             do {
                 let arrJson = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let theJSONText = NSString(data: arrJson, encoding: String.Encoding.utf8.rawValue)
-                print(theJSONText ?? "")
+               
                 
                 payload1["search_params"] = theJSONText
                 payload1["user_id"] = "0"
@@ -430,7 +430,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         
         jfl.forEach { i in
             i.forEach { j in
-                print(j.access_key)
+               
                 tablerow.append(TableRow(title:j.access_key,
                                          kwdprice:"\(j.price?.api_currency ?? ""):\(String(format: "%.2f", j.price?.api_total_display_fare ?? 0.0))",
                                          refundable:j.fareType,
@@ -535,15 +535,15 @@ extension SearchFlightResultVC:AppliedFilters {
     func filterByApplied(minpricerange: Double, maxpricerange: Double, noofstopsFA: [String], departureTimeFilter: [String], arrivalTimeFilter: [String], airlinesFA: [String], cancellationTypeFA: [String], connectingFlightsFA: [String], connectingAirportsFA: [String]) {
         
         
-        print("====minpricerange ==== \(minpricerange)")
-        print("====maxpricerange ==== \(maxpricerange)")
-        print("==== noofstopsFA ==== \(noofstopsFA)")
-        print("==== departureTimeFilter ==== \(departureTimeFilter)")
-        print("==== arrivalTimeFilter ==== \(arrivalTimeFilter)")
-        print("==== airlinesFA ==== \(airlinesFA)")
-        print("==== cancellationTypeFA ==== \(cancellationTypeFA)")
-        print("==== connectingFlightsFA ==== \(connectingFlightsFA)")
-        print("==== connectingAirportsFA ==== \(connectingAirportsFA)")
+//        print("====minpricerange ==== \(minpricerange)")
+//        print("====maxpricerange ==== \(maxpricerange)")
+//        print("==== noofstopsFA ==== \(noofstopsFA)")
+//        print("==== departureTimeFilter ==== \(departureTimeFilter)")
+//        print("==== arrivalTimeFilter ==== \(arrivalTimeFilter)")
+//        print("==== airlinesFA ==== \(airlinesFA)")
+//        print("==== cancellationTypeFA ==== \(cancellationTypeFA)")
+//        print("==== connectingFlightsFA ==== \(connectingFlightsFA)")
+//        print("==== connectingAirportsFA ==== \(connectingAirportsFA)")
         
         
         if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
@@ -633,8 +633,6 @@ extension SearchFlightResultVC:AppliedFilters {
                     }
                     return false
                 }
-                
-                
                 
                 
                 

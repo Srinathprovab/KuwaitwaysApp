@@ -249,6 +249,8 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
             tablerow.append(TableRow(moreData:i,cellType:.AddItineraryTVCell))
         }
         
+        tablerow.append(TableRow(height:50,bgColor: .AppHolderViewColor,cellType:.EmptyTVCell))
+
         
         commonTVData = tablerow
         commonTableView.reloadData()
