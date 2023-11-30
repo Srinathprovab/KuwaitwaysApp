@@ -81,6 +81,23 @@ class PromocodeTVCell: TableViewCell {
     }
     
     
+    override func updateUI() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(promocodeapply), name: Notification.Name("promocodeapply"), object: nil)
+
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(cancelpromo), name: Notification.Name("cancelpromo"), object: nil)
+        
+    }
+    
+    @objc func promocodeapply() {
+        holderView.isHidden = true
+    }
+    
+    @objc func cancelpromo() {
+        holderView.isHidden = false
+    }
+    
 }
 
 

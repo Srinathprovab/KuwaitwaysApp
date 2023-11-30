@@ -13,6 +13,7 @@ struct PreProcessBookingModel : Codable {
     let form_url : String?
     let status : Bool?
     let msg : String?
+    let promo_info : [Promo_info]?
 
     enum CodingKeys: String, CodingKey {
 
@@ -20,6 +21,7 @@ struct PreProcessBookingModel : Codable {
         case form_url = "form_url"
         case status = "status"
         case msg = "msg"
+        case promo_info = "promo_info"
     }
 
     init(from decoder: Decoder) throws {
@@ -28,6 +30,7 @@ struct PreProcessBookingModel : Codable {
         form_url = try values.decodeIfPresent(String.self, forKey: .form_url)
         status = try values.decodeIfPresent(Bool.self, forKey: .status)
         msg = try values.decodeIfPresent(String.self, forKey: .msg)
+        promo_info = try values.decodeIfPresent([Promo_info].self, forKey: .promo_info)
     }
 
 }

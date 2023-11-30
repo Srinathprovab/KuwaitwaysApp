@@ -494,27 +494,9 @@ class AddDeatilsOfTravellerTVCell: TableViewCell {
         case .infant:
             
             
-            let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
-            if journyType == "oneway" {
-                
-                if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
-                    
-                    components1.day = +1
-                    components1.year = -2 // Allow selecting a date at most 11 years in the past
-                    dobDatePicker.minimumDate = calendar.date(byAdding: components1, to: newdate)
-                }
-                
-                
-                
-            }else {
-                if let newdate = formatter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "") {
-                    
-                    
-                    components1.day = +1
-                    components1.year = -2 // Allow selecting a date at most 11 years in the past
-                    dobDatePicker.minimumDate = calendar.date(byAdding: components1, to: newdate)
-                }
-            }
+            components1.day = +1
+            components1.year = -2 // Allow selecting a date at most 11 years in the past
+            dobDatePicker.minimumDate = calendar.date(byAdding: components1, to: Date())
             
         }
         

@@ -99,6 +99,8 @@ var Infants_Base_Price = String()
 var Infants_Tax_Price = String()
 var TotalPrice_API = String()
 var grandTotal = String()
+var promocodeDiscountValue = String()
+var newGrandTotal = String()
 var subtotal = String()
 var checkTermsAndCondationStatus = false
 var meallist = [Meal_list]()
@@ -145,6 +147,7 @@ var selectCityCategory : SelectCityCategory = .none
 
 var fnameAAA = [String]()
 var travelerArray: [Traveler] = []
+var promoinfoArray = [Promo_info]()
 
 //MARK: - Multicity
 var fromCityNameArray = ["From","From"]
@@ -206,7 +209,7 @@ struct ApiEndpoints {
     static let cancelledbookingmobile = "flight/cancelled_booking_mobile"
     static let getSpecialAssistancelist = "general/getSpecialAssistance_list"
     static let getMeals_list = "general/getMeals_list"
-    
+    static let applypromocode = "management/promocode"
     //HOTEL
     static let gethotelcitylist = "ajax/get_hotel_city_list"
     static let mobileprehotelsearch = "general/mobile_pre_hotel_search"

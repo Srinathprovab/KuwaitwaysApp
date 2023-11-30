@@ -48,7 +48,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
         
         TimerManager.shared.delegate = self
         addObserver()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        dateFormatter.dateFormat = "HH:mm"
         
         if callapibool == true {
             DispatchQueue.main.async {[self] in
@@ -425,6 +425,9 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         commonTableView.separatorStyle = .none
         setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
         TableViewHelper.EmptyMessage(message: "", tableview: commonTableView, vc: self)
+        flightsFoundlbl.isHidden = false
+        sessonlbl.isHidden = false
+        
         
         tablerow.removeAll()
         
@@ -451,7 +454,8 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         
         if jfl.count == 0 {
             tablerow.removeAll()
-            
+            flightsFoundlbl.isHidden = true
+            sessonlbl.isHidden = true
             TableViewHelper.EmptyMessage(message: "No Data Found", tableview: commonTableView, vc: self)
             
             commonTVData = tablerow
@@ -507,15 +511,17 @@ extension SearchFlightResultVC:AppliedFilters {
     }
     
     
+  
+
     // Create a function to check if a given time string is within a time range
     func isTimeInRange(time: String, range: String) -> Bool {
         guard let departureDate = dateFormatter.date(from: time) else {
             return false
         }
-        
+
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: departureDate)
-        
+
         switch range {
         case "12 am - 6 am":
             return hour >= 0 && hour < 6
@@ -529,6 +535,9 @@ extension SearchFlightResultVC:AppliedFilters {
             return false
         }
     }
+
+   
+
     
     
     
@@ -616,17 +625,18 @@ extension SearchFlightResultVC:AppliedFilters {
                 
                 
                 
+                // Your filter code
                 let depMatch = departureTimeFilter.isEmpty || flightList.contains { flight in
-                    if let departureDateTime = flight.flight_details?.summary?.first?.origin?.datetime {
+                    if let departureDateTime = flight.flight_details?.summary?.first?.origin?.time {
                         return departureTimeFilter.contains { departureTime in
-                            return isTimeInRange(time: departureDateTime, range: departureTime)
+                            return isTimeInRange(time: departureDateTime, range: departureTime.trimmingCharacters(in: .whitespaces))
                         }
                     }
                     return false
                 }
                 
                 let arrMatch = arrivalTimeFilter.isEmpty || flightList.contains { flight in
-                    if let arrivalDateTime = flight.flight_details?.summary?.first?.destination?.datetime {
+                    if let arrivalDateTime = flight.flight_details?.summary?.first?.destination?.time {
                         return arrivalTimeFilter.contains { arrivalTime in
                             return isTimeInRange(time: arrivalDateTime, range: arrivalTime)
                         }

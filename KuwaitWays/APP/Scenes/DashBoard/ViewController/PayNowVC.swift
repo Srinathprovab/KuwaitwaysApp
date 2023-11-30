@@ -8,8 +8,7 @@
 import UIKit
 
 class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDelegate {
-    
-    
+   
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
@@ -64,13 +63,22 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var vm:PreProcessBookingViewModel?
     var vm1:HotelMBViewModel?
     var positionsCount = 0
-    var callpaymentbool = Bool()
+   
     var roompaxesdetails = [Room_paxes_details]()
     var passportExpiryBoolString = String()
     
+    var priceDetails :PriceDetails?
     var payemail = String()
     var paymobile = String()
     var paycountryCode = String()
+    var promocodeBool = false
+    var promocodeValue = String()
+    var promocodeString = ""
+   
+    
+    
+   
+    
     
     // Initialize an array to store the validation state for each cell
     
@@ -209,6 +217,9 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     //MARK: - setupTVCells
     func setupTVCells() {
         tablerow.removeAll()
+        passengertypeArray.removeAll()
+        
+        
         holderView.isHidden = false
         
         
@@ -216,9 +227,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             tablerow.append(TableRow(cellType:.TDetailsLoginTVCell))
         }
         
-        
-        
-        passengertypeArray.removeAll()
+       
         tablerow.append(TableRow(height:20, bgColor:.AppHolderViewColor,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Passenger Details",cellType:.TotalNoofTravellerTVCell))
         for i in 1...adultsCount {
@@ -247,8 +256,15 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         }
         
         tablerow.append(TableRow(cellType:.ContactInformationTVCell))
-        tablerow.append(TableRow(cellType:.PromocodeTVCell))
-        tablerow.append(TableRow(cellType:.PriceSummaryTVCell))
+        
+        if promocodeBool == false {
+            tablerow.append(TableRow(cellType:.PromocodeTVCell))
+        }
+        
+        tablerow.append(TableRow(title:grandTotal,
+                                 cellType:.PriceSummaryTVCell))
+        
+        
         tablerow.append(TableRow(title:"I Accept T&C and Privacy Policy",cellType:.AcceptTermsAndConditionTVCell))
         tablerow.append(TableRow(height:30, bgColor:.AppBGcolor,cellType:.EmptyTVCell))
         
@@ -282,10 +298,53 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
         self.present(vc, animated: true)
     }
     
+    
+    
+    //MARK: - didTapOnApplyBtn
     override func didTapOnApplyBtn(cell:PromocodeTVCell){
-        print("didTapOnApplyBtn")
+
+        promoinfoArray.forEach { i in
+            if i.promo_code == cell.promocodeTF.text {
+                
+                
+                payload.removeAll()
+                payload["moduletype"] = "flight"
+                payload["promocode"] = i.promo_code ?? ""
+                payload["total_amount_val"] = priceDetails?.grand_total ?? ""
+                payload["convenience_fee"] = "0"
+                payload["email"] = payemail
+                payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+                
+                vm?.CALL_APPLY_PROMOCODE_API(dictParam: payload)
+
+            }else {
+                print("no its not there")
+                promocodeBool = false
+            }
+        }
     }
     
+    
+    
+    func promocodeResult(response: ApplyPromocodeModel) {
+        promocodeBool = true
+        promocodeValue = response.total_amount_val ?? ""
+        promocodeDiscountValue = response.value ?? ""
+        promocodeString = response.promocode ?? ""
+        grandTotal = "KWD:\(response.total_amount_val ?? "")"
+        setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansMedium(size: 20))
+
+        NotificationCenter.default.post(name: NSNotification.Name("promocodeapply"), object: nil)
+        
+        DispatchQueue.main.async {[self] in
+            commonTableView.reloadData()
+        }
+        
+    }
+    
+    
+    
+    //MARK: - didTapOnRefundBtn
     override func didTapOnRefundBtn(cell: PriceSummaryTVCell) {
         commonTableView.reloadData()
     }
@@ -420,6 +479,8 @@ extension PayNowVC {
     
     func preProcessBookingDetails(response: PreProcessBookingModel) {
         
+        
+        promoinfoArray = response.promo_info ?? []
         tokenkey1 = response.form_params?.token_key ?? ""
         callMobileBookingAPI(res: response)
         
@@ -453,6 +514,9 @@ extension PayNowVC {
             specialAssistancelist1 = response.special_allowance ?? []
             meallist = response.meal_list ?? []
             travelerArray.removeAll()
+            
+           
+            priceDetails = response.priceDetails
             
             DispatchQueue.main.async {[self] in
                 setupTVCells()
@@ -493,7 +557,6 @@ extension PayNowVC {
             
             if traveler.firstName == nil  || traveler.firstName?.isEmpty == true{
                 callpaymentbool = false
-                
             }
             
             if (traveler.firstName?.count ?? 0) <= 3 {
@@ -531,8 +594,7 @@ extension PayNowVC {
         
         
         
-        // Create an array to store validation results for each cell
-        var validationResults: [Bool] = []
+       
         
         let positionsCount1 = commonTableView.numberOfRows(inSection: 0)
         for position in 0..<positionsCount1 {
@@ -540,32 +602,26 @@ extension PayNowVC {
             
             if let cell = commonTableView.cellForRow(at: IndexPath(row: position, section: 0)) as? AddDeatilsOfTravellerTVCell {
                 
-                var cellValidationResult = true
                 
                 if cell.titleTF.text?.isEmpty == true {
                     cell.titleView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
-                    cellValidationResult = false
                 }
                 
                 if cell.fnameTF.text?.isEmpty == true {
                     cell.fnameView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
-                    cellValidationResult = false
                 } else if (cell.fnameTF.text?.count ?? 0) <= 3 {
                     cell.fnameView.layer.borderColor = UIColor.red.cgColor
                     fnameCharBool = false
-                    cellValidationResult = false
                 }
                 
                 if cell.lnameTF.text?.isEmpty == true {
                     cell.lnameView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
-                    cellValidationResult = false
                 } else if (cell.lnameTF.text?.count ?? 0) <= 3 {
                     cell.lnameView.layer.borderColor = UIColor.red.cgColor
                     lnameCharBool = false
-                    cellValidationResult = false
                     
                 }
                 
@@ -573,7 +629,6 @@ extension PayNowVC {
                     // Textfield is empty
                     cell.dobView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
-                    cellValidationResult = false
                 }
                 
                 
@@ -581,7 +636,6 @@ extension PayNowVC {
                     // Textfield is empty
                     cell.passportnoView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
-                    cellValidationResult = false
                 }
                 
                 
@@ -589,7 +643,6 @@ extension PayNowVC {
                     // Textfield is empty
                     cell.issuecountryView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
-                    cellValidationResult = false
                 }
                 
                 
@@ -597,11 +650,8 @@ extension PayNowVC {
                     // Textfield is empty
                     cell.passportexpireView.layer.borderColor = UIColor.red.cgColor
                     callpaymentbool = false
-                    cellValidationResult = false
                 }
                 
-                
-                validationResults.append(cellValidationResult)
             }
         }
         
@@ -649,8 +699,7 @@ extension PayNowVC {
         payload["isInsurance"] = "0"
         payload["redeem_points_post"] = "1"
         payload["booking_source"] = bookingsourcekey
-        payload["promocode_val"] = ""
-        payload["promocode_code"] = ""
+        payload["promocode_val"] = promocodeString
         payload["mealsAmount"] = "0"
         payload["baggageAmount"] = "0"
         
@@ -687,7 +736,7 @@ extension PayNowVC {
         //        payload["billing_zipcode"] = ""
         
         // Check additional conditions
-         if callpaymentbool == false {
+        if callpaymentbool == false {
             showToast(message: "Add Details")
         }else if passportExpireDateBool == false {
             showToast(message: "Invalid expiry. Passport expires within the next 3 months.")
@@ -708,7 +757,6 @@ extension PayNowVC {
         }else if checkTermsAndCondationStatus == false {
             showToast(message: "Please Accept T&C and Privacy Policy")
         }else {
-            
             vm?.CALL_PROCESS_PASSENGER_DETAIL_API(dictParam: payload)
         }
         
@@ -895,7 +943,7 @@ extension PayNowVC:HotelMBViewModelDelegate {
         for traveler in travelerArray {
             
             if traveler.firstName == nil  || traveler.firstName?.isEmpty == true{
-                callpaymentbool = false
+                callpaymenthotelbool = false
                 
             }
             
@@ -904,7 +952,7 @@ extension PayNowVC:HotelMBViewModelDelegate {
             }
             
             if traveler.lastName == nil || traveler.firstName?.isEmpty == true{
-                callpaymentbool = false
+                callpaymenthotelbool = false
             }
             
             if (traveler.lastName?.count ?? 0) <= 3 {
@@ -1002,8 +1050,6 @@ extension PayNowVC:HotelMBViewModelDelegate {
         }else
         
         if callpaymenthotelbool == false{
-            
-            
             showToast(message: "Add Details")
         }else if fnameCharBool == false{
             showToast(message: "More Than 3 Char")
@@ -1020,8 +1066,6 @@ extension PayNowVC:HotelMBViewModelDelegate {
     func hotelMobilePreBookingDetails(response: HMPreBookingModel) {
         BASE_URL = ""
         secureapidonebool = true
-        
-        
         gotoLoadWebViewVC(url: response.form_url ?? "")
     }
     
@@ -1233,6 +1277,7 @@ extension PayNowVC {
         NotificationCenter.default.addObserver(self, selector: #selector(logindon), name: NSNotification.Name("logindon"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(passportexpiry), name: NSNotification.Name("passportexpiry"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(cancelpromo), name: Notification.Name("cancelpromo"), object: nil)
 
         
         
@@ -1301,7 +1346,18 @@ extension PayNowVC {
     }
     
     
- 
+    
+    @objc func cancelpromo() {
+        promocodeBool = false
+        promocodeValue = ""
+        promocodeString = ""
+        grandTotal = newGrandTotal
+        setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansMedium(size: 20))
+
+        DispatchQueue.main.async {[self] in
+            commonTableView.reloadData()
+        }
+    }
     
     @objc func passportexpiry(notify:NSNotification) {
         passportExpireDateBool = false
@@ -1324,7 +1380,6 @@ extension PayNowVC {
     }
     
     @objc func reload(){
-        //callAPI()
         commonTableView.reloadData()
     }
     

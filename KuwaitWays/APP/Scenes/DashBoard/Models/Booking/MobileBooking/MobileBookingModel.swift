@@ -24,7 +24,7 @@ struct MobileBookingModel : Codable {
     let access_key_tp : String?
     //    let pax_details : Bool?
     let booking_source : String?
-    //    let priceDetails : PriceDetails?
+    let priceDetails : PriceDetails?
     //    let msg : String?
     //    let total_price : Double?
     //    let travel_date_diff : String?
@@ -48,7 +48,7 @@ struct MobileBookingModel : Codable {
         case access_key_tp = "access_key_tp"
         //        case pax_details = "pax_details"
         case booking_source = "booking_source"
-        //        case priceDetails = "priceDetails"
+        case priceDetails = "priceDetails"
         //        case msg = "msg"
         //        case total_price = "total_price"
         //        case travel_date_diff = "travel_date_diff"
@@ -72,7 +72,7 @@ struct MobileBookingModel : Codable {
         access_key_tp = try values.decodeIfPresent(String.self, forKey: .access_key_tp)
         //        pax_details = try values.decodeIfPresent(Bool.self, forKey: .pax_details)
         booking_source = try values.decodeIfPresent(String.self, forKey: .booking_source)
-        //        priceDetails = try values.decodeIfPresent(PriceDetails.self, forKey: .priceDetails)
+        priceDetails = try values.decodeIfPresent(PriceDetails.self, forKey: .priceDetails)
         //        msg = try values.decodeIfPresent(String.self, forKey: .msg)
         //        total_price = try values.decodeIfPresent(Double.self, forKey: .total_price)
         //        travel_date_diff = try values.decodeIfPresent(String.self, forKey: .travel_date_diff)
