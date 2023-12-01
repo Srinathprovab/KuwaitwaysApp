@@ -8,7 +8,7 @@
 import UIKit
 
 class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDelegate {
-   
+    
     
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
@@ -63,7 +63,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var vm:PreProcessBookingViewModel?
     var vm1:HotelMBViewModel?
     var positionsCount = 0
-   
+    
     var roompaxesdetails = [Room_paxes_details]()
     var passportExpiryBoolString = String()
     
@@ -74,10 +74,10 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var promocodeBool = false
     var promocodeValue = String()
     var promocodeString = ""
-   
     
     
-   
+    
+    
     
     
     // Initialize an array to store the validation state for each cell
@@ -227,7 +227,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             tablerow.append(TableRow(cellType:.TDetailsLoginTVCell))
         }
         
-       
+        
         tablerow.append(TableRow(height:20, bgColor:.AppHolderViewColor,cellType:.EmptyTVCell))
         tablerow.append(TableRow(title:"Passenger Details",cellType:.TotalNoofTravellerTVCell))
         for i in 1...adultsCount {
@@ -302,42 +302,52 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     
     //MARK: - didTapOnApplyBtn
     override func didTapOnApplyBtn(cell:PromocodeTVCell){
-
-        promoinfoArray.forEach { i in
-            if i.promo_code == cell.promocodeTF.text {
-                
-                
-                payload.removeAll()
-                payload["moduletype"] = "flight"
-                payload["promocode"] = i.promo_code ?? ""
-                payload["total_amount_val"] = priceDetails?.grand_total ?? ""
-                payload["convenience_fee"] = "0"
-                payload["email"] = payemail
-                payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
-                
-                vm?.CALL_APPLY_PROMOCODE_API(dictParam: payload)
-
-            }else {
-                print("no its not there")
-                promocodeBool = false
+        
+        
+        if cell.promocodeTF.text?.isEmpty == false {
+            promoinfoArray.forEach { i in
+                if i.promo_code == cell.promocodeTF.text {
+                    
+                    payload.removeAll()
+                    payload["moduletype"] = "flight"
+                    payload["promocode"] = i.promo_code ?? ""
+                    payload["total_amount_val"] = priceDetails?.grand_total ?? ""
+                    payload["convenience_fee"] = "0"
+                    payload["email"] = payemail
+                    payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+                    
+                    vm?.CALL_APPLY_PROMOCODE_API(dictParam: payload)
+                    
+                }else {
+                    promocodeBool = false
+                }
             }
+        }else {
+            showToast(message: "Enter PromoCode To Apply")
         }
+        
+        
     }
     
     
     
     func promocodeResult(response: ApplyPromocodeModel) {
-        promocodeBool = true
-        promocodeValue = response.total_amount_val ?? ""
-        promocodeDiscountValue = response.value ?? ""
-        promocodeString = response.promocode ?? ""
-        grandTotal = "KWD:\(response.total_amount_val ?? "")"
-        setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansMedium(size: 20))
-
-        NotificationCenter.default.post(name: NSNotification.Name("promocodeapply"), object: nil)
         
-        DispatchQueue.main.async {[self] in
-            commonTableView.reloadData()
+        if response.status == 1 {
+            promocodeBool = true
+            promocodeValue = response.total_amount_val ?? ""
+            promocodeDiscountValue = response.value ?? ""
+            promocodeString = response.promocode ?? ""
+            grandTotal = "KWD:\(response.total_amount_val ?? "")"
+            setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansMedium(size: 20))
+            
+            NotificationCenter.default.post(name: NSNotification.Name("promocodeapply"), object: nil)
+            
+            DispatchQueue.main.async {[self] in
+                commonTableView.reloadData()
+            }
+        }else {
+            showToast(message: "Invalid Promo Code")
         }
         
     }
@@ -515,7 +525,7 @@ extension PayNowVC {
             meallist = response.meal_list ?? []
             travelerArray.removeAll()
             
-           
+            
             priceDetails = response.priceDetails
             
             DispatchQueue.main.async {[self] in
@@ -594,7 +604,7 @@ extension PayNowVC {
         
         
         
-       
+        
         
         let positionsCount1 = commonTableView.numberOfRows(inSection: 0)
         for position in 0..<positionsCount1 {
@@ -770,7 +780,7 @@ extension PayNowVC {
             payload.removeAll()
             payload["app_reference"] = tmpFlightPreBookingId
             payload["search_id"] = searchid
-            payload["promocode_val"] = ""
+            payload["promocode_val"] = promocodeString
             
             
             
@@ -785,6 +795,7 @@ extension PayNowVC {
             payload.removeAll()
             payload["app_reference"] = tmpFlightPreBookingId
             payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
+            payload["promocode_val"] = promocodeString
             
             vm?.CALL_FLIGHT_PRE_CONF_PAYMENT_API(dictParam: payload, key: "\(searchid)")
         }
@@ -796,7 +807,8 @@ extension PayNowVC {
         DispatchQueue.main.async {[self] in
             payload.removeAll()
             payload["extra_price"] = "0"
-            payload["promocode_val"] = "0"
+            payload["promocode_val"] = promocodeString
+            
             vm?.CALL_SENDTO_PAYMENT_API(dictParam: payload, key: "\(tmpFlightPreBookingId)/\(searchid)")
         }
     }
@@ -1278,7 +1290,7 @@ extension PayNowVC {
         NotificationCenter.default.addObserver(self, selector: #selector(passportexpiry), name: NSNotification.Name("passportexpiry"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(cancelpromo), name: Notification.Name("cancelpromo"), object: nil)
-
+        
         
         
         if let journeyType = defaults.string(forKey: UserDefaultsKeys.tabselect) {
@@ -1353,7 +1365,7 @@ extension PayNowVC {
         promocodeString = ""
         grandTotal = newGrandTotal
         setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansMedium(size: 20))
-
+        
         DispatchQueue.main.async {[self] in
             commonTableView.reloadData()
         }
