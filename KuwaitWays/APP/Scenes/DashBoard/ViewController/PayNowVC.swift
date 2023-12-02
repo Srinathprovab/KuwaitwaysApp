@@ -303,30 +303,25 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     //MARK: - didTapOnApplyBtn
     override func didTapOnApplyBtn(cell:PromocodeTVCell){
         
-        
         if cell.promocodeTF.text?.isEmpty == false {
-            promoinfoArray.forEach { i in
-                if i.promo_code == cell.promocodeTF.text {
-                    
-                    payload.removeAll()
-                    payload["moduletype"] = "flight"
-                    payload["promocode"] = i.promo_code ?? ""
-                    payload["total_amount_val"] = priceDetails?.grand_total ?? ""
-                    payload["convenience_fee"] = "0"
-                    payload["email"] = payemail
-                    payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
-                    
-                    vm?.CALL_APPLY_PROMOCODE_API(dictParam: payload)
-                    
-                }else {
-                    promocodeBool = false
-                }
-            }
+            callPromocodeAPI(promocodeStr: cell.promocodeTF.text ?? "")
         }else {
             showToast(message: "Enter PromoCode To Apply")
         }
         
+    }
+    
+    
+    func callPromocodeAPI(promocodeStr:String) {
+        payload.removeAll()
+        payload["moduletype"] = "flight"
+        payload["promocode"] = promocodeStr
+        payload["total_amount_val"] = priceDetails?.grand_total ?? ""
+        payload["convenience_fee"] = "0"
+        payload["email"] = payemail
+        payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         
+        vm?.CALL_APPLY_PROMOCODE_API(dictParam: payload)
     }
     
     
@@ -339,19 +334,19 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             promocodeDiscountValue = response.value ?? ""
             promocodeString = response.promocode ?? ""
             grandTotal = "KWD:\(response.total_amount_val ?? "")"
-            setupLabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansMedium(size: 20))
-            
+            setuplabels(lbl: titlelbl, text: grandTotal, textcolor: .WhiteColor, font: .OpenSansMedium(size: 20), align: .left)
             NotificationCenter.default.post(name: NSNotification.Name("promocodeapply"), object: nil)
             
             DispatchQueue.main.async {[self] in
                 commonTableView.reloadData()
             }
+    
         }else {
             showToast(message: "Invalid Promo Code")
+            promocodeBool = false
         }
         
     }
-    
     
     
     //MARK: - didTapOnRefundBtn
