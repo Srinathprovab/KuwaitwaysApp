@@ -1,9 +1,18 @@
+
+
+
+
+
+
+
+
 //
 //  RoomsTVCell.swift
 //  BeeoonsApp
 //
 //  Created by MA673 on 22/08/22.
 //
+
 
 import UIKit
 protocol RoomsTVCellDelegate {
