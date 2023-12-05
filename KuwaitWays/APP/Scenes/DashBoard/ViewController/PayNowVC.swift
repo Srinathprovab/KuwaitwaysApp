@@ -10,6 +10,7 @@ import UIKit
 class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDelegate {
     
     
+
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var nav: NavBar!
     @IBOutlet weak var navHeight: NSLayoutConstraint!
@@ -74,6 +75,8 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var promocodeBool = false
     var promocodeValue = String()
     var promocodeString = ""
+    
+    var promocodeString1 = ""
     
     
     
