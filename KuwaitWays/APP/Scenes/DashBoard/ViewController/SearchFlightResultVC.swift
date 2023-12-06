@@ -91,7 +91,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
             do {
                 let arrJson = try JSONSerialization.data(withJSONObject: payload, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let theJSONText = NSString(data: arrJson, encoding: String.Encoding.utf8.rawValue)
-               
+                
                 
                 payload1["search_params"] = theJSONText
                 payload1["user_id"] = "0"
@@ -396,12 +396,12 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                 
             case "circle":
                 
-                defaults.set("\(defaults.string(forKey: UserDefaultsKeys.rfromcityname) ?? "") - \(defaults.string(forKey: UserDefaultsKeys.rtocityname) ?? "")", forKey: UserDefaultsKeys.journeyCitys)
-                defaults.set("\(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.rcalDepDate) ?? "", f1: "dd-MM-yyyy", f2: "EEE, d MMM")) - \(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "", f1: "dd-MM-yyyy", f2: "EEE, d MMM"))", forKey: UserDefaultsKeys.journeyDates)
+                defaults.set("\(defaults.string(forKey: UserDefaultsKeys.fromcityname) ?? "") - \(defaults.string(forKey: UserDefaultsKeys.tocityname) ?? "")", forKey: UserDefaultsKeys.journeyCitys)
+                defaults.set("\(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "", f1: "dd-MM-yyyy", f2: "EEE, d MMM")) - \(convertDateFormat(inputDate: defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "", f1: "dd-MM-yyyy", f2: "EEE, d MMM"))", forKey: UserDefaultsKeys.journeyDates)
                 
                 nav.citylbl.text = defaults.string(forKey: UserDefaultsKeys.journeyCitys) ?? ""
                 nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""
-                nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.rtravellerDetails)
+                nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails)
                 
                 setupRoundTripTVCells(jfl: response.data?.j_flight_list ?? [[]])
                 break
@@ -433,7 +433,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
         
         jfl.forEach { i in
             i.forEach { j in
-               
+                
                 tablerow.append(TableRow(title:j.access_key,
                                          kwdprice:"\(j.price?.api_currency ?? ""):\(String(format: "%.2f", j.price?.api_total_display_fare ?? 0.0))",
                                          refundable:j.fareType,
@@ -511,17 +511,17 @@ extension SearchFlightResultVC:AppliedFilters {
     }
     
     
-  
-
+    
+    
     // Create a function to check if a given time string is within a time range
     func isTimeInRange(time: String, range: String) -> Bool {
         guard let departureDate = dateFormatter.date(from: time) else {
             return false
         }
-
+        
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: departureDate)
-
+        
         switch range {
         case "12 am - 6 am":
             return hour >= 0 && hour < 6
@@ -535,24 +535,24 @@ extension SearchFlightResultVC:AppliedFilters {
             return false
         }
     }
-
-   
-
+    
+    
+    
     
     
     
     func filterByApplied(minpricerange: Double, maxpricerange: Double, noofstopsFA: [String], departureTimeFilter: [String], arrivalTimeFilter: [String], airlinesFA: [String], cancellationTypeFA: [String], connectingFlightsFA: [String], connectingAirportsFA: [String]) {
         
         
-//        print("====minpricerange ==== \(minpricerange)")
-//        print("====maxpricerange ==== \(maxpricerange)")
-//        print("==== noofstopsFA ==== \(noofstopsFA)")
-//        print("==== departureTimeFilter ==== \(departureTimeFilter)")
-//        print("==== arrivalTimeFilter ==== \(arrivalTimeFilter)")
-//        print("==== airlinesFA ==== \(airlinesFA)")
-//        print("==== cancellationTypeFA ==== \(cancellationTypeFA)")
-//        print("==== connectingFlightsFA ==== \(connectingFlightsFA)")
-//        print("==== connectingAirportsFA ==== \(connectingAirportsFA)")
+        //        print("====minpricerange ==== \(minpricerange)")
+        //        print("====maxpricerange ==== \(maxpricerange)")
+        //        print("==== noofstopsFA ==== \(noofstopsFA)")
+        //        print("==== departureTimeFilter ==== \(departureTimeFilter)")
+        //        print("==== arrivalTimeFilter ==== \(arrivalTimeFilter)")
+        //        print("==== airlinesFA ==== \(airlinesFA)")
+        //        print("==== cancellationTypeFA ==== \(cancellationTypeFA)")
+        //        print("==== connectingFlightsFA ==== \(connectingFlightsFA)")
+        //        print("==== connectingAirportsFA ==== \(connectingAirportsFA)")
         
         
         if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {

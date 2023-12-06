@@ -285,13 +285,13 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     
                     if self.key == "roundtrip" {
                         
-                        if let fromstr = defaults.string(forKey: UserDefaultsKeys.rfromCity) {
+                        if let fromstr = defaults.string(forKey: UserDefaultsKeys.fromCity) {
                             if fromstr.isEmpty == true {
                                 cell.titlelbl.text = "From"
                                 cell.tolabel.text =  "To"
                             }else {
-                                cell.titlelbl.text = defaults.string(forKey: UserDefaultsKeys.rfromCity) ?? "From"
-                                cell.tolabel.text = defaults.string(forKey: UserDefaultsKeys.rtoCity) ?? "To"
+                                cell.titlelbl.text = defaults.string(forKey: UserDefaultsKeys.fromCity) ?? "From"
+                                cell.tolabel.text = defaults.string(forKey: UserDefaultsKeys.toCity) ?? "To"
                             }
                         }
                         
@@ -317,28 +317,26 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.selectionStyle = .none
                     cell.delegate = self
                     cell.key = "date"
-                    cell.hideRetView()
+                   
                     if self.key == "roundtrip" {
                         cell.showReturnView()
+                        cell.returnView.isHidden = false
                         
-                        
-                        if let datestr1 = defaults.string(forKey: UserDefaultsKeys.rcalDepDate), let datestr2 = defaults.string(forKey: UserDefaultsKeys.rcalRetDate){
+                        if let datestr1 = defaults.string(forKey: UserDefaultsKeys.calDepDate), let datestr2 = defaults.string(forKey: UserDefaultsKeys.calRetDate){
                             
                             cell.returnView.isHidden = false
                             if datestr1.isEmpty == true {
                                 cell.deplbl.text =  "Select Date"
-                                //cell.returnlbl.text =  "Select Date"
                             }
                             
                             if datestr2.isEmpty == true{
-                                //cell.deplbl.text =  "Select Date"
                                 cell.returnlbl.text =  "Select Date"
                             }
                             
                             if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
                                 
-                                cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.rcalDepDate) ?? ""
-                                cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? ""
+                                cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "Select Date"
+                                cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "Select Date"
                             }
                         }
                         
@@ -347,21 +345,20 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                         showreturndepDatePicker(cell: cell)
                         showretDatePicker(cell: cell)
                     }else {
-                        //                        cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "Select Date"
-                        //                        cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "Select Date"
-                        
+                        cell.hideRetView()
                         cell.returnView.isHidden = true
                         if let datestr1 = defaults.string(forKey: UserDefaultsKeys.calDepDate){
                             if datestr1.isEmpty == true {
                                 cell.deplbl.text =  "Select Date"
                             }
                             if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
-                                cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""
+                                cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "Select Date"
                                 
                             }
                         }
                         
                         
+                        cell.retTF.isHidden = true
                         cell.depTF.isHidden = false
                         showdepDatePicker(cell: cell)
                     }
@@ -379,7 +376,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.cal2img.image = UIImage(named: "airlines")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                     
                     if self.key == "roundtrip" {
-                        cell.deplbl.text = "\(defaults.string(forKey: UserDefaultsKeys.rtravellerDetails) ?? "+ Add Traveller")"
+                        cell.deplbl.text = "\(defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? "+ Add Traveller")"
                     }else {
                         cell.deplbl.text = "\(defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? "+ Add Traveller")"
                         
@@ -496,11 +493,11 @@ extension SearchFlightTVCell {
             }
             
         }else {
-            if let rcalDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalDepDate) ?? "")  {
+            if let rcalDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "")  {
                 retdepDatePicker.date = rcalDepDate
                 
                 
-                if defaults.string(forKey: UserDefaultsKeys.rcalRetDate) == nil {
+                if defaults.string(forKey: UserDefaultsKeys.calRetDate) == nil {
                     retDatePicker.date = rcalDepDate
                 }
             }
@@ -540,7 +537,7 @@ extension SearchFlightTVCell {
                 retDatePicker.date = checkoutDate
             }
         }else {
-            if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.rcalRetDate) ?? "") {
+            if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "") {
                 retDatePicker.date = rcalRetDate
             }
         }

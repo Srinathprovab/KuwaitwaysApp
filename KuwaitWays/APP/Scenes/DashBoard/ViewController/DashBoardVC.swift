@@ -55,35 +55,23 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
             
             defaults.set("", forKey: UserDefaultsKeys.fromCity)
             defaults.set("", forKey: UserDefaultsKeys.toCity)
-            defaults.set("", forKey: UserDefaultsKeys.rfromCity)
-            defaults.set("", forKey: UserDefaultsKeys.rtoCity)
             defaults.set("", forKey: UserDefaultsKeys.calDepDate)
-            defaults.set("", forKey: UserDefaultsKeys.rcalDepDate)
-            defaults.set("", forKey: UserDefaultsKeys.rcalRetDate)
             
             defaults.set("Economy", forKey: UserDefaultsKeys.selectClass)
             defaults.set("1", forKey: UserDefaultsKeys.adultCount)
             defaults.set("0", forKey: UserDefaultsKeys.childCount)
             defaults.set("0", forKey: UserDefaultsKeys.infantsCount)
             
-            defaults.set("Economy", forKey: UserDefaultsKeys.rselectClass)
-            defaults.set("1", forKey: UserDefaultsKeys.radultCount)
-            defaults.set("0", forKey: UserDefaultsKeys.rchildCount)
-            defaults.set("0", forKey: UserDefaultsKeys.rinfantsCount)
             
             
             defaults.set("1", forKey: UserDefaultsKeys.totalTravellerCount)
             let totaltraverlers = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy")"
             defaults.set(totaltraverlers, forKey: UserDefaultsKeys.travellerDetails)
             
-            let totaltraverlers1 = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.rselectClass) ?? "Economy")"
-            defaults.set(totaltraverlers1, forKey: UserDefaultsKeys.rtravellerDetails)
             
             
             let totaltraverlers2 = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.mselectClass) ?? "Economy")"
             defaults.set(totaltraverlers2, forKey: UserDefaultsKeys.mtravellerDetails)
-            
-            
             
             
             UserDefaults.standard.set(true, forKey: "ExecuteOnce")

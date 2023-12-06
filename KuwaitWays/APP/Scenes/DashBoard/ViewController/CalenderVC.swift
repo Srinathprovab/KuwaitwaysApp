@@ -384,8 +384,8 @@ extension CalenderVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
                     if selectedJourneyType == "oneway" {
                         defaults.set(calstartDate, forKey: UserDefaultsKeys.calDepDate)
                     }else if selectedJourneyType == "circle" {
-                        defaults.set(calstartDate, forKey: UserDefaultsKeys.rcalDepDate)
-                        defaults.set(calendDate, forKey: UserDefaultsKeys.rcalRetDate)
+                        defaults.set(calstartDate, forKey: UserDefaultsKeys.calDepDate)
+                        defaults.set(calendDate, forKey: UserDefaultsKeys.calRetDate)
                     }else {
                         print("mcalDepDate\(calstartDate)")
                         defaults.set(calstartDate, forKey: UserDefaultsKeys.mcalDepDate)
