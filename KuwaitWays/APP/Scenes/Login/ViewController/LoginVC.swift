@@ -50,7 +50,7 @@ class LoginVC: BaseTableVC, CountryListViewModelDelegate {
         // Do any additional setup after loading the view.
         setupTV()
         vm = LoginViewModel(self)
-        vm1 = CountryListViewModel(self)
+       // vm1 = CountryListViewModel(self)
     }
     
     func callcountryLiatAPI() {

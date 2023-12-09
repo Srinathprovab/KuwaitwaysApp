@@ -127,6 +127,8 @@
 		652C7B9C29F6BD210070935B /* SortByPriceTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652C7B9A29F6BD210070935B /* SortByPriceTVCell.xib */; };
 		652C7BA029F6BDD60070935B /* checkOptionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C7B9E29F6BDD60070935B /* checkOptionsTVCell.swift */; };
 		652C7BA129F6BDD60070935B /* checkOptionsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 652C7B9F29F6BDD60070935B /* checkOptionsTVCell.xib */; };
+		6535D7E42B2442C30066449E /* clist.json in Resources */ = {isa = PBXBuildFile; fileRef = 6535D7E32B2442C30066449E /* clist.json */; };
+		6535D7E62B2443720066449E /* countrylistfromjson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6535D7E52B2443720066449E /* countrylistfromjson.swift */; };
 		653D047F2A8CDC38009A534C /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D047E2A8CDC38009A534C /* PopupVC.swift */; };
 		653D66C72AE7931900FC5721 /* newloder.gif in Resources */ = {isa = PBXBuildFile; fileRef = 653D66C62AE7931900FC5721 /* newloder.gif */; };
 		653ED0E12A4B028D00BEEDC2 /* PriceSummaryTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653ED0DF2A4B028D00BEEDC2 /* PriceSummaryTVCell.swift */; };
@@ -550,6 +552,8 @@
 		652C7B9A29F6BD210070935B /* SortByPriceTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SortByPriceTVCell.xib; sourceTree = "<group>"; };
 		652C7B9E29F6BDD60070935B /* checkOptionsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = checkOptionsTVCell.swift; sourceTree = "<group>"; };
 		652C7B9F29F6BDD60070935B /* checkOptionsTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = checkOptionsTVCell.xib; sourceTree = "<group>"; };
+		6535D7E32B2442C30066449E /* clist.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = clist.json; sourceTree = "<group>"; };
+		6535D7E52B2443720066449E /* countrylistfromjson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countrylistfromjson.swift; sourceTree = "<group>"; };
 		653D047E2A8CDC38009A534C /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		653D66C62AE7931900FC5721 /* newloder.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = newloder.gif; sourceTree = "<group>"; };
 		653ED0DF2A4B028D00BEEDC2 /* PriceSummaryTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceSummaryTVCell.swift; sourceTree = "<group>"; };
@@ -1187,6 +1191,15 @@
 				652C7B9F29F6BDD60070935B /* checkOptionsTVCell.xib */,
 			);
 			path = checkOptionsTVCell;
+			sourceTree = "<group>";
+		};
+		6535D7E22B2442960066449E /* JsonFiles */ = {
+			isa = PBXGroup;
+			children = (
+				6535D7E32B2442C30066449E /* clist.json */,
+				6535D7E52B2443720066449E /* countrylistfromjson.swift */,
+			);
+			path = JsonFiles;
 			sourceTree = "<group>";
 		};
 		653ED0D52A4B006B00BEEDC2 /* PriceSummary */ = {
@@ -2427,6 +2440,7 @@
 		BF8C0DBD28C19BD5009C3A6A /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				6535D7E22B2442960066449E /* JsonFiles */,
 				BF8C0DF128C19BD5009C3A6A /* Service Manager */,
 				BF8C0DB828C19BD5009C3A6A /* BaseVCS */,
 				BF8C0DBE28C19BD5009C3A6A /* Constants */,
@@ -2776,6 +2790,7 @@
 				BF8C0E9928C19BD5009C3A6A /* OpenSans-Bold.ttf in Resources */,
 				652A9A1A2A2752F8008E565D /* BookingItinearyTVCell.xib in Resources */,
 				BF8C0E6228C19BD5009C3A6A /* SelectGenderTVCell.xib in Resources */,
+				6535D7E42B2442C30066449E /* clist.json in Resources */,
 				BF8C0DF728C19BD5009C3A6A /* PriceLabelsTVCell.xib in Resources */,
 				652C7B8029F6B0F80070935B /* SearchFlightResultInfoTVCell.xib in Resources */,
 				BF8C0E4728C19BD5009C3A6A /* DualViewTVCell.xib in Resources */,
@@ -3205,6 +3220,7 @@
 				654924B12A1CDF1000851538 /* CreateAccountTVCell.swift in Sources */,
 				65C5CD4029F7DFA300FDA690 /* SaveTravellersDetailsVC.swift in Sources */,
 				BF8C0E1A28C19BD5009C3A6A /* TravellerEconomyVC.swift in Sources */,
+				6535D7E62B2443720066449E /* countrylistfromjson.swift in Sources */,
 				651A73662A03B2C500799D81 /* HotelMBHotelDetails.swift in Sources */,
 				BF8C0E3728C19BD5009C3A6A /* TravellerEconomyTVCell.swift in Sources */,
 				653ED0E12A4B028D00BEEDC2 /* PriceSummaryTVCell.swift in Sources */,

@@ -56,6 +56,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
             defaults.set("", forKey: UserDefaultsKeys.fromCity)
             defaults.set("", forKey: UserDefaultsKeys.toCity)
             defaults.set("", forKey: UserDefaultsKeys.calDepDate)
+            defaults.set("", forKey: UserDefaultsKeys.calRetDate)
             
             defaults.set("Economy", forKey: UserDefaultsKeys.selectClass)
             defaults.set("1", forKey: UserDefaultsKeys.adultCount)
@@ -92,7 +93,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         
         setupMenu()
         vm = IndexPageViewModel(self)
-        vm1 = CountryListViewModel(self)
+       // vm1 = CountryListViewModel(self)
     }
     
     

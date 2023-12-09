@@ -111,7 +111,7 @@ class ViewController: UIViewController {
         
         if !UserDefaults.standard.bool(forKey: "ExecuteOnceLoginVC") {
             ExecuteOnceBool = false
-            
+            self.getCountryList()
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
                 self.gotoLoginVC()
             })
@@ -121,6 +121,8 @@ class ViewController: UIViewController {
         
         
         if ExecuteOnceBool == true {
+            
+            self.getCountryList()
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
                 self.gotodashBoardScreen()
                 
@@ -231,3 +233,40 @@ class TimerManager {
     }
 }
 
+
+
+extension ViewController {
+    
+    
+    func getCountryList() {
+        
+        
+        // Get the path to the clist.json file in the Xcode project
+        if let jsonFilePath = Bundle.main.path(forResource: "clist", ofType: "json") {
+            do {
+                // Read the data from the file
+                let jsonData = try Data(contentsOf: URL(fileURLWithPath: jsonFilePath))
+                
+                // Decode the JSON data into a dictionary
+                let jsonDictionary = try JSONDecoder().decode([String: [Country_list]].self, from: jsonData)
+                
+                // Access the array of countries using the "country_list" key
+                if let countries = jsonDictionary["country_list"] {
+                    countrylist = countries
+                } else {
+                    print("Unable to find 'country_list' key in the JSON dictionary.")
+                }
+                
+                
+            } catch let error {
+                print("Error decoding JSON: \(error)")
+            }
+        } else {
+            print("Unable to find clist.json in the Xcode project.")
+        }
+        
+        
+    }
+    
+    
+}

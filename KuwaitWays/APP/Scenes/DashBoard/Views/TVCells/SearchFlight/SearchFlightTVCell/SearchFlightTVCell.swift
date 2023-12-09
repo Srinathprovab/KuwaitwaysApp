@@ -230,8 +230,8 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     
                     cell.showReturnView()
                     
-//                    cell.depTF.isHidden = false
-//                    cell.retTF.isHidden = false
+                    //                    cell.depTF.isHidden = false
+                    //                    cell.retTF.isHidden = false
                     showreturndepDatePicker(cell: cell)
                     showretDatePicker(cell: cell)
                     
@@ -317,7 +317,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.selectionStyle = .none
                     cell.delegate = self
                     cell.key = "date"
-                   
+                    
                     if self.key == "roundtrip" {
                         cell.showReturnView()
                         cell.returnView.isHidden = false
@@ -333,7 +333,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                                 cell.returnlbl.text =  "Select Date"
                             }
                             
-                            if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
+                            if datestr1.isEmpty == false &&  datestr2.isEmpty == false{
                                 
                                 cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "Select Date"
                                 cell.returnlbl.text = defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "Select Date"
@@ -351,7 +351,7 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                             if datestr1.isEmpty == true {
                                 cell.deplbl.text =  "Select Date"
                             }
-                            if datestr1.isEmpty == false &&  datestr1.isEmpty == false{
+                            if datestr1.isEmpty == false {
                                 cell.deplbl.text = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "Select Date"
                                 
                             }
@@ -478,12 +478,12 @@ extension SearchFlightTVCell {
         
         let formter = DateFormatter()
         formter.dateFormat = "dd-MM-yyyy"
-       
+        
         
         
         if key == "hotel" {
             
-            if let checkoutDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.checkout) ?? "")  {
+            if let checkoutDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.checkin) ?? "")  {
                 retdepDatePicker.date = checkoutDate
                 
                 
@@ -493,13 +493,17 @@ extension SearchFlightTVCell {
             }
             
         }else {
-            if let rcalDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "")  {
-                retdepDatePicker.date = rcalDepDate
-                
-                
-                if defaults.string(forKey: UserDefaultsKeys.calRetDate) == nil {
-                    retDatePicker.date = rcalDepDate
+            if let retlblvalue = cell.returnlbl.text {
+                if retlblvalue == "Select Date" {
+                    if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
+                        retDatePicker.date = rcalRetDate
+                    }
                 }
+            }
+            
+            
+            if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "") {
+                retDatePicker.date = rcalRetDate
             }
         }
         
@@ -530,7 +534,7 @@ extension SearchFlightTVCell {
         
         let formter = DateFormatter()
         formter.dateFormat = "dd-MM-yyyy"
-       
+        
         
         if key == "hotel" {
             if let checkoutDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.checkout) ?? "") {

@@ -142,8 +142,6 @@ class ModifySearchVC: BaseTableVC {
     }
     
     
-    
-    
     @objc func backbtnAction(_ sender:UIButton) {
         dismiss(animated: false)
     }
@@ -296,31 +294,53 @@ class ModifySearchVC: BaseTableVC {
         payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
         let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
         if journyType == "oneway" {
-            
             payload["return"] = ""
+            
+            if defaults.string(forKey:UserDefaultsKeys.fromCity) == "" {
+                showToast(message: "Please Select From City")
+            }else if defaults.string(forKey:UserDefaultsKeys.toCity) == "" {
+                showToast(message: "Please Select To City")
+            }else if defaults.string(forKey:UserDefaultsKeys.toCity) == defaults.string(forKey:UserDefaultsKeys.fromCity) {
+                showToast(message: "Please Select Different Citys")
+            }else if defaults.string(forKey:UserDefaultsKeys.calDepDate) == "" {
+                showToast(message: "Please Select Departure Date")
+            }else if defaults.string(forKey:UserDefaultsKeys.travellerDetails) == "Add Details" {
+                showToast(message: "Add Traveller")
+            }else if defaults.string(forKey:UserDefaultsKeys.selectClass) == "Add Details" {
+                showToast(message: "Add Class")
+            }else if checkDepartureAndReturnDates1(payload, p1: "depature") == false {
+                showToast(message: "Invalid Date")
+            }else{
+                gotoSearchFlightResultVC(input: payload)
+            }
+            
         }else if journyType == "circle"{
             
             payload["return"] = defaults.string(forKey: UserDefaultsKeys.calRetDate)
             
+            if defaults.string(forKey:UserDefaultsKeys.fromCity) == "" {
+                showToast(message: "Please Select From City")
+            }else if defaults.string(forKey:UserDefaultsKeys.toCity) == "" {
+                showToast(message: "Please Select To City")
+            }else if defaults.string(forKey:UserDefaultsKeys.toCity) == defaults.string(forKey:UserDefaultsKeys.fromCity) {
+                showToast(message: "Please Select Different Citys")
+            }else if defaults.string(forKey:UserDefaultsKeys.calDepDate) == "" {
+                showToast(message: "Please Select Departure Date")
+            }else if defaults.string(forKey:UserDefaultsKeys.calRetDate) == "" {
+                showToast(message: "Please Select Return Date")
+            }else if defaults.string(forKey:UserDefaultsKeys.travellerDetails) == "Add Details" {
+                showToast(message: "Add Traveller")
+            }else if defaults.string(forKey:UserDefaultsKeys.selectClass) == "Add Details" {
+                showToast(message: "Add Class")
+            }else if checkDepartureAndReturnDates1(payload, p1: "depature") == false {
+                showToast(message: "Invalid Date")
+            }else{
+                gotoSearchFlightResultVC(input: payload)
+            }
+            
         }
         
-        if defaults.string(forKey:UserDefaultsKeys.fromCity) == "" {
-            showToast(message: "Please Select From City")
-        }else if defaults.string(forKey:UserDefaultsKeys.toCity) == "" {
-            showToast(message: "Please Select To City")
-        }else if defaults.string(forKey:UserDefaultsKeys.toCity) == defaults.string(forKey:UserDefaultsKeys.fromCity) {
-            showToast(message: "Please Select Different Citys")
-        }else if defaults.string(forKey:UserDefaultsKeys.calDepDate) == "" {
-            showToast(message: "Please Select Departure Date")
-        }else if defaults.string(forKey:UserDefaultsKeys.travellerDetails) == "Add Details" {
-            showToast(message: "Add Traveller")
-        }else if defaults.string(forKey:UserDefaultsKeys.selectClass) == "Add Details" {
-            showToast(message: "Add Class")
-        }else if checkDepartureAndReturnDates1(payload, p1: "depature") == false {
-            showToast(message: "Invalid Date")
-        }else{
-            gotoSearchFlightResultVC(input: payload)
-        }
+       
         
         
     }
