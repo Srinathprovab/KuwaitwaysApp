@@ -16,6 +16,7 @@ class SelectLanguageTVCell: TableViewCell {
     @IBOutlet weak var langLogoImg: UIImageView!
     
     
+    var type = String()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -37,6 +38,7 @@ class SelectLanguageTVCell: TableViewCell {
         titlelbl.text = cellInfo?.title
         subTitlelbl.text = cellInfo?.subTitle
         langLogoImg.image = UIImage(named: cellInfo?.image ?? "")
+        type = cellInfo?.text ?? ""
         
         subTitlelbl.isHidden = true
         langLogoImg.isHidden = true

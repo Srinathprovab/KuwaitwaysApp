@@ -35,6 +35,7 @@ struct SelectCurrencyData : Codable {
     let symbol : String?
     let value : String?
     let name : String?
+    let type : String?
 
     enum CodingKeys: String, CodingKey {
 
@@ -42,6 +43,7 @@ struct SelectCurrencyData : Codable {
         case symbol = "symbol"
         case value = "value"
         case name = "name"
+        case type = "type"
     }
 
     init(from decoder: Decoder) throws {
@@ -50,6 +52,7 @@ struct SelectCurrencyData : Codable {
         symbol = try values.decodeIfPresent(String.self, forKey: .symbol)
         value = try values.decodeIfPresent(String.self, forKey: .value)
         name = try values.decodeIfPresent(String.self, forKey: .name)
+        type = try values.decodeIfPresent(String.self, forKey: .type)
     }
 
 }

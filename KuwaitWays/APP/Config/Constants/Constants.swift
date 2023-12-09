@@ -36,6 +36,7 @@ var mobilenoMaxLength = Int()
 var mobilenoMaxLengthBool = false
 
 var countrylist = [Country_list]()
+var currencylistArray = [SelectCurrencyData]()
 var isvcfrom1 = String()
 var profildata:ProfileUpdateData?
 var menubool = Bool()
@@ -252,6 +253,7 @@ struct UserDefaultsKeys {
     static var journeyType = "Journey_Type"
     static var itinerarySelectedIndex = "ItinerarySelectedIndex"
     static var selectedCurrency = "selectedCurrency"
+    static var selectedCurrencyType = "selectedCurrencyType"
     static var totalTravellerCount = "totalTravellerCount"
     static var select_classIndex = "select_classIndex"
     static var rselect_classIndex = "rselect_classIndex"

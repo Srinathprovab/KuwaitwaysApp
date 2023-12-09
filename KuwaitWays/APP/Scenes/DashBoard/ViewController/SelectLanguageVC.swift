@@ -32,7 +32,7 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
     var tablerow = [TableRow]()
     var vm:SelectCurrencyViewModel?
     
-
+    
     @objc func offline(notificatio:UNNotification) {
         callapibool = true
         guard let vc = NoInternetConnectionVC.newInstance.self else {return}
@@ -42,8 +42,9 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
-
-        callApi()
+        
+        //callApi()
+        getCurrencyList()
     }
     
     func callApi() {
@@ -51,9 +52,9 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
     }
     
     
-    var clist = [SelectCurrencyData]()
+    
     func currencyList(response: SelectCurrencyModel) {
-        clist = response.data ?? []
+        currencylistArray = response.data ?? []
         DispatchQueue.main.async {[self] in
             setupCurencyTVCell()
         }
@@ -66,7 +67,7 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .black.withAlphaComponent(0.5)
         setupUI()
-        vm = SelectCurrencyViewModel(self)
+        //  vm = SelectCurrencyViewModel(self)
         
     }
     
@@ -120,9 +121,12 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
     func setupCurencyTVCell() {
         tablerow.removeAll()
         
-        clist.forEach { i in
-            tablerow.append(TableRow(title:"\(i.name ?? "")",subTitle: "\(i.symbol ?? "")",key:"lang1",cellType: .SelectLanguageTVCell))
-            
+        currencylistArray.forEach { i in
+            tablerow.append(TableRow(title:"\(i.name ?? "")",
+                                     subTitle: "\(i.symbol ?? "")",
+                                     key:"lang1",
+                                     text: i.type,
+                                     cellType: .SelectLanguageTVCell))
         }
         
         commonTVData = tablerow
@@ -167,6 +171,7 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
         if let cell = tableView.cellForRow(at: indexPath) as? SelectLanguageTVCell {
             cell.selected()
             defaults.set(cell.subTitlelbl.text, forKey: UserDefaultsKeys.selectedCurrency)
+            defaults.set(cell.type, forKey: UserDefaultsKeys.selectedCurrencyType)
             NotificationCenter.default.post(name: NSNotification.Name("selectedCurrency"), object: nil)
             dismiss(animated: true)
         }
@@ -180,5 +185,34 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
         }
     }
     
-    
+    func getCurrencyList() {
+        
+        // Get the path to the clist.json file in the Xcode project
+        if let jsonFilePath = Bundle.main.path(forResource: "currencylist", ofType: "json") {
+            do {
+                // Read the data from the file
+                let jsonData = try Data(contentsOf: URL(fileURLWithPath: jsonFilePath))
+                
+                // Decode the JSON data into a dictionary
+                let jsonDictionary = try JSONDecoder().decode([String: [SelectCurrencyData]].self, from: jsonData)
+                
+                // Access the array of currency using the "data" key
+                if let countries = jsonDictionary["data"] {
+                    currencylistArray = countries
+                    DispatchQueue.main.async {[self] in
+                        setupCurencyTVCell()
+                    }
+                } else {
+                    print("Unable to find 'data' key in the JSON dictionary.")
+                }
+                
+                
+            } catch let error {
+                print("Error decoding JSON: \(error)")
+            }
+        } else {
+            print("Unable to find clist.json in the Xcode project.")
+        }
+        
+    }
 }

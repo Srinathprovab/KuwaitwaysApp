@@ -82,7 +82,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         if callapibool == true {
             callAPI()
         }
-    
+        
     }
     
     
@@ -93,7 +93,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
         
         setupMenu()
         vm = IndexPageViewModel(self)
-       // vm1 = CountryListViewModel(self)
+        // vm1 = CountryListViewModel(self)
     }
     
     
@@ -179,7 +179,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
             break
             
         case "Hotel":
-           // gotoBookHotelVC()
+            // gotoBookHotelVC()
             break
         default:
             break

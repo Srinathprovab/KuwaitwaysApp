@@ -49,7 +49,7 @@ class SelectTabTVCell: TableViewCell {
     }
     
     @objc func selectedCurrency() {
-        setuplabels(lbl: currencylbl, text: defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD", textcolor: .WhiteColor, font: .OpenSansRegular(size: 14), align: .left)
+        setuplabels(lbl: currencylbl, text: defaults.string(forKey: UserDefaultsKeys.selectedCurrencyType) ?? "KWD", textcolor: .WhiteColor, font: .OpenSansRegular(size: 14), align: .left)
     }
     
     
@@ -64,7 +64,7 @@ class SelectTabTVCell: TableViewCell {
         holderView.backgroundColor = .AppBackgroundColor
         haiImg.image = UIImage(named: "menu")?.withRenderingMode(.alwaysOriginal).withTintColor(.WhiteColor)
         langImg.image = UIImage(named: "lang")?.withRenderingMode(.alwaysOriginal).withTintColor(.WhiteColor)
-        setuplabels(lbl: currencylbl, text: defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD", textcolor: .WhiteColor, font: .OswaldSemiBold(size: 14), align: .left)
+        setuplabels(lbl: currencylbl, text: defaults.string(forKey: UserDefaultsKeys.selectedCurrencyType) ?? "KWD", textcolor: .WhiteColor, font: .OswaldSemiBold(size: 14), align: .left)
         titlelbl.text = "Welcome"
         titlelbl.textColor = .WhiteColor
         titlelbl.font = .LatoRegular(size: 24)
@@ -106,7 +106,7 @@ class SelectTabTVCell: TableViewCell {
     
     
     @IBAction func didTapOnLaungageBtn(_ sender: Any) {
-      //  delegate?.didTapOnLaungageBtn(cell: self)
+        delegate?.didTapOnLaungageBtn(cell: self)
     }
     
     

@@ -1,0 +1,37 @@
+
+
+
+{
+    "data": [
+        {
+            "origin": "1",
+            "symbol": "A$",
+            "type": "AUD",
+            "value": "373",
+            "name": "Australian Dollars"
+        },
+        {
+            "origin": "2",
+            "symbol": "KWD",
+            "type": "KWD",
+            "value": "769",
+            "name": "Kuwaiti Dinars"
+        },
+        {
+            "origin": "3",
+            "symbol": "CAD",
+            "type": "CAD",
+            "value": "1",
+            "name": "Canadian Dollar"
+        },
+        {
+            "origin": "4",
+            "symbol": "$",
+            "value": "2",
+            "type": "USD",
+            "name": "United States of America"
+        }
+    ]
+}
+
+
