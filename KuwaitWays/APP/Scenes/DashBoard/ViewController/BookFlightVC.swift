@@ -54,6 +54,9 @@ class BookFlightVC: BaseTableVC {
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name("AdvancedSearchTVCellreload"), object: nil)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name("addcity"), object: nil)
     }
     
     
@@ -66,6 +69,9 @@ class BookFlightVC: BaseTableVC {
     
     
     @objc func reload(notification: NSNotification){
+        
+        
+        
         commonTableView.reloadData()
     }
     
@@ -99,7 +105,7 @@ class BookFlightVC: BaseTableVC {
         setupViews(v: oneWayView, radius: 18, color: .AppJournyTabSelectColor)
         setupViews(v: roundTripView, radius: 18, color: .WhiteColor)
         setupViews(v: multicityView, radius: 18, color: .WhiteColor)
-        multicityView.isHidden = true
+        //  multicityView.isHidden = true
         
         setupLabels(lbl: oneWaylbl, text: "One Way", textcolor: .WhiteColor, font: .OpenSansRegular(size: 16))
         setupLabels(lbl: roundTriplbl, text: "Round Trip", textcolor: .SubTitleColor, font: .OpenSansRegular(size: 16))
@@ -115,6 +121,7 @@ class BookFlightVC: BaseTableVC {
                                          "LabelTVCell",
                                          "HotelDealsTVCell",
                                          "AddCityTVCell",
+                                         "NewMulticityTVCell",
                                          "MultiCityTripTVCell"])
         
         appendTvcells(str: "oneway")
@@ -154,8 +161,9 @@ class BookFlightVC: BaseTableVC {
     func appendMulticityTvcells() {
         tablerow.removeAll()
         
-        tablerow.append(TableRow(cellType:.AddCityTVCell))
-        tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
+        tablerow.append(TableRow(cellType:.NewMulticityTVCell))
+        //  tablerow.append(TableRow(cellType:.AddCityTVCell))
+        //    tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         //        tablerow.append(TableRow(title:"Flight ",subTitle: "Popular International Flights From Kuwait",key: "deals",cellType:.LabelTVCell))
         //        tablerow.append(TableRow(height:18,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         //        tablerow.append(TableRow(key1:"flight",cellType:.HotelDealsTVCell))
@@ -349,7 +357,7 @@ class BookFlightVC: BaseTableVC {
             
         }
         
-       
+        
         
         
     }

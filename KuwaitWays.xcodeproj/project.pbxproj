@@ -31,6 +31,9 @@
 		650B1C902A7CB78100F89BA5 /* LoginTitleTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650B1C8E2A7CB78100F89BA5 /* LoginTitleTVCell.xib */; };
 		650D5C242A04D9EC007F92F4 /* ProfileUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650D5C232A04D9EC007F92F4 /* ProfileUpdateModel.swift */; };
 		650D5C262A04DA3E007F92F4 /* ProfileUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650D5C252A04DA3E007F92F4 /* ProfileUpdateViewModel.swift */; };
+		650F81662B26F50E00BAA201 /* NewMulticityTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650F81642B26F50E00BAA201 /* NewMulticityTVCell.swift */; };
+		650F81672B26F50E00BAA201 /* NewMulticityTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 650F81652B26F50E00BAA201 /* NewMulticityTVCell.xib */; };
+		650F81692B26F63E00BAA201 /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650F81682B26F63E00BAA201 /* BorderView.swift */; };
 		650FBE272B176D0700E3CB04 /* ApplyPromocodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650FBE262B176D0700E3CB04 /* ApplyPromocodeModel.swift */; };
 		651A735A2A037B6700799D81 /* ViewHotelDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651A73592A037B6600799D81 /* ViewHotelDetailsVC.swift */; };
 		651A735E2A03927200799D81 /* HotelPurchaseSummaryTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651A735C2A03927200799D81 /* HotelPurchaseSummaryTVCell.swift */; };
@@ -457,6 +460,9 @@
 		650B1C8E2A7CB78100F89BA5 /* LoginTitleTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginTitleTVCell.xib; sourceTree = "<group>"; };
 		650D5C232A04D9EC007F92F4 /* ProfileUpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateModel.swift; sourceTree = "<group>"; };
 		650D5C252A04DA3E007F92F4 /* ProfileUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateViewModel.swift; sourceTree = "<group>"; };
+		650F81642B26F50E00BAA201 /* NewMulticityTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMulticityTVCell.swift; sourceTree = "<group>"; };
+		650F81652B26F50E00BAA201 /* NewMulticityTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewMulticityTVCell.xib; sourceTree = "<group>"; };
+		650F81682B26F63E00BAA201 /* BorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderView.swift; sourceTree = "<group>"; };
 		650FBE262B176D0700E3CB04 /* ApplyPromocodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyPromocodeModel.swift; sourceTree = "<group>"; };
 		651A73592A037B6600799D81 /* ViewHotelDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHotelDetailsVC.swift; sourceTree = "<group>"; };
 		651A735C2A03927200799D81 /* HotelPurchaseSummaryTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelPurchaseSummaryTVCell.swift; sourceTree = "<group>"; };
@@ -927,6 +933,15 @@
 				650B1C8E2A7CB78100F89BA5 /* LoginTitleTVCell.xib */,
 			);
 			path = LoginTitleTVCell;
+			sourceTree = "<group>";
+		};
+		650F81632B26F4F300BAA201 /* NewMulticityTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				650F81642B26F50E00BAA201 /* NewMulticityTVCell.swift */,
+				650F81652B26F50E00BAA201 /* NewMulticityTVCell.xib */,
+			);
+			path = NewMulticityTVCell;
 			sourceTree = "<group>";
 		};
 		651A735B2A03924700799D81 /* HotelPurchaseSummaryTVCell */ = {
@@ -2055,6 +2070,7 @@
 		BF8C0D4428C19BD4009C3A6A /* Multicity */ = {
 			isa = PBXGroup;
 			children = (
+				650F81632B26F4F300BAA201 /* NewMulticityTVCell */,
 				BF8C0D4528C19BD4009C3A6A /* MultiCityTripTVCell */,
 				BF8C0D4B28C19BD4009C3A6A /* MulticityFromToTVCell */,
 			);
@@ -2064,8 +2080,8 @@
 		BF8C0D4528C19BD4009C3A6A /* MultiCityTripTVCell */ = {
 			isa = PBXGroup;
 			children = (
-				BF8C0D4628C19BD4009C3A6A /* MultiCityTripTVCell.xib */,
 				BF8C0D4728C19BD4009C3A6A /* MultiCityTripTVCell.swift */,
+				BF8C0D4628C19BD4009C3A6A /* MultiCityTripTVCell.xib */,
 			);
 			path = MultiCityTripTVCell;
 			sourceTree = "<group>";
@@ -2579,6 +2595,7 @@
 			isa = PBXGroup;
 			children = (
 				BF8C0DF228C19BD5009C3A6A /* ServiceManager.swift */,
+				650F81682B26F63E00BAA201 /* BorderView.swift */,
 			);
 			path = "Service Manager";
 			sourceTree = "<group>";
@@ -2785,6 +2802,7 @@
 				BF8C0E3828C19BD5009C3A6A /* TravellerEconomyTVCell.xib in Resources */,
 				65C5CD2B29F7D55200FDA690 /* AddAdultsOrGuestTVCell.xib in Resources */,
 				65C5CCE629F77F4C00FDA690 /* AddItineraryTVCell.xib in Resources */,
+				650F81672B26F50E00BAA201 /* NewMulticityTVCell.xib in Resources */,
 				BF8C0E8D28C19BD5009C3A6A /* Lato-Medium.ttf in Resources */,
 				BF8C0E4128C19BD5009C3A6A /* AddTravellersDetailsTVCell.xib in Resources */,
 				BF8C0E3D28C19BD5009C3A6A /* SelectLanguageTVCell.xib in Resources */,
@@ -3032,6 +3050,7 @@
 				BF8C0E5E28C19BD5009C3A6A /* TextfieldTVCell.swift in Sources */,
 				BF8C0E7528C19BD5009C3A6A /* TableViewCell.swift in Sources */,
 				BF8C0DF328C19BD5009C3A6A /* MapViewVC.swift in Sources */,
+				650F81692B26F63E00BAA201 /* BorderView.swift in Sources */,
 				650D5C262A04DA3E007F92F4 /* ProfileUpdateViewModel.swift in Sources */,
 				652C7B9B29F6BD210070935B /* SortByPriceTVCell.swift in Sources */,
 				651F1C162A0213C90075B3DF /* CancellationPolicies.swift in Sources */,
@@ -3062,6 +3081,7 @@
 				65FE7CDF2A1E2A9F00458B0E /* GetMealsListViewModel.swift in Sources */,
 				BF8C0E0C28C19BD5009C3A6A /* AmenitiesCVCell.swift in Sources */,
 				65F3474B2ABAFD82009C8CDC /* Special_allowance.swift in Sources */,
+				650F81662B26F50E00BAA201 /* NewMulticityTVCell.swift in Sources */,
 				651A735A2A037B6700799D81 /* ViewHotelDetailsVC.swift in Sources */,
 				652C7B5629F694700070935B /* CommonTVCell.swift in Sources */,
 				65C5CD3A29F7DD2900FDA690 /* PreProcessBookingModel.swift in Sources */,

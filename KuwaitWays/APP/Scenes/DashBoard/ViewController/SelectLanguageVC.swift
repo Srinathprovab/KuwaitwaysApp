@@ -95,7 +95,7 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
         setupViews(v: langUL, radius: 0, color: .AppNavBackColor)
         setupViews(v: currencyUL, radius: 0, color: .WhiteColor)
         
-        setupLabels(lbl: titlelbl, text: "Select Language /Currency", textcolor: .AppLabelColor, font: .LatoRegular(size: 18))
+        setupLabels(lbl: titlelbl, text: "Select Currency", textcolor: .AppLabelColor, font: .LatoRegular(size: 18))
         setupLabels(lbl: langlbl, text: "Currency", textcolor: .AppLabelColor, font: .LatoRegular(size: 16))
         setupLabels(lbl: currencylbl, text: "Currency", textcolor: .SubTitleColor, font: .LatoRegular(size: 16))
         

@@ -52,6 +52,7 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
             defaults.set("Flight", forKey: UserDefaultsKeys.tabselect)
             defaults.set("oneway", forKey: UserDefaultsKeys.journeyType)
             defaults.set("KWD", forKey: UserDefaultsKeys.selectedCurrency)
+            defaults.set("KWD", forKey: UserDefaultsKeys.selectedCurrencyType)
             
             defaults.set("", forKey: UserDefaultsKeys.fromCity)
             defaults.set("", forKey: UserDefaultsKeys.toCity)

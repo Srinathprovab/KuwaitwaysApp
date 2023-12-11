@@ -78,6 +78,7 @@ enum TVCellType {
     case BillingAddressTVCell
     case TotalNoofTravellerTVCell
     case AdvancedSearchTVCell
+    case NewMulticityTVCell
     
     //Hotel
     case HotelSearchResultTVCell

@@ -654,8 +654,6 @@ extension BaseTableVC: UITableViewDataSource {
                 commonCell = cell
                 
                 
-                
-                
             case .BillingAddressTVCell:
                 let cell:  BillingAddressTVCell = commonTV.dequeTVCell(indexPath: indexPath)
                 cell.delegate = self
@@ -672,7 +670,9 @@ extension BaseTableVC: UITableViewDataSource {
                 commonCell = cell
                 
                 
-                
+            case .NewMulticityTVCell:
+                let cell:  NewMulticityTVCell = commonTV.dequeTVCell(indexPath: indexPath)
+                commonCell = cell
                 
                 
                 
