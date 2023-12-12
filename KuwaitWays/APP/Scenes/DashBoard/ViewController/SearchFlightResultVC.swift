@@ -33,6 +33,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
     let refreshControl = UIRefreshControl()
     var vm:FlightListViewModel?
     let dateFormatter = DateFormatter()
+    var journyType = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +75,7 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
     
     func callAPI() {
         
-        let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+        journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) ?? "oneway"
         
         
         switch journyType {
@@ -93,8 +94,11 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
                 let theJSONText = NSString(data: arrJson, encoding: String.Encoding.utf8.rawValue)
                 
                 
+                print(theJSONText)
+                
                 payload1["search_params"] = theJSONText
                 payload1["user_id"] = "0"
+                
                 vm?.CALL_GET_MULTICITY_FLIGHT_LIST_API(dictParam: payload1)
                 
             }catch let error as NSError{
@@ -241,7 +245,7 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             
             nav.citylbl.text = "\(response.data?.search_params?.from_loc?.joined(separator: "-") ?? "")|\(response.data?.search_params?.to_loc?.joined(separator: "-") ?? "")"
             nav.datelbl.text = "\(response.data?.search_params?.depature?.joined(separator: ",") ?? "")"
-            nav.travellerlbl.text = ""
+            nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails)
             
             
             holderView.isHidden = false
@@ -250,13 +254,12 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
             multicityFlights = response.data?.j_flight_list ?? []
             multicityFlights.forEach { j in
                 
-                prices.append(j.totalPrice ?? "")
+                prices.append(String(format: "%.2f", j.price?.api_total_display_fare ?? 0.0))
+                
                 fareTypeA.append(j.fareType ?? "")
                 j.flight_details?.summary?.forEach({ k in
                     
                     airlinesA.append(k.operator_name ?? "")
-                    connectingFlightsA.append(k.destination?.loc ?? "")
-                    connectingAirportA.append(k.operator_name ?? "")
                     
                     switch k.no_of_stops {
                     case 0:
@@ -275,14 +278,24 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                 
             }
             
+            
+            
+            multicityFlights.forEach { j in
+                j.flight_details?.details?.forEach({ i in
+                    i.forEach { j in
+                        
+                        connectingFlightsA.append("\(j.operator_name ?? "") (\(j.operator_code ?? ""))")
+                        connectingAirportA.append("\( j.destination?.city ?? "") (\(j.destination?.loc ?? ""))")
+                    }
+                })
+            }
+            
             prices = Array(Set(prices))
             noofStopsA = Array(Set(noofStopsA))
             fareTypeA = Array(Set(fareTypeA))
-            airlinesA = Array(Set(airlinesA.filter { isNonNullString($0) }))
-            
+            airlinesA = Array(Set(airlinesA.compactMap { $0 }))
             connectingFlightsA = Array(Set(connectingFlightsA))
             connectingAirportA = Array(Set(connectingAirportA))
-            
             
             setupMulticityTVCells(jfl: response.data?.j_flight_list ?? [])
             
@@ -468,13 +481,13 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
     func setupMulticityTVCells(jfl:[MJ_flight_list]) {
         commonTableView.separatorStyle = .none
         setuplabels(lbl: flightsFoundlbl, text: "\(jfl.count) Flights found", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 12), align: .right)
-        
+        TableViewHelper.EmptyMessage(message: "", tableview: commonTableView, vc: self)
         
         tablerow.removeAll()
         
         jfl.forEach { j in
             tablerow.append(TableRow(title:j.access_key,
-                                     kwdprice:"\(j.sITECurrencyType ?? ""):\(j.totalPrice_API ?? "")",
+                                     kwdprice:"\(j.price?.api_currency ?? ""):\(String(format: "%.2f", j.price?.api_total_display_fare ?? 0.0))",
                                      refundable:j.fareType,
                                      key: "multicity",
                                      moreData: j.flight_details?.summary,
@@ -537,141 +550,184 @@ extension SearchFlightResultVC:AppliedFilters {
     }
     
     
-    
-    
-    
-    
     func filterByApplied(minpricerange: Double, maxpricerange: Double, noofstopsFA: [String], departureTimeFilter: [String], arrivalTimeFilter: [String], airlinesFA: [String], cancellationTypeFA: [String], connectingFlightsFA: [String], connectingAirportsFA: [String]) {
         
         
-        //        print("====minpricerange ==== \(minpricerange)")
-        //        print("====maxpricerange ==== \(maxpricerange)")
-        //        print("==== noofstopsFA ==== \(noofstopsFA)")
-        //        print("==== departureTimeFilter ==== \(departureTimeFilter)")
-        //        print("==== arrivalTimeFilter ==== \(arrivalTimeFilter)")
-        //        print("==== airlinesFA ==== \(airlinesFA)")
-        //        print("==== cancellationTypeFA ==== \(cancellationTypeFA)")
-        //        print("==== connectingFlightsFA ==== \(connectingFlightsFA)")
-        //        print("==== connectingAirportsFA ==== \(connectingAirportsFA)")
+        print("====minpricerange ==== \(minpricerange)")
+        print("====maxpricerange ==== \(maxpricerange)")
+        print("==== noofstopsFA ==== \(noofstopsFA)")
+        print("==== departureTimeFilter ==== \(departureTimeFilter)")
+        print("==== arrivalTimeFilter ==== \(arrivalTimeFilter)")
+        print("==== airlinesFA ==== \(airlinesFA)")
+        print("==== cancellationTypeFA ==== \(cancellationTypeFA)")
+        print("==== connectingFlightsFA ==== \(connectingFlightsFA)")
+        print("==== connectingAirportsFA ==== \(connectingAirportsFA)")
         
+
         
         if let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
-            
-            let sortedArray = oneWayFlights.filter { flightList in
-                
-                guard let details = flightList.first?.flight_details?.details else { return false }
-                //                guard let sum = flightList.first?.flight_details?.summary else { return false }
-                //                guard let totaldisplayfare = flightList.first?.price?.api_total_display_fare else { return false }
+            if journyType == "multicity" {
                 
                 
-                // Calculate the total price for each flight in the flight list
-                let totalPrice = flightList.reduce(0.0) { result, flight in
-                    result + (Double(flight.totalPrice ?? "") ?? 0.0)
-                }
-                
-                // Check if the flight list has at least one flight with the specified number of stops
-                let noOfStopsMatch = noofstopsFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { noofstopsFA.contains("\($0.no_of_stops ?? 0)") }) ?? false })
-                
-                // Check if the flight list has at least one flight with the specified airline
-                let airlinesMatch = airlinesFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { airlinesFA.contains($0.operator_name ?? "") }) ?? false })
-                
-                // Check if the flight list has at least one flight with the specified cancellation type
-                let refundableMatch = cancellationTypeFA.isEmpty || flightList.contains(where: { $0.fareType == cancellationTypeFA.first })
+               
                 
                 
-                
-                let connectingFlightsMatch = flightList.contains { flight in
-                    if connectingFlightsFA.isEmpty {
-                        return true // Return true for all flights if 'connectingAirportsFA' is empty
+                let sortedArray = multicityFlights.filter { (multicityList: MJ_flight_list) -> Bool in
+                    
+                    guard let details = multicityList.flight_details?.details else { return false }
+                    guard let summary = multicityList.flight_details?.summary else { return false }
+                    
+                    
+                    let priceRangeMatch = multicityFlights.contains { flight in
+                        if let totalPrice = flight.price?.api_total_display_fare {
+                            return (minpricerange...maxpricerange).contains(totalPrice)
+                        }
+                        return false
                     }
+
+
+
+                    
+                    let noOfStopsMatch = noofstopsFA.isEmpty || noofstopsFA.contains("\(summary.first?.no_of_stops ?? 0)")
+                    let airlinesMatch = airlinesFA.isEmpty || airlinesFA.contains(summary.first?.operator_name ?? "")
+                    let refundableMatch = cancellationTypeFA.isEmpty || cancellationTypeFA.contains(multicityList.fareType ?? "")
                     
                     
-                    for summaryArray in details {
-                        if summaryArray.contains(where: { flightDetail in
+                    let connectingFlightsMatch = details.contains { summaryArray in
+                        connectingFlightsFA.isEmpty || summaryArray.contains { flightDetail in
                             let operatorname = flightDetail.operator_name ?? ""
                             let loc = flightDetail.operator_code ?? ""
                             return connectingFlightsFA.contains("\(operatorname) (\(loc))")
-                        }) {
-                            return true // Return true for this flight if it contains a matching airport
                         }
                     }
                     
-                    
-                    return false // Return false if no matching airport is found in this flight
-                }
-                
-                
-                
-                let connectingAirportsMatch = flightList.contains { flight in
-                    if connectingAirportsFA.isEmpty {
-                        return true // Return true for all flights if 'connectingAirportsFA' is empty
-                    }
-                    
-                    // Check if 'details' is available and contains the specified airports
-                    
-                    for summaryArray in details {
-                        if summaryArray.contains(where: { flightDetail in
+                    let connectingAirportsMatch = details.contains { summaryArray in
+                        connectingAirportsFA.isEmpty || summaryArray.contains { flightDetail in
                             let airportName = flightDetail.destination?.city ?? ""
                             let airportloc = flightDetail.destination?.loc ?? ""
                             return connectingAirportsFA.contains("\(airportName) (\(airportloc))")
-                        }) {
-                            return true // Return true for this flight if it contains a matching airport
                         }
                     }
                     
+                    // Your filter code
+                    let depMatch = departureTimeFilter.isEmpty || multicityList.flight_details?.summary?.first?.origin?.time.map { departureTime in
+                        departureTimeFilter.contains { isTimeInRange(time: departureTime, range: $0.trimmingCharacters(in: .whitespaces)) }
+                    } ?? false
                     
-                    return false // Return false if no matching airport is found in this flight
+                    let arrMatch = arrivalTimeFilter.isEmpty || multicityList.flight_details?.summary?.last?.destination?.time.map { arrivalTime in
+                        arrivalTimeFilter.contains { isTimeInRange(time: arrivalTime, range: $0) }
+                    } ?? false
+                    
+                    
+                    
+                    
+                    return  priceRangeMatch && noOfStopsMatch && airlinesMatch && refundableMatch && connectingFlightsMatch && connectingAirportsMatch && depMatch && arrMatch
+                    
+                    
+                    
                 }
                 
+                setupMulticityTVCells(jfl: sortedArray)
                 
+            }else {
                 
-                // Your filter code
-                let depMatch = departureTimeFilter.isEmpty || flightList.contains { flight in
-                    if let departureDateTime = flight.flight_details?.summary?.first?.origin?.time {
-                        return departureTimeFilter.contains { departureTime in
-                            return isTimeInRange(time: departureDateTime, range: departureTime.trimmingCharacters(in: .whitespaces))
-                        }
+                let sortedArray = oneWayFlights.filter { flightList in
+                    
+                    guard let details = flightList.first?.flight_details?.details else { return false }
+                    
+                    
+                    // Calculate the total price for each flight in the flight list
+                    let totalPrice = flightList.reduce(0.0) { result, flight in
+                        result + (Double(flight.totalPrice ?? "") ?? 0.0)
                     }
-                    return false
-                }
-                
-                let arrMatch = arrivalTimeFilter.isEmpty || flightList.contains { flight in
-                    if let arrivalDateTime = flight.flight_details?.summary?.first?.destination?.time {
-                        return arrivalTimeFilter.contains { arrivalTime in
-                            return isTimeInRange(time: arrivalDateTime, range: arrivalTime)
+                    
+                    // Check if the flight list has at least one flight with the specified number of stops
+                    let noOfStopsMatch = noofstopsFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { noofstopsFA.contains("\($0.no_of_stops ?? 0)") }) ?? false })
+                    
+                    // Check if the flight list has at least one flight with the specified airline
+                    let airlinesMatch = airlinesFA.isEmpty || flightList.contains(where: { $0.flight_details?.summary?.contains(where: { airlinesFA.contains($0.operator_name ?? "") }) ?? false })
+                    
+                    // Check if the flight list has at least one flight with the specified cancellation type
+                    let refundableMatch = cancellationTypeFA.isEmpty || flightList.contains(where: { $0.fareType == cancellationTypeFA.first })
+                    
+                    
+                    
+                    let connectingFlightsMatch = flightList.contains { flight in
+                        if connectingFlightsFA.isEmpty {
+                            return true // Return true for all flights if 'connectingAirportsFA' is empty
                         }
+                        
+                        
+                        for summaryArray in details {
+                            if summaryArray.contains(where: { flightDetail in
+                                let operatorname = flightDetail.operator_name ?? ""
+                                let loc = flightDetail.operator_code ?? ""
+                                return connectingFlightsFA.contains("\(operatorname) (\(loc))")
+                            }) {
+                                return true // Return true for this flight if it contains a matching airport
+                            }
+                        }
+                        
+                        
+                        return false // Return false if no matching airport is found in this flight
                     }
-                    return false
+                    
+                    
+                    
+                    let connectingAirportsMatch = flightList.contains { flight in
+                        if connectingAirportsFA.isEmpty {
+                            return true // Return true for all flights if 'connectingAirportsFA' is empty
+                        }
+                        
+                        // Check if 'details' is available and contains the specified airports
+                        
+                        for summaryArray in details {
+                            if summaryArray.contains(where: { flightDetail in
+                                let airportName = flightDetail.destination?.city ?? ""
+                                let airportloc = flightDetail.destination?.loc ?? ""
+                                return connectingAirportsFA.contains("\(airportName) (\(airportloc))")
+                            }) {
+                                return true // Return true for this flight if it contains a matching airport
+                            }
+                        }
+                        
+                        
+                        return false // Return false if no matching airport is found in this flight
+                    }
+                    
+                    
+                    
+                    // Your filter code
+                    let depMatch = departureTimeFilter.isEmpty || flightList.contains { flight in
+                        if let departureDateTime = flight.flight_details?.summary?.first?.origin?.time {
+                            return departureTimeFilter.contains { departureTime in
+                                return isTimeInRange(time: departureDateTime, range: departureTime.trimmingCharacters(in: .whitespaces))
+                            }
+                        }
+                        return false
+                    }
+                    
+                    let arrMatch = arrivalTimeFilter.isEmpty || flightList.contains { flight in
+                        if let arrivalDateTime = flight.flight_details?.summary?.first?.destination?.time {
+                            return arrivalTimeFilter.contains { arrivalTime in
+                                return isTimeInRange(time: arrivalDateTime, range: arrivalTime)
+                            }
+                        }
+                        return false
+                    }
+                    
+                    
+                    
+                    // Check if the total price is within the specified range
+                    return totalPrice >= minpricerange && totalPrice <= maxpricerange && noOfStopsMatch && airlinesMatch && refundableMatch && connectingFlightsMatch && connectingAirportsMatch && depMatch && arrMatch
                 }
                 
                 
-                
-                // Check if the total price is within the specified range
-                return totalPrice >= minpricerange && totalPrice <= maxpricerange && noOfStopsMatch && airlinesMatch && refundableMatch && connectingFlightsMatch && connectingAirportsMatch && depMatch && arrMatch
+                setupRoundTripTVCells(jfl: sortedArray)
             }
-            
-            
-            setupRoundTripTVCells(jfl: sortedArray)
-            
-            
         }
         
         
-        
-        
-        if let journeyType = defaults.string(forKey: UserDefaultsKeys.journeyType), journeyType == "multicity" {
-            
-            let totalPrice = multicityFlights.reduce(0.0) { result, flight in
-                result + (Double(flight.totalPrice ?? "") ?? 0.0)
-            }
-            
-            let sortedFlights = multicityFlights.filter { i in
-                return totalPrice >= minpricerange && totalPrice <= maxpricerange
-            }
-            
-            
-            setupMulticityTVCells(jfl: sortedFlights)
-        }
         
     }
     
@@ -681,115 +737,254 @@ extension SearchFlightResultVC:AppliedFilters {
         
         switch sortBy {
         case .PriceLow:
-            let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
-                let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                return totalPrice1 < totalPrice2
+            
+            if journyType == "multicity" {
+                
+                
+//                let sortedMulticityFlights = multicityFlights.sorted { flights1, flights2 in
+//                    let totalPrice1 = flights1.price?.reduce(0) { $0 + (Double($1.api_total_display_fare ?? "0") ?? 0) } ?? 0
+//                    let totalPrice2 = flights2.price?.reduce(0) { $0 + (Double($1.api_total_display_fare ?? "0") ?? 0) } ?? 0
+//                    return totalPrice1 < totalPrice2
+//                }
+//
+//                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
+                    let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+                    let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+                    return totalPrice1 < totalPrice2
+                }
+                
+                
+                setupRoundTripTVCells(jfl: sortedFlights)
             }
             
-            
-            setupRoundTripTVCells(jfl: sortedFlights)
             
             break
             
         case .PriceHigh:
-            let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
-                let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
-                return totalPrice1 > totalPrice2
+            
+            if journyType == "multicity" {
+                
+//                let sortedMulticityFlights = multicityFlights.sorted { flights1, flights2 in
+//                    let totalPrice1 = flights1.price?.reduce(0) { $0 + (Double($1.api_total_display_fare ?? "0") ?? 0) } ?? 0
+//                    let totalPrice2 = flights2.price?.reduce(0) { $0 + (Double($1.api_total_display_fare ?? "0") ?? 0) } ?? 0
+//                    return totalPrice1 > totalPrice2
+//                }
+//
+//                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedFlights = oneWayFlights.sorted { (flights1, flights2) -> Bool in
+                    let totalPrice1 = flights1.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+                    let totalPrice2 = flights2.reduce(0) { $0 + (Double($1.totalPrice ?? "0") ?? 0) }
+                    return totalPrice1 > totalPrice2
+                }
+                
+                setupRoundTripTVCells(jfl: sortedFlights)
             }
             
-            setupRoundTripTVCells(jfl: sortedFlights)
             break
             
             
             
         case .DepartureLow:
-            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                return time1 < time2
-            })
             
-            setupRoundTripTVCells(jfl: sortedArray)
+            if journyType == "multicity" {
+                
+                let sortedMulticityFlights = multicityFlights.sorted { j1,j2 in
+                    let time1 = j1.flight_details?.summary?.first?.origin?.time ?? "0"
+                    let time2 = j2.flight_details?.summary?.first?.origin?.time ?? "0"
+                    return time1 < time2
+                }
+
+                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                    let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
+                    let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
+                    return time1 < time2
+                })
+                
+                setupRoundTripTVCells(jfl: sortedArray)
+            }
+            
             break
             
         case .DepartureHigh:
-            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
-                return time1 > time2
-            })
             
-            setupRoundTripTVCells(jfl: sortedArray)
+            if journyType == "multicity" {
+                
+                let sortedMulticityFlights = multicityFlights.sorted { j1,j2 in
+                    let time1 = j1.flight_details?.summary?.first?.origin?.time ?? "0"
+                    let time2 = j2.flight_details?.summary?.first?.origin?.time ?? "0"
+                    return time1 > time2
+                }
+
+                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                    let time1 = j1.first?.flight_details?.summary?.first?.origin?.time ?? "0"
+                    let time2 = j2.first?.flight_details?.summary?.first?.origin?.time ?? "0"
+                    return time1 > time2
+                })
+                
+                setupRoundTripTVCells(jfl: sortedArray)
+            }
+            
             break
             
             
             
         case .ArrivalLow:
-            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                return time1 < time2
-            })
+            if journyType == "multicity" {
+                
+                let sortedMulticityFlights = multicityFlights.sorted { j1,j2 in
+                    let time1 = j1.flight_details?.summary?.first?.destination?.time ?? "0"
+                    let time2 = j2.flight_details?.summary?.first?.destination?.time ?? "0"
+                    return time1 < time2
+                }
+
+                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                    let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
+                    let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
+                    return time1 < time2
+                })
+                
+                setupRoundTripTVCells(jfl: sortedArray)
+            }
             
-            setupRoundTripTVCells(jfl: sortedArray)
             break
             
         case .ArrivalHigh:
-            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
-                return time1 > time2
-            })
+            if journyType == "multicity" {
+                
+                
+                let sortedMulticityFlights = multicityFlights.sorted { j1,j2 in
+                    let time1 = j1.flight_details?.summary?.first?.destination?.time ?? "0"
+                    let time2 = j2.flight_details?.summary?.first?.destination?.time ?? "0"
+                    return time1 > time2
+                }
+
+                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                    let time1 = j1.first?.flight_details?.summary?.first?.destination?.time ?? "0"
+                    let time2 = j2.first?.flight_details?.summary?.first?.destination?.time ?? "0"
+                    return time1 > time2
+                })
+                
+                setupRoundTripTVCells(jfl: sortedArray)
+            }
             
-            setupRoundTripTVCells(jfl: sortedArray)
             break
             
             
             
             
         case .DurationLow:
-            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                return durationseconds1 < durationseconds2
-            })
+            if journyType == "multicity" {
+                
+                
+                let sortedMulticityFlights = multicityFlights.sorted { flight1, flight2 in
+                    let durationseconds1 = flight1.flight_details?.summary?.first?.duration_seconds ?? 0
+                    let durationseconds2 = flight2.flight_details?.summary?.first?.duration_seconds ?? 0
+                    return durationseconds1 < durationseconds2
+                }
+
+                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                    let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
+                    let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
+                    return durationseconds1 < durationseconds2
+                })
+                
+                setupRoundTripTVCells(jfl: sortedArray)
+            }
             
-            setupRoundTripTVCells(jfl: sortedArray)
             
             break
             
         case .DurationHigh:
+            if journyType == "multicity" {
+                
+                let sortedMulticityFlights = multicityFlights.sorted { flight1, flight2 in
+                    let durationseconds1 = flight1.flight_details?.summary?.first?.duration_seconds ?? 0
+                    let durationseconds2 = flight2.flight_details?.summary?.first?.duration_seconds ?? 0
+                    return durationseconds1 > durationseconds2
+                }
+
+                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                    let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
+                    let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
+                    return durationseconds1 > durationseconds2
+                })
+                
+                setupRoundTripTVCells(jfl: sortedArray)
+            }
             
-            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                let durationseconds1 = j1.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                let durationseconds2 = j2.first?.flight_details?.summary?.first?.duration_seconds ?? 0
-                return durationseconds1 > durationseconds2
-            })
-            
-            setupRoundTripTVCells(jfl: sortedArray)
             break
             
             
         case .airlineaz:
-            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
-                let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
-                return operatorCode1 < operatorCode2
-            })
+            if journyType == "multicity" {
+                
+                let sortedMulticityFlights = multicityFlights.sorted { flight1, flight2 in
+                    let operatorCode1 = flight1.flight_details?.summary?.first?.operator_code ?? ""
+                    let operatorCode2 = flight2.flight_details?.summary?.first?.operator_code ?? ""
+                    return operatorCode1 < operatorCode2
+                }
+
+                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                    let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
+                    let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
+                    return operatorCode1 < operatorCode2
+                })
+                
+                setupRoundTripTVCells(jfl: sortedArray)
+            }
             
-            setupRoundTripTVCells(jfl: sortedArray)
             break
             
         case .airlineza:
-            let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
-                let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
-                let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
-                return operatorCode1 > operatorCode2
-            })
-            
-            setupRoundTripTVCells(jfl: sortedArray)
+            if journyType == "multicity" {
+                
+                
+                let sortedMulticityFlights = multicityFlights.sorted { flight1, flight2 in
+                    
+                   
+                    let operatorCode1 = flight1.flight_details?.summary?.first?.operator_code ?? ""
+                    let operatorCode2 = flight2.flight_details?.summary?.first?.operator_code ?? ""
+                    return operatorCode1 > operatorCode2
+                }
+
+                setupMulticityTVCells(jfl: sortedMulticityFlights)
+                
+            }else {
+                let sortedArray = oneWayFlights.sorted(by: { j1, j2 in
+                    let operatorCode1 = j1.first?.flight_details?.summary?.first?.operator_code ?? ""
+                    let operatorCode2 = j2.first?.flight_details?.summary?.first?.operator_code ?? ""
+                    return operatorCode1 > operatorCode2
+                })
+                
+                setupRoundTripTVCells(jfl: sortedArray)
+            }
+           
             break
             
             

@@ -167,7 +167,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3g6-YS-mKI">
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3g6-YS-mKI">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -205,7 +205,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyG-fa-TXb">
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyG-fa-TXb">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -243,7 +243,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51r-uC-gSF">
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51r-uC-gSF">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -286,7 +286,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAr-oP-lM8">
+                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAr-oP-lM8">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -324,7 +324,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44J-hs-AZh">
+                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44J-hs-AZh">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -362,7 +362,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMi-TN-868">
+                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMi-TN-868">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -436,7 +436,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyc-1x-FOL">
+                                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyc-1x-FOL">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -474,7 +474,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEW-LX-JG7">
+                                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEW-LX-JG7">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -512,7 +512,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wka-6L-1f0">
+                                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wka-6L-1f0">
                                                                 <rect key="frame" x="0.0" y="0.0" width="165.33333333333334" height="45"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain"/>
@@ -826,6 +826,21 @@
                 <outlet property="citycard4" destination="SKf-ke-Ttm" id="HQg-Ev-zou"/>
                 <outlet property="closeBtn3" destination="pZo-05-rYw" id="wkN-gj-QBt"/>
                 <outlet property="closeBtn4" destination="RUB-ww-qOL" id="0fb-VI-ugi"/>
+                <outlet property="date1btn" destination="dFA-1c-ccs" id="yBl-fF-WG1"/>
+                <outlet property="date1lbl" destination="lvr-Ou-vAy" id="3ad-tI-pv4"/>
+                <outlet property="date2btn" destination="51r-uC-gSF" id="ZVD-k5-Yj0"/>
+                <outlet property="date3btn" destination="UMi-TN-868" id="oWO-Uv-WhB"/>
+                <outlet property="date4btn" destination="Wka-6L-1f0" id="Ipn-e3-8t0"/>
+                <outlet property="from1btn" destination="FS4-nY-WYD" id="sin-zn-7OF"/>
+                <outlet property="from1lbl" destination="7tQ-1J-zNk" id="ygb-Tj-613"/>
+                <outlet property="from2btn" destination="3g6-YS-mKI" id="Gta-Ch-fAe"/>
+                <outlet property="from3btn" destination="OAr-oP-lM8" id="r1N-WG-Ro0"/>
+                <outlet property="from4btn" destination="kyc-1x-FOL" id="JCA-QX-Vuy"/>
+                <outlet property="to1btn" destination="vXP-xQ-fxX" id="59g-yj-sON"/>
+                <outlet property="to1lbl" destination="6e5-M1-3zp" id="h1l-LI-kTi"/>
+                <outlet property="to2btn" destination="zyG-fa-TXb" id="yKI-as-TzN"/>
+                <outlet property="to3btn" destination="44J-hs-AZh" id="eG2-VR-yzy"/>
+                <outlet property="to4btn" destination="sEW-LX-JG7" id="xwz-DD-2XJ"/>
             </connections>
             <point key="canvasLocation" x="113.74045801526717" y="335.56338028169017"/>
         </tableViewCell>
@@ -841,7 +856,7 @@
             <color red="0.90200001001358032" green="0.9100000262260437" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppHolderViewColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="0.17999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.94900000095367432" alpha="0.18000000715255737" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="WhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -282,7 +282,7 @@ class TravellerEconomyVC: BaseTableVC {
     
     func gotoSearchHotelsVC() {
         //        guard let vc = SearchHotelsVC.newInstance.self else {return}
-        //        vc.modalPresentationStyle = .overCurrentContext
+        //        vc.modalPresentationStyle = .overCurrentContextad
         //        self.present(vc, animated: false)
     }
     

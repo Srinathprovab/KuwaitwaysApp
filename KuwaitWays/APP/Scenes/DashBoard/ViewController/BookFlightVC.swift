@@ -37,7 +37,7 @@ class BookFlightVC: BaseTableVC {
     var payload2 = [String:Any]()
     var isVcFrom = String()
     var tablerow = [TableRow]()
-    
+    var finalInputArray = [[String:Any]]()
     
     static var newInstance: BookFlightVC? {
         let storyboard = UIStoryboard(name: Storyboard.Main.name,
@@ -69,9 +69,6 @@ class BookFlightVC: BaseTableVC {
     
     
     @objc func reload(notification: NSNotification){
-        
-        
-        
         commonTableView.reloadData()
     }
     
@@ -161,8 +158,8 @@ class BookFlightVC: BaseTableVC {
     func appendMulticityTvcells() {
         tablerow.removeAll()
         
-        tablerow.append(TableRow(cellType:.NewMulticityTVCell))
-        //  tablerow.append(TableRow(cellType:.AddCityTVCell))
+        //   tablerow.append(TableRow(cellType:.NewMulticityTVCell))
+        tablerow.append(TableRow(cellType:.AddCityTVCell))
         //    tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
         //        tablerow.append(TableRow(title:"Flight ",subTitle: "Popular International Flights From Kuwait",key: "deals",cellType:.LabelTVCell))
         //        tablerow.append(TableRow(height:18,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
@@ -389,7 +386,7 @@ class BookFlightVC: BaseTableVC {
     }
     
     
-    var finalInputArray = [[String:Any]]()
+    
     override func didTapOnMultiCityTripSearchFlight(cell: AddCityTVCell) {
         payload.removeAll()
         payload1.removeAll()
@@ -454,13 +451,13 @@ class BookFlightVC: BaseTableVC {
         
         
         
-        if showToastMessage == nil {
-            if depatureDatesArray != depatureDatesArray.sorted() {
-                showToastMessage = "Please Select Dates in Ascending Order"
-            } else if depatureDatesArray.count == 2 && depatureDatesArray[0] == depatureDatesArray[1] {
-                showToastMessage = "Please Select Different Dates"
-            }
-        }
+        //        if showToastMessage == nil {
+        //            if depatureDatesArray != depatureDatesArray.sorted() {
+        //                showToastMessage = "Please Select Dates in Ascending Order"
+        //            } else if depatureDatesArray.count == 2 && depatureDatesArray[0] == depatureDatesArray[1] {
+        //                showToastMessage = "Please Select Different Dates"
+        //            }
+        //        }
         
         
         
@@ -469,8 +466,6 @@ class BookFlightVC: BaseTableVC {
         } else {
             gotoSearchFlightResultVC(input: payload)
         }
-        
-        
         
         
     }
@@ -519,9 +514,7 @@ class BookFlightVC: BaseTableVC {
     }
     
     
-    
     override func donedatePicker(cell:SearchFlightTVCell){
-        
         
         let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
         if journyType == "oneway" {
@@ -544,6 +537,20 @@ class BookFlightVC: BaseTableVC {
     override func cancelDatePicker(cell:SearchFlightTVCell){
         self.view.endEditing(true)
     }
+    
+    
+    override func didTapOnFromBtn(cell:NewMulticityTVCell){
+        gotoSelectCityVC(str: "From", tokey: "")
+    }
+    
+    override func didTapOnToBtn(cell:NewMulticityTVCell){
+        gotoSelectCityVC(str: "To", tokey: "")
+    }
+    
+    override func didTapOndateBtn(cell:NewMulticityTVCell){
+        gotoCalenderVC()
+    }
+    
     
     
 }

@@ -31,8 +31,7 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     @IBOutlet weak var traView: UIView!
     @IBOutlet weak var tralbl: UILabel!
     @IBOutlet weak var searchFlightView: UIView!
-    
-    
+    @IBOutlet weak var addCityView: UIView!
     
     
     
@@ -52,19 +51,26 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     
     
     func setupUI() {
+        
         holderView.backgroundColor = .AppHolderViewColor
         addCityTVHeight.constant = 110
-        addCityBtn.setTitle("+ Add City", for: .normal)
-        addCityBtn.setTitleColor(.AppBackgroundColor, for: .normal)
         
+        tralbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
         traView.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 4)
         searchFlightView.addCornerRadiusWithShadow(color: HexColor("#254179",alpha: 0.10), borderColor: .clear, cornerRadius: 8)
-
-        
         
         setupTV()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name("reload"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(travellerMulticity), name: NSNotification.Name("calreloadTV"), object: nil)
+        
+    }
+    
+    
+    @objc func travellerMulticity() {
+        tralbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
+        updateheight()
     }
     
     
@@ -74,12 +80,15 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     
     
     func setupTV() {
+        
         addCityTV.register(UINib(nibName: "MulticityFromToTVCell", bundle: nil), forCellReuseIdentifier: "cell")
         addCityTV.delegate = self
         addCityTV.dataSource = self
         addCityTV.tableFooterView = UIView()
         addCityTV.separatorStyle = .none
         addCityTV.backgroundColor = .AppHolderViewColor
+        addCityTV.isScrollEnabled = false
+        
     }
     
     
@@ -108,8 +117,8 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     
     @IBAction func didTapOnAddCityBtn(_ sender: Any) {
         count += 1
-        if fromCityNameArray.count >= 5 {
-            addCityBtn.isHidden = true
+        if fromCityNameArray.count >= 4 {
+            addCityView.isHidden = true
             
         }else {
             
@@ -125,12 +134,12 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
             
             DispatchQueue.main.async {[self] in
                 updateheight()
-                NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
+                NotificationCenter.default.post(name: Notification.Name("addcity"), object: nil)
             }
             
             
-            if fromCityCodeArray.count == 5 {
-                addCityBtn.isHidden = true
+            if fromCityCodeArray.count == 4 {
+                addCityView.isHidden = true
             }
             
         }
@@ -156,13 +165,13 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
         
         addCityTV.deleteRows(at: [IndexPath(item: cell.closeBtn.tag, section: 0)], with: .automatic)
         DispatchQueue.main.async {[self] in
-            if fromCityCodeArray.count <= 5 {
-                addCityBtn.isHidden = false
+            if fromCityCodeArray.count <= 4 {
+                addCityView.isHidden = false
             }
         }
         
         updateheight()
-        NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("addcity"), object: nil)
     }
     
     

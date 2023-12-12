@@ -60,7 +60,7 @@ class MultiCityTripTVCell: TableViewCell, ButtonTVCellDelegate, AddCityTVCellDel
         multiTripTV.register(UINib(nibName: "AddCityTVCell", bundle: nil), forCellReuseIdentifier: "cell1")
         multiTripTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell2")
         multiTripTV.register(UINib(nibName: "ButtonTVCell", bundle: nil), forCellReuseIdentifier: "cell3")
-
+        
         multiTripTV.delegate = self
         multiTripTV.dataSource = self
         multiTripTV.tableFooterView = UIView()
@@ -122,7 +122,7 @@ extension MultiCityTripTVCell:UITableViewDataSource,UITableViewDelegate {
                 cell.locImg.image = UIImage(named: "traveler")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                 cell.dropdownimg.isHidden = false
                 cell.tag = 3
-              //  cell.fromBtn.addTarget(self, action: #selector(didTapOnAddTravellerEconomy(cell:)), for: .touchUpInside)
+                //  cell.fromBtn.addTarget(self, action: #selector(didTapOnAddTravellerEconomy(cell:)), for: .touchUpInside)
                 c = cell
             }
         }else {

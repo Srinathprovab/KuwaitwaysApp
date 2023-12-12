@@ -8,6 +8,7 @@
 import Foundation
 
 struct MJ_flight_list : Codable {
+    
     let totalPrice : String?
     let basePrice : String?
     let taxes : String?
@@ -18,7 +19,7 @@ struct MJ_flight_list : Codable {
     let flight_details : MFlight_details?
     let selectedResult : String?
     let access_key : String?
-    
+    let price : Price?
     
     enum CodingKeys: String, CodingKey {
         
@@ -32,6 +33,7 @@ struct MJ_flight_list : Codable {
         case flight_details = "flight_details"
         case selectedResult = "selectedResult"
         case access_key = "access_key"
+        case price = "price"
     }
     
     init(from decoder: Decoder) throws {
@@ -46,6 +48,7 @@ struct MJ_flight_list : Codable {
         flight_details = try values.decodeIfPresent(MFlight_details.self, forKey: .flight_details)
         selectedResult = try values.decodeIfPresent(String.self, forKey: .selectedResult)
         access_key = try values.decodeIfPresent(String.self, forKey: .access_key)
+        price = try values.decodeIfPresent(Price.self, forKey: .price)
 
     }
     
