@@ -273,7 +273,7 @@ class Calvc: UIViewController {
                         if calstartDate == "" {
                             showToast(message: "Please Select Dates")
                         }else{
-                            defaults.set(calstartDate, forKey: UserDefaultsKeys.mcalDepDate)
+                            defaults.set(calstartDate, forKey: UserDefaultsKeys.calDepDate)
                             depatureDatesArray[self.celltag] = calstartDate
                             
                             NotificationCenter.default.post(name: Notification.Name("calreloadTV"), object: nil)

@@ -72,8 +72,8 @@ class DashBoardVC: BaseTableVC, IndexPageViewModelDelegate, CountryListViewModel
             
             
             
-            let totaltraverlers2 = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.mselectClass) ?? "Economy")"
-            defaults.set(totaltraverlers2, forKey: UserDefaultsKeys.mtravellerDetails)
+            let totaltraverlers2 = "\(defaults.string(forKey: UserDefaultsKeys.totalTravellerCount) ?? "1") Traveller - \(defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "Economy")"
+            defaults.set(totaltraverlers2, forKey: UserDefaultsKeys.travellerDetails)
             
             
             UserDefaults.standard.set(true, forKey: "ExecuteOnce")

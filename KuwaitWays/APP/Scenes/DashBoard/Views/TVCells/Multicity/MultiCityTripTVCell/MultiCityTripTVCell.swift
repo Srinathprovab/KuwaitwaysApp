@@ -117,8 +117,8 @@ extension MultiCityTripTVCell:UITableViewDataSource,UITableViewDelegate {
             }
         }else  if indexPath.row == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell2") as? HolderViewTVCell {
-                cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "+ Add Traveller") traveller - \(defaults.string(forKey: UserDefaultsKeys.mselectClass) ?? "") "
-                defaults.set(cell.titlelbl.text, forKey: UserDefaultsKeys.mtravellerDetails)
+                cell.titlelbl.text = "\(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "+ Add Traveller") traveller - \(defaults.string(forKey: UserDefaultsKeys.selectClass) ?? "") "
+                defaults.set(cell.titlelbl.text, forKey: UserDefaultsKeys.travellerDetails)
                 cell.locImg.image = UIImage(named: "traveler")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                 cell.dropdownimg.isHidden = false
                 cell.tag = 3

@@ -55,7 +55,7 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
         holderView.backgroundColor = .AppHolderViewColor
         addCityTVHeight.constant = 110
         
-        tralbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
+        tralbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
         traView.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 4)
         searchFlightView.addCornerRadiusWithShadow(color: HexColor("#254179",alpha: 0.10), borderColor: .clear, cornerRadius: 8)
         
@@ -69,7 +69,7 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     
     
     @objc func travellerMulticity() {
-        tralbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
+        tralbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
         updateheight()
     }
     

@@ -67,7 +67,7 @@ var bookingsourcekey = String()
 var accesskey = String()
 var oneWayFlights = [[J_flight_list]]()
 var roundTripFlights = [[J_flight_list]]()
-var multicityFlights = [MJ_flight_list]()
+var multicityFlights = [[J_flight_list]]()
 var fd = [[FlightDetails]]()
 var baggageAllowance1 = [BaggageAllowance]()
 
@@ -106,6 +106,8 @@ var subtotal = String()
 var checkTermsAndCondationStatus = false
 var meallist = [Meal_list]()
 var specialAssistancelist1 = [Special_allowance]()
+var totalBaseFare = String()
+var totaltax = String()
 
 
 //paynow screen
@@ -261,7 +263,7 @@ struct UserDefaultsKeys {
     static var journeyCitys = "journeyCitys"
     static var journeyDates = "journeyDates"
     static var cellTag = "cellTag"
-
+    static var flightrefundtype = "flightrefundtype"
     
     
     
@@ -303,14 +305,16 @@ struct UserDefaultsKeys {
     static var mlocationcity = "mlocation_city"
     static var mfromCity = "mfromCity"
     static var mtoCity = "mtoCity"
-    static var mcalDepDate = "mcalDepDate"
-    static var mcalRetDate = "mcalRetDate"
-    static var madultCount = "mAdult_Count"
-    static var mchildCount = "mChild_Count"
-    static var mhadultCount = "mHAdult_Count"
-    static var mhchildCount = "mHChild_Count"
-    static var minfantsCount = "mInfants_Count"
-    static var mselectClass = "mselect_class"
+    
+//    static var mcalDepDate = "mcalDepDate"
+//    static var mcalRetDate = "mcalRetDate"
+//    static var madultCount = "mAdult_Count"
+//    static var mchildCount = "mChild_Count"
+//    static var mhadultCount = "mHAdult_Count"
+//    static var mhchildCount = "mHChild_Count"
+//    static var minfantsCount = "mInfants_Count"
+//    static var mselectClass = "mselect_class"
+    
     static var mfromlocid = "mfrom_loc_id"
     static var mtolocid = "mto_loc_id"
     static var mfromcityname = "mfromcityname"
@@ -329,12 +333,13 @@ struct UserDefaultsKeys {
     static var hnationality = "hnationality"
     static var hnationalitycode = "hnationalitycode"
     
+    
     static var select = "select"
     static var checkin = "check_in"
     static var checkout = "check _out"
     static var addTarvellerDetails = "addTarvellerDetails"
     static var travellerDetails = "traveller_Details"
-    static var mtravellerDetails = "mtraveller_Details"
+   // static var mtravellerDetails = "mtraveller_Details"
     static var roomcount = "room_count"
     static var hoteladultscount = "hotel_adults_count"
     static var hotelchildcount = "hotel_child_count"

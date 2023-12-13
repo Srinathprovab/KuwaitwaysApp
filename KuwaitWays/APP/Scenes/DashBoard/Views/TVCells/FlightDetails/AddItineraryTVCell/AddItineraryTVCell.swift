@@ -15,6 +15,9 @@ class AddItineraryTVCell: TableViewCell {
     @IBOutlet weak var addDetailsTv: UITableView!
     @IBOutlet weak var tvHeight: NSLayoutConstraint!
     
+    
+    
+    var tripstring = String()
     var fd = [FlightDetails]()
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +34,7 @@ class AddItineraryTVCell: TableViewCell {
     
     override func updateUI() {
         
+        tripstring = cellInfo?.title ?? ""
         fd = cellInfo?.moreData as! [FlightDetails]
         updateHeight(height: 149)
     }
@@ -110,6 +114,8 @@ extension AddItineraryTVCell:UITableViewDelegate,UITableViewDataSource {
                 cell.layoverView.isHidden = true
             }
             
+            
+        
             c = cell
         }
         return c

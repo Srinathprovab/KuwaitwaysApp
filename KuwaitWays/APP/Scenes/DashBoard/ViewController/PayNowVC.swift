@@ -145,6 +145,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
                                          "BillingAddressTVCell",
                                          "ContactInformationTVCell",
                                          "TotalNoofTravellerTVCell",
+                                         "FlightPriceSummeryTVCell",
                                          "AddInfantaTravellerTVCell"])
         
     }
@@ -264,8 +265,10 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
             tablerow.append(TableRow(cellType:.PromocodeTVCell))
         }
         
-        tablerow.append(TableRow(title:grandTotal,
-                                 cellType:.PriceSummaryTVCell))
+//        tablerow.append(TableRow(title:grandTotal,
+//                                 cellType:.PriceSummaryTVCell))
+        
+        tablerow.append(TableRow(cellType:.FlightPriceSummeryTVCell))
         
         
         tablerow.append(TableRow(title:"I Accept T&C and Privacy Policy",cellType:.AcceptTermsAndConditionTVCell))
@@ -1296,11 +1299,11 @@ extension PayNowVC {
                         infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
                         flighttotelCount = (adultsCount + childCount + infantsCount)
                     }else {
-                        nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
+                        nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
                         
-                        adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1") ?? 0
-                        childCount = Int(defaults.string(forKey: UserDefaultsKeys.mchildCount) ?? "0") ?? 0
-                        infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0") ?? 0
+                        adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1") ?? 0
+                        childCount = Int(defaults.string(forKey: UserDefaultsKeys.childCount) ?? "0") ?? 0
+                        infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
                         flighttotelCount = (adultsCount + childCount + infantsCount)
                     }
                 }

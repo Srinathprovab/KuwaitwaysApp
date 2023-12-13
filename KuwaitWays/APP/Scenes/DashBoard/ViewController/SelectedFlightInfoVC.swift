@@ -62,9 +62,9 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
                 infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
             }else {
                 
-                adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.madultCount) ?? "1") ?? 0
-                childCount = Int(defaults.string(forKey: UserDefaultsKeys.mchildCount) ?? "0") ?? 0
-                infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0") ?? 0
+                adultsCount = Int(defaults.string(forKey: UserDefaultsKeys.adultCount) ?? "1") ?? 0
+                childCount = Int(defaults.string(forKey: UserDefaultsKeys.childCount) ?? "0") ?? 0
+                infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
             }
         }
         
@@ -127,6 +127,42 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
             sub_total_infant = String(response.priceDetails?.sub_total_infant ?? "0")
             
             
+            if let adultsBasePriceString = response.priceDetails?.adultsBasePrice,
+               let childsBasePriceString = response.priceDetails?.childBasePrice,
+               let infantsBasePriceString = response.priceDetails?.infantBasePrice {
+
+                // Convert strings to doubles, providing default values if conversion fails
+                let adultsBasePrice = Double(adultsBasePriceString) ?? 0.0
+                let childsBasePrice = Double(childsBasePriceString) ?? 0.0
+                let infantsBasePrice = Double(infantsBasePriceString) ?? 0.0
+
+                // Calculate total base fare
+                 totalBaseFare = "\(adultsBasePrice + childsBasePrice + infantsBasePrice)"
+               
+
+            } else {
+                print("Error: One or more base prices are nil.")
+            }
+            
+            
+            if let adultsBasePriceString = response.priceDetails?.adultsTaxPrice,
+               let childsBasePriceString = response.priceDetails?.childTaxPrice,
+               let infantsBasePriceString = response.priceDetails?.infantTaxPrice {
+
+                // Convert strings to doubles, providing default values if conversion fails
+                let adultsBasePrice = Double(adultsBasePriceString) ?? 0.0
+                let childsBasePrice = Double(childsBasePriceString) ?? 0.0
+                let infantsBasePrice = Double(infantsBasePriceString) ?? 0.0
+
+                // Calculate total base fare
+                 totaltax = "\(adultsBasePrice + childsBasePrice + infantsBasePrice)"
+               
+
+            } else {
+                print("Error: One or more base prices are nil.")
+            }
+
+            
             setupUI()
             
             
@@ -172,7 +208,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         }else if jt == "circle" {
             nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
         }else {
-            nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.mtravellerDetails) ?? ""
+            nav.travellerlbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
         }
         
         cellIndex = Int(defaults.string(forKey: UserDefaultsKeys.itinerarySelectedIndex) ?? "0") ?? 0
@@ -247,9 +283,15 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
     func setupItineraryTVCells() {
         tablerow.removeAll()
         
-        fd.forEach { i in
-            tablerow.append(TableRow(moreData:i,cellType:.AddItineraryTVCell))
+//        fd.forEach { i in
+//            tablerow.append(TableRow(moreData:i,cellType:.AddItineraryTVCell))
+//        }
+        
+        fd.enumerated().forEach { (index, element) in
+            tablerow.append(TableRow(title:"\(index)",moreData: element, cellType: .AddItineraryTVCell))
         }
+
+
         
         tablerow.append(TableRow(height:50,bgColor: .AppHolderViewColor,cellType:.EmptyTVCell))
 

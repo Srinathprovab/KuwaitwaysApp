@@ -79,7 +79,7 @@ class AddInfantaTravellerTVCell: TableViewCell,AddAdultsOrGuestTVCellDelegate {
             }else if journeyType == "circle"{
                 infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
             }else {
-                infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.minfantsCount) ?? "0") ?? 0
+                infantsCount = Int(defaults.string(forKey: UserDefaultsKeys.infantsCount) ?? "0") ?? 0
             }
         }
         

@@ -117,9 +117,7 @@ class BookFlightVC: BaseTableVC {
                                          "SearchFlightTVCell",
                                          "LabelTVCell",
                                          "HotelDealsTVCell",
-                                         "AddCityTVCell",
-                                         "NewMulticityTVCell",
-                                         "MultiCityTripTVCell"])
+                                         "AddCityTVCell"])
         
         appendTvcells(str: "oneway")
         if let selectedJourneyType = defaults.string(forKey: UserDefaultsKeys.journeyType) {
@@ -388,6 +386,7 @@ class BookFlightVC: BaseTableVC {
     
     
     override func didTapOnMultiCityTripSearchFlight(cell: AddCityTVCell) {
+        
         payload.removeAll()
         payload1.removeAll()
         payload2.removeAll()
@@ -406,16 +405,16 @@ class BookFlightVC: BaseTableVC {
         
         payload["sector_type"] = "international"
         payload["trip_type"] = defaults.string(forKey:UserDefaultsKeys.journeyType)
-        payload["adult"] = defaults.string(forKey: UserDefaultsKeys.madultCount)
-        payload["child"] = defaults.string(forKey: UserDefaultsKeys.mchildCount)
-        payload["infant"] = defaults.string(forKey: UserDefaultsKeys.minfantsCount)
+        payload["adult"] = defaults.string(forKey: UserDefaultsKeys.adultCount)
+        payload["child"] = defaults.string(forKey: UserDefaultsKeys.childCount)
+        payload["infant"] = defaults.string(forKey: UserDefaultsKeys.infantsCount)
         payload["checkbox-group"] = "on"
         payload["search_flight"] = "Search"
         payload["anNonstopflight"] = "1"
         payload["carrier"] = ""
         payload["psscarrier"] = "ALL"
-        payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.mselectClass)
-        payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.mselectClass)
+        payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
+        payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["user_id"] = "0"
         payload["selectedCurrency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "AED"
         payload["placeDetails"] = finalInputArray

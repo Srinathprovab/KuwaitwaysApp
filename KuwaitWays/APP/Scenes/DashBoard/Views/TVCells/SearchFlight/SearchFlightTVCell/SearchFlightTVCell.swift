@@ -277,18 +277,20 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                 
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HolderViewTVCell {
                     cell.selectionStyle = .none
-                    cell.locImg.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                     cell.toView.isHidden = false
                     cell.swipeView.isHidden = false
                     cell.fromBtn.addTarget(self, action: #selector(didTapOnFromCity(cell:)), for: .touchUpInside)
                     cell.toBtn.addTarget(self, action: #selector(didTapOnToCity(cell:)), for: .touchUpInside)
-                    
+                    cell.locImg.image = UIImage(named: "from")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
+                    cell.locImg1.image = UIImage(named: "to")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                     if self.key == "roundtrip" {
-                        
+                       
+
                         if let fromstr = defaults.string(forKey: UserDefaultsKeys.fromCity) {
                             if fromstr.isEmpty == true {
                                 cell.titlelbl.text = "From"
                                 cell.tolabel.text =  "To"
+                                
                             }else {
                                 cell.titlelbl.text = defaults.string(forKey: UserDefaultsKeys.fromCity) ?? "From"
                                 cell.tolabel.text = defaults.string(forKey: UserDefaultsKeys.toCity) ?? "To"

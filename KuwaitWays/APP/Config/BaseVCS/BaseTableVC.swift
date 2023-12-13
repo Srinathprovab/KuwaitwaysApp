@@ -682,6 +682,11 @@ extension BaseTableVC: UITableViewDataSource {
                 
                 
                 
+            case .FlightPriceSummeryTVCell:
+                let cell:  FlightPriceSummeryTVCell = commonTV.dequeTVCell(indexPath: indexPath)
+                commonCell = cell
+                
+                
             default:
                 print("handle this case in getCurrentCellAt")
             }

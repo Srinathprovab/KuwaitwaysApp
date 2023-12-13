@@ -99,7 +99,7 @@ extension CommonTVCell:UITableViewDataSource,UITableViewDelegate {
                     defaults.set(cell.titlelbl.text ?? "", forKey: UserDefaultsKeys.selectClass)
                     defaults.set(indexPath.row, forKey: UserDefaultsKeys.rselect_classIndex)
                 }else {
-                    defaults.set(cell.titlelbl.text ?? "", forKey: UserDefaultsKeys.mselectClass)
+                    defaults.set(cell.titlelbl.text ?? "", forKey: UserDefaultsKeys.selectClass)
                     defaults.set(indexPath.row, forKey: UserDefaultsKeys.mselect_classIndex)
                 }
             }

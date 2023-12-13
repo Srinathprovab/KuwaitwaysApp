@@ -142,7 +142,7 @@ class ModifySearchVC: BaseTableVC {
     
     func appendMulticityTvcells() {
         tablerow.removeAll()
-        
+        commonTableView.backgroundColor = .WhiteColor
         //   tablerow.append(TableRow(cellType:.NewMulticityTVCell))
         tablerow.append(TableRow(cellType:.AddCityTVCell))
         //    tablerow.append(TableRow(height:10,bgColor: .AppBGcolor,cellType:.EmptyTVCell))
@@ -378,7 +378,63 @@ class ModifySearchVC: BaseTableVC {
         gotoAddTravelerVC()
     }
     
-    override func didTapOnMultiCityTripSearchFlight(cell:ButtonTVCell){
+    
+    
+    
+    //MARK: - didTapOnSelectAirlines
+    
+    override func didTapOnSelectAirlines(){
+        gotoNationalityVC()
+    }
+    
+    
+    func gotoNationalityVC(){
+        guard let vc = NationalityVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
+    
+    
+    
+    //MARK: - donedatePicker cancelDatePicker
+    
+    override func donedatePicker(cell:SearchFlightTVCell){
+        
+        
+        let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
+        if journyType == "oneway" {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MM-yyyy"
+            defaults.set(formatter.string(from: cell.depDatePicker.date), forKey: UserDefaultsKeys.calDepDate)
+            
+        }else {
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MM-yyyy"
+            defaults.set(formatter.string(from: cell.retdepDatePicker.date), forKey: UserDefaultsKeys.calDepDate)
+            defaults.set(formatter.string(from: cell.retDatePicker.date), forKey: UserDefaultsKeys.calRetDate)
+        }
+        
+        commonTableView.reloadData()
+        self.view.endEditing(true)
+    }
+    
+    override func cancelDatePicker(cell:SearchFlightTVCell){
+        self.view.endEditing(true)
+    }
+    
+    
+    //MARK: - didTapOnAddTravellerEconomy
+    override func didTapOnAddTravellerEconomy(cell: AddCityTVCell) {
+        gotoAddTravelerVC()
+    }
+    
+    
+    
+    //MARK: - didTapOnMultiCityTripSearchFlight
+    
+    override func didTapOnMultiCityTripSearchFlight(cell: AddCityTVCell) {
+        
         payload.removeAll()
         payload1.removeAll()
         payload2.removeAll()
@@ -397,16 +453,16 @@ class ModifySearchVC: BaseTableVC {
         
         payload["sector_type"] = "international"
         payload["trip_type"] = defaults.string(forKey:UserDefaultsKeys.journeyType)
-        payload["adult"] = defaults.string(forKey: UserDefaultsKeys.madultCount)
-        payload["child"] = defaults.string(forKey: UserDefaultsKeys.mchildCount)
-        payload["infant"] = defaults.string(forKey: UserDefaultsKeys.minfantsCount)
+        payload["adult"] = defaults.string(forKey: UserDefaultsKeys.adultCount)
+        payload["child"] = defaults.string(forKey: UserDefaultsKeys.childCount)
+        payload["infant"] = defaults.string(forKey: UserDefaultsKeys.infantsCount)
         payload["checkbox-group"] = "on"
         payload["search_flight"] = "Search"
         payload["anNonstopflight"] = "1"
         payload["carrier"] = ""
         payload["psscarrier"] = "ALL"
-        payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.mselectClass)
-        payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.mselectClass)
+        payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
+        payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["user_id"] = "0"
         payload["selectedCurrency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "AED"
         payload["placeDetails"] = finalInputArray
@@ -459,47 +515,5 @@ class ModifySearchVC: BaseTableVC {
         }
         
         
-    }
-    
-    
-    
-    //MARK: - didTapOnSelectAirlines
-    
-    override func didTapOnSelectAirlines(){
-        gotoNationalityVC()
-    }
-    
-    
-    func gotoNationalityVC(){
-        guard let vc = NationalityVC.newInstance.self else {return}
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
-    }
-    
-    
-    
-    override func donedatePicker(cell:SearchFlightTVCell){
-        
-        
-        let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
-        if journyType == "oneway" {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd-MM-yyyy"
-            defaults.set(formatter.string(from: cell.depDatePicker.date), forKey: UserDefaultsKeys.calDepDate)
-            
-        }else {
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd-MM-yyyy"
-            defaults.set(formatter.string(from: cell.retdepDatePicker.date), forKey: UserDefaultsKeys.calDepDate)
-            defaults.set(formatter.string(from: cell.retDatePicker.date), forKey: UserDefaultsKeys.calRetDate)
-        }
-        
-        commonTableView.reloadData()
-        self.view.endEditing(true)
-    }
-    
-    override func cancelDatePicker(cell:SearchFlightTVCell){
-        self.view.endEditing(true)
     }
 }
