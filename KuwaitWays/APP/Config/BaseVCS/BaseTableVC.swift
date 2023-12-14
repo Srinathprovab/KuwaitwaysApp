@@ -223,6 +223,7 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func donedatePicker(cell:AddCityTVCell){}
     func cancelDatePicker(cell:AddCityTVCell){}
     func donedatePicker(cell:MulticityFromToTVCell){}
+    func didTapOnSelectAirlineBtnAction(cell:AddCityTVCell){}
     
 }
 

@@ -46,14 +46,14 @@ class HolderViewTVCell: UITableViewCell {
        
         contentView.backgroundColor = .AppHolderViewColor
         setupViews(v: holderView, radius: 4, color: HexColor("#E6E8E7",alpha: 0.20))
-        setupLabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
+        setupLabels(lbl: titlelbl, text: "", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
         locImg.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         swipeImg.image = UIImage(named: "swap")?.withRenderingMode(.alwaysOriginal).withTintColor(.WhiteColor)
         dropdownimg.image = UIImage(named: "downarrow")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         dropdownimg.isHidden = true
         
         setupViews(v: toView, radius: 4, color: HexColor("#E6E8E7",alpha: 0.20))
-        setupLabels(lbl: tolabel, text: "To", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
+        setupLabels(lbl: tolabel, text: "To", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
         locImg1.image = UIImage(named: "loc")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         toView.isHidden = true
         

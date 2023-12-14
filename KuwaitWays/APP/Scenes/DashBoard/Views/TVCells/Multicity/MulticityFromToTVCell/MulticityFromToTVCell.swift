@@ -48,40 +48,18 @@ class MulticityFromToTVCell: TableViewCell {
     }
     
     func setupUI() {
-       // setupViews(v: holderView, radius: 0, color: .AppBGColor)
-        holderView.backgroundColor = .AppHolderViewColor
-        setupViews(v: fromView, radius: 4, color: .clear)
-        setupViews(v: toView, radius: 4, color: .clear)
-        setupViews(v: dateView, radius: 4, color: .clear)
-        setupViews(v: closeView, radius: 10, color: .clear)
-        setupLabels(lbl: fromlbl, text: "From", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
-        setupLabels(lbl: tolbl, text: "To", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
-        setupLabels(lbl: datelbl, text: "Date", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
+       
         fromimg.image = UIImage(named: "from")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         toimg.image = UIImage(named: "to")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         calimg.image = UIImage(named: "cal")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
-
-        fromBtn.setTitle("", for: .normal)
-        toBtn.setTitle("", for: .normal)
-        dateBtn.setTitle("", for: .normal)
-        closeBtn.setTitle("", for: .normal)
+        
+//        fromBtn.setTitle("", for: .normal)
+//        toBtn.setTitle("", for: .normal)
+//        dateBtn.setTitle("", for: .normal)
+//        closeBtn.setTitle("", for: .normal)
         closeImg.image = UIImage(named: "close")
     }
     
-    
-    func setupViews(v:UIView,radius:CGFloat,color:UIColor) {
-        v.backgroundColor = color
-        v.layer.cornerRadius = radius
-        v.clipsToBounds = true
-        v.layer.borderWidth = 1
-        v.layer.borderColor = UIColor.AppBorderColor.cgColor
-    }
-    
-    func setupLabels(lbl:UILabel,text:String,textcolor:UIColor,font:UIFont) {
-        lbl.text = text
-        lbl.textColor = textcolor
-        lbl.font = font
-    }
     
     
     @IBAction func didTapOnFromBtn(_ sender: Any) {

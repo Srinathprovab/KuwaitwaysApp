@@ -48,8 +48,8 @@ class DualViewTVCell: UITableViewCell {
         returnlbl.isHidden = true
         cal2img.isHidden = true
         returnBtn.isHidden = true
-        setupLabels(lbl: deplbl, text: "Select Data", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
-        setupLabels(lbl: returnlbl, text: "Select Data", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
+        setupLabels(lbl: deplbl, text: "Select Data", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
+        setupLabels(lbl: returnlbl, text: "Select Data", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
         self.cal1Img.image = UIImage(named: "cal")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         self.cal2img.image = UIImage(named: "cal")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
         
@@ -58,7 +58,7 @@ class DualViewTVCell: UITableViewCell {
         returnBtn.setTitle("", for: .normal)
         returnBtn.addTarget(self, action: #selector(didTapOnSelectRepDateBtn(_:)), for: .touchUpInside)
         
-        
+        deplbl.numberOfLines = 0
     }
     
     

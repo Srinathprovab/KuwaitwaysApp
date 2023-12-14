@@ -418,7 +418,7 @@ class BookFlightVC: BaseTableVC {
         payload["search_flight"] = "Search"
         payload["anNonstopflight"] = "1"
         payload["carrier"] = ""
-        payload["psscarrier"] = "ALL"
+        payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
         payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["user_id"] = "0"
@@ -565,5 +565,13 @@ class BookFlightVC: BaseTableVC {
     override func cancelDatePicker(cell:AddCityTVCell){
         self.view.endEditing(true)
     }
+    
+    
+    override func didTapOnSelectAirlineBtnAction(cell:AddCityTVCell){
+        gotoNationalityVC()
+    }
+    
+    
+    
     
 }

@@ -307,6 +307,8 @@ class ModifySearchVC: BaseTableVC {
         payload["search_source"] = "Mobile(I)"
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
+        
+        
         let journyType = defaults.string(forKey: UserDefaultsKeys.journeyType)
         if journyType == "oneway" {
             payload["return"] = ""
@@ -460,7 +462,7 @@ class ModifySearchVC: BaseTableVC {
         payload["search_flight"] = "Search"
         payload["anNonstopflight"] = "1"
         payload["carrier"] = ""
-        payload["psscarrier"] = "ALL"
+        payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
         payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["user_id"] = "0"
@@ -516,4 +518,37 @@ class ModifySearchVC: BaseTableVC {
         
         
     }
+    
+    
+    
+    
+    override func donedatePicker(cell:AddCityTVCell){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy" // Adjust the format as needed
+        
+        let index = Int(defaults.string(forKey: UserDefaultsKeys.cellTag) ?? "0") ?? 0
+        depatureDatesArray[index] = dateFormatter.string(from: cell.depDatePicker.date)
+        
+        
+        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
+        
+        
+        self.view.endEditing(true)
+        
+    }
+    
+    
+    
+    override func cancelDatePicker(cell:AddCityTVCell){
+        self.view.endEditing(true)
+    }
+    
+    
+    override func didTapOnSelectAirlineBtnAction(cell:AddCityTVCell){
+        gotoNationalityVC()
+    }
+    
+    
+    
+    
 }

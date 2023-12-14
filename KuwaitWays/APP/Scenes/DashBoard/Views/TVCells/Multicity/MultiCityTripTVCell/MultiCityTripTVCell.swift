@@ -16,6 +16,10 @@ protocol MultiCityTripTVCellDelegate {
 }
 
 class MultiCityTripTVCell: TableViewCell, ButtonTVCellDelegate, AddCityTVCellDelegate {
+    func didTapOnSelectAirlineBtnAction(cell: AddCityTVCell) {
+        
+    }
+    
     func donedatePicker(cell: MulticityFromToTVCell) {
         
     }
