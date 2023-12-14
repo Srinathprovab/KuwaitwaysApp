@@ -160,6 +160,8 @@ var toCityNameArray = ["To","To"]
 var toCityCodeArray = ["To","To"]
 var tolocidArray = ["",""]
 var depatureDatesArray = ["Date","Date"]
+var fromCityShortNameArray = ["From","From"]
+var toCityShortNameArray = ["To","To"]
 
 
 //HOTEL

@@ -29,8 +29,11 @@ class MulticityFromToTVCell: TableViewCell {
     @IBOutlet weak var closeView: UIView!
     @IBOutlet weak var closeImg: UIImageView!
     @IBOutlet weak var closeBtn: UIButton!
-    
-    
+    @IBOutlet weak var dateTF: UITextField!
+    @IBOutlet weak var fromimg: UIImageView!
+    @IBOutlet weak var toimg: UIImageView!
+    @IBOutlet weak var calimg: UIImageView!
+    var dateString = String()
     var delegate:MulticityFromToTVCellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,13 +50,17 @@ class MulticityFromToTVCell: TableViewCell {
     func setupUI() {
        // setupViews(v: holderView, radius: 0, color: .AppBGColor)
         holderView.backgroundColor = .AppHolderViewColor
-        setupViews(v: fromView, radius: 4, color: .AppBGcolor)
-        setupViews(v: toView, radius: 4, color: .AppBGcolor)
-        setupViews(v: dateView, radius: 4, color: .AppBGcolor)
+        setupViews(v: fromView, radius: 4, color: .clear)
+        setupViews(v: toView, radius: 4, color: .clear)
+        setupViews(v: dateView, radius: 4, color: .clear)
         setupViews(v: closeView, radius: 10, color: .clear)
-        setupLabels(lbl: fromlbl, text: "From", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
-        setupLabels(lbl: tolbl, text: "To", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
-        setupLabels(lbl: datelbl, text: "Date", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 16))
+        setupLabels(lbl: fromlbl, text: "From", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
+        setupLabels(lbl: tolbl, text: "To", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
+        setupLabels(lbl: datelbl, text: "Date", textcolor: .AppLabelColor, font: .OpenSansRegular(size: 14))
+        fromimg.image = UIImage(named: "from")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
+        toimg.image = UIImage(named: "to")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
+        calimg.image = UIImage(named: "cal")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
+
         fromBtn.setTitle("", for: .normal)
         toBtn.setTitle("", for: .normal)
         dateBtn.setTitle("", for: .normal)

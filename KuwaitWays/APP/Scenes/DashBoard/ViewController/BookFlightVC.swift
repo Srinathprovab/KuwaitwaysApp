@@ -48,6 +48,11 @@ class BookFlightVC: BaseTableVC {
     
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        
+       
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(offline), name: NSNotification.Name("offline"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name("calreloadTV"), object: nil)
@@ -366,7 +371,8 @@ class BookFlightVC: BaseTableVC {
         gotoSelectCityVC(str: "To", tokey: "")
     }
     override func didTapOndateBtn(cell:MulticityFromToTVCell){
-        gotoCalenderVC()
+       // gotoCalenderVC()
+        commonTableView.reloadData()
     }
     override func didTapOnCloseBtn(cell:MulticityFromToTVCell){
         print("didTapOnCloseBtn")
@@ -538,18 +544,26 @@ class BookFlightVC: BaseTableVC {
     }
     
     
-    override func didTapOnFromBtn(cell:NewMulticityTVCell){
-        gotoSelectCityVC(str: "From", tokey: "")
+    
+    override func donedatePicker(cell:AddCityTVCell){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy" // Adjust the format as needed
+
+        let index = Int(defaults.string(forKey: UserDefaultsKeys.cellTag) ?? "0") ?? 0
+        depatureDatesArray[index] = dateFormatter.string(from: cell.depDatePicker.date)
+
+       
+        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
+
+        
+        self.view.endEditing(true)
+        
     }
     
-    override func didTapOnToBtn(cell:NewMulticityTVCell){
-        gotoSelectCityVC(str: "To", tokey: "")
+   
+    
+    override func cancelDatePicker(cell:AddCityTVCell){
+        self.view.endEditing(true)
     }
-    
-    override func didTapOndateBtn(cell:NewMulticityTVCell){
-        gotoCalenderVC()
-    }
-    
-    
     
 }

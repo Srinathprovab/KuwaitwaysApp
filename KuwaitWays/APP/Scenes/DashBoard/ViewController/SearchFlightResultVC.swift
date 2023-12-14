@@ -356,12 +356,37 @@ extension SearchFlightResultVC:FlightListViewModelDelegate {
                 
             case "multicity":
                 
-                defaults.set("\(fromCityCodeArray.joined(separator: ","))", forKey: UserDefaultsKeys.journeyCitys)
-                defaults.set("\(depatureDatesArray)", forKey: UserDefaultsKeys.journeyDates)
-                
-                
-                print(fromCityCodeArray)
-                print(depatureDatesArray)
+ 
+                let fromArray = fromCityCodeArray
+                let toArray = toCityCodeArray
+                let datesArray = depatureDatesArray
+
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd-MM-yyyy"
+
+                let formattedDates = datesArray.compactMap { dateFormatter.date(from: $0) }
+
+                var codesString: [String] = []
+                var formattedDateString: [String] = []
+
+                let newDateFormatter = DateFormatter()
+                newDateFormatter.dateFormat = "MMM dd yyyy"
+
+                for i in 0..<min(fromArray.count, toArray.count, formattedDates.count) {
+                    let from = fromArray[i]
+                    let to = toArray[i]
+                    let formattedDate = newDateFormatter.string(from: formattedDates[i])
+
+                    let combinedString = "\(from) - \(to)"
+                    codesString.append(combinedString)
+                    formattedDateString.append(formattedDate)
+                }
+
+                let codesStringOutput = codesString.joined(separator: ", ")
+                let formattedDateStringOutput = formattedDateString.joined(separator: ", ")
+
+                defaults.set("\(codesStringOutput)", forKey: UserDefaultsKeys.journeyCitys)
+                defaults.set("\(formattedDateStringOutput)", forKey: UserDefaultsKeys.journeyDates)
                 
                 nav.citylbl.text = defaults.string(forKey: UserDefaultsKeys.journeyCitys) ?? ""
                 nav.datelbl.text = defaults.string(forKey: UserDefaultsKeys.journeyDates) ?? ""

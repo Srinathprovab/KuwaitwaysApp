@@ -18,6 +18,9 @@ protocol AddCityTVCellDelegate {
     func didTapOnMultiCityTripSearchFlight(cell:AddCityTVCell)
     
     
+    func donedatePicker(cell:MulticityFromToTVCell)
+    func donedatePicker(cell:AddCityTVCell)
+    func cancelDatePicker(cell:AddCityTVCell)
 }
 
 class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
@@ -34,7 +37,8 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     @IBOutlet weak var addCityView: UIView!
     
     
-    
+    var datecellTag = Int()
+    let depDatePicker = UIDatePicker()
     var count = 0
     var delegate:AddCityTVCellDelegate?
     override func awakeFromNib() {
@@ -50,9 +54,13 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     }
     
     
+    override func updateUI() {
+        updateheight()
+    }
+    
     func setupUI() {
         
-        holderView.backgroundColor = .AppHolderViewColor
+      //  holderView.backgroundColor = .AppHolderViewColor
         addCityTVHeight.constant = 110
         
         tralbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
@@ -108,8 +116,6 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     }
     
     
-    
-    
     func updateheight() {
         addCityTVHeight.constant = CGFloat(55 * (fromCityNameArray.count))
         addCityTV.reloadData()
@@ -122,7 +128,6 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
             
         }else {
             
-            
             fromCityNameArray.append("From")
             toCityNameArray.append("To")
             fromCityCodeArray.append("From")
@@ -130,7 +135,9 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
             fromlocidArray.append("")
             tolocidArray.append("")
             depatureDatesArray.append("Date")
-            
+           
+            fromCityShortNameArray.append("From")
+            toCityShortNameArray.append("To")
             
             DispatchQueue.main.async {[self] in
                 updateheight()
@@ -160,7 +167,11 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
         fromCityNameArray.remove(at: cell.closeBtn.tag)
         toCityNameArray.remove(at: cell.closeBtn.tag)
         
-      
+        
+        fromCityShortNameArray.remove(at: cell.closeBtn.tag)
+        toCityShortNameArray.remove(at: cell.closeBtn.tag)
+        
+        
         //---------------
         
         addCityTV.deleteRows(at: [IndexPath(item: cell.closeBtn.tag, section: 0)], with: .automatic)
@@ -187,6 +198,13 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     }
     
     
+    
+    @objc func didTapOnTextField(_ tf:UITextField) {
+        print(tf.tag)
+        defaults.set(tf.tag, forKey: UserDefaultsKeys.cellTag)
+    }
+    
+    
 }
 
 
@@ -207,20 +225,79 @@ extension AddCityTVCell:UITableViewDataSource,UITableViewDelegate {
                 cell.closeView.isHidden = false
             }
             
-            cell.fromlbl.text = fromCityCodeArray[indexPath.row]
-            cell.tolbl.text = toCityCodeArray[indexPath.row]
+            
+            cell.fromlbl.text = fromCityShortNameArray[indexPath.row]
+            cell.tolbl.text = toCityShortNameArray[indexPath.row]
+            
+//            cell.fromlbl.text = fromCityCodeArray[indexPath.row]
+//            cell.tolbl.text = toCityCodeArray[indexPath.row]
             cell.datelbl.text = depatureDatesArray[indexPath.row]
+            cell.dateString = depatureDatesArray[indexPath.row]
             
             
             cell.fromBtn.tag = indexPath.row
             cell.toBtn.tag = indexPath.row
             cell.dateBtn.tag = indexPath.row
             cell.closeBtn.tag = indexPath.row
+            cell.dateTF.tag = indexPath.row
+            
+            cell.dateTF.addTarget(self, action: #selector(didTapOnTextField(_:)), for: .editingDidBegin)
+            showdepDatePicker(cell: cell)
             
             c = cell
         }
         return c
     }
+    
+    
+    //MARK: - showdepDatePicker
+    func showdepDatePicker(cell:MulticityFromToTVCell){
+        
+        
+        //Formate Date
+        depDatePicker.datePickerMode = .date
+        depDatePicker.minimumDate = Date()
+        depDatePicker.preferredDatePickerStyle = .wheels
+        
+        let formter = DateFormatter()
+        formter.dateFormat = "dd-MM-yyyy"
+        
+        
+        //ToolBar
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker))
+      //  let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker(_:)))
+
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
+        
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        
+        cell.dateTF.inputAccessoryView = toolbar
+        cell.dateTF.inputView = depDatePicker
+        
+    }
+    
+    @objc func donedatePicker(){
+        delegate?.donedatePicker(cell:self)
+    }
+    
+    
+//    @objc func donedatePicker(_ sender: MulticityFromToTVCell) {
+//        // Implementation of the done action
+//        delegate?.donedatePicker(cell: sender)
+//    }
+
+    
+
+    @objc func cancelDatePicker(){
+        delegate?.cancelDatePicker(cell:self)
+    }
+    
+    
+   
+    
     
     
 }

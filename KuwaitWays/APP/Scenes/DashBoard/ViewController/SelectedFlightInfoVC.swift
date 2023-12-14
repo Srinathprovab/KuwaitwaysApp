@@ -106,7 +106,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
             holderView.isHidden = false
             grandTotal = "\(response.priceDetails?.api_currency ?? ""):\(response.priceDetails?.grand_total ?? "")"
             newGrandTotal = "\(response.priceDetails?.api_currency ?? ""):\(response.priceDetails?.grand_total ?? "")"
-
+            
             jm = response.journeySummary ?? []
             fd = response.flightDetails ?? [[]]
             fareRulesData = response.fareRulehtml ?? []

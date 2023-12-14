@@ -344,7 +344,17 @@ extension SelectFromCityVC {
                                 fromCityCodeArray[self.celltag] = cell.citycode
                                 fromCityNameArray[self.celltag] = cell.label
                                 fromlocidArray[self.celltag] = cell.id
+                                fromCityShortNameArray[self.celltag] = cell.titlelbl.text ?? ""
+                               
                                 
+                
+                                
+                                // Check if the selected location is "To" and update the corresponding "From" location in the next cell
+//                                if let nextCellTag = getNextCellTag(cellTag: self.celltag), nextCellTag < toCityCodeArray.count {
+//                                    fromCityCodeArray[nextCellTag] =  toCityCodeArray[self.celltag]
+//                                    fromCityNameArray[nextCellTag] = toCityNameArray[self.celltag]
+//                                    fromlocidArray[nextCellTag] = tolocidArray[self.celltag]
+//                                }
                                 
                                 
                             }else {
@@ -353,11 +363,12 @@ extension SelectFromCityVC {
                                 defaults.set(cell.id , forKey: UserDefaultsKeys.mtolocid)
                                 defaults.set(cell.cityname , forKey: UserDefaultsKeys.mtocityname)
                                 
-                                
+                               
                                 
                                 toCityCodeArray[self.celltag] = cell.citycode
                                 toCityNameArray[self.celltag] = cell.label
                                 tolocidArray[self.celltag] = cell.id
+                                toCityShortNameArray[self.celltag] = cell.titlelbl.text ?? ""
                                 
                             }
                         }
@@ -375,16 +386,16 @@ extension SelectFromCityVC {
                         vc.tokey = "toooo"
                         present(vc, animated: false)
                     }else {
-                       
-                      
+                        
+                        
                         if tokey == "frommm" {
-                             dismiss(animated: true, completion: nil)
+                            dismiss(animated: true, completion: nil)
                         }else {
                             presentingViewController?.presentingViewController?.dismiss(animated: true)
-
+                            
                         }
                     }
-                     
+                    
                     
                     
                 }else {
@@ -399,4 +410,11 @@ extension SelectFromCityVC {
         
         
     }
+    
+    
+    func getNextCellTag(cellTag: Int) -> Int? {
+        // Add logic to calculate the next cell tag based on your requirements
+        return cellTag + 1
+    }
+    
 }

@@ -17,6 +17,7 @@ struct FlightDetailsModel : Codable {
     let fare_rule_ref_key : String?
     let farerulesref_content : String?
     let baggageAllowance : [BaggageAllowance]?
+    let booking_source : String?
     
     enum CodingKeys: String, CodingKey {
         
@@ -28,6 +29,7 @@ struct FlightDetailsModel : Codable {
         case fare_rule_ref_key = "fare_rule_ref_key"
         case farerulesref_content = "farerulesref_content"
         case baggageAllowance = "BaggageAllowance"
+        case booking_source = "booking_source"
         
     }
     
@@ -42,7 +44,7 @@ struct FlightDetailsModel : Codable {
         fare_rule_ref_key = try values.decodeIfPresent(String.self, forKey: .fare_rule_ref_key)
         farerulesref_content = try values.decodeIfPresent(String.self, forKey: .farerulesref_content)
         baggageAllowance = try values.decodeIfPresent([BaggageAllowance].self, forKey: .baggageAllowance)
-        
+        booking_source = try values.decodeIfPresent(String.self, forKey: .booking_source)
     }
     
 }

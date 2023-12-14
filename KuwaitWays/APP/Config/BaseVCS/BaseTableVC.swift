@@ -220,7 +220,9 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func didTapOnToBtn(cell:NewMulticityTVCell){}
     func didTapOndateBtn(cell:NewMulticityTVCell){}
     
-    
+    func donedatePicker(cell:AddCityTVCell){}
+    func cancelDatePicker(cell:AddCityTVCell){}
+    func donedatePicker(cell:MulticityFromToTVCell){}
     
 }
 
