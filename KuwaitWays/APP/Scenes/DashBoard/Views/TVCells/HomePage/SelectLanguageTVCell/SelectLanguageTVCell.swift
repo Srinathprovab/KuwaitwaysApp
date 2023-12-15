@@ -13,8 +13,8 @@ class SelectLanguageTVCell: TableViewCell {
     @IBOutlet weak var holderView: UIView!
     @IBOutlet weak var titlelbl: UILabel!
     @IBOutlet weak var subTitlelbl: UILabel!
-    @IBOutlet weak var langLogoImg: UIImageView!
-    
+   // @IBOutlet weak var langLogoImg: UIImageView!
+    @IBOutlet weak var iconImg: UIImageView!
     
     var type = String()
     override func awakeFromNib() {
@@ -37,18 +37,16 @@ class SelectLanguageTVCell: TableViewCell {
     override func updateUI() {
         titlelbl.text = cellInfo?.title
         subTitlelbl.text = cellInfo?.subTitle
-        langLogoImg.image = UIImage(named: cellInfo?.image ?? "")
         type = cellInfo?.text ?? ""
         
+        self.iconImg.sd_setImage(with: URL(string: cellInfo?.image ?? ""), placeholderImage:UIImage(contentsOfFile:"placeholder.png"))
+        
         subTitlelbl.isHidden = true
-        langLogoImg.isHidden = true
-
+        
         if cellInfo?.key == "lang" {
             subTitlelbl.isHidden = true
-            langLogoImg.isHidden = false
         }else {
             subTitlelbl.isHidden = false
-            langLogoImg.isHidden = true
         }
         
         if let currency = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) {
@@ -59,7 +57,7 @@ class SelectLanguageTVCell: TableViewCell {
         
         
     }
-  
+    
     
     func setupUI() {
         holderView.backgroundColor = .WhiteColor

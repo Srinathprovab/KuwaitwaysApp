@@ -169,6 +169,18 @@ class TimerManager {
 }
 
 
+func isDepartureBeforeOrEqualReturn(departureDateString: String, returnDateString: String) -> Bool {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd-MM-yyyy"
+
+    if let departureDate = dateFormatter.date(from: departureDateString),
+       let returnDate = dateFormatter.date(from: returnDateString) {
+        return departureDate <= returnDate
+    } else {
+        // Handle invalid date formats or missing dates
+        return false
+    }
+}
 
 extension ViewController {
     

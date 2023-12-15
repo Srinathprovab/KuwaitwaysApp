@@ -334,14 +334,21 @@ class BookFlightVC: BaseTableVC {
         }else if journyType == "circle"{
             
             payload["return"] = defaults.string(forKey: UserDefaultsKeys.calRetDate)
+            let departureDate = defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? ""
+            let returnDate = defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? ""
+
+            let isDepartureBeforeOrEqual = isDepartureBeforeOrEqualReturn(departureDateString: departureDate, returnDateString: returnDate)
+          
             
             if defaults.string(forKey:UserDefaultsKeys.fromCity) == "" {
                 showToast(message: "Please Select From City")
             }else if defaults.string(forKey:UserDefaultsKeys.toCity) == "" {
                 showToast(message: "Please Select To City")
-            }else if defaults.string(forKey:UserDefaultsKeys.toCity) == defaults.string(forKey:UserDefaultsKeys.fromCity) {
-                showToast(message: "Please Select Different Citys")
-            }else if defaults.string(forKey:UserDefaultsKeys.calDepDate) == "" {
+            }
+//            else if defaults.string(forKey:UserDefaultsKeys.toCity) == defaults.string(forKey:UserDefaultsKeys.fromCity) {
+//                showToast(message: "Please Select Different Citys")
+//            }
+            else if defaults.string(forKey:UserDefaultsKeys.calDepDate) == "" {
                 showToast(message: "Please Select Departure Date")
             }else if defaults.string(forKey:UserDefaultsKeys.calRetDate) == "" {
                 showToast(message: "Please Select Return Date")
@@ -349,7 +356,7 @@ class BookFlightVC: BaseTableVC {
                 showToast(message: "Add Traveller")
             }else if defaults.string(forKey:UserDefaultsKeys.selectClass) == "Add Details" {
                 showToast(message: "Add Class")
-            }else if checkDepartureAndReturnDates1(payload, p1: "depature") == false {
+            }else if isDepartureBeforeOrEqual == false {
                 showToast(message: "Invalid Date")
             }else{
                 gotoSearchFlightResultVC(input: payload)
@@ -422,7 +429,7 @@ class BookFlightVC: BaseTableVC {
         payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["user_id"] = "0"
-        payload["selectedCurrency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "AED"
+        payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
         payload["placeDetails"] = finalInputArray
         
         
@@ -456,15 +463,19 @@ class BookFlightVC: BaseTableVC {
         
         
         
-        //        if showToastMessage == nil {
-        //            if depatureDatesArray != depatureDatesArray.sorted() {
-        //                showToastMessage = "Please Select Dates in Ascending Order"
-        //            } else if depatureDatesArray.count == 2 && depatureDatesArray[0] == depatureDatesArray[1] {
-        //                showToastMessage = "Please Select Different Dates"
-        //            }
-        //        }
-        
-        
+        if showToastMessage == nil {
+            // Convert date strings to Date objects
+            let dateObjects = depatureDatesArray.compactMap { stringToDate($0) }
+
+            // Check if dateObjects is in ascending order
+            if dateObjects != dateObjects.sorted() {
+                showToastMessage = "Please Select Dates in Ascending Order"
+            } else if depatureDatesArray.count > 1 && Set(depatureDatesArray).count != depatureDatesArray.count {
+                showToastMessage = "Please Select Different Dates"
+            }
+        }
+
+
         
         if let message = showToastMessage {
             showToast(message: message)
@@ -473,6 +484,12 @@ class BookFlightVC: BaseTableVC {
         }
         
         
+    }
+    
+    func stringToDate(_ dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        return dateFormatter.date(from: dateString)
     }
     
     

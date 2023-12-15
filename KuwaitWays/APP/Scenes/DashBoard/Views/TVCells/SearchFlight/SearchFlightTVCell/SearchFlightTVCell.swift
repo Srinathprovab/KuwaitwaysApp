@@ -43,7 +43,8 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     
     
-    
+    let formter = DateFormatter()
+   
     let depDatePicker = UIDatePicker()
     let retdepDatePicker = UIDatePicker()
     let retDatePicker = UIDatePicker()
@@ -63,6 +64,7 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     }
     
     override func updateUI() {
+        formter.dateFormat = "dd-MM-yyyy"
         self.key = cellInfo?.key ?? ""
         
         countrylist.forEach { i in
@@ -185,10 +187,6 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     func didTapOnAirlinesSelectBtnAction(cell: AdvancedSearchTVCell) {
         delegate?.didTapOnAirlinesSelectBtnAction(cell: cell)
     }
-    
-    
-    
-    
     
 }
 
@@ -331,9 +329,12 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                                 cell.deplbl.text =  "Select Date"
                             }
                             
+                            
+                            
                             if datestr2.isEmpty == true{
                                 cell.returnlbl.text =  "Select Date"
                             }
+                            
                             
                             if datestr1.isEmpty == false &&  datestr2.isEmpty == false{
                                 
@@ -445,9 +446,6 @@ extension SearchFlightTVCell {
         depDatePicker.minimumDate = Date()
         depDatePicker.preferredDatePickerStyle = .wheels
         
-        let formter = DateFormatter()
-        formter.dateFormat = "dd-MM-yyyy"
-        
         
         if let calDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
             depDatePicker.date = calDepDate
@@ -478,8 +476,7 @@ extension SearchFlightTVCell {
         retdepDatePicker.minimumDate = Date()
         retdepDatePicker.preferredDatePickerStyle = .wheels
         
-        let formter = DateFormatter()
-        formter.dateFormat = "dd-MM-yyyy"
+      
         
         
         
@@ -504,8 +501,8 @@ extension SearchFlightTVCell {
             }
             
             
-            if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "") {
-                retDatePicker.date = rcalRetDate
+            if let calDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
+                retdepDatePicker.date = calDepDate
             }
         }
         
@@ -534,8 +531,7 @@ extension SearchFlightTVCell {
         retDatePicker.preferredDatePickerStyle = .wheels
         
         
-        let formter = DateFormatter()
-        formter.dateFormat = "dd-MM-yyyy"
+       
         
         
         if key == "hotel" {

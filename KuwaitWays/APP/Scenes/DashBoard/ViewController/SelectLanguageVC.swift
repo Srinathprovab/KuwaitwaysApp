@@ -126,6 +126,7 @@ class SelectLanguageVC: BaseTableVC, SelectCurrencyViewModelDelgate {
                                      subTitle: "\(i.symbol ?? "")",
                                      key:"lang1",
                                      text: i.type,
+                                     image: i.icon,
                                      cellType: .SelectLanguageTVCell))
         }
         
