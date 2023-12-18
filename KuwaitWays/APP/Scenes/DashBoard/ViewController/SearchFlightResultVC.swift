@@ -29,7 +29,6 @@ class SearchFlightResultVC: BaseTableVC,TimerManagerDelegate {
     var payload = [String:Any]()
     var payload1 = [String:Any]()
     var payload2 = [String:Any]()
-    var finalInputArray = [String:Any]()
     let refreshControl = UIRefreshControl()
     var vm:FlightListViewModel?
     let dateFormatter = DateFormatter()

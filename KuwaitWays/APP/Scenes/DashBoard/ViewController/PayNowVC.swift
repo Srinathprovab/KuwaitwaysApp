@@ -59,6 +59,7 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     var infantsCount = Int()
     var payload = [String:Any]()
     var payload1 = [String:Any]()
+    var payload2 = [String:Any]()
     var secureapidonebool = false
     var hbookingToken = String()
     var vm:PreProcessBookingViewModel?
@@ -1153,6 +1154,8 @@ extension PayNowVC {
                 gotoSearchFlightResultVC(input: payload)
             }
             
+        }else {
+            searchMulticityAgain()
         }
         
        
@@ -1171,6 +1174,106 @@ extension PayNowVC {
     }
     
     
+}
+
+
+
+extension PayNowVC {
+    
+    func searchMulticityAgain() {
+        
+        payload.removeAll()
+        payload1.removeAll()
+        payload2.removeAll()
+        finalInputArray.removeAll()
+        for (index,_) in fromCityNameArray.enumerated() {
+            
+            payload2["from"] = fromCityNameArray[index]
+            payload2["from_loc_id"] = fromlocidArray[index]
+            payload2["to"] = toCityNameArray[index]
+            payload2["to_loc_id"] = tolocidArray[index]
+            payload2["depature"] = depatureDatesArray[index]
+            
+            finalInputArray.append(payload2)
+            
+        }
+        
+        payload["sector_type"] = "international"
+        payload["trip_type"] = defaults.string(forKey:UserDefaultsKeys.journeyType)
+        payload["adult"] = defaults.string(forKey: UserDefaultsKeys.adultCount)
+        payload["child"] = defaults.string(forKey: UserDefaultsKeys.childCount)
+        payload["infant"] = defaults.string(forKey: UserDefaultsKeys.infantsCount)
+        payload["checkbox-group"] = "on"
+        payload["search_flight"] = "Search"
+        payload["anNonstopflight"] = "1"
+        payload["carrier"] = ""
+        payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
+        payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
+        payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
+        payload["user_id"] = "0"
+        payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
+        payload["placeDetails"] = finalInputArray
+        
+        
+        
+        var showToastMessage: String? = nil
+        
+        for cityName in fromCityNameArray {
+            if cityName == "From" {
+                showToastMessage = "Please Select Origin"
+                break
+            }
+        }
+        
+        if showToastMessage == nil {
+            for cityName in toCityNameArray {
+                if cityName == "To" {
+                    showToastMessage = "Please Select Destination"
+                    break
+                }
+            }
+        }
+        
+        if showToastMessage == nil {
+            for date in depatureDatesArray {
+                if date == "Date" {
+                    showToastMessage = "Please Select Date"
+                    break
+                }
+            }
+        }
+        
+        
+        
+        if showToastMessage == nil {
+            // Convert date strings to Date objects
+            let dateObjects = depatureDatesArray.compactMap { stringToDate($0) }
+
+            // Check if dateObjects is in ascending order
+            if dateObjects != dateObjects.sorted() {
+                showToastMessage = "Please Select Dates in Ascending Order"
+            } else if depatureDatesArray.count > 1 && Set(depatureDatesArray).count != depatureDatesArray.count {
+                showToastMessage = "Please Select Different Dates"
+            }
+        }
+
+
+        
+        if let message = showToastMessage {
+            showToast(message: message)
+        } else {
+            gotoSearchFlightResultVC(input: payload)
+        }
+        
+        
+    }
+    
+    
+    func stringToDate(_ dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        return dateFormatter.date(from: dateString)
+    }
 }
 
 

@@ -220,7 +220,6 @@ extension MyBookingVC:MyBookingViewModelDelegate {
     
     
     func completedbookingsdetails(response: MyBookingModel) {
-    
         resdata = response.res_data ?? []
         DispatchQueue.main.async {
             self.setupTVCells(flightdata: response.flight_data ?? [], key1: "completed")

@@ -29,7 +29,6 @@ class ModifySearchVC: BaseTableVC {
     var payload2 = [String:Any]()
     var isVcFrom = String()
     var tablerow = [TableRow]()
-    var finalInputArray = [[String:Any]]()
     static var newInstance: ModifySearchVC? {
         let storyboard = UIStoryboard(name: Storyboard.Main.name,
                                       bundle: nil)
@@ -472,7 +471,7 @@ class ModifySearchVC: BaseTableVC {
         payload["psscarrier"] = defaults.string(forKey: UserDefaultsKeys.airlinescode)
         payload["remngwd"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
         payload["v_class"] = defaults.string(forKey: UserDefaultsKeys.selectClass)
-        payload["user_id"] = "0"
+        payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         payload["currency"] = defaults.string(forKey: UserDefaultsKeys.selectedCurrency) ?? "KWD"
         payload["placeDetails"] = finalInputArray
         

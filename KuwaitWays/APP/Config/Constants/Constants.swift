@@ -162,7 +162,7 @@ var tolocidArray = ["",""]
 var depatureDatesArray = ["Date","Date"]
 var fromCityShortNameArray = ["From","From"]
 var toCityShortNameArray = ["To","To"]
-
+var finalInputArray = [[String:Any]]()
 
 //HOTEL
 var adtArray = [String]()
