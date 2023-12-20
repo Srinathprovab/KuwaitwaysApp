@@ -28,6 +28,7 @@ var key = ""
 let screenHeight = UIScreen.main.bounds.size.height
 //var data : Data?
 var loderBool = false
+var basicloderBool = false
 
 var BASE_URL = "https://kuwaitways.com/mobile_webservices/index.php/"
 var BASE_URL1 = "https://kuwaitways.com/mobile_webservices/index.php/"
@@ -196,6 +197,7 @@ struct ApiEndpoints {
     static let mobilelogin = "auth/mobile_login"
     static let mobileregister = "auth/mobile_register_on_light_box"
     static let mobilelogout = "auth/mobile_ajax_logout"
+    static let auth_deleteuser = "auth/deleteuser"
     static let mobileforgotpassword = "auth/mobile_forgot_password"
     static let updatemobileprofile = "user/mobile_profile"
     static let getCurrencyList = "general/getCurrencyList"

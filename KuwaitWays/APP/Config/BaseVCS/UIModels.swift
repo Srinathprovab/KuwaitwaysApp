@@ -80,6 +80,7 @@ enum TVCellType {
     case AdvancedSearchTVCell
     case NewMulticityTVCell
     case FlightPriceSummeryTVCell
+    case ContactUsTVCell
     
     //Hotel
     case HotelSearchResultTVCell

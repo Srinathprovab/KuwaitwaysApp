@@ -142,7 +142,7 @@ class MyAccountVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         nav.backBtn.isHidden = true
         nav.editView.isHidden = false
         nav.editBtn.addTarget(self, action: #selector(didTapOnEditBtnAction(_:)), for: .touchUpInside)
-        commonTableView.backgroundColor = .AppBGcolor
+        commonTableView.backgroundColor = .WhiteColor
         commonTableView.registerTVCells(["EmptyTVCell","LogoImgTVCell","LabelTVCell","TextfieldTVCell","RadioButtonTVCell","ButtonTVCell"])
         appendLoginTvcells()
     }

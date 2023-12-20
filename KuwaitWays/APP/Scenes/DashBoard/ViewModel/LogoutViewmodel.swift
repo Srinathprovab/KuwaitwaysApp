@@ -10,6 +10,7 @@ import Foundation
 
 protocol LogoutViewmodelDelegate : BaseViewModelProtocol {
     func logoutSucess(response : LoginModel)
+    func deleteSucess(response : LoginModel)
 }
 
 class LogoutViewmodel {
@@ -18,6 +19,31 @@ class LogoutViewmodel {
     init(_ view: LogoutViewmodelDelegate) {
         self.view = view
     }
+    
+    
+    
+    
+    func CALL_DELETE_USER_API(dictParam: [String: Any]){
+        let parms = NSDictionary(dictionary:dictParam)
+        print("Parameters = \(parms)")
+        
+        self.view?.showLoader()
+        
+        ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.auth_deleteuser, urlParams: parms as? Dictionary<String, String>,parameters: parms, resultType: LoginModel.self, p:dictParam) { sucess, result, errorMessage in
+            
+            DispatchQueue.main.async {
+                self.view?.hideLoader()
+                if sucess {
+                    guard let response = result else {return}
+                    self.view.deleteSucess(response: response)
+                } else {
+                    self.view.showToast(message: errorMessage ?? "")
+                }
+            }
+        }
+    }
+    
+    
     
     
     func CALL_LOgout_API(dictParam: [String: Any]){

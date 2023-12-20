@@ -56,16 +56,16 @@ class AboutUsVC: BaseTableVC,AboutusViewModelDelegate {
             
             
         case "contactus":
-            vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/6")
+            vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/3")
             break
             
             
         case "terms":
-            vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/6")
+            vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/3")
             break
             
         case "pp":
-            vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/6")
+            vm?.CALL_ABOUTUS_API(dictParam: [:], url: "https://kuwaitways.com/mobile_webservices/index.php/general/cms/Bottom/2")
             break
             
         default:

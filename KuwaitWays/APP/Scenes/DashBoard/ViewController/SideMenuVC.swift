@@ -28,7 +28,7 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(loginDone), name: NSNotification.Name("logindon"), object: nil)
-
+        
         
         let logstatus = defaults.bool(forKey: UserDefaultsKeys.loggedInStatus)
         if logstatus == true {
@@ -85,7 +85,7 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
                                          "MenuTitleTVCell",
                                          "AboutusTVCell"])
         
-       setupMenuTVCells()
+        setupMenuTVCells()
     }
     
     
@@ -121,6 +121,7 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         
         if defaults.bool(forKey: UserDefaultsKeys.loggedInStatus) == true {
             tablerow.append(TableRow(height:30,cellType:.EmptyTVCell))
+            tablerow.append(TableRow(title:"Delete Account",key: "menu", image: "deleteacc",cellType:.checkOptionsTVCell))
             tablerow.append(TableRow(title:"Logout",key: "menu", image: "logout",cellType:.checkOptionsTVCell))
             tablerow.append(TableRow(height:30,cellType:.EmptyTVCell))
         }else {
@@ -167,10 +168,20 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
             break
             
         case "Hotels":
-          //  gotoBookHotelsVC()
+            //  gotoBookHotelsVC()
+            break
+            
+            
+        case "Delete Account":
+            basicloderBool = true
+            payload.removeAll()
+            payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid)
+            vm?.CALL_DELETE_USER_API(dictParam: payload)
+            
             break
             
         case "Logout":
+            basicloderBool = true
             vm?.CALL_LOgout_API(dictParam: [:])
             break
             
@@ -224,7 +235,11 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
     
     //MARK: - didTapOnCoockiesLink
     override func didTapOnCoockiesLink(cell: AboutusTVCell) {
-        gotoAboutUsVC(keystr: "contactus")
+        gotoContactUsVC()
+    }
+    
+    override func didTapOnPrivacyPolicyLink(cell:AboutusTVCell){
+        gotoAboutUsVC(keystr: "pp")
     }
     
     
@@ -243,10 +258,41 @@ class SideMenuVC: BaseTableVC, ProfileUpdateViewModelDelegate {
         present(vc, animated: true)
     }
     
+    func gotoContactUsVC() {
+        guard let vc = ContactUsVC.newInstance.self else {return}
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+    
 }
 
 extension SideMenuVC:LogoutViewmodelDelegate {
+    func deleteSucess(response: LoginModel) {
+        basicloderBool = false
+        showToast(message: response.data ?? "")
+        
+        let seconds = 2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
+            showToast(message: response.msg ?? "")
+            defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
+            defaults.set("0", forKey: UserDefaultsKeys.userid)
+            defaults.set("", forKey: UserDefaultsKeys.userimg)
+            defaults.set("", forKey: UserDefaultsKeys.username)
+            
+            defaults.set("", forKey: UserDefaultsKeys.useremail)
+            defaults.set("", forKey: UserDefaultsKeys.usermobilecode)
+            defaults.set("", forKey: UserDefaultsKeys.usermobile)
+            
+            loginmenubool = false
+            
+            DispatchQueue.main.async {[self] in
+                setupMenuTVCells()
+            }
+        }
+    }
+    
     func logoutSucess(response: LoginModel) {
+        basicloderBool = false
         showToast(message: response.data ?? "")
         defaults.set(false, forKey: UserDefaultsKeys.loggedInStatus)
         defaults.set("0", forKey: UserDefaultsKeys.userid)

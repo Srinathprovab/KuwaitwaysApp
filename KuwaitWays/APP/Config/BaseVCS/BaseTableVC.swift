@@ -8,7 +8,7 @@
 import UIKit
 import MaterialComponents
 
-class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegate, SelectGenderTVCellDelegate, RadioButtonTVCellDelegate, SignUpWithTVCellDelegate, MenuBGTVCellDelegate,LabelWithButtonTVCellDelegate, SelectTabTVCellDelegate, SearchFlightTVCellDelegate, TravellerEconomyTVCellDelegate, SearchFlightResultInfoTVCellDelegate, BookNowTVCellDelegate, TDetailsLoginTVCellDelegate,PromocodeTVCellDelegate, PriceSummaryTVCellDelegate, AddTravellersDetailsTVCellDelegate, CheckBoxTVCellDelegate,MultiCityTripTVCellDelegate, HotelSearchResultTVCellDelegate, RoomsTVCellDelegate, StarRatingTVCellDelegate, ChooseProfilPpictureTVCellDelegate,checkOptionsTVCellDelegate, AboutusTVCellDelegate, RoundTripTVcellDelegate, SortByPriceTVCellDelegate, SliderTVCellDelegate, AddInfantaTravellerTVCellDelegate, AddAdultTravellerTVCellDelegate, ContactInformationTVCellDelegate, AddChildTravellerTVCellDelegate, SaveTravellerDetailsTVCellDelegate, AcceptTermsAndConditionTVCellDelegate, FareRulesTVCellDelegate, MyBookingsTVCellsDelegate, CreateAccountTVCellDelegate, AddCityTVCellDelegate, AddDeatilsOfTravellerTVCellDelegate, CommonTVAddTravellerTVCellDelegate, AddDeatilsOfGuestTVCellDelegate, BillingAddressTVCellDelegate, AdvancedSearchTVCellDelegate, NewMulticityTVCellDelegate {
+class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegate, SelectGenderTVCellDelegate, RadioButtonTVCellDelegate, SignUpWithTVCellDelegate, MenuBGTVCellDelegate,LabelWithButtonTVCellDelegate, SelectTabTVCellDelegate, SearchFlightTVCellDelegate, TravellerEconomyTVCellDelegate, SearchFlightResultInfoTVCellDelegate, BookNowTVCellDelegate, TDetailsLoginTVCellDelegate,PromocodeTVCellDelegate, PriceSummaryTVCellDelegate, AddTravellersDetailsTVCellDelegate, CheckBoxTVCellDelegate,MultiCityTripTVCellDelegate, HotelSearchResultTVCellDelegate, RoomsTVCellDelegate, StarRatingTVCellDelegate, ChooseProfilPpictureTVCellDelegate,checkOptionsTVCellDelegate, AboutusTVCellDelegate, RoundTripTVcellDelegate, SortByPriceTVCellDelegate, SliderTVCellDelegate, AddInfantaTravellerTVCellDelegate, AddAdultTravellerTVCellDelegate, ContactInformationTVCellDelegate, AddChildTravellerTVCellDelegate, SaveTravellerDetailsTVCellDelegate, AcceptTermsAndConditionTVCellDelegate, FareRulesTVCellDelegate, MyBookingsTVCellsDelegate, CreateAccountTVCellDelegate, AddCityTVCellDelegate, AddDeatilsOfTravellerTVCellDelegate, CommonTVAddTravellerTVCellDelegate, AddDeatilsOfGuestTVCellDelegate, BillingAddressTVCellDelegate, AdvancedSearchTVCellDelegate, NewMulticityTVCellDelegate, ContactUsTVCellDelegate {
     
     
     
@@ -152,6 +152,7 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func didTapOnMenuOptionBtn(cell:checkOptionsTVCell){}
     func didTapOnAboutUsLink(cell: AboutusTVCell) {}
     func didTapOnTermsLink(cell: AboutusTVCell) {}
+    func didTapOnPrivacyPolicyLink(cell:AboutusTVCell){}
     func didTapOnCoockiesLink(cell: AboutusTVCell) {}
     func didTaponRoundTripCell(cell: RoundTripTVcell) {}
     func didTapOnLowToHeighBtnAction(cell: SortByPriceTVCell) {}
@@ -227,6 +228,9 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func cancelDatePicker(cell:AddCityTVCell){}
     func donedatePicker(cell:MulticityFromToTVCell){}
     func didTapOnSelectAirlineBtnAction(cell:AddCityTVCell){}
+    func didTapOnMailBtnAction(cell: ContactUsTVCell) {}
+    func didTapOnPhoneBtnAction(cell: ContactUsTVCell) {}
+    
     
 }
 
@@ -691,6 +695,13 @@ extension BaseTableVC: UITableViewDataSource {
             case .FlightPriceSummeryTVCell:
                 let cell:  FlightPriceSummeryTVCell = commonTV.dequeTVCell(indexPath: indexPath)
                 commonCell = cell
+                
+                
+            case .ContactUsTVCell:
+                let cell:  ContactUsTVCell = commonTV.dequeTVCell(indexPath: indexPath)
+                cell.delegate = self
+                commonCell = cell
+                
                 
                 
             default:

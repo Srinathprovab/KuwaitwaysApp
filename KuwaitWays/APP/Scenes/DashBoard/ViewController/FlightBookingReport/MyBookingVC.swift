@@ -157,17 +157,20 @@ class MyBookingVC: BaseTableVC {
     
     
     func callUpcommingBookingsAPI() {
+        basicloderBool = true
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         vm?.CALL_UPCOMMING_BOOKINGS_API(dictParam: payload)
     }
     
     
     func callCompletedBookingsAPI() {
+        basicloderBool = true
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         vm?.CALL_COMPLETED_BOOKINGS_API(dictParam: payload)
     }
     
     func callCancelledBookingsAPI() {
+        basicloderBool = true
         payload["user_id"] = defaults.string(forKey: UserDefaultsKeys.userid) ?? "0"
         vm?.CALL_CANCELLED_BOOKINGS_API(dictParam: payload)
     }
@@ -212,6 +215,7 @@ class MyBookingVC: BaseTableVC {
 
 extension MyBookingVC:MyBookingViewModelDelegate {
     func upcommingbookingsdetails(response: MyBookingModel) {
+        basicloderBool = false
         DispatchQueue.main.async {
             self.setupTVCells(flightdata: response.flight_data ?? [], key1: "up")
         }
@@ -220,6 +224,7 @@ extension MyBookingVC:MyBookingViewModelDelegate {
     
     
     func completedbookingsdetails(response: MyBookingModel) {
+        basicloderBool = false
         resdata = response.res_data ?? []
         DispatchQueue.main.async {
             self.setupTVCells(flightdata: response.flight_data ?? [], key1: "completed")
@@ -228,6 +233,7 @@ extension MyBookingVC:MyBookingViewModelDelegate {
     }
     
     func cancelledbookingsdetails(response: MyBookingModel) {
+        basicloderBool = false
         DispatchQueue.main.async {
             self.setupTVCells(flightdata: response.flight_data ?? [], key1: "cancel")
         }

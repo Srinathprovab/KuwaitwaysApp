@@ -44,7 +44,7 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     
     
     let formter = DateFormatter()
-   
+    
     let depDatePicker = UIDatePicker()
     let retdepDatePicker = UIDatePicker()
     let retDatePicker = UIDatePicker()
@@ -86,12 +86,12 @@ class SearchFlightTVCell: TableViewCell,DualViewTVCellDelegate,ButtonTVCellDeleg
     
     func setupTV() {
         
-        holderView.backgroundColor = .AppBGcolor
+        holderView.backgroundColor = .WhiteColor
         searchFlightTV.layer.cornerRadius = 10
         searchFlightTV.clipsToBounds = true
         searchFlightTV.layer.borderWidth = 1
         searchFlightTV.layer.borderColor = UIColor.AppBorderColor.cgColor
-        searchFlightTV.backgroundColor = .AppHolderViewColor
+        searchFlightTV.backgroundColor = .AppBGcolor
         searchFlightTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell")
         searchFlightTV.register(UINib(nibName: "HolderViewTVCell", bundle: nil), forCellReuseIdentifier: "cell1")
         searchFlightTV.register(UINib(nibName: "DualViewTVCell", bundle: nil), forCellReuseIdentifier: "cell2")
@@ -282,8 +282,8 @@ extension SearchFlightTVCell:UITableViewDelegate,UITableViewDataSource {
                     cell.locImg.image = UIImage(named: "from")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                     cell.locImg1.image = UIImage(named: "to")?.withRenderingMode(.alwaysOriginal).withTintColor(.AppJournyTabSelectColor)
                     if self.key == "roundtrip" {
-                       
-
+                        
+                        
                         if let fromstr = defaults.string(forKey: UserDefaultsKeys.fromCity) {
                             if fromstr.isEmpty == true {
                                 cell.titlelbl.text = "From"
@@ -446,9 +446,16 @@ extension SearchFlightTVCell {
         depDatePicker.minimumDate = Date()
         depDatePicker.preferredDatePickerStyle = .wheels
         
+        let formter = DateFormatter()
+        formter.dateFormat = "dd-MM-yyyy"
+        
         
         if let calDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
             depDatePicker.date = calDepDate
+            
+            if cell.returnlbl.text == "Select Date" {
+                retdepDatePicker.date = calDepDate
+            }
         }
         
         
@@ -476,33 +483,30 @@ extension SearchFlightTVCell {
         retdepDatePicker.minimumDate = Date()
         retdepDatePicker.preferredDatePickerStyle = .wheels
         
-      
+        let formter = DateFormatter()
+        formter.dateFormat = "dd-MM-yyyy"
         
         
         
         if key == "hotel" {
             
-            if let checkoutDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.checkin) ?? "")  {
-                retdepDatePicker.date = checkoutDate
+            if let checkinDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.checkin) ?? "")  {
+                retdepDatePicker.date = checkinDate
                 
                 
-                if defaults.string(forKey: UserDefaultsKeys.checkout) == nil {
-                    retDatePicker.date = checkoutDate
+                if defaults.string(forKey: UserDefaultsKeys.checkin) == nil {
+                    retdepDatePicker.date = checkinDate
                 }
             }
             
         }else {
-            if let retlblvalue = cell.returnlbl.text {
-                if retlblvalue == "Select Date" {
-                    if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
-                        retDatePicker.date = rcalRetDate
-                    }
+            if let rcalDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "")  {
+                retdepDatePicker.date = rcalDepDate
+                
+                
+                if defaults.string(forKey: UserDefaultsKeys.calRetDate) == nil || cell.returnlbl.text == "Select Date" {
+                    retdepDatePicker.date = rcalDepDate
                 }
-            }
-            
-            
-            if let calDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
-                retdepDatePicker.date = calDepDate
             }
         }
         
@@ -527,11 +531,16 @@ extension SearchFlightTVCell {
     func showretDatePicker(cell:DualViewTVCell){
         //Formate Date
         retDatePicker.datePickerMode = .date
-        retDatePicker.minimumDate = Date()
+        //        retDatePicker.minimumDate = Date()
+        // Set minimumDate for retDatePicker based on depDatePicker or retdepDatePicker
+        let selectedDate = cell.depTF.isFirstResponder ? depDatePicker.date : retdepDatePicker.date
+        retDatePicker.minimumDate = selectedDate
+        
         retDatePicker.preferredDatePickerStyle = .wheels
         
         
-       
+        let formter = DateFormatter()
+        formter.dateFormat = "dd-MM-yyyy"
         
         
         if key == "hotel" {
@@ -539,8 +548,18 @@ extension SearchFlightTVCell {
                 retDatePicker.date = checkoutDate
             }
         }else {
-            if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "") {
-                retDatePicker.date = rcalRetDate
+            
+            
+            if let calDepDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calDepDate) ?? "") {
+                
+                if cell.returnlbl.text == "Select Date" {
+                    retDatePicker.date = calDepDate
+                    
+                }else {
+                    if let rcalRetDate = formter.date(from: defaults.string(forKey: UserDefaultsKeys.calRetDate) ?? "") {
+                        retDatePicker.date = rcalRetDate
+                    }
+                }
             }
         }
         

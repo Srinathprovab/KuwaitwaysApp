@@ -10,6 +10,7 @@ import UIKit
 protocol AboutusTVCellDelegate {
     func didTapOnAboutUsLink(cell:AboutusTVCell)
     func didTapOnTermsLink(cell:AboutusTVCell)
+    func didTapOnPrivacyPolicyLink(cell:AboutusTVCell)
     func didTapOnCoockiesLink(cell:AboutusTVCell)
 }
 
@@ -18,6 +19,7 @@ class AboutusTVCell: TableViewCell {
     
     @IBOutlet weak var aboutlbl: UILabel!
     @IBOutlet weak var termslbl: UILabel!
+    @IBOutlet weak var privacylbl: UILabel!
     @IBOutlet weak var cookieslbl: UILabel!
     
     
@@ -38,8 +40,8 @@ class AboutusTVCell: TableViewCell {
     func setupUI() {
         
         setAttributedString(lbl: aboutlbl, str1: "About Us")
-      //  setAttributedString(lbl: termslbl, str1: "Terms & Conditions")
-        termslbl.isHidden = true
+        setAttributedString(lbl: termslbl, str1: "Terms & Conditions")
+        setAttributedString(lbl: privacylbl, str1: "Privacy Policy")
         setAttributedString(lbl: cookieslbl, str1: "Contact Us")
         
     }
@@ -67,11 +69,17 @@ class AboutusTVCell: TableViewCell {
             lbl.isUserInteractionEnabled = true
             break
             
-//        case termslbl:
-//            let tap = UITapGestureRecognizer(target: self, action: #selector(taptermslbl(tap:)))
-//            lbl.addGestureRecognizer(tap)
-//            lbl.isUserInteractionEnabled = true
-//            break
+        case termslbl:
+            let tap = UITapGestureRecognizer(target: self, action: #selector(taptermslbl(tap:)))
+            lbl.addGestureRecognizer(tap)
+            lbl.isUserInteractionEnabled = true
+            break
+            
+        case privacylbl:
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapprivacylbl(tap:)))
+            lbl.addGestureRecognizer(tap)
+            lbl.isUserInteractionEnabled = true
+            break
             
         case cookieslbl:
             let tap = UITapGestureRecognizer(target: self, action: #selector(tapcookieslbl(tap:)))
@@ -99,14 +107,24 @@ class AboutusTVCell: TableViewCell {
     }
     
     
-//    @objc func taptermslbl(tap: UITapGestureRecognizer) {
-//        guard let range = self.termslbl.text?.range(of: "Terms & Conditions")?.nsRange else {
-//            return
-//        }
-//        if tap.didTapAttributedTextInLabel(label: self.termslbl, inRange: range) {
-//            delegate?.didTapOnTermsLink(cell: self)
-//        }
-//    }
+    @objc func taptermslbl(tap: UITapGestureRecognizer) {
+        guard let range = self.termslbl.text?.range(of: "Terms & Conditions")?.nsRange else {
+            return
+        }
+        if tap.didTapAttributedTextInLabel(label: self.termslbl, inRange: range) {
+            delegate?.didTapOnTermsLink(cell: self)
+        }
+    }
+    
+    
+    @objc func tapprivacylbl(tap: UITapGestureRecognizer) {
+        guard let range = self.privacylbl.text?.range(of: "Privacy Policy")?.nsRange else {
+            return
+        }
+        if tap.didTapAttributedTextInLabel(label: self.privacylbl, inRange: range) {
+            delegate?.didTapOnPrivacyPolicyLink(cell: self)
+        }
+    }
     
     
     

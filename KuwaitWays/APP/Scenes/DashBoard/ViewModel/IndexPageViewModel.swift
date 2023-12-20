@@ -25,7 +25,7 @@ class IndexPageViewModel {
         let parms = NSDictionary(dictionary:dictParam)
         print("Parameters = \(parms)")
         
-        self.view?.showLoader()
+       // self.view?.showLoader()
         
         ServiceManager.postOrPutApiCall(endPoint: ApiEndpoints.indexpage, parameters: parms, resultType: IndexPageModel.self, p:dictParam) { sucess, result, errorMessage in
             
