@@ -8,7 +8,7 @@
 import UIKit
 import MessageUI
 
-class ContactUsVC: BaseTableVC {
+class ContactUsVC: BaseTableVC, ContactusViewModelDelegate {
     
     
     static var newInstance: ContactUsVC? {
@@ -19,12 +19,20 @@ class ContactUsVC: BaseTableVC {
     }
     
     var tablerow = [TableRow]()
+    var name = String()
+    var email = String()
+    var mobil = String()
+    var message = String()
+    var payload = [String:Any]()
+    var vm:ContactusViewModel?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         setupUI()
+        vm = ContactusViewModel(self)
     }
     
     func setupUI() {
@@ -42,6 +50,30 @@ class ContactUsVC: BaseTableVC {
         commonTableView.reloadData()
     }
     
+    override func textViewDidChange(textView:UITextView){
+        message = textView.text
+    }
+    
+    override func editingTextField(tf:UITextField){
+        switch tf.tag {
+        case 1:
+            name = tf.text ?? ""
+            break
+            
+        case 2:
+            email = tf.text ?? ""
+            break
+            
+        case 3:
+            mobil = tf.text ?? ""
+            break
+            
+        default:
+            break
+        }
+    }
+    
+    
     override func didTapOnMailBtnAction(cell: ContactUsTVCell) {
         openEmail(mailstr: "reservation@kuwaitways.com")
     }
@@ -49,14 +81,56 @@ class ContactUsVC: BaseTableVC {
     override func didTapOnPhoneBtnAction(cell: ContactUsTVCell) {
         let phoneNumber = "+965 22092007" // Replace with the actual phone number from your data
         makePhoneCall(number: phoneNumber)
-        
     }
     
-
+    override func didTapOnSubmitBtnAction(cell: ContactUsTVCell) {
+        
+        if name.isEmpty == true {
+            showToast(message: "Enter Full Name")
+        }else if email.isEmpty == true {
+            showToast(message: "Enter Email")
+        }else if email.isValidEmail() == false {
+            showToast(message: "Enter Valid Email")
+        }else if mobil.isEmpty == true {
+            showToast(message: "Mobile Number")
+        }else {
+            callAPI()
+        }
+    }
+    
+    
     @IBAction func didTapOnBackBtnAction(_ sender: Any) {
         dismiss(animated: true)
     }
     
+    
+}
+
+
+
+extension ContactUsVC {
+    
+    func callAPI() {
+        
+        payload.removeAll()
+        payload["full_name"] = name
+        payload["email"] = email
+        payload["phone_number"] = mobil
+        payload["message"] = message
+        payload["country_code"] = "+91"
+        
+        vm?.CALL_CONTACT_US_API(dictParam: payload)
+    }
+    
+    func contactusResponse(response: ContactusModel) {
+        if response.status == 1 {
+            showToast(message: response.msg ?? "")
+            let seconds = 2.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {[self] in
+                dismiss(animated: true)
+            }
+        }
+    }
     
 }
 
@@ -89,6 +163,7 @@ extension ContactUsVC:MFMailComposeViewControllerDelegate {
     
     
     func makePhoneCall(number: String) {
+        
         if let phoneURL = URL(string: "tel://\(number)"),
            UIApplication.shared.canOpenURL(phoneURL) {
             UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
@@ -99,3 +174,6 @@ extension ContactUsVC:MFMailComposeViewControllerDelegate {
     
     
 }
+
+
+

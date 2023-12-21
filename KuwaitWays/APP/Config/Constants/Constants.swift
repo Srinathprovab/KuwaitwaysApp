@@ -198,6 +198,7 @@ struct ApiEndpoints {
     static let mobileregister = "auth/mobile_register_on_light_box"
     static let mobilelogout = "auth/mobile_ajax_logout"
     static let auth_deleteuser = "auth/deleteuser"
+    static let general_mobile_contact_us = "general/mobile_contact_us"
     static let mobileforgotpassword = "auth/mobile_forgot_password"
     static let updatemobileprofile = "user/mobile_profile"
     static let getCurrencyList = "general/getCurrencyList"

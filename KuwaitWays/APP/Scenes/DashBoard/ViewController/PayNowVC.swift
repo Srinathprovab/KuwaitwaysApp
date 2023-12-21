@@ -377,11 +377,11 @@ class PayNowVC: BaseTableVC, PreProcessBookingViewModelDelegate, TimerManagerDel
     
     
     override func didTapOnTAndCAction(cell: AcceptTermsAndConditionTVCell) {
-        // gotoAboutUsVC(keystr: "terms")
+         gotoAboutUsVC(keystr: "terms")
     }
     
     override func didTapOnPrivacyPolicyAction(cell: AcceptTermsAndConditionTVCell) {
-        // gotoAboutUsVC(keystr: "aboutus")
+         gotoAboutUsVC(keystr: "pp")
     }
     
     func gotoAboutUsVC(keystr:String) {

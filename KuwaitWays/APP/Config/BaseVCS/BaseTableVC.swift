@@ -12,6 +12,8 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     
     
     
+    
+    
     @IBOutlet weak var commonScrollView: UITableView!
     @IBOutlet weak var commonTableView: UITableView!
     @IBOutlet weak var commonTVTopConstraint: NSLayoutConstraint!
@@ -230,7 +232,9 @@ class BaseTableVC: UIViewController, ButtonTVCellDelegate,TextfieldTVCellDelegat
     func didTapOnSelectAirlineBtnAction(cell:AddCityTVCell){}
     func didTapOnMailBtnAction(cell: ContactUsTVCell) {}
     func didTapOnPhoneBtnAction(cell: ContactUsTVCell) {}
-    
+    func didTapOnAddressBtnAction(cell: ContactUsTVCell) {}
+    func didTapOnSubmitBtnAction(cell: ContactUsTVCell) {}
+    func textViewDidChange(textView: UITextView) {}
     
 }
 
