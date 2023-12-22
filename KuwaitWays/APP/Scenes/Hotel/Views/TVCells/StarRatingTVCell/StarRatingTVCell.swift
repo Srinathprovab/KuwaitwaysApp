@@ -59,6 +59,7 @@ class StarRatingTVCell: TableViewCell {
         starratingCV.layer.cornerRadius = 4
         starratingCV.clipsToBounds = true
         starratingCV.showsHorizontalScrollIndicator = false
+        starratingCV.bounces = false
 
         // Select the first item when setting up the collection view
         let initialIndexPath = IndexPath(item: 0, section: 0)

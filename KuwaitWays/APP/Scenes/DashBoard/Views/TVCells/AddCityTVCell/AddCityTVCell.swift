@@ -38,7 +38,7 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     @IBOutlet weak var addCityView: UIView!
     @IBOutlet weak var airlinelbl: UILabel!
     
-    
+    var selectedDate: Date?
     var datecellTag = Int()
     let depDatePicker = UIDatePicker()
     var count = 0
@@ -69,7 +69,7 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
         tralbl.text = defaults.string(forKey: UserDefaultsKeys.travellerDetails) ?? ""
         traView.addCornerRadiusWithShadow(color: .clear, borderColor: .AppBorderColor, cornerRadius: 4)
         searchFlightView.addCornerRadiusWithShadow(color: HexColor("#254179",alpha: 0.10), borderColor: .clear, cornerRadius: 8)
-        
+        tralbl.numberOfLines = 2
         setupTV()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload(notification:)), name: NSNotification.Name("reload"), object: nil)
@@ -285,10 +285,22 @@ extension AddCityTVCell:UITableViewDataSource,UITableViewDelegate {
         cell.dateTF.inputAccessoryView = toolbar
         cell.dateTF.inputView = depDatePicker
         
+        
+        // Set the minimum date of the date picker based on the selected date
+        if let selectedDate = selectedDate {
+            depDatePicker.minimumDate = selectedDate
+        }
+        
     }
     
     @objc func donedatePicker(){
         delegate?.donedatePicker(cell:self)
+        
+        // Update the selected date when the date picker is done
+        selectedDate = depDatePicker.date
+        
+        // Reload the table view to update the date pickers
+        addCityTV.reloadData()
     }
     
     

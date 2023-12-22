@@ -340,7 +340,7 @@ extension SelectFromCityVC {
                                 defaults.set(cell.id , forKey: UserDefaultsKeys.mfromlocid)
                                 defaults.set(cell.cityname , forKey: UserDefaultsKeys.mfromcityname)
                                 
-                                
+                                tofromBool = false
                                 fromCityCodeArray[self.celltag] = cell.citycode
                                 fromCityNameArray[self.celltag] = cell.label
                                 fromlocidArray[self.celltag] = cell.id
@@ -363,7 +363,7 @@ extension SelectFromCityVC {
                                 defaults.set(cell.id , forKey: UserDefaultsKeys.mtolocid)
                                 defaults.set(cell.cityname , forKey: UserDefaultsKeys.mtocityname)
                                 
-                               
+                                tofromBool = true
                                 
                                 toCityCodeArray[self.celltag] = cell.citycode
                                 toCityNameArray[self.celltag] = cell.label

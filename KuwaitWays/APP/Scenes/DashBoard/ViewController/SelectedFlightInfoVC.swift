@@ -267,7 +267,7 @@ class SelectedFlightInfoVC: BaseTableVC, FlightDetailsViewModelDelegate, TimerMa
         itineraryCV.layer.cornerRadius = 4
         itineraryCV.clipsToBounds = true
         itineraryCV.showsHorizontalScrollIndicator = false
-        
+        itineraryCV.bounces = false
         
     }
     

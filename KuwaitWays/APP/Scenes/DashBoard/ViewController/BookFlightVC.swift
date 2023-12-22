@@ -371,12 +371,13 @@ class BookFlightVC: BaseTableVC {
     
     override func didTapOnFromBtn(cell:MulticityFromToTVCell){
         selectCityCategory = SelectCityCategory.from
-        gotoSelectCityVC(str: "From", tokey: "")
+        gotoSelectCityVC(str: "From", tokey: "Tooo")
     }
     override func didTapOnToBtn(cell:MulticityFromToTVCell){
         selectCityCategory = SelectCityCategory.to
-        gotoSelectCityVC(str: "To", tokey: "")
+        gotoSelectCityVC(str: "To", tokey: "frommm")
     }
+    
     override func didTapOndateBtn(cell:MulticityFromToTVCell){
        // gotoCalenderVC()
         commonTableView.reloadData()
