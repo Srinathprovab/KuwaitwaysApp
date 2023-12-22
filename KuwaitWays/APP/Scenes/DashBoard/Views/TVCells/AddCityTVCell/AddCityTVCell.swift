@@ -38,7 +38,8 @@ class AddCityTVCell: TableViewCell, MulticityFromToTVCellDelegate {
     @IBOutlet weak var addCityView: UIView!
     @IBOutlet weak var airlinelbl: UILabel!
     
-    var selectedDate: Date?
+    
+    var selectedDate: Date = Date()
     var datecellTag = Int()
     let depDatePicker = UIDatePicker()
     var count = 0
@@ -271,6 +272,7 @@ extension AddCityTVCell:UITableViewDataSource,UITableViewDelegate {
         formter.dateFormat = "dd-MM-yyyy"
         
         
+        
         //ToolBar
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
@@ -286,10 +288,7 @@ extension AddCityTVCell:UITableViewDataSource,UITableViewDelegate {
         cell.dateTF.inputView = depDatePicker
         
         
-        // Set the minimum date of the date picker based on the selected date
-        if let selectedDate = selectedDate {
-            depDatePicker.minimumDate = selectedDate
-        }
+        
         
     }
     
@@ -299,15 +298,14 @@ extension AddCityTVCell:UITableViewDataSource,UITableViewDelegate {
         // Update the selected date when the date picker is done
         selectedDate = depDatePicker.date
         
+        // Update the minimum date of the date picker
+        depDatePicker.minimumDate = selectedDate
+        
+        
         // Reload the table view to update the date pickers
         addCityTV.reloadData()
     }
     
-    
-    //    @objc func donedatePicker(_ sender: MulticityFromToTVCell) {
-    //        // Implementation of the done action
-    //        delegate?.donedatePicker(cell: sender)
-    //    }
     
     
     
@@ -317,7 +315,12 @@ extension AddCityTVCell:UITableViewDataSource,UITableViewDelegate {
     
     
     
-    
+    // Function to format date from string
+    func formatDateFromString(_ dateString: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        return formatter.date(from: dateString)
+    }
     
     
 }
