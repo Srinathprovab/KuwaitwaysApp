@@ -71,7 +71,7 @@ var roundTripFlights = [[J_flight_list]]()
 var multicityFlights = [[J_flight_list]]()
 var fd = [[FlightDetails]]()
 var baggageAllowance1 = [BaggageAllowance]()
-
+var selectedDate: Date = Date()
 
 //MARK: - FILTERS
 var prices = [String]()
